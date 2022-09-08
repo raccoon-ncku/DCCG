@@ -160,5 +160,11 @@ cython_debug/
 # .idea/
 
 # Project-specific
-*.gslides
+Reference/*
 Practices/*
+*.gslides
+
+
+!.gitignore
+!Reference/placeholder
+!Practices/placeholder
