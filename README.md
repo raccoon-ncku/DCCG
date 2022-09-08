@@ -17,8 +17,8 @@ THU 7-8 at Raccoon Studio (Arch)
 | Week | Date | Session content | Excercise | Assignment |
 | ---- | ---- |-----------------| --------- | ---------- |
 | 01   | 2022.09.08 | **Introduction**<br>Introduction to the course, the software toolchain, and the COMPAS ecosystem.<br>**Lecture 01: Python Fundamentals I**<br>Introduction to the Python programming language. This session will cover variable, variable types, basic functions, and list.<br>👉[Go to lecture](Lecture/Lecture_01/README.md) | - | - |
-| 02   | 2022.09.15 | **Python Fundamentals II**<br>while, for, and if statements<br> | Guess the number | List prime numbers (5%) |
-| 03   | 2022.09.22 | **Primitives and transformation matrix**<br>COMPAS geometries and transofrmation methods.| TBA | Random Walker (15%)|
+| 02   | 2022.09.15 | **Python Fundamentals II**<br>while,if statements, defining functions, importing modules.<br> | Guess the number | List prime numbers (5%) |
+| 03   | 2022.09.22 | **Primitives and Transformation Matrix**<br>COMPAS geometries and transofrmation methods.| TBA | Random Walker (15%)|
 | 04   | 2022.09.29 | **Data Strucure: Graph I**<br>Introduction to the graph data structure, which is implemented as Network in COMPAS.| TBA | - |
 | 05   | 2022.10.06 | **Data Strucure: Graph II**<br>| TBA | - |
 | 06   | 2022.10.13 | **Data Strucure: Mesh I**<br>| TBA | Digital Baroque columns or Brick wall (15%) |
@@ -27,10 +27,10 @@ THU 7-8 at Raccoon Studio (Arch)
 | 09   | 2022.11.03 | **Object-Oriented Programming**<br>Advanced topics in Python, including class, properties, and methods. | TBA | - |
 | 10   | 2022.11.10 | **Agent-Based Modeling**<br>| TBA | Drone delivery simulation (20%) |
 | 11   | 2022.11.17 | *SIE Workshop: Robotic simulation (TBD)* | TBA | - |
-| 12   | 2022.11.24 | **Single-objectives optimization**<br> | TBA | - |
+| 12   | 2022.11.24 | **Single-objectives Optimization Algorithms**<br> | TBA | - |
 | 13   | 2022.12.01 | **Multi-objective Optimization Algorithms**<br> | TBA | Multi-objective Optimization (15%) |
-| 14   | 2022.12.08 | **Design-to-fabrication workflows I**| TBA | - |
-| 15   | 2022.12.15 | **Design-to-fabrication workflows II**| TBA | Final project (30%) |
+| 14   | 2022.12.08 | **Design-to-fabrication Workflows I**| TBA | - |
+| 15   | 2022.12.15 | **Design-to-fabrication Workflows II**| TBA | Final project (30%) |
 | 16   | 2022.12.22 | **Final Project Discussion** | - | - |
 | 17   | 2022.12.29 | **Final Project Discussion** | - | - |
 | 18   | 2023.01.05 | **Final Projects** | - | - |
