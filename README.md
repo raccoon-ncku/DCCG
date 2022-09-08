@@ -16,7 +16,7 @@ THU 7-8 at Raccoon Studio (Arch)
 
 | Week | Date | Session content | Excercise | Assignment |
 | ---- | ---- |-----------------| --------- | ---------- |
-| 01   | 2022.09.08 | **Introduction**<br>Introduction to the course, the software toolchain, and the COMPAS ecosystem.<br>👉[Go to lecture](lecture_01/README.md)<br>**Lecture 01: Python Fundamentals I**<br>Introduction to the Python programming language. This session will cover variable, variable types, basic functions, and list.<br>👉[Go to lecture](lecture_01/README.md) | - | - |
+| 01   | 2022.09.08 | **Introduction**<br>Introduction to the course, the software toolchain, and the COMPAS ecosystem.<br>**Lecture 01: Python Fundamentals I**<br>Introduction to the Python programming language. This session will cover variable, variable types, basic functions, and list.<br>👉[Go to lecture](Lecture/Lecture_01/README.md) | - | - |
 | 02   | 2022.09.15 | **Python Fundamentals II**<br>while, for, and if statements<br> | Guess the number | List prime numbers (5%) |
 | 03   | 2022.09.22 | **Primitives and transformation matrix**<br>COMPAS geometries and transofrmation methods.| TBA | Random Walker (15%)|
 | 04   | 2022.09.29 | **Data Strucure: Graph I**<br>Introduction to the graph data structure, which is implemented as Network in COMPAS.| TBA | - |
