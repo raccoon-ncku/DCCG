@@ -9,14 +9,16 @@ The intersection of computational design and digital fabrication has changed how
 * THU 13:10-15:00
 * classroom: 5172
 
-### Office Hour
-THU 7-8 at Raccoon Studio (Arch) 
+### Office Hour and Support
+* Office hour: THU 7-8 at Raccoon Studio (Arch)
+* email: ccyen @ gs.ncku.edu.tw
+* Report an issue on this repository.
 
 ## Schedule, 2022 Fall
 
 | Week | Date | Session content | Excercise | Assignment |
 | ---- | ---- |-----------------| --------- | ---------- |
-| 01   | 2022.09.08 | **Introduction**<br>Introduction to the course, the software toolchain, and the COMPAS ecosystem.<br>**Lecture 01: Python Fundamentals I**<br>Introduction to the Python programming language. This session will cover variable, variable types, basic functions, and list.<br>👉[Go to lecture](Lecture/Lecture_01/README.md) | - | - |
+| 01   | 2022.09.08 | **Introduction**<br>Introduction to the course, the software toolchain, and the COMPAS ecosystem.<br>**Lecture 01: Python Fundamentals I**<br>Introduction to the Python programming language. This session will cover variable, variable types, basic functions, and list.<br>👉[Go to lecture](Lecture/Lecture_01/README.md) | Create a GitHub Account | - |
 | 02   | 2022.09.15 | **Python Fundamentals II**<br>while,if statements, defining functions, importing modules.<br> | Guess the number | List prime numbers (5%) |
 | 03   | 2022.09.22 | **Primitives and Transformation Matrix**<br>COMPAS geometries and transofrmation methods.| TBA | Random Walker (15%)|
 | 04   | 2022.09.29 | **Data Strucure: Graph I**<br>Introduction to the graph data structure, which is implemented as Network in COMPAS.| TBA | - |
@@ -39,3 +41,5 @@ THU 7-8 at Raccoon Studio (Arch)
 ## Grading Policy
 * Assignments 70% 
 * Final Project 30%
+
+Assignments and final projects should be submitted via NCKU Moodle. 
