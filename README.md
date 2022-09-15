@@ -11,7 +11,7 @@ The intersection of computational design and digital fabrication has changed how
 * virtual classroom: [Webex](https://nckucc.webex.com/meet/z10907049)
 
 ### Office Hour and Support
-* Office hour: THU 7-8 at Raccoon Studio (Arch)
+* Office hour: THU 15:00-17:00 at Raccoon Studio (Arch)
 * email: ccyen @ gs.ncku.edu.tw
 * Report an issue on this repository.
 
