@@ -8,7 +8,7 @@ The intersection of computational design and digital fabrication has changed how
 * E7-125 / E735400 / ARCH3045
 * THU 13:10-15:00
 * classroom: 5172
-* virtual classroom: [Google Meet](https://meet.google.com/zxm-zfxz-bbn)
+* virtual classroom: [Webex](https://nckucc.webex.com/meet/z10907049)
 
 ### Office Hour and Support
 * Office hour: THU 7-8 at Raccoon Studio (Arch)
