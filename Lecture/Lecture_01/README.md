@@ -1,5 +1,5 @@
-## Course Material
-
+# Class Materials
+## Slides
 👉 [Slides](https://docs.google.com/presentation/d/1qxco3nJFNYWkSugrrrKa_ktZxJ4bYzgU6rMm3ELokug/edit?usp=sharing)
 
 ## Requirements

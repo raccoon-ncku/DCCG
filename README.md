@@ -16,10 +16,10 @@ The intersection of computational design and digital fabrication has changed how
 
 ## Schedule, 2022 Fall
 
-| Week | Date | Session content | Excercise | Assignment |
+| Week | Date | Session content | Exercise | Assignment |
 | ---- | ---- |-----------------| --------- | ---------- |
 | 01   | 2022.09.08 | **Introduction**<br>Introduction to the course, the software toolchain, and the COMPAS ecosystem.<br>**Lecture 01: Python Fundamentals I**<br>Introduction to the Python programming language. This session will cover variable, variable types, basic functions, and list.<br>👉[Go to lecture](Lecture/Lecture_01/README.md) | Create a GitHub Account | - |
-| 02   | 2022.09.15 | **Python Fundamentals II**<br>while,if statements, defining functions, importing modules.<br> | Guess the number | List prime numbers (5%) |
+| 02   | 2022.09.15 | **Review**<br>📖[slide](https://docs.google.com/presentation/d/1iEoZlb6EsvBIl2hRl6EzfJ2EgmVMP2Ejzb6TDcSAd38/edit#slide=id.g15165464355_3_27)<br>**Python Fundamentals II**<br>while,if statements, defining functions, importing modules.<br>👉[Go to examples](Lecture/Lecture_02/Examples/) | Guess the number<br>👉[Go to exercise](/Exercise/0_Guess_the_Number/README.md) | List prime numbers (5%)<br>📄[Go to assignment](/Assignment/0_prime_numbers/README.md) |
 | 03   | 2022.09.22 | **Primitives and Transformation Matrix**<br>COMPAS geometries and transofrmation methods.| TBA | Random Walker (15%)|
 | 04   | 2022.09.29 | **Data Strucure: Graph I**<br>Introduction to the graph data structure, which is implemented as Network in COMPAS.| TBA | - |
 | 05   | 2022.10.06 | **Data Strucure: Graph II**<br>| TBA | - |
