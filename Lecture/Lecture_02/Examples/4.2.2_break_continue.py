@@ -1,27 +1,29 @@
-# Measure some strings:
 words = ['cat', 'window', 'defenestrate']
+
+# Session 1:
+print("begin of Session 1")
 for w in words:
     if len(w) > 8:
         break
     else:
         print(w, len(w))
-print("The end: break 1")
+print("End of Session 1", end = "\n\n")
 
 
-# Measure some strings:
-words = ['cat', 'window', 'defenestrate']
+# Session 2:
+print("begin of Session 2")
 for w in words:
     if len(w) < 8:
         break
     else:
         print(w, len(w))
-print("The end: break 2")
+print("End of Session 2", end = "\n\n")
 
-# Measure some strings:
-words = ['cat', 'window', 'defenestrate']
+# Session 3:
+print("begin of Session 3")
 for w in words:
     if len(w) < 8:
         continue
     else:
         print(w, len(w))
-print("The end: continue")
+print("End of Session 3")
