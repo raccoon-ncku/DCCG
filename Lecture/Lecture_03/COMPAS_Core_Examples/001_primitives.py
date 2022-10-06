@@ -2,7 +2,7 @@ import compas
 import compas.geometry as cg
 
 # Point
-point = cg.Point(19,25,7)
+point = cg.Point(19, 25, 7)
 
 # Polyline
 p1 = [0, 0, 0]
@@ -16,6 +16,8 @@ polygon = cg.Polygon([p1, p2, p3])
 
 geometries = [point, polyline, polygon]
 
+
+# Visualization
 if compas.is_grasshopper():
     a = geometries
 else:

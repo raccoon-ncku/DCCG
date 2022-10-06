@@ -27,7 +27,6 @@ import compas.geometry as cg
 import compas
 
 
-
 def walking(current_coor, previous_radius):
     """Perform walking."""
 
@@ -54,21 +53,17 @@ def walking(current_coor, previous_radius):
     # spheres according to height values
     # -> Determine the step size
     height = current_coor[2]
-    step_size = math.sqrt(math.pow(random.gauss(height * 0.1, 1), 2))
+    step_size = abs(random.gauss(height * 0.1, 1))
     direction.scale(step_size)
     new_coor = current_coor.transformed(cg.Translation.from_vector(direction))
 
     # Determine its radius
-    # There is no math.abs() in IronPython
-    radius = math.sqrt(math.pow((step_size - previous_radius), 2))
-
-    # Determine its color?
+    radius = abs(step_size - previous_radius)
 
     # Draw the sphere
-    sphere_id = cg.Sphere(new_coor, radius)
+    sphere = cg.Sphere(new_coor, radius)
 
-    return sphere_id, new_coor, radius
-
+    return sphere, new_coor, radius
 
 
 previous_radius = 1
@@ -87,4 +82,3 @@ else:
     for geometry in geometries:
         viewer.add(geometry)
     viewer.run()
-

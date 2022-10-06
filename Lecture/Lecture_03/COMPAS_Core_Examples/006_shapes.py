@@ -2,8 +2,11 @@ import compas
 import compas.geometry as cg
 
 # Box
-b1 = cg.Box(cg.Frame.worldXY(), 10, 1, 4)          # xsize, ysize, zsize
-b2 = cg.Box.from_width_height_depth(10, 4, 1)   # width=xsize, height=zsize, depth=ysize
+# xsize, ysize, zsize
+b1 = cg.Box(cg.Frame.worldXY(), 10, 1, 4)
+
+# width=xsize, height=zsize, depth=ysize
+b2 = cg.Box.from_width_height_depth(10, 4, 1)
 assert str(b1) == str(b2)
 print(b1)
 

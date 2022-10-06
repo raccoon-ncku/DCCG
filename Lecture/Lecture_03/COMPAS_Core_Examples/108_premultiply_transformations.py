@@ -1,19 +1,15 @@
 """Example: Pre-multiply transformations
 """
-from compas.geometry import Point
-from compas.geometry import Translation
-from compas.geometry import Rotation
-from compas.geometry import Scale
-from compas.geometry import allclose
+import compas.geometry as cg
 
-p = Point(1, 1, 1)
+p = cg.Point(1, 1, 1)
 
 translation = [1, 2, 3]
-A = Translation.from_vector(translation)  # create Translation
+A = cg.Translation.from_vector(translation)  # create Translation
 axis, angle = [-0.8, 0.35, 0.5], 2.2
-B = Rotation.from_axis_and_angle(axis, angle)  # create Rotation
+B = cg.Rotation.from_axis_and_angle(axis, angle)  # create Rotation
 scale_factors = [0.1, 0.3, 0.4]
-C = Scale.from_factors(scale_factors)  # create Scale
+C = cg.Scale.from_factors(scale_factors)  # create Scale
 
 # Transform p1 one by one
 p1 = p.copy()
@@ -26,5 +22,5 @@ p2 = p.copy()
 p2.transform(C * B * A)
 
 # p1 == p2 ?
-print(allclose(p1, p2))
+print(cg.allclose(p1, p2))
 print(p1)

@@ -2,16 +2,13 @@ import compas
 import compas.geometry as cg
 
 # Modeling and Computation
-point = cg.Point(19,25,7)
-
-geometries = [point]
+point = cg.Point(19, 25, 7)
 
 # Visualization
 if compas.is_grasshopper():
-    a = geometries
+    a = point
 else:
     from compas_view2.app import App
     viewer = App()
-    for geometry in geometries:
-        viewer.add(geometry)
+    viewer.add(point)
     viewer.run()
