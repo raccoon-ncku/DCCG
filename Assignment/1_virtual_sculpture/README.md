@@ -6,7 +6,7 @@ Please write __a python script__ to generate a virtual sculpture/installation.
 * Use COMPAS geometries.
 * (Optional) The script works both in CPython and Grasshopper.
 
-This assignment is __15%__ of your total grade. Please upload the script along with at least one screenshot (either in compas viewer, grasshopper, or a rendered image) to NCKU Moodle.
+This assignment is __15%__ of your total grade. Please upload __the script__ along with at least __one screenshot__ (either in compas viewer, grasshopper, or a rendered image) to NCKU Moodle.
 
 ### Expected Results(examples)
 ![example_0](example_0.png)
