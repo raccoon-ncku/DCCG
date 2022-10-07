@@ -69,3 +69,18 @@ if os.path.isfile(path):
     with open(path) as f:
         file = f.read()
 ```
+
+## Conda init issue
+
+Windows:
+Open Powershell and type `$PROFILE`, manually edit the `.ps1` file with the following code.
+
+```
+
+#region conda initialize
+# !! Contents within this block are managed by 'conda init' !!
+(& "%UserProfile%\miniconda3\Scripts\conda.exe" "shell.powershell" "hook") | Out-String | Invoke-Expression
+#endregion
+
+
+```
