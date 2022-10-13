@@ -12,9 +12,9 @@ network.add_edge(4, 6)
 
 # Add randomly chosen coordinates to each node
 for node in network.nodes():
-    x = random.choice(range(50))
-    y = random.choice(range(50))
-    z = random.choice(range(50))
+    x = random.randint(0, 50)
+    y = random.randint(0, 50)
+    z = random.randint(0, 50)
     network.node_attributes(node, 'xyz', [x, y, z])
 
 
