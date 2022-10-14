@@ -164,6 +164,7 @@ Reference/*
 Practices/*
 *.gslides
 .vscode/
+.DS_Store
 
 !.gitignore
 !Reference/placeholder
