@@ -11,7 +11,7 @@ fobs = mesh.faces_on_boundary()
 
 # Modify mesh
 for fkey in list(mesh.faces()):
-    if fkey in fobs:
+    if fkey not in fobs:
         continue
 
     # Create and transform a new vertex

@@ -52,5 +52,5 @@ for u, v in pairwise(path):
     line = Line(a, b)
     lines.append(line)
 
-viewer.add(Collection(lines), linewidth=10, color=(1, 0, 0))
+viewer.add(Collection(lines), linewidth=10)
 viewer.run()
