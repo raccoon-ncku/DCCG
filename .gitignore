@@ -169,3 +169,5 @@ Practices/*
 !.gitignore
 !Reference/placeholder
 !Practices/placeholder
+
+*/output.stl
