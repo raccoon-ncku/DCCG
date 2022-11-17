@@ -27,57 +27,63 @@ import compas.geometry as cg
 import compas
 
 
-def walking(current_coor, previous_radius):
-    """Perform walking."""
+class Walker():
+    def __init__(self, coordinate, radius):
+        self.current_coordinate = coordinate
+        self.radius = radius
+        self.body = self._draw_body()
 
-    # Probability to steer the steps
-    steer_prob = random.random()
-    acceleration = [0, 0, 0]
-    if steer_prob < 0.2:
-        acceleration[0] = random.gauss(3, 1.7)
-        acceleration[1] = random.gauss(0, 0.7)
-        acceleration[2] = random.gauss(0, 0.7)
-    elif steer_prob < 0.5:
-        acceleration[0] = random.gauss(0, 1.7)
-        acceleration[1] = random.gauss(3, 0.7)
-        acceleration[2] = random.gauss(0, 0.7)
-    else:
-        acceleration[0] = random.gauss(0, 0.7)
-        acceleration[1] = random.gauss(0, 0.7)
-        acceleration[2] = random.gauss(3, 0.7)
+    def walk(self):
+        """Perform walking."""
 
-    direction = cg.Vector(*acceleration)
-    direction.unitize()
+        # Probability to steer the steps
+        steer_prob = random.random()
+        acceleration = [0, 0, 0]
+        if steer_prob < 0.2:
+            acceleration[0] = random.gauss(3, 1.7)
+            acceleration[1] = random.gauss(0, 0.7)
+            acceleration[2] = random.gauss(0, 0.7)
+        elif steer_prob < 0.5:
+            acceleration[0] = random.gauss(0, 1.7)
+            acceleration[1] = random.gauss(3, 0.7)
+            acceleration[2] = random.gauss(0, 0.7)
+        else:
+            acceleration[0] = random.gauss(0, 0.7)
+            acceleration[1] = random.gauss(0, 0.7)
+            acceleration[2] = random.gauss(3, 0.7)
 
-    # probability to influence the density of the
-    # spheres according to height values
-    # -> Determine the step size
-    height = current_coor[2]
-    step_size = abs(random.gauss(height * 0.1, 1))
-    direction.scale(step_size)
-    new_coor = current_coor.transformed(cg.Translation.from_vector(direction))
+        direction = cg.Vector(*acceleration)
+        direction.unitize()
 
-    # Determine its radius
-    radius = abs(step_size - previous_radius)
+        # probability to influence the density of the
+        # spheres according to height values
+        # -> Determine the step size
+        height = self.current_coordinate[2]
+        step_size = abs(random.gauss(height * 0.1, 1))
+        direction.scale(step_size)
+        self.current_coordinate.transform(cg.Translation.from_vector(direction))
 
-    # Draw the sphere
-    sphere = cg.Sphere(new_coor, radius)
+        # Determine its radius
+        self.radius = abs(step_size - self.radius)
 
-    return sphere, new_coor, radius
+        # Draw the sphere
+        self.body = self._draw_body()
+
+    def _draw_body(self):
+        return cg.Sphere(self.current_coordinate, self.radius)
 
 
-previous_radius = 1
-current_coor = cg.Point(0, 0, 0)
+walker = Walker(cg.Point(0, 0, 1), 1)
 geometries = []
 for i in range(100):
-    sphere, current_coor, previous_radius = walking(
-        current_coor, previous_radius)
-    geometries.append(sphere)
+    walker.walk()
+    geometries.append(walker.body)
 
 if compas.is_grasshopper():
     a = geometries
 else:
     from compas_view2.app import App
+
     viewer = App()
     for geometry in geometries:
         viewer.add(geometry)
