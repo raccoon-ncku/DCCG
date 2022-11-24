@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 ITERATION = 500
+POPULATION = 200
 
 d = {1: 80, 2: 270, 3: 250, 4: 160, 5: 180}  # customer demand
 M = {1: 500, 2: 500, 3: 500}                 # factory capacity
@@ -88,7 +89,7 @@ def de(fobj, bounds, mut=0.8, crossp=0.7, popsize=200, its=500):
 bounds = 3*[(0, 80), (0, 270), (0, 250), (0, 160), (0, 180)]
 # Run Differential Evolution optimization
 DE = list(de(objective_function, bounds, mut=0.8,
-          crossp=0.7, popsize=200, its=ITERATION))
+          crossp=0.7, popsize=POPULATION, its=ITERATION))
 x = DE[-1][0]
 ofunc_value = DE[-1][-1]
 pen_cust_demand = \
