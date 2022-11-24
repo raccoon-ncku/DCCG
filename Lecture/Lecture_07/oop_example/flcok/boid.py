@@ -34,7 +34,8 @@ class Boid:
 
         # Limit max acceleration
         if np.linalg.norm(self.acceleration) > self.max_acceleration:
-            self.acceleration = (self.acceleration / np.linalg.norm(self.acceleration)) * self.max_acceleration
+            self.acceleration = (
+                self.acceleration / np.linalg.norm(self.acceleration)) * self.max_acceleration
 
         # Apply and reset acceleration
         self.velocity += self.acceleration
@@ -42,7 +43,8 @@ class Boid:
 
         # Limit max speed
         if np.linalg.norm(self.velocity) > self.max_speed:
-            self.velocity = self.velocity / np.linalg.norm(self.velocity) * self.max_speed
+            self.velocity = self.velocity / \
+                np.linalg.norm(self.velocity) * self.max_speed
 
         # Apply velocity(transformation)
         self.position.transform(Translation.from_vector(self.velocity))
@@ -98,7 +100,8 @@ class Boid:
         if total > 0:
             avg_vector /= total
             avg_vector = Vector(*avg_vector)
-            avg_vector = (avg_vector / np.linalg.norm(avg_vector)) * self.max_speed
+            avg_vector = (avg_vector / np.linalg.norm(avg_vector)
+                          ) * self.max_speed
             steering = avg_vector - self.velocity
 
         return steering
@@ -116,7 +119,8 @@ class Boid:
             center_of_mass = Vector(*center_of_mass)
             vec_to_com = center_of_mass - self.position.point
             if np.linalg.norm(vec_to_com) > 0:
-                vec_to_com = (vec_to_com / np.linalg.norm(vec_to_com)) * self.max_speed
+                vec_to_com = (
+                    vec_to_com / np.linalg.norm(vec_to_com)) * self.max_speed
             steering = vec_to_com - self.velocity
 
         return steering
@@ -126,7 +130,8 @@ class Boid:
         total = 0
         avg_vector = Vector(*np.zeros(3))
         for boid in boids:
-            distance = np.linalg.norm(boid.position.point - self.position.point)
+            distance = np.linalg.norm(
+                boid.position.point - self.position.point)
             if self.position.point != boid.position.point and distance < self.perception:
                 diff = self.position.point - boid.position.point
                 diff /= distance
@@ -136,7 +141,8 @@ class Boid:
             avg_vector /= total
             avg_vector = Vector(*avg_vector)
             if np.linalg.norm(steering) > 0:
-                avg_vector = (avg_vector / np.linalg.norm(steering)) * self.max_speed
+                avg_vector = (
+                    avg_vector / np.linalg.norm(steering)) * self.max_speed
             steering = avg_vector - self.velocity
 
         return steering
