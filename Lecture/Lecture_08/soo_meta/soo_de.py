@@ -2,8 +2,8 @@ import time
 import matplotlib.pyplot as plt
 import numpy as np
 
-ITERATION = 500
-POPULATION = 200
+ITERATION = 100
+POPULATION = 300
 
 d = {1: 80, 2: 270, 3: 250, 4: 160, 5: 180}  # customer demand
 M = {1: 500, 2: 500, 3: 500}                 # factory capacity

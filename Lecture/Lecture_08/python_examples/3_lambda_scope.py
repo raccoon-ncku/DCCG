@@ -1,6 +1,6 @@
 def func(n):
   i_n2 = 3
-  return lambda a, n2=i_n2: a * n * n2
+  return lambda a, i_n2: a * n * i_n2
 
 doubler = func(2)
 

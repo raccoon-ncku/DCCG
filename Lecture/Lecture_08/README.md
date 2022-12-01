@@ -3,3 +3,9 @@
 
 ### Reference
 * [Flock example (p5js)](https://p5js.org/examples/simulate-flocking.html)
+
+### installing additional modules
+```sh
+conda activate DCCG
+conda install deap pymoo
+```
