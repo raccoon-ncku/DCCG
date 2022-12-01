@@ -9,7 +9,7 @@ Please write __a python script__ to generate a virtual sculpture/installation.
 This assignment is __15%__ of your total grade. Please upload __the script__ along with at least __one screenshot__ (either in compas viewer, grasshopper, or a rendered image) to NCKU Moodle.
 
 ### Expected Results(examples)
-![example_0](example_0.png)
-![example_1](example_1.png)
-![example_2](example_2.png)
-![example_3](example_3.png)
+![example_0](img/example_0.png)
+![example_1](img/example_1.png)
+![example_2](img/example_2.png)
+![example_3](img/example_3.png)

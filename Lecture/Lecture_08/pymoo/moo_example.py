@@ -10,7 +10,7 @@ class MyProblem(Problem):
     def __init__(self):
         """
         max f1 = X1
-        max f2 = X1 ^ 5 / X2 ^ 2
+        min f2 = X1 ^ 5 / X2 ^ 2
         st  1 <= X1 <= 20
             1 <= X2 <= 40
             X1 * X2 <= 200
