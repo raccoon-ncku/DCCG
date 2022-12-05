@@ -9,6 +9,7 @@
 ### Deliverables
 #### Brief submission
 * A `.md` file or a `.PDF` explaining the project/problem, and team member list.
+* Images and diagrams if needed.
 #### Final submission
 * A `.md` file explaining the project/problem, including instruction about how to run the solution (required modules, commands, etc.)
 * `.py` files.
