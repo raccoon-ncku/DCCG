@@ -23,7 +23,8 @@ mod = a % b
 # Power
 p = a ** b
  
-# print results
+# print results, and use comma to separate multiple values
+# use double quotes to print strings
 print("Addition:", add)
 print("Subtraction:", sub)
 print("Multiplication:", mul)

@@ -8,21 +8,13 @@
 
 squares = [1, 4, 9, 16, 25]
 
-# Accessing elements in a list 
+# Accessing elements in a list
+# Python uses zero-based indexing
 print("squares[0] is ", squares[0])
+
+# Negative indices count from the end of the list
 print("squares[-1] is ", squares[-1])
+print("squares[-3] is ", squares[-3])
 
-# Use function "len()" Get the length of a list
+# Use function "len()" Get the item count of a list
 print("len(squares) is ", len(squares))
-
-# The append() method appends an element to the end of the list.
-squares.append(36)
-print("After .append(36), squares is", squares)
-
-# The pop() method removes the specified index.
-# If you do not specify the index, the pop() method removes the last item.
-squares.pop()
-print("After .pop(), squares is", squares)
-
-squares.pop(0)
-print("After .pop(0), squares is", squares)
