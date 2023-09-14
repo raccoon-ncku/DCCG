@@ -1,9 +1,8 @@
 # A variable can have a short name (like x and y) or a more descriptive name (age, carname, total_volume).
 
 # Rules for Python variables:
-# A variable name must start with a letter or the underscore character
+# Python accepts unicode characters in variable names, but it is not recommended, use only contain alpha-numeric characters and underscores (A-z, 0-9, and _ ) for maximum compatibility across operating systems.
 # A variable name cannot start with a number
-# A variable name can only contain alpha-numeric characters and underscores (A-z, 0-9, and _ )
 # Variable names are case-sensitive (age, Age and AGE are three different variables)
 
 # Legal variable names:
