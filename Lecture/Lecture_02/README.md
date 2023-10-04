@@ -1,3 +1,4 @@
 # Class Materials
 ## Slides
-👉[Slides](https://docs.google.com/presentation/d/1y_GqtYO5Yi6WoIkj8L_ZX_dUtOPqyMx5DuOuVLTaPek/edit?usp=sharing)
+👉[Slides Part I](👉[Go to Slides](https://app.rccn.dev/slidev/DCCG-02/))
+👉[Slides Part II]

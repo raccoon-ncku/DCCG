@@ -5,4 +5,4 @@ if x < 0:
 elif x == 0:
     print('Zero')
 elif x == 1:
-    print('Single')
+    print('one')
