@@ -1,4 +1,23 @@
 # Exercise Instruction
+## Exercise 1: asterisk pattern
+Please write a python script to print the following pattern, where the number of rows is given by the user.
+
+### Expected result
+
+```text
+please input a number: 9
+*
+**
+***
+****
+*****
+****
+***
+**
+*
+```
+
+## Exercise 2: Guess the number
 Please write a python script to make a number guessing game with the following features:
 
 * In this game, the program generates random number but this number is not visible to the player.
