@@ -1,4 +1,4 @@
-## Assignment Instruction
+# Assignment Instruction
 Please write a python script that will print all prime numbers in a given range. Please leave comments in your script. Only Python and Python modules that could be installed via `conda` or `pip` could be used in this assignment.
 
 This assignment is __10%__ of your total grade.
