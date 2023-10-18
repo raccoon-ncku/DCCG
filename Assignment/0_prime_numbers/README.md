@@ -25,7 +25,7 @@ For this assignment, its okay to copy and paste code from the Internet, as long 
 - C: Your script works but is not well documented.
 - F: Your script does not work.
 
-** This grading policy only applies to this assignment. **
+**This grading policy only applies to this assignment.**
 
 ## Developers IRL
 👦🏼 Primary school: “Don’t copy from your neighbor”
