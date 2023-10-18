@@ -1,4 +1,4 @@
-# We can define functions that take arguments (inputs) and return values (outputs).
+# We can define functions that take arguments (inputs).
 def fib(n):
     """
     Print a Fibonacci series up to n.

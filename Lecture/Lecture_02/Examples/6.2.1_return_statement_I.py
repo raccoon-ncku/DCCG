@@ -1,16 +1,19 @@
 # A function could return a value,
 # which can be assigned to a variable.
 
-def fib(n=10000):
+def is_even(number):
     """
-    Return a Fibonacci series up to n.
+    Return True if the number is even, False otherwise.
     """
-    a, b = 0, 1
-    series = []
-    while a < n:
-        series.append(a)
-        a, b = b, a+b
-    return series
-
-fib_series = fib(10000)
-print(fib_series)
+    if number % 2 == 0:
+        return True
+    else:
+        return False
+    
+# Call the function and assign the return value to a variable.
+number = int(input("Enter a number: "))
+result = is_even(number)
+if result:
+    print("{} is even.".format(number))
+else:
+    print("{} is odd.".format(number))
