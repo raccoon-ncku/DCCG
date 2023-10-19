@@ -13,14 +13,14 @@ They are:
 
 ## Requirements
 - The program should ask the user to input a number, list and count all prime numbers less than the input number.
-- Assume that the input is a positive integer.
-- You should define at least one function in your script.
+- Assume that the input is a positive integer, which means the program doesn't need to handle invalid input.
+- You should define at least one function and call it in your main program.
 - Functions should be documented with docstrings.
 
 ## Grading Policy
-For this assignment, its okay to copy and paste code from the Internet, as long as it works and you understand it. However, you should __NOT__ simply copy and paste code from your classmates. If you do so, you will get a zero for this assignment. Modify the code you found on the Internet or learned from your classmates, so that it looks different from your classmates.
+For this assignment, its **okay** to copy and paste code from the Internet, as long as it works and you understand it. However, you should **NOT** simply copy and paste code from your classmates. If you do so, you will get a zero for this assignment. **Modify the code you found on the Internet or learned from your classmates, so that it looks different from your classmates.**
 
-- A: Your algorithm is more efficient than the regular solution.
+- A: Your algorithm is more efficient than a regular solution.
 - B: Your script works and is well documented.
 - C: Your script works but is not well documented.
 - F: Your script does not work.
