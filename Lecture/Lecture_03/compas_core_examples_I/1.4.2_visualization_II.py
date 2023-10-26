@@ -1,15 +1,21 @@
-import random
-import compas.geometry as cg
-
-geometries = []
-for i in range(100):
-    point = cg.Point(random.random(), random.random(), random.random())
-    geometries.append(point)
-
-
-# Visualization
+from compas.geometry import Sphere
+from compas.colors import Color
 from compas_view2.app import App
+from compas_view2.collections import Collection
+
 viewer = App()
-for geometry in geometries:
-    viewer.add(geometry)
-viewer.run()
+
+spheres = []
+sphere_properties = []
+
+for x in range(5):
+    for y in range(5):
+        for z in range(5):
+            sphere = Sphere([x, y, z], 0.2)
+            spheres.append(sphere)
+            sphere_properties.append({'facecolor': Color(x/5, y/5, z/5), 'linecolor': Color(0.2, 0, 0)})
+
+spherecollection = Collection(spheres, sphere_properties)
+viewer.add(spherecollection)
+
+viewer.show()

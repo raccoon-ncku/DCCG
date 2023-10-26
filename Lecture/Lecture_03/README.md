@@ -1,6 +1,6 @@
 # Lecture 03: COMPAS Core
 ## Slides
-👉[Slides](https://docs.google.com/presentation/d/1gCXsjg1PCO-fWoE2ojZQB80b2N2oioUNpyTs6SwSko8/edit?usp=sharing)
+👉[Slides](https://app.rccn.dev/slidev/DCCG-03-1)
 
 ## Installing COMPAS
 Open `Anaconda Powershell Prompt (miniconda3)` (Windows), or `Powershell` (Windows),  or `Terminal` (macOS).
