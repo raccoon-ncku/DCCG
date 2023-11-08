@@ -2,8 +2,10 @@ import random
 import compas
 import compas.datastructures as cd
 
+# Create a (empty) network
 network = cd.Network()
 
+# Add edges, and nodes will be created automatically
 network.add_edge(1, 2)
 network.add_edge(2, 3)
 network.add_edge(1, 4)

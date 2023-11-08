@@ -6,7 +6,7 @@
 ## Additional modules
 ```
 conda activate DCCG
-conda install libpysal contextily geopandas
+conda install pandas libpysal contextily geopandas
 ```
 
 ## Reference

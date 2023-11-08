@@ -1,7 +1,8 @@
 import json
 import os
 
-DIR_NAME = "data"
+DIR1_NAME = "data"
+DIR2_NAME = "output"
 FILE_NAME = "output.json"
 
 dict = {
@@ -12,12 +13,13 @@ dict = {
 
 output_dir = os.path.join(
     os.path.dirname(__file__),
-    DIR_NAME
+    DIR1_NAME,
+    DIR2_NAME
 )
 
 # Create the directory if it is not currently existed
 if not os.path.isdir(output_dir):
-    os.mkdir(output_dir)
+    os.makedirs(output_dir)
 
 output_path = os.path.join(
     output_dir,
