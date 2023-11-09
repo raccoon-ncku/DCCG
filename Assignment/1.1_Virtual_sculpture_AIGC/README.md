@@ -4,7 +4,7 @@ Use Stable Diffusion or other AIGC tool to convert a lineart from your previous 
 Your previous assignment could be a good starting point. Place your code inside the template provided in this folder and run the script to capture the image. Then use any generative AI tool to convert the image into an architecture-like image. We have a self-hosted version of [Stable Diffusion](https://app.rccn.dev/sd) available for you to use.
 
 ## Deliverables
-- Several 512x512 images file of your architecture-like image.
+- Several 512x512 image files of your architecture-like image.
 - A 512x512 image file of your lineart.
 - Source code of your lineart.
 
