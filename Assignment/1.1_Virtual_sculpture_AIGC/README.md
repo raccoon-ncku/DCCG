@@ -11,12 +11,12 @@ Your previous assignment could be a good starting point. Place your code inside 
 ## Requirements
 - The source code must be written in Python.
 - The source code must be readable and well-commented.
-- The final image should resemble to the the code output.
-- You could use the result from the previous assignment as the input of this assignment, or you could use a new script to generate the lineart.
+- The final image should resemble the code output.
+- You could use the result from the previous assignment as the input for this assignment, or you could use a new script to generate the lineart.
 - The script must **not** be a simple copy of the course example. Make significant changes to the script, e.g. combine multiple examples, add new elements, etc.
 - You could still use the code/idea from the Internet, except for the code from COMPAS documentation.
 - You must cite the source of the code/idea in your script.
-- You could edit the image in Photoshop or other image editing software before and/or after the AI-conversion.
+- You could edit the image in Photoshop or other image editing software before and/or after the AI conversion.
 
 ## Grading Criteria
 This assignment is __10%__ of your total grade.
