@@ -1,12 +1,10 @@
 # Instruction
 Use Stable Diffusion or other AIGC tool to convert a lineart from your previous assignment into an architecture-like image.
 
-Use your previous assignment as a starting point. Place your code inside the template provided in this folder and run the script to capture the image.
-
-Use any generative AI tool to convert the image into an architecture-like image. We have a self-hosted version of [Stable Diffusion](https://app.rccn.dev/sd) available for you to use.
+Your previous assignment could be a good starting point. Place your code inside the template provided in this folder and run the script to capture the image. Then use any generative AI tool to convert the image into an architecture-like image. We have a self-hosted version of [Stable Diffusion](https://app.rccn.dev/sd) available for you to use.
 
 ## Deliverables
-- A 512x512 image file of your architecture-like image.
+- Several 512x512 images file of your architecture-like image.
 - A 512x512 image file of your lineart.
 - Source code of your lineart.
 
@@ -27,7 +25,7 @@ This assignment is __10%__ of your total grade.
 - Citation of the source
 
 ## Computing Resources
-The self-hosted version of Stable Diffusion is provided by university resources. Please do not abuse the system. Do not modify the settings or create a large number of jobs, as
+The [self-hosted version of Stable Diffusion](https://app.rccn.dev/sd) is provided by university resources. Please do not abuse the system. Do not modify the settings or create a large number of jobs, as
 it will affect other students. If the server is down, please contact the instructor. The server will be closed soon after the deadline.
 
 ## Submission
@@ -38,7 +36,10 @@ For the deadline, please refer to Moodle.
 Late submission is accepted yet the score will be lower by 2 tiers.
 
 ## Example
-input:
+### input
+
 ![](https://app.rccn.dev/assets/dccg/imgs/exercise_aigc_input.png)
-output:
+
+### output
+
 ![](https://app.rccn.dev/assets/dccg/imgs/exercise_aigc_output.png)

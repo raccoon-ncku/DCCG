@@ -5,6 +5,7 @@ geometries = []
 
 # ==============================
 # Replace the following lines with your code
+# Remember to use the variable 'geometries' to store your geometries
 # ==============================
 
 import random
@@ -17,6 +18,9 @@ for i in range(5):
     accumulated_height += box_height
 
 
+# ==============================
+# Visualization in Lineart mode
+# ==============================
 
 viewer = App(width=512, height=512, show_grid=False)
 for geometry in geometries:

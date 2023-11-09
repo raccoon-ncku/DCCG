@@ -1,6 +1,10 @@
 # Class materials
+## Agenda
+- FileIO (`Lecture/Lecture_04/python_examples/`)
+- Network (graph) (`Lecture/Lecture_04/graph_examples/`)
+
 ## Slides
-👉[Slides](https://docs.google.com/presentation/d/1yVhKyyiMWxmTYzYRcYB-4bV7nkqA3j-sPFnZwsaInnw/edit#slide=id.g161ec40d1bd_0_0)
+👉[Slides (Network)](https://docs.google.com/presentation/d/1yVhKyyiMWxmTYzYRcYB-4bV7nkqA3j-sPFnZwsaInnw/edit#slide=id.g161ec40d1bd_0_0)
 
 
 ## Additional modules
