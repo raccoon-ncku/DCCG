@@ -16,8 +16,12 @@ for x in range(SIZE_X):
     for y in range(SIZE_Y):
         for z in range(SIZE_Z):
             pt = cg.Point(x*STEP_X, y*STEP_Y, z*STEP_Z)
-            frame = cg.Frame(pt, (1,0,0), (0,1,0))
-            box = cg.Box(frame, 1, 1, 1)
+            rot = cg.Rotation.from_axis_and_angle([0,0,z], x+y+z)
+            translation = cg.Translation.from_vector([x*STEP_X, y*STEP_Y, z*STEP_Z])
+            frame = cg.Frame((0,0,0), (1,0,0), (0,1,0))
+            frame.transform(rot)
+            frame.transform(translation)
+            box = cg.Box(frame, STEP_X, STEP_Y, STEP_Z)
             geometries.append(box)
             properties.append({'facecolor': Color(x/SIZE_X, y/SIZE_Y, z/SIZE_Z)})
 
