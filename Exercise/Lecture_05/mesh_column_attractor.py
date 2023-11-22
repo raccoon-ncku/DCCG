@@ -11,10 +11,18 @@ mesh = cd.Mesh()
 
 COLUMN_HEIGHT = 100
 COLUMN_RADIUS = 5
-MESH_EDGE_LENGTH = 0.3
+MESH_EDGE_LENGTH = 1
 
 COLUMN_Z_COUNT = int(round(COLUMN_HEIGHT / MESH_EDGE_LENGTH))
 COLUMN_CIRCLE_DIVISION = int(round(COLUMN_RADIUS * 2 * math.pi/ MESH_EDGE_LENGTH))
+
+# Create a bezier curve
+points = [
+    [10, 0, 0], [0, 30, 20], [-30, 0, 60], [0, -10, 100]
+]
+curve = cg.Bezier(points)
+# Convert the curve into a polyline, as the former has less methods available
+curve = cg.Polyline(curve.locus())
 
 # Create a column using math functions
 for i in range(COLUMN_Z_COUNT):
@@ -27,16 +35,19 @@ for i in range(COLUMN_Z_COUNT):
         point = cg.Point(x, y, z)
 
         # Transform the base point
+        # find the closest point on the curve
+        closest_pt = cg.closest_point_on_polyline(point, curve)
+        distance = cg.distance_point_point(point, closest_pt)
+        distance = max([distance, 0.1]) # avoid division by zero
         vector = cg.Vector(
             math.cos(angle),
             math.sin(angle),
             0
         )
         vector.scale(
-            math.sin(z / COLUMN_HEIGHT * math.pi + math.pi / 16) * 5 +
-            math.sin(angle * 5 + z / COLUMN_HEIGHT * math.pi * 2) * 1 +
-            math.cos(angle * 3 + z / COLUMN_HEIGHT * math.pi * 4) * 1
+            100 / (3 * distance) ** 2
             )
+        
         translation = cg.Translation.from_vector(vector)
 
         # Apply the transformation
@@ -52,6 +63,7 @@ for i in range(COLUMN_Z_COUNT - 1):
                        i * COLUMN_CIRCLE_DIVISION + (j + 1) % COLUMN_CIRCLE_DIVISION,
                        (i + 1) * COLUMN_CIRCLE_DIVISION + (j + 1) % COLUMN_CIRCLE_DIVISION,
                        (i + 1) * COLUMN_CIRCLE_DIVISION + j])
+
 # Color the mesh
 for vertex in mesh.vertices():
     red_value = 1 - remap_values(
@@ -63,5 +75,8 @@ for vertex in mesh.vertices():
         
 # Create a viewer
 viewer = App(show_grid=False, viewmode='lighted')
+for pt in points:
+    viewer.add(cg.Point(* pt), pointsize=10, pointcolor=(0.8, 0.2, 0.2))
+viewer.add(curve)
 viewer.add(mesh, use_vertex_color=True, show_lines=False)
 viewer.run()
