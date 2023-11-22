@@ -45,7 +45,7 @@ for i in range(COLUMN_Z_COUNT):
             0
         )
         vector.scale(
-            100 / (3 * distance) ** 2
+            1000 / (3 * distance ** 2 )
             )
         
         translation = cg.Translation.from_vector(vector)
