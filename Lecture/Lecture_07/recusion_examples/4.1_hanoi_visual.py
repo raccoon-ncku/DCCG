@@ -35,7 +35,7 @@ def solve_tower_of_hanoi(n , source, destination, auxiliary):
     solve_tower_of_hanoi(n-1, auxiliary, destination, source)
          
 # Driver code
-N = 3
+N = 4
 states.append(
     {
         "A": [x for x in range(N,0,-1)],
@@ -81,7 +81,7 @@ for i in range(N):
     cylinder_obj = viewer.add(cylinder, facecolor=Color(1, 1-(i+1)/N, 1-(i+1)/N))
     cylinder_objs.append(cylinder_obj)
 
-@viewer.slider(title="Slide Point", maxval=len(states)-1, step=1)
+@viewer.slider(title=f"Steps (0-{len(states)-1})", maxval=len(states)-1, step=1)
 def slide(value):
     for key, _value in states[int(value)].items():
         for i, v in enumerate(_value):
