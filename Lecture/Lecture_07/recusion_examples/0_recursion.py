@@ -5,10 +5,13 @@ def factorial(x):
     """
 
     if x == 1:
+        # Base case
         return 1
     else:
-        return (x * factorial(x-1))
+        # Recursive case
+        print(f"{x}! = {x} * {(x-1)}!")
+        return x * factorial(x-1)
 
 
 num = 12
-print("The factorial of", num, "is", factorial(num))
+print(f"The factorial of {num} is {factorial(num)}")
