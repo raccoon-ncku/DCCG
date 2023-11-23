@@ -35,7 +35,7 @@ for i in range(COLUMN_Z_COUNT):
         vector.scale(
             math.sin(z / COLUMN_HEIGHT * math.pi + math.pi / 16) * 5 +
             math.sin(angle * 5 + z / COLUMN_HEIGHT * math.pi * 2) * 1 +
-            math.cos(angle * 3 + z / COLUMN_HEIGHT * math.pi * 4) * 1
+            math.cos(-angle * 3 + z / COLUMN_HEIGHT * math.pi * 4) * 1
             )
         translation = cg.Translation.from_vector(vector)
 
@@ -43,7 +43,18 @@ for i in range(COLUMN_Z_COUNT):
         point.transform(translation)
 
         # Add the point to the mesh
-        mesh.add_vertex(x=point.x, y=point.y, z=point.z)
+        vertex = mesh.add_vertex(x=point.x, y=point.y, z=point.z)
+
+        # Color the mesh
+        red_value = 1 - remap_values(
+            [z],
+            original_min=0,
+            original_max=COLUMN_HEIGHT)[0]
+        green_value = (math.cos(angle+z*0.1)+1)/2
+        color = Color(red_value*0.7,
+                      0.6-red_value*0.3-green_value*0.3,
+                      1-red_value*0.6)
+        mesh.vertex_attribute(vertex, 'color', color)
 
 # Create faces
 for i in range(COLUMN_Z_COUNT - 1):
@@ -52,14 +63,7 @@ for i in range(COLUMN_Z_COUNT - 1):
                        i * COLUMN_CIRCLE_DIVISION + (j + 1) % COLUMN_CIRCLE_DIVISION,
                        (i + 1) * COLUMN_CIRCLE_DIVISION + (j + 1) % COLUMN_CIRCLE_DIVISION,
                        (i + 1) * COLUMN_CIRCLE_DIVISION + j])
-# Color the mesh
-for vertex in mesh.vertices():
-    red_value = 1 - remap_values(
-        [mesh.vertex_coordinates(vertex)[2]],
-        original_min=0,
-        original_max=COLUMN_HEIGHT)[0]
-    color = Color(red_value*0.7,0.5-red_value*0.3,1-red_value*0.6)
-    mesh.vertex_attribute(vertex, 'color', color)
+
         
 # Create a viewer
 viewer = App(show_grid=False, viewmode='lighted')
