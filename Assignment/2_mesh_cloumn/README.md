@@ -15,9 +15,15 @@ Create __3__ different mesh column models.
 - Visual quality of the models.
 - Code quality and readability.
 
-
-# Deliverables
+### Deliverables
 - Source code(s) in `.py` file(s).
-- Screenshot(s) of the models in `.png` file(s).
+- Screenshot(s) or rendering of the models in `.png` file(s).
+
+### Deadline and submission
+Please submit your assignement via Moodle, and the deadline also is displayed on Moodle.
+
+## Hints and Example
+In `/Exercise/Lecture_05` folder, there are three mesh column examples. You can use them as a reference to create your own models. For example, the following image are created by modifying the reference code `mesh_column_math.py`. The modified version is located in the assignment folder(`example.py`).
+![Example](https://app.rccn.dev/assets/dccg/imgs/assignment_mesh_column_example.png)
 
 
