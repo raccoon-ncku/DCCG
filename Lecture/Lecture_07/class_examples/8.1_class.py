@@ -9,9 +9,16 @@ class ClassName():
     Class docstring
     This is an example of class definition.
     """
-    attr_key = "attr value"
+
+    def instance_method(self):
+        """
+        Instance method docstring
+        """
+        print("printing instance_method")
 
 
 # Create an instance of the class
 instance = ClassName()
-print(instance.attr_key)
+
+# Call the instance method
+instance.instance_method()

@@ -13,18 +13,22 @@ class Car():
         self.brand = init_brand
 
     def honk(self):
+        """
+        An instance method.
+        """
         print("HONK")
         print(f"A {self.color} car made by {self.brand}.")
 
 
-# Use the class default constructor
+# Use the class default constructor, __init__()
 car_instance_a = Car("Blue", "Volkswagen")
+# Pass different arguments to the constructor
 car_instance_b = Car("White", "Renault")
 
 # use dot operator to access attributes and methods
-print(car_instance_a.brand)
-print(car_instance_b.color)
+print(f"car_instance_a.color: {car_instance_a.color}")
+print(f"car_instance_b.brand: {car_instance_b.brand}")
+
+# use dot operator to invoke methods
 car_instance_a.honk()
 car_instance_b.honk()
-
-print(car_instance_a)
