@@ -1,3 +1,4 @@
+
 class Car():
     def __init__(self, init_color, init_brand):
         # Attributes
