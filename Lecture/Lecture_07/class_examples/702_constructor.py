@@ -1,12 +1,20 @@
 class Car():
+    """
+    A class to represent a car.
+    """
     def __init__(self, init_color, init_brand):
-        # Attributes
+        """
+        Constructor for the Car class.
+        Sets the color and brand of the car.
+        `self` is a reference to the object itself.
+        """
+        # instance attributes
         self.color = init_color
         self.brand = init_brand
 
     def honk(self):
         print("HONK")
-        print("A {} {} car.".format(self.color, self.brand))
+        print(f"A {self.color} car made by {self.brand}.")
 
 
 # Use the class default constructor
