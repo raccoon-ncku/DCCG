@@ -29,15 +29,13 @@ class Car():
 
 car = Car("Blue", "Volkswagen")
 
-# Best practice
+# Overriding the instance attribute
 car.capacity = 10
 print("1. car.capacity: ", car.capacity)
 
-# Best practice
+# Invalid value will be ignored
 car.capacity = -1
-print("4. car.capacity: ", car.capacity)
+print("2. car.capacity: ", car.capacity)
 
-# Will run, but not a good practice
-car.__capacity = -1
-print("3. car.capacity: ", car.capacity)
-print("4. car.__capacity: ", car.__capacity)
+# Directly accessing the private attribute will cause an error
+print("3. car.capacity: ", car.__capacity)

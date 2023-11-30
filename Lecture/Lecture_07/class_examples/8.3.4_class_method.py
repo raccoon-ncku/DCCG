@@ -10,7 +10,7 @@ class Customer():
         self.age = age
 
     def __str__(self):
-        return "Customer Data: {}, age {}".format(self.name, self.age)
+        return f"Customer Details: {self.name}, age {self.age}"
 
     @classmethod
     def from_birthyear(cls, name, b_year):
@@ -35,11 +35,13 @@ print(c1)
 print(c2)
 
 # Classmethod to modify class attribute
-print(c1.email_promotion)
-print(c2.email_promotion)
+print("Before starting email promotion")
+print(f"c1.email_promotion: {c1.email_promotion}")
+print(f"c2.email_promotion: {c2.email_promotion}")
 Customer.start_email_promotion()
-print(c1.email_promotion)
-print(c2.email_promotion)
+print("After starting email promotion")
+print(f"c1.email_promotion: {c1.email_promotion}")
+print(f"c2.email_promotion: {c2.email_promotion}")  # both c1 and c2 are affected
 
 # Staticmethod as utilities
-print(Customer.calc_age(2001))
+print(Customer.calc_age(2001))  # not related to any instance
