@@ -3,29 +3,33 @@ import numpy as np
 
 
 class Boid:
+    # class attributes
+    max_speed = 1
+    max_acceleration = 0.3
+
+    # effective range
+    perception = 10
+
+    # size of the world
+    width = 50
+    length = 50
+    height = 50
+
+    # weight of each behaviour
+    alignment_weight = 1
+    cohesion_weight = 1
+    separation_weight = 1
 
     def __init__(self, init_position=None):
         if init_position is None:
             init_position = Frame.worldXY()
         self.position = init_position
 
-        self.max_speed = 0.5
-        self.max_acceleration = 0.1
-
         vec = (np.random.rand(3) - 0.5) * self.max_speed * 2
         self.velocity = Vector(*vec)
 
         self.acceleration = Vector(*np.zeros(3))
 
-        self.perception = 10
-
-        self.width = 50
-        self.length = 50
-        self.height = 50
-
-        self.alignment_weight = 1
-        self.cohesion_weight = 1
-        self.separation_weight = 1
 
     def update(self):
         """
@@ -53,9 +57,7 @@ class Boid:
         """
         Get the geometrical representation.
         """
-        # geo = Box(self.position, 0.5, 0.5, 0.5)
-        geo = self.position.point
-        return geo
+        return self.position.point
 
     def apply_behaviour(self, boids):
         alignment = self.align(boids)
@@ -90,6 +92,10 @@ class Boid:
         )
 
     def align(self, boids):
+        """
+        Calculate the alignment vector.
+        Align the velocity of the boid with the average velocity of its neighbors.
+        """
         steering = Vector(*np.zeros(3))
         total = 0
         avg_vector = Vector(*np.zeros(3))
@@ -107,6 +113,10 @@ class Boid:
         return steering
 
     def cohesion(self, boids):
+        """
+        Calculate the cohesion vector.
+        Move the boid towards the center of mass of its neighbors.
+        """
         steering = Vector(*np.zeros(3))
         total = 0
         center_of_mass = Point(*np.zeros(3))
@@ -126,6 +136,10 @@ class Boid:
         return steering
 
     def separation(self, boids):
+        """
+        Calculate the separation vector.
+        Move the boid away from its neighbors.
+        """
         steering = Vector(*np.zeros(3))
         total = 0
         avg_vector = Vector(*np.zeros(3))
