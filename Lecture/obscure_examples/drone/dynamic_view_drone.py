@@ -18,7 +18,6 @@ for i in range(DRONE_COUNT):
         (0, 1, 0)
     )
     drone = Drone(init_location)
-    drone.rise()
     viewer_obj = viewer.add(drone.get_body())
 
     model_objs.append(
