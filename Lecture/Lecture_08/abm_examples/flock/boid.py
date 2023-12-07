@@ -69,6 +69,10 @@ class Boid:
         self.acceleration += separation * self.separation_weight
 
     def warp(self):
+        """
+        Wrap the boid around the world.
+        If the boid is out of the world, move it to the other side.
+        """
         new_x, new_y, new_z = self.position.point.x, self.position.point.y, self.position.point.z
         if self.position.point.x > self.length:
             new_x = 0
