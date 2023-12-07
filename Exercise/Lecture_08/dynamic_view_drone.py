@@ -14,7 +14,7 @@ model_objs = []
 for i in range(DRONE_COUNT):
     # Create drones
     init_location = cg.Frame(
-        (random.randint(0, 50), random.randint(0, 50), 0),
+        (random.randint(0, Drone.length), random.randint(0, Drone.width), 0),
         (1, 0, 0),
         (0, 1, 0)
     )

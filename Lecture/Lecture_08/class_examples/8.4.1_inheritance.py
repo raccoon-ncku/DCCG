@@ -16,6 +16,7 @@ class ElecctricCar(Car):
     fuel = "electricity"
 
     def __init__(self, init_color, init_brand):
+        # Call the parent class's constructor
         super().__init__(init_color, init_brand)
         self.charger = "Type 2"
 

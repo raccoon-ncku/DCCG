@@ -17,4 +17,4 @@
    - Create a rectangle and print its area and perimeter with `from_two_points` method.
 
 # Agent-Based Modeling
-Using the given code `drone.py` and `dynamic_view_drone.py`, create a drone agent that will be attracted to a given point.
+Using the given code `drone.py`, `tracing_drone` and `dynamic_view_drone.py`, create a tracing drone agent view that utilized the attraction and repulsion behavior.
