@@ -4,9 +4,14 @@ from ortools.linear_solver import pywraplp
 costs = [
     [0, 10, 100],
     [0, 100, 10],
+    [10, 100, 0],
+    [0, 100, 10],
+    [10, 0, 100],
+    [0, 10, 100],
+    [10, 100, 10],
     [100, 0, 10],
     [0, 100, 10],
-    [10, 0, 100]
+    [10, 100, 0]
 ]
 num_workers = len(costs)
 num_tasks = len(costs[0])
@@ -28,9 +33,9 @@ for i in range(num_workers):
 for i in range(num_workers):
     solver.Add(solver.Sum([x[i, j] for j in range(num_tasks)]) == 1)
 
-# Each group is assigned to at least one student.
+# Each group is assigned to at least 3 student.
 for j in range(num_tasks):
-    solver.Add(solver.Sum([x[i, j] for i in range(num_workers)]) >= 1)
+    solver.Add(solver.Sum([x[i, j] for i in range(num_workers)]) >= 3)
 
 # Objective
 objective_terms = []
@@ -50,6 +55,6 @@ if status == pywraplp.Solver.OPTIMAL or status == pywraplp.Solver.FEASIBLE:
         for j in range(num_tasks):
             # Test if x[i,j] is 1 (with tolerance for floating point arithmetic).
             if x[i, j].solution_value() > 0.5:
-                print(f"Worker {i} assigned to task {j}." + f" Cost: {costs[i][j]}")
+                print(f"Student {i} assigned to studio {j}." + f" Cost: {costs[i][j]}")
 else:
     print("No solution found.")
