@@ -5,7 +5,7 @@ from compas_view2.objects import Collection
 
 viewer = App(enable_sidebar=True, show_grid=False)
 
-MAX_DEPTH = 5
+MAX_DEPTH = 8
 theta = 90
 
 new_branches = []
@@ -15,7 +15,36 @@ def branch(parent_stem, length, depth, theta):
     if depth > MAX_DEPTH:
         return
 
-    pass
+    # create new stem
+    new_start = parent_stem.end.copy()
+    frame = cg.Frame(
+        new_start,
+        cg.Vector.Zaxis().cross(parent_stem.direction),
+        parent_stem.direction
+    )
+
+    rotation_1 = cg.Rotation.from_axis_and_angle(
+        frame.zaxis, math.radians(theta)
+    )
+    rotation_2 = cg.Rotation.from_axis_and_angle(
+        frame.zaxis, math.radians(-theta)
+    )
+    tranlation = cg.Translation.from_vector(
+        cg.Vector(*new_start))
+    new_stem = cg.Line(
+        cg.Point(0, 0, 0),
+        cg.Point(0, 0, 0) + frame.yaxis * length
+    )
+    new_stem_1 = new_stem.transformed(
+        tranlation * rotation_1)
+    new_stem_2 = new_stem.transformed(
+        tranlation * rotation_2)
+    new_branches.append(new_stem_1)
+    new_branches.append(new_stem_2)
+    # Recurse
+    branch(new_stem_1, length * 0.7, depth + 1, theta)
+    branch(new_stem_2, length * 0.7, depth + 1, theta)
+
 
 # initial stem
 init_stem = cg.Line(cg.Point(0, 0, 0), cg.Point(0, 5, 0))
