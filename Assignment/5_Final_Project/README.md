@@ -28,5 +28,5 @@ Here are some keywords that might help you to come up with a topic:
 - 60%: technical difficulty
 
 ## Deadline and Submission
-- Deadline: 2024/01/12 23:55, no late submission this time as the school requires the grades to be submitted by 2024/01/17.
+- Deadline: 2024/01/17 23:55, no late submission this time as the school requires the grades to be submitted by 2024/01/17.
 - Submission: upload your codes and images/videos to Moodle.
