@@ -1,21 +1,16 @@
 from compas.geometry import Sphere
 from compas.colors import Color
-from compas_view2.app import App
-from compas_view2.collections import Collection
+from compas_viewer import Viewer
 
-viewer = App()
 
-spheres = []
-sphere_properties = []
+viewer = Viewer()
 
 for x in range(5):
     for y in range(5):
         for z in range(5):
-            sphere = Sphere([x, y, z], 0.2)
-            spheres.append(sphere)
-            sphere_properties.append({'facecolor': Color(x/5, y/5, z/5), 'linecolor': Color(0.2, 0, 0)})
+            sphere = Sphere(0.2,point=[x, y, z])
+            viewer.scene.add(sphere,
+                             facecolor=Color(x/5, y/5, z/5),)
 
-spherecollection = Collection(spheres, sphere_properties)
-viewer.add(spherecollection)
 
 viewer.show()
