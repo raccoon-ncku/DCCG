@@ -1,6 +1,6 @@
 # Lecture 03: COMPAS Core
 ## Slides
-👉[Slides](https://app.rccn.dev/slidev/DCCG-03-1)
+👉[Slides](https://app.rccn.dev/slidev/DCCG-03)
 
 ## Installing COMPAS
 
