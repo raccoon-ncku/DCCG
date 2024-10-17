@@ -30,7 +30,7 @@ conda activate DCCG
 ```
 ![conda_activate_env](/Assets/imgs/conda_activate.png)
 
-When an environment is activated, the name of the environment will be shown in front of the command prompt. In this case, it is `(DCCG)`. Continue to install COMPAS and COMPAS_view2:
+When an environment is activated, the name of the environment will be shown in front of the command prompt. In this case, it is `(DCCG)`. Continue to install COMPAS_viewer:
 ```
 pip install compas_viewer
 ```
