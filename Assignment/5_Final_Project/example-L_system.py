@@ -1,10 +1,10 @@
 # This is a example of how to implement a L-system in Python.
 
 import compas.geometry as cg
-from compas_view2.app import App
+from compas_viewer import Viewer
 from math import cos, sin, radians
 # The window
-viewer = App()
+viewer = Viewer()
 FRAMERATE = 60
 MAX_FRAME = 10000
 
@@ -51,7 +51,7 @@ def draw(k):
         # polar to cartesian based on step and currentangle:
         x1 = x + STEP*cos(radians(angle))
         y1 = y + STEP*sin(radians(angle))
-        viewer.add(cg.Line((x, y, 0), (x1, y1, 0))) # connect the old and the new
+        viewer.scene.add(cg.Line((x, y, 0), (x1, y1, 0))) # connect the old and the new
         # update the turtle's position:
         x = x1
         y = y1
@@ -76,4 +76,4 @@ def update(f):
     if where_in_string > len(the_string) -1:
        where_in_string = 0
 print(the_string)
-viewer.run()
+viewer.show()

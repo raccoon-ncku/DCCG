@@ -13,8 +13,8 @@ for vertex_key in mesh.vertices_on_boundary():
 if compas.is_grasshopper():
     a = mesh
 else:
-    from compas_view2.app import App
-    viewer = App()
+    from compas_viewer import Viewer
+    viewer = Viewer()
     for geometry in geometries:
-        viewer.add(geometry)
-    viewer.run()
+        viewer.scene.add(geometry)
+    viewer.show()

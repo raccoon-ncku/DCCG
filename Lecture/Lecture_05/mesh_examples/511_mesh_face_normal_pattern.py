@@ -1,7 +1,7 @@
 import compas
 import compas.geometry as cg
 import compas.datastructures as cd
-from compas_view2.app import App
+from compas_viewer import Viewer
 
 # Get Mesh
 mesh = cd.Mesh.from_obj(compas.get('hypar.obj'))
@@ -32,6 +32,6 @@ for fkey in list(mesh.faces()):
     mesh.delete_face(fkey)
 
 # Visualization
-viewer = App()
-viewer.add(mesh)
-viewer.run()
+viewer = Viewer()
+viewer.scene.add(mesh)
+viewer.show()

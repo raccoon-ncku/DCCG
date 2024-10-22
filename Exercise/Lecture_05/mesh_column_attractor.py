@@ -4,7 +4,7 @@ import compas.datastructures as cd
 import compas.geometry as cg
 from compas.utilities import remap_values
 from compas.colors import Color
-from compas_view2.app import App
+from compas_viewer import Viewer
 
 # Create an empty mesh
 mesh = cd.Mesh()
@@ -76,7 +76,7 @@ for vertex in mesh.vertices():
 # Create a viewer
 viewer = App(show_grid=False, viewmode='lighted')
 for pt in points:
-    viewer.add(cg.Point(* pt), pointsize=10, pointcolor=(0.8, 0.2, 0.2))
-viewer.add(curve)
-viewer.add(mesh, use_vertex_color=True, show_lines=False)
-viewer.run()
+    viewer.scene.add(cg.Point(* pt), pointsize=10, pointcolor=(0.8, 0.2, 0.2))
+viewer.scene.add(curve)
+viewer.scene.add(mesh, use_vertex_color=True, show_lines=False)
+viewer.show()

@@ -3,7 +3,7 @@ import compas.geometry as cg
 import pathlib
 import math
 from compas.colors import Color
-from compas_view2.app import App
+from compas_viewer import Viewer
 
 fp = pathlib.Path(__file__).parent / "data" / "Bunny.ply"
 
@@ -25,6 +25,6 @@ for vertex in mesh.vertices():
         continue
     
 
-viewer = App()
-viewer.add(mesh, use_vertex_color=True)
-viewer.run()
+viewer = Viewer()
+viewer.scene.add(mesh, use_vertex_color=True)
+viewer.show()

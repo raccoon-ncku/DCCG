@@ -1,7 +1,7 @@
 from compas.geometry import Box, Polyhedron
 from compas.geometry import Translation
 from compas_cgal.subdivision import catmull_clark
-from compas_view2.app import App
+from compas_viewer import Viewer
 
 
 # Input
@@ -32,9 +32,9 @@ viewer.view.camera.ty = -1
 viewer.view.camera.rz = 0
 viewer.view.camera.distance = 5
 
-viewer.add(box)
-viewer.add(S2)
-viewer.add(S4)
-viewer.add(S6)
-viewer.add(S8)
+viewer.scene.add(box)
+viewer.scene.add(S2)
+viewer.scene.add(S4)
+viewer.scene.add(S6)
+viewer.scene.add(S8)
 viewer.show()

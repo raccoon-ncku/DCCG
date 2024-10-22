@@ -16,7 +16,7 @@ from compas.datastructures import (
     mesh_conway_truncate
 )
 
-from compas_view2.app import App
+from compas_viewer import Viewer
 
 
 # Mesh
@@ -30,6 +30,6 @@ mesh = cd.mesh_thicken(mesh, 0.5)
 
 
 # Viz
-viewer = App()
-viewer.add(mesh)
-viewer.run()
+viewer = Viewer()
+viewer.scene.add(mesh)
+viewer.show()

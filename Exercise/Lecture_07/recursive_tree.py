@@ -1,7 +1,7 @@
 # Create a recursive tree using compas
 import random
 import compas.geometry as cg
-from compas_view2.app import App
+from compas_viewer import Viewer
 viewer = App(show_grid=False)
 MAX_DEPTH = 5
 
@@ -31,13 +31,13 @@ def branch(parent_stem, length, depth, angle_deviation=0.9):
     new_stem = cg.Line(new_start, end)
 
     # Draw the stem
-    viewer.add(new_stem, linecolor=(0, 0, 0), linewidth=2)
+    viewer.scene.add(new_stem, linecolor=(0, 0, 0), linewidth=2)
 
     # Recurse
     branch(new_stem, length * 0.7, depth + 1)
     branch(new_stem, length * 0.7, depth + 1)
 
 init_stem = cg.Line(cg.Point(0, 0, 0), cg.Point(0, 0, 5))
-viewer.add(init_stem, linecolor=(0, 0, 0), linewidth=2)
+viewer.scene.add(init_stem, linecolor=(0, 0, 0), linewidth=2)
 branch(init_stem, 5, 0)
-viewer.run()
+viewer.show()

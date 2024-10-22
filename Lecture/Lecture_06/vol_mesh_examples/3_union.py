@@ -6,7 +6,7 @@ import compas_vol.primitives as cvol_p
 import compas_vol.combinations as cvol_c
 import compas_vol.modifications as cvol_m
 import compas_vol.microstructures as cvol_ms
-from compas_view2.app import App
+from compas_viewer import Viewer
 from skimage.measure import marching_cubes
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider, Button
@@ -49,9 +49,9 @@ fp = os.path.join(os.path.dirname(__file__), "output.stl")
 with open(fp, "wb") as f:
     mesh.to_stl(f, binary=True)
 
-viewer = App()
-viewer.add(mesh)
-viewer.run()
+viewer = Viewer()
+viewer.scene.add(mesh)
+viewer.show()
 
 # Define initial parameters
 INIT_Z = 0

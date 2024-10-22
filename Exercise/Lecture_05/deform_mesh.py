@@ -2,7 +2,7 @@ import random
 import compas.geometry as cg
 import compas.datastructures as cd
 from compas.colors import Color
-from compas_view2.app import App
+from compas_viewer import Viewer
 
 
 # Create a sphere and convert it to a mesh
@@ -40,8 +40,8 @@ for vertex in mesh.vertices():
 
 # Viz
 viewer = App(show_grid=False)
-viewer.add(mesh, use_vertex_color=True)
+viewer.scene.add(mesh, use_vertex_color=True)
 for pt in pts:
-    viewer.add(pt)
+    viewer.scene.add(pt)
 viewer.show()
 

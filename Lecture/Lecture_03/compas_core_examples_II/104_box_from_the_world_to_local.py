@@ -21,8 +21,8 @@ geometries = [F, box, box_frame, box_transformed, box_frame_transformed]
 if compas.is_grasshopper():
     a = geometries
 else:
-    from compas_view2.app import App
-    viewer = App()
+    from compas_viewer import Viewer
+    viewer = Viewer()
     for geometry in geometries:
-        viewer.add(geometry)
-    viewer.run()
+        viewer.scene.add(geometry)
+    viewer.show()

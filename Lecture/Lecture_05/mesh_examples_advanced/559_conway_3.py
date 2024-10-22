@@ -15,7 +15,7 @@ from compas.datastructures import (
     mesh_conway_truncate
 )
 
-from compas_view2.app import App
+from compas_viewer import Viewer
 
 
 # Mesh
@@ -28,6 +28,6 @@ mesh = mesh_conway_ambo(mesh_conway_kis(mesh_conway_ambo(mesh)))
 
 
 # Viz
-viewer = App()
-viewer.add(mesh)
-viewer.run()
+viewer = Viewer()
+viewer.scene.add(mesh)
+viewer.show()

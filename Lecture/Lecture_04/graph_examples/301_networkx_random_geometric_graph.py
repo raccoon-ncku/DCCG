@@ -1,5 +1,5 @@
 from compas_view2.shapes import Text
-from compas_view2.app import App
+from compas_viewer import Viewer
 import compas.datastructures as cd
 import matplotlib.pyplot as plt
 import networkx as nx
@@ -38,7 +38,7 @@ network = cd.Network.from_networkx(G)
 for node_id in network.nodes():
     coordinate = network.node_attribute(node_id, "pos")
     network.node_attributes(node_id, "xy", coordinate)
-viewer = App()
-viewer.add(network)
+viewer = Viewer()
+viewer.scene.add(network)
 
-viewer.run()
+viewer.show()

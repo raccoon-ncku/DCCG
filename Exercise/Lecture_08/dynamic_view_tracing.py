@@ -1,4 +1,4 @@
-from compas_view2.app import App
+from compas_viewer import Viewer
 import compas.geometry as cg
 from tracing_drone import TracingDrone
 import random
@@ -27,7 +27,7 @@ for i in range(TARGET_COUNT):
         (0, 1, 0)
     )
     targets.append(target)
-    viewer.add(cg.Sphere(target.point, 1), facecolor=(0, 0.7, 0))
+    viewer.scene.add(cg.Sphere(target.point, 1), facecolor=(0, 0.7, 0))
 
 # Create negative targets
 for i in range(NEGATIVE_TARGET_COUNT):
@@ -39,7 +39,7 @@ for i in range(NEGATIVE_TARGET_COUNT):
         (0, 1, 0)
     )
     negative_targets.append(negative_target)
-    viewer.add(cg.Sphere(negative_target.point, 1), facecolor=(0.7, 0, 0))
+    viewer.scene.add(cg.Sphere(negative_target.point, 1), facecolor=(0.7, 0, 0))
 
 
 for i in range(DRONE_COUNT):
@@ -54,7 +54,7 @@ for i in range(DRONE_COUNT):
     drone.negative_targets = negative_targets
 
     # Add the geometrical representation to the viewer
-    viewer_obj = viewer.add(drone.get_body())
+    viewer_obj = viewer.scene.add(drone.get_body())
 
     # Add the drone to the model_objs list
     # Seperate the drone object and the viewer object

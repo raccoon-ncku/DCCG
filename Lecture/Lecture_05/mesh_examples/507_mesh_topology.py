@@ -1,12 +1,12 @@
-from compas_view2.app import App
+from compas_viewer import Viewer
 import compas
 import compas.geometry as cg
 import compas.datastructures as cd
-
+from compas.colors import Color
 
 mesh = cd.Mesh.from_obj(compas.get('hypar.obj'))
 
-fkey = mesh.get_any_face()
+fkey = mesh.face_sample()[0]
 n_fkeys = mesh.face_neighbors(fkey)
 
 # Visualization
@@ -33,9 +33,9 @@ for n_fkey in n_fkeys:
     n_mesh.add_face(v_keys)
     n_faces.append(n_mesh)
 
-viewer = App()
-viewer.add(mesh, show_faces=False, opacity=0.5)
-viewer.add(some_face, facecolor=(0.5, 1, 1))
+viewer = Viewer()
+viewer.scene.add(mesh, show_faces=False, opacity=0.5)
+viewer.scene.add(some_face, facecolor=Color(0.5, 1, 1))
 for n_face in n_faces:
-    viewer.add(n_face, facecolor=(0.8, 0, 0), opacity=0.3)
-viewer.run()
+    viewer.scene.add(n_face, facecolor=Color(0.8, 0, 0), opacity=0.3)
+viewer.show()

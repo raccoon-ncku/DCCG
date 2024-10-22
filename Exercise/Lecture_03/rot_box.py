@@ -1,6 +1,6 @@
 import compas.geometry as cg
 from compas.colors import Color
-from compas_view2.app import App
+from compas_viewer import Viewer
 from compas_view2.collections import Collection
 
 SIZE_X = 10
@@ -9,7 +9,7 @@ SIZE_Z = 10
 STEP_X = 5
 STEP_Y = 5
 STEP_Z = 5
-viewer = App()
+viewer = Viewer()
 geometries = []
 properties = []
 for x in range(SIZE_X):
@@ -26,5 +26,5 @@ for x in range(SIZE_X):
             properties.append({'facecolor': Color(x/SIZE_X, y/SIZE_Y, z/SIZE_Z)})
 
 collection = Collection(geometries, properties)
-viewer.add(collection)
-viewer.run()
+viewer.scene.add(collection)
+viewer.show()

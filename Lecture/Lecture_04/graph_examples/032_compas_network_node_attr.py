@@ -15,13 +15,13 @@ text = {node: network.node_attribute(node, 'weight') for node in network.nodes()
 if compas.is_grasshopper():
     a = network
 else:
-    from compas_view2.app import App
+    from compas_viewer import Viewer
     from compas_view2.shapes import Text
-    viewer = App()
-    viewer.add(network)
+    viewer = Viewer()
+    viewer.scene.add(network)
     for node in network.nodes():
         node_coordinate = network.node_coordinates(node)
         node_weight_tag = str(network.node_attribute(node, "weight"))
         t = Text(node_weight_tag, node_coordinate, height=50)
-        viewer.add(t)
-    viewer.run()
+        viewer.scene.add(t)
+    viewer.show()

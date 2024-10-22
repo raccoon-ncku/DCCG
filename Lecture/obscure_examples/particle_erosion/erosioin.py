@@ -1,5 +1,5 @@
 import random
-from compas_view2.app import App
+from compas_viewer import Viewer
 from compas_cgal.subdivision import catmull_clark
 import compas.geometry as cg
 import compas.datastructures as cd
@@ -41,8 +41,8 @@ for i in range(ITERATION):
 
 VF = catmull_clark((mesh_vertex_coordinates, mesh_faces), 2)
 new_mesh = cd.Mesh.from_vertices_and_faces(*VF)
-viewer = App()
-viewer.add(new_mesh)
+viewer = Viewer()
+viewer.scene.add(new_mesh)
 viewer.show()
 
 

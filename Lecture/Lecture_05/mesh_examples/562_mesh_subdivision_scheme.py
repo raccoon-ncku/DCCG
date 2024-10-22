@@ -1,7 +1,7 @@
 from compas.datastructures import Mesh
 from compas.geometry import Point, Box
 from compas.geometry import Translation, Scale
-from compas_view2 import app
+from compas_viewer import Viewer
 
 box = Box.from_diagonal([(0.0, 0.0, 0.0), (1.0, 1.0, 1.0)])
 mesh = Mesh.from_shape(box)
@@ -30,15 +30,15 @@ ck.transform(Translation.from_vector([1.2 * 4, 0.0, 0.0]))
 doosabin.transform(Translation.from_vector([1.2 * 5, 0.0, 0.0]))
 frames.transform(Translation.from_vector([1.2 * 6, 0.0, 0.0]))
 
-viewer = app.App(viewmode="lighted")
+viewer = Viewer(viewmode="lighted")
 
-viewer.add(tri, show_faces=False, show_lines=True)
-viewer.add(corner, facecolor=(0.2, 0.2, 0.2),
+viewer.scene.add(tri, show_faces=False, show_lines=True)
+viewer.scene.add(corner, facecolor=(0.2, 0.2, 0.2),
            linecolor=(0.0, 0.0, 0.0), opacity=0.3)
-viewer.add(loop, facecolor=(0, 1, 1), opacity=1.0)
-viewer.add(quad)
-viewer.add(ck, facecolor=(1, 0, 0), opacity=0.7)
-viewer.add(doosabin, facecolor=(0, 0, 1), opacity=0.7)
-viewer.add(frames, facecolor=(1, 1, 1), opacity=1.0)
+viewer.scene.add(loop, facecolor=(0, 1, 1), opacity=1.0)
+viewer.scene.add(quad)
+viewer.scene.add(ck, facecolor=(1, 0, 0), opacity=0.7)
+viewer.scene.add(doosabin, facecolor=(0, 0, 1), opacity=0.7)
+viewer.scene.add(frames, facecolor=(1, 1, 1), opacity=1.0)
 
 viewer.show()

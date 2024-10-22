@@ -50,7 +50,7 @@ solve_tower_of_hanoi(N,'A','C','B')
 # Visualization
 import compas.geometry as cg
 from compas.colors import Color
-from compas_view2.app import App
+from compas_viewer import Viewer
 
 CYLINDER_RADIUS_STEP = 0.2
 CYLINDER_INITIAL_RADIUS = 0.2
@@ -66,19 +66,19 @@ rod_y_coords = {
 # Add rods
 for value in rod_y_coords.values():
     line = cg.Line([0, value, 0], [0, value, (N+1)* CYLINDER_HEIGHT])
-    viewer.add(line, linewidth=5)
+    viewer.scene.add(line, linewidth=5)
 
 # Add base
 frame = cg.Frame([0, 0, -0.25], [1, 0, 0], [0, 1, 0])
 box = cg.Box(frame, 3 * N * CYLINDER_RADIUS_STEP, 9 * N * CYLINDER_RADIUS_STEP, 0.5)
-viewer.add(box, facecolor=Color(0.95, 0.95, 0.95))
+viewer.scene.add(box, facecolor=Color(0.95, 0.95, 0.95))
 
 cylinder_objs = []
 for i in range(N):
     plane = cg.Plane([0, rod_y_coords['A'], (N-i-0.5) * CYLINDER_HEIGHT], [0,0,1])
     circle = cg.Circle(plane, CYLINDER_RADIUS_STEP*(i+1)+CYLINDER_INITIAL_RADIUS)
     cylinder = cg.Cylinder(circle, CYLINDER_HEIGHT)
-    cylinder_obj = viewer.add(cylinder, facecolor=Color(1, 1-(i+1)/N, 1-(i+1)/N))
+    cylinder_obj = viewer.scene.add(cylinder, facecolor=Color(1, 1-(i+1)/N, 1-(i+1)/N))
     cylinder_objs.append(cylinder_obj)
 
 @viewer.slider(title=f"Steps (0-{len(states)-1})", maxval=len(states)-1, step=1)
@@ -92,4 +92,4 @@ def slide(value):
             cylinder_objs[v-1].update()
     viewer.view.update()
 
-viewer.run()
+viewer.show()

@@ -2,7 +2,7 @@ from compas.geometry import Pointcloud, KDTree, Line
 from compas.datastructures import Network
 from compas.utilities import pairwise
 
-from compas_view2.app import App
+from compas_viewer import Viewer
 from compas_view2.collections import Collection
 
 # ==============================================================================
@@ -41,9 +41,9 @@ path = network.shortest_path(start, goal)
 # Viz
 # ==============================================================================
 
-viewer = App()
+viewer = Viewer()
 
-viewer.add(network)
+viewer.scene.add(network)
 
 lines = []
 for u, v in pairwise(path):
@@ -52,5 +52,5 @@ for u, v in pairwise(path):
     line = Line(a, b)
     lines.append(line)
 
-viewer.add(Collection(lines), linewidth=10)
-viewer.run()
+viewer.scene.add(Collection(lines), linewidth=10)
+viewer.show()

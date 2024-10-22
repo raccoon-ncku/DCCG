@@ -1,5 +1,5 @@
 import compas.datastructures as cd
-from compas_view2.app import App
+from compas_viewer import Viewer
 from libpysal import weights
 from contextily import add_basemap
 import matplotlib.pyplot as plt
@@ -55,6 +55,6 @@ network = cd.Network.from_networkx(knn_graph)
 for node_id in network.nodes():
     coordinate = (positions[node_id][0]+15000, positions[node_id][1]-6712110)
     network.node_attributes(node_id, "xy", coordinate)
-viewer = App()
-viewer.add(network)
-viewer.run()
+viewer = Viewer()
+viewer.scene.add(network)
+viewer.show()

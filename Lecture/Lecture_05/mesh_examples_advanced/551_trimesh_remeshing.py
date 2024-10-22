@@ -2,7 +2,7 @@ import pathlib
 import math
 import compas.geometry as cg
 from compas_cgal.trimesh import TriMesh
-from compas_view2.app import App
+from compas_viewer import Viewer
 
 
 FILE = pathlib.Path(__file__).parent / "data" / "Bunny.ply"
@@ -31,7 +31,7 @@ mesh_after = bunny.to_mesh()
 mesh_after.transform(cg.Translation.from_vector([0, 10, 0]))
 
 # Visualize
-viewer = App()
-viewer.add(mesh_before, facecolor=(0.7, 0.7, 0.7))
-viewer.add(mesh_after, facecolor=(0.7, 0.7, 0.7))
-viewer.run()
+viewer = Viewer()
+viewer.scene.add(mesh_before, facecolor=(0.7, 0.7, 0.7))
+viewer.scene.add(mesh_after, facecolor=(0.7, 0.7, 0.7))
+viewer.show()

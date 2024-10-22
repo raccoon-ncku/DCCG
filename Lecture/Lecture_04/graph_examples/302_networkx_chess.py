@@ -1,4 +1,4 @@
-from compas_view2.app import App
+from compas_viewer import Viewer
 from compas_view2.shapes import Text
 import compas.datastructures as cd
 import compas.geometry as cg
@@ -104,18 +104,18 @@ for i, node_id in enumerate(network.nodes()):
     network.node_attribute(node_id, "nodesize", nodesize_attr)
 
 # visualize COMPAS Network
-viewer = App()
-viewer.add(network)
+viewer = Viewer()
+viewer.scene.add(network)
 for node_id in network.nodes():
     coordinate = network.node_coordinates(node_id)
 
     # Add tag
     t = Text(node_id, coordinate, height=10)
-    viewer.add(t)
+    viewer.scene.add(t)
 
     # Add node
     radius = network.node_attribute(node_id, "nodesize") ** 0.5 / 1000
     sphere = cg.Sphere(coordinate, radius)
-    viewer.add(sphere)
+    viewer.scene.add(sphere)
 
-viewer.run()
+viewer.show()

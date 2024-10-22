@@ -1,5 +1,5 @@
 from compas_view2.shapes import Text
-from compas_view2.app import App
+from compas_viewer import Viewer
 import compas.geometry as cg
 import compas.datastructures as cd
 
@@ -21,11 +21,11 @@ coordinates = [cg.Point(*mesh.vertex_coordinates(vertex_key))
                for vertex_key in mesh.vertices()]
 
 
-viewer = App()
+viewer = Viewer()
 
-viewer.add(mesh)
+viewer.scene.add(mesh)
 for i, tag in enumerate(tags):
-    viewer.add(
+    viewer.scene.add(
         Text(tag, coordinates[i])
     )
-viewer.run()
+viewer.show()

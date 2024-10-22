@@ -4,7 +4,7 @@ import compas.datastructures as cd
 import compas.geometry as cg
 from compas.utilities import remap_values
 from compas.colors import Color
-from compas_view2.app import App
+from compas_viewer import Viewer
 
 # Create an empty mesh
 mesh = cd.Mesh()
@@ -116,5 +116,5 @@ mesh = cd.mesh_thicken(mesh, thickness=0.2)
         
 # Create a viewer
 viewer = App(show_grid=False)
-viewer.add(mesh)
-viewer.run()
+viewer.scene.add(mesh)
+viewer.show()

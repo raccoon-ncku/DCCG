@@ -1,4 +1,4 @@
-from compas_view2.app import App
+from compas_viewer import Viewer
 import compas.geometry as cg
 from drone import Drone
 import random
@@ -7,7 +7,7 @@ FRAMERATE = 1
 MAX_FRAME = 1000
 DRONE_COUNT = 10
 
-viewer = App()
+viewer = Viewer()
 
 model_objs = []
 
@@ -18,7 +18,7 @@ for i in range(DRONE_COUNT):
         (0, 1, 0)
     )
     drone = Drone(init_location)
-    viewer_obj = viewer.add(drone.get_body())
+    viewer_obj = viewer.scene.add(drone.get_body())
 
     model_objs.append(
         {

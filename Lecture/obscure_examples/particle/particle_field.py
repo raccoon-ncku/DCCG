@@ -1,5 +1,5 @@
 import random
-from compas_view2.app import App
+from compas_viewer import Viewer
 import compas
 import compas.geometry as cg
 import compas.datastructures as cd
@@ -10,7 +10,7 @@ FRAMERATE = 5
 MAX_FRAME = 60
 PARTICLE_COUNT = 40
 
-viewer = App()
+viewer = Viewer()
 
 input_path = pathlib.Path(__file__).parent / "mesh.stl"
 mesh = cd.Mesh.from_stl(input_path)
@@ -33,7 +33,7 @@ for _ in range(PARTICLE_COUNT):
         bbox.zmax + bbox.height * 0.2
     )
     particle = Particle(init_position, init_velocity=(0, 0, -1))
-    viewer_obj = viewer.add(particle.get_body())
+    viewer_obj = viewer.scene.add(particle.get_body())
     model_objs.append(
         {
             "obj": particle,
@@ -52,9 +52,9 @@ def update(f):
         obj["viewer_obj"].update()
 
         # Draw Path
-        viewer.add(cg.Line(obj["obj"].position_history[-1],
+        viewer.scene.add(cg.Line(obj["obj"].position_history[-1],
                    obj["obj"].position_history[-2]))
 
 
-viewer.add(mesh)
+viewer.scene.add(mesh)
 viewer.show()

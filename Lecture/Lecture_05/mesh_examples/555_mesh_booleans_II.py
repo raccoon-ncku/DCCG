@@ -7,7 +7,7 @@ from compas_cgal.booleans import boolean_difference
 from compas_cgal.booleans import boolean_intersection
 from compas_cgal.meshing import remesh
 
-from compas_view2.app import App
+from compas_viewer import Viewer
 
 # Make a box and a sphere
 box = Box.from_width_height_depth(2, 2, 2)
@@ -46,15 +46,15 @@ intersection = Mesh.from_vertices_and_faces(V, F)
 
 
 # Visualize
-viewer = App()
+viewer = Viewer()
 
-viewer.add(box, facecolor=(1, 0, 0), opacity=0.5)
-viewer.add(sphere, facecolor=(0, 0, 1), opacity=0.5)
-viewer.add(union.transformed(Translation.from_vector(
+viewer.scene.add(box, facecolor=(1, 0, 0), opacity=0.5)
+viewer.scene.add(sphere, facecolor=(0, 0, 1), opacity=0.5)
+viewer.scene.add(union.transformed(Translation.from_vector(
     [1 * 1.5 * width, 0, 0])), facecolor=(1, 0, 1))
-viewer.add(difference.transformed(Translation.from_vector(
+viewer.scene.add(difference.transformed(Translation.from_vector(
     [2 * 1.5 * width, 0, 0])), show_faces=False, show_lines=True, linecolor=(1, 0, 0))
-viewer.add(intersection.transformed(Translation.from_vector(
+viewer.scene.add(intersection.transformed(Translation.from_vector(
     [2 * 1.5 * width, 0, 0])), facecolor=(0, 1, 0))
 
-viewer.run()
+viewer.show()

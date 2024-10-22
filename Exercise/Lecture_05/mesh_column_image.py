@@ -4,7 +4,7 @@ import compas.datastructures as cd
 import compas.geometry as cg
 from compas.utilities import remap_values
 from compas.colors import Color
-from compas_view2.app import App
+from compas_viewer import Viewer
 from PIL import Image
 import pathlib
 
@@ -70,5 +70,5 @@ for i in range(COLUMN_Z_COUNT - 1):
         
 # Create a viewer
 viewer = App(show_grid=False, viewmode='lighted')
-viewer.add(mesh, use_vertex_color=True, show_lines=False)
-viewer.run()
+viewer.scene.add(mesh, use_vertex_color=True, show_lines=False)
+viewer.show()

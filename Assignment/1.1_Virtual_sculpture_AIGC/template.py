@@ -1,5 +1,5 @@
 import compas.geometry as cg
-from compas_view2.app import App
+from compas_viewer import Viewer
 
 geometries = []
 
@@ -24,5 +24,5 @@ for i in range(5):
 
 viewer = App(width=512, height=512, show_grid=False)
 for geometry in geometries:
-    viewer.add(geometry, facecolor=(1, 1, 1), linecolor=(0, 0, 0))
-viewer.run()
+    viewer.scene.add(geometry, facecolor=(1, 1, 1), linecolor=(0, 0, 0))
+viewer.show()

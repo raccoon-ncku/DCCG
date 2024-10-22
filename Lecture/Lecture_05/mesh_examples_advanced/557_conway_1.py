@@ -15,7 +15,7 @@ from compas.datastructures import (
     mesh_conway_truncate
 )
 
-from compas_view2.app import App
+from compas_viewer import Viewer
 
 
 # Mesh
@@ -39,21 +39,21 @@ truncate = mesh_conway_truncate(mesh)
 
 # Viz
 T = Translation.from_vector
-viewer = App()
+viewer = Viewer()
 
-viewer.add(ambo)
-viewer.add(bevel.transformed(T([3, 0, 0])))
-viewer.add(dual.transformed(T([6, 0, 0])))
-viewer.add(expand.transformed(T([9, 0, 0])))
+viewer.scene.add(ambo)
+viewer.scene.add(bevel.transformed(T([3, 0, 0])))
+viewer.scene.add(dual.transformed(T([6, 0, 0])))
+viewer.scene.add(expand.transformed(T([9, 0, 0])))
 
-viewer.add(gyro.transformed(T([0, 4, 0])))
-viewer.add(join.transformed(T([3, 4, 0])))
-viewer.add(kis.transformed(T([6, 4, 0])))
-viewer.add(meta.transformed(T([9, 4, 0])))
+viewer.scene.add(gyro.transformed(T([0, 4, 0])))
+viewer.scene.add(join.transformed(T([3, 4, 0])))
+viewer.scene.add(kis.transformed(T([6, 4, 0])))
+viewer.scene.add(meta.transformed(T([9, 4, 0])))
 
-viewer.add(needle.transformed(T([0, 8, 0])))
-viewer.add(ortho.transformed(T([3, 8, 0])))
-viewer.add(snub.transformed(T([6, 8, 0])))
-viewer.add(truncate.transformed(T([9, 8, 0])))
+viewer.scene.add(needle.transformed(T([0, 8, 0])))
+viewer.scene.add(ortho.transformed(T([3, 8, 0])))
+viewer.scene.add(snub.transformed(T([6, 8, 0])))
+viewer.scene.add(truncate.transformed(T([9, 8, 0])))
 
-viewer.run()
+viewer.show()

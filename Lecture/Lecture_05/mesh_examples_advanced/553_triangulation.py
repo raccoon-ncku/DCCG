@@ -4,7 +4,7 @@ import compas.geometry as cg
 from compas.datastructures import Mesh
 from compas_cgal.triangulation import conforming_delaunay_triangulation as cdt
 from compas_cgal.triangulation import refined_delaunay_mesh as rdm
-from compas_view2.app import App
+from compas_viewer import Viewer
 
 # ==============================================================================
 # Constraints
@@ -41,7 +41,7 @@ rdm_mesh = Mesh.from_vertices_and_faces(V, F)
 # Viz
 # ==============================================================================
 
-viewer = App()
-viewer.add(cdt_mesh.transformed(cg.Translation.from_vector([0, -12, 0])))
-viewer.add(rdm_mesh.transformed(cg.Translation.from_vector([0, 12, 0])))
-viewer.run()
+viewer = Viewer()
+viewer.scene.add(cdt_mesh.transformed(cg.Translation.from_vector([0, -12, 0])))
+viewer.scene.add(rdm_mesh.transformed(cg.Translation.from_vector([0, 12, 0])))
+viewer.show()

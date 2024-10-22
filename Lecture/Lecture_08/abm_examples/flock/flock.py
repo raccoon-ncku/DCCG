@@ -1,7 +1,7 @@
 import numpy as np
 from boid import Boid
 from compas.geometry import Frame, Box
-from compas_view2.app import App
+from compas_viewer import Viewer
 
 FRAMERATE = 25
 MAX_FRAME = 10000
@@ -21,7 +21,7 @@ for _ in range(BOID_COUNT):
     )
     boid = Boid(frame)
     flock.append(boid)
-    viewer_obj = viewer.add(boid.get_body())
+    viewer_obj = viewer.scene.add(boid.get_body())
     model_objs.append(
         {
             "obj": boid,
@@ -60,6 +60,6 @@ def update(f):
 
 # Visualize
 # Add the world box
-viewer.add(Box.from_diagonal(((0, 0, 0), (Boid.length, Boid.width, Boid.height))),
+viewer.scene.add(Box.from_diagonal(((0, 0, 0), (Boid.length, Boid.width, Boid.height))),
            show_lines=True, show_faces=False)
 viewer.show()

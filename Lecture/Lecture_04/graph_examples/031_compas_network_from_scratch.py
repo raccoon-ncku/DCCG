@@ -27,14 +27,14 @@ geometries = [network]
 if compas.is_grasshopper():
     a = geometries
 else:
-    from compas_view2.app import App
+    from compas_viewer import Viewer
     from compas_view2.shapes import Text
-    viewer = App()
+    viewer = Viewer()
     for geometry in geometries:
-        viewer.add(geometry)
+        viewer.scene.add(geometry)
     for node in network.nodes():
         node_coordinate = network.node_coordinates(node)
         node_weight_tag = str(node)
         t = Text(node_weight_tag, node_coordinate, height=50)
-        viewer.add(t)
-    viewer.run()
+        viewer.scene.add(t)
+    viewer.show()

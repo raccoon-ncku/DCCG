@@ -2,7 +2,7 @@ import compas
 from math import radians
 import compas.datastructures as cd
 import compas.geometry as cg
-from compas_view2.app import App
+from compas_viewer import Viewer
 import pathlib
 
 # ==============================================================================
@@ -42,14 +42,14 @@ after = cd.Mesh.from_vertices_and_faces(V, F)
 # Viz
 # ==============================================================================
 
-viewer = App()
+viewer = Viewer()
 
 box = cg.Box.from_bounding_box(before.bounding_box())
 dx = 1.5 * box.xsize
 
-viewer.add(before)
-viewer.add(after.transformed(cg.Translation.from_vector([dx, 0, 0])))
-viewer.run()
+viewer.scene.add(before)
+viewer.scene.add(after.transformed(cg.Translation.from_vector([dx, 0, 0])))
+viewer.show()
 
 path = pathlib.Path(__file__).parent / "mesh.stl"
 after.to_stl(path)

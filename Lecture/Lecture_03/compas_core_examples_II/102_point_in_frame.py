@@ -7,7 +7,7 @@ of `F`, we want to get the position `P_` of `P` in the global (world, absolute)
 coordinate system.
 """
 import compas.geometry as cg
-from compas_view2.app import App
+from compas_viewer import Viewer
 
 point = cg.Point(2.00, 2.00, 2.00)
 xaxis = cg.Vector(0.9767, 0.0010, -0.214)
@@ -25,15 +25,15 @@ P2 = F.to_local_coordinates(P1)
 print("The point's local coordinates: {}".format(P2))
 
 # Visualisation
-viewer = App()
-viewer.add(F)
-viewer.add(cg.Point(*P1))
+viewer = Viewer()
+viewer.scene.add(F)
+viewer.scene.add(cg.Point(*P1))
 
 
 # For visualisation purposes, we draw a Box.
 b = cg.Box.from_diagonal([[0, 0, 0], [1, 2, 3]])
 b.transform(cg.Transformation.from_frame(F))
-viewer.add(b,opacity=0.2)
+viewer.scene.add(b,opacity=0.2)
 
 
-viewer.run()
+viewer.show()

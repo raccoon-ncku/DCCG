@@ -8,7 +8,7 @@ point = cg.Point(19, 25, 7)
 if compas.is_grasshopper():
     a = point
 else:
-    from compas_view2.app import App
-    viewer = App()
-    viewer.add(point)
-    viewer.run()
+    from compas_viewer import Viewer
+    viewer = Viewer()
+    viewer.scene.add(point)
+    viewer.show()
