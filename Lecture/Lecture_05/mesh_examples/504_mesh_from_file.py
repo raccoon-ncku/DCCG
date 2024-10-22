@@ -1,7 +1,8 @@
 import compas.datastructures as cd
 import compas.geometry as cg
 import math
-from compas_view2.app import App
+from compas_viewer import Viewer
+
 import pathlib
 
 # pathlib is an object-oriented filesystem paths module
@@ -18,6 +19,6 @@ S = cg.Scale.from_factors([100, 100, 100])
 mesh.transform(R * S)
 print(mesh.summary())
 
-viewer = App()
-viewer.add(mesh)
-viewer.run()
+viewer = Viewer()
+viewer.scene.add(mesh)
+viewer.show()

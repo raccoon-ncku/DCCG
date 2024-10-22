@@ -1,9 +1,9 @@
 import math
 import compas.datastructures as cd
 import compas.geometry as cg
-from compas.utilities import remap_values
+from compas.itertools import remap_values
 from compas.colors import Color
-from compas_view2.app import App
+from compas_viewer import Viewer
 import pathlib
 
 filepath = pathlib.Path(__file__).parent / "data" / "Bunny.ply"
@@ -29,6 +29,6 @@ for vertex in mesh.vertices():
     color = Color(red_value,1-red_value,1-red_value)
     mesh.vertex_attribute(vertex, 'color', color)
 
-viewer = App()
-viewer.add(mesh, show_lines=False,use_vertex_color=True)
-viewer.run()
+viewer = Viewer()
+viewer.scene.add(mesh, show_lines=False,use_vertex_color=True)
+viewer.show()

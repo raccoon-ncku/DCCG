@@ -3,7 +3,7 @@ import compas.datastructures as cd
 from compas import is_grasshopper
 
 box_frame = cg.Frame((3, 0, 0), (1, 2, 3), (-1, 3, 4))
-box = cg.Box(box_frame, 3, 2, 4)
+box = cg.Box(3, 2, 4, box_frame)
 mesh_box = cd.Mesh.from_shape(box)
 
 # Polygon
@@ -21,8 +21,7 @@ mesh_polygon = cd.Mesh.from_polygons([polygon])
 if is_grasshopper():
     a = [mesh_box, mesh_polygon]
 else:
-    from compas_view2.app import App
-    viewer = App()
-    viewer.add(mesh_box)
-    viewer.add(mesh_polygon)
-    viewer.run()
+    from compas_viewer import Viewer
+    viewer = Viewer()
+    viewer.scene.add([mesh_box, mesh_polygon])
+    viewer.show()
