@@ -24,17 +24,14 @@ print(graph.summary())
 
 geometries = [graph]
 
-if compas.is_grasshopper():
-    a = geometries
-else:
-    from compas_viewer import Viewer
+from compas_viewer import Viewer
 
-    viewer = Viewer()
-    for geometry in geometries:
-        viewer.scene.add(geometry)
-    # for node in graph.nodes():
-    #     node_coordinate = graph.node_coordinates(node)
-    #     node_weight_tag = str(node)
-    #     t = Text(node_weight_tag, node_coordinate, height=50)
-    #     viewer.scene.add(t)
-    viewer.show()
+viewer = Viewer()
+for geometry in geometries:
+    viewer.scene.add(geometry)
+# for node in graph.nodes():
+#     node_coordinate = graph.node_coordinates(node)
+#     node_weight_tag = str(node)
+#     t = Text(node_weight_tag, node_coordinate, height=50)
+#     viewer.scene.add(t)
+viewer.show()

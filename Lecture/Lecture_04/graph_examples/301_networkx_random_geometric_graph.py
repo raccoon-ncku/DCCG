@@ -34,11 +34,15 @@ plt.axis('off')
 plt.show()
 
 # Convert to COMPAS Graph
-network = cd.Graph.from_networkx(G)
-for node_id in network.nodes():
-    coordinate = network.node_attribute(node_id, "pos")
-    network.node_attributes(node_id, "xy", coordinate)
-viewer = Viewer()
-viewer.scene.add(network)
+graph = cd.Graph.from_networkx(G)
+for node_id in graph.nodes():
+    coordinate = graph.node_attribute(node_id, "pos")
+    coordinate.append(0)
+    graph.node_attributes(node_id, "xyz", coordinate)
+# Draw!
 
+from compas_viewer import Viewer
+viewer = Viewer()
+
+viewer.scene.add(graph)
 viewer.show()
