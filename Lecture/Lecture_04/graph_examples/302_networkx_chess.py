@@ -94,8 +94,8 @@ ax.margins(0.1, 0.05)
 fig.tight_layout()
 plt.show()
 
-# Convert to COMPAS Network
-network = cd.Network.from_networkx(H)
+# Convert to COMPAS Graph
+network = cd.Graph.from_networkx(H)
 for i, node_id in enumerate(network.nodes()):
     coordinate = pos[node_id]
     nodesize_attr = nodesize[i]
@@ -103,7 +103,7 @@ for i, node_id in enumerate(network.nodes()):
     network.node_attribute(node_id, "z", 0)
     network.node_attribute(node_id, "nodesize", nodesize_attr)
 
-# visualize COMPAS Network
+# visualize COMPAS Graph
 viewer = Viewer()
 viewer.scene.add(network)
 for node_id in network.nodes():

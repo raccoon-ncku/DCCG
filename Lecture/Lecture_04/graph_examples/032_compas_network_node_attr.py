@@ -16,7 +16,6 @@ if compas.is_grasshopper():
     a = network
 else:
     from compas_viewer import Viewer
-    from compas_view2.shapes import Text
     viewer = Viewer()
     viewer.scene.add(network)
     for node in network.nodes():

@@ -51,7 +51,7 @@ nx.draw(dist_graph, positions, ax=ax[1], node_size=5, node_color="b")
 plt.show()
 
 
-network = cd.Network.from_networkx(knn_graph)
+network = cd.Graph.from_networkx(knn_graph)
 for node_id in network.nodes():
     coordinate = (positions[node_id][0]+15000, positions[node_id][1]-6712110)
     network.node_attributes(node_id, "xy", coordinate)

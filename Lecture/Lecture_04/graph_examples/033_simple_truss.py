@@ -32,8 +32,8 @@ bottom_params = [0.2, 0.3, 0.6, 0.8]
 
 
 for i in range(4):
-    top_plate_pt = top_plate_line.point(top_params[i])
-    bottom_plate_pt = bottom_plate_line.point(bottom_params[i])
+    top_plate_pt = top_plate_line.point_at(top_params[i])
+    bottom_plate_pt = bottom_plate_line.point_at(bottom_params[i])
     stud_line = cg.Line(
         top_plate_pt,
         bottom_plate_pt

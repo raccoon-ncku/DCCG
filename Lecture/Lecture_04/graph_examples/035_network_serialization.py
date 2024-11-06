@@ -2,22 +2,25 @@ import os
 import random
 
 import compas
-from compas.datastructures import Network
+from compas.datastructures import Graph
 
-network = Network.from_obj(compas.get('grid_irregular.obj'))
+graph = Graph.from_obj(compas.get('grid_irregular.obj'))
 
-for node in network.nodes():
-    network.node_attribute(node, 'weight', random.choice(range(20)))
+for node in graph.nodes():
+    graph.node_attribute(node, 'weight', random.choice(range(20)))
 
-print(network.summary())
+print(graph.summary())
 
-# Serialize network to JSON and back
+# Serialize graph to JSON and back
 filename = os.path.join(os.path.dirname(__file__), 'data',
-                        '033_network_serialization.json')
+                        '033_graph_serialization.json')
 
-network.to_json(filename, pretty=True)
-print(network.summary())
+if not os.path.exists(filename):
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
+
+graph.to_json(filename, pretty=True)
+print(graph.summary())
 print(f'Saved to {filename}')
 
-network2 = Network.from_json(filename)
-print(network2.summary())
+graph2 = Graph.from_json(filename)
+print(graph2.summary())

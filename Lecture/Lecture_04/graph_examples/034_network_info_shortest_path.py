@@ -1,9 +1,8 @@
 from compas.geometry import Pointcloud, KDTree, Line
-from compas.datastructures import Network
+from compas.datastructures import Graph
 from compas.utilities import pairwise
 
 from compas_viewer import Viewer
-from compas_view2.collections import Collection
 
 # ==============================================================================
 # Pointcloud and Tree for NNBRS lookup
@@ -13,10 +12,10 @@ cloud = Pointcloud.from_bounds(10, 5, 3, 200)
 tree = KDTree(cloud)
 
 # ==============================================================================
-# Network connecting points to their NNBRS
+# Graph connecting points to their NNBRS
 # ==============================================================================
 
-network = Network()
+network = Graph()
 
 for point in cloud:
     network.add_node(x=point[0], y=point[1], z=point[2])

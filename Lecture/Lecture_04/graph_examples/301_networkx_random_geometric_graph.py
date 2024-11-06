@@ -1,4 +1,4 @@
-from compas_view2.shapes import Text
+
 from compas_viewer import Viewer
 import compas.datastructures as cd
 import matplotlib.pyplot as plt
@@ -33,8 +33,8 @@ plt.ylim(-0.05, 1.05)
 plt.axis('off')
 plt.show()
 
-# Convert to COMPAS Network
-network = cd.Network.from_networkx(G)
+# Convert to COMPAS Graph
+network = cd.Graph.from_networkx(G)
 for node_id in network.nodes():
     coordinate = network.node_attribute(node_id, "pos")
     network.node_attributes(node_id, "xy", coordinate)
