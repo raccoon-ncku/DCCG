@@ -7,11 +7,17 @@
 👉[Slides (Network)](https://docs.google.com/presentation/d/1yVhKyyiMWxmTYzYRcYB-4bV7nkqA3j-sPFnZwsaInnw/edit#slide=id.g161ec40d1bd_0_0)
 
 
-## Additional modules
-```
+## Install Additional modules
+Open your terminal, or Anaconda Powershell Prompt, or any command line interface where you can run conda commands.
+
+First, activate your environment, update installed packages, and install the required packages.
+
+```bash
 conda activate DCCG
+conda update --all
 conda install pandas libpysal contextily geopandas
 ```
+
 
 ## Reference
 [networkx](https://networkx.org/documentation/stable/index.html): a Python package for the creation, manipulation, and study of the structure, dynamics, and functions of complex networks.
