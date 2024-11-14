@@ -5,7 +5,7 @@ from compas.itertools import remap_values
 from compas.colors import Color
 from compas_viewer import Viewer
 import pathlib
-
+from random import random
 filepath = pathlib.Path(__file__).parent / "data" / "Bunny.ply"
 
 mesh = cd.Mesh.from_ply(filepath)
@@ -27,8 +27,8 @@ for vertex in mesh.vertices():
         original_min=z_min,
         original_max=z_max)[0]
     color = Color(red_value,1-red_value,1-red_value)
-    mesh.vertex_attribute(vertex, 'color', color)
+    mesh.vertex_attribute(vertex, "color", Color.from_i(random()))
 
 viewer = Viewer()
-viewer.scene.add(mesh, show_lines=False,use_vertex_color=True)
+viewer.scene.add(mesh, use_vertexcolors=True)
 viewer.show()
