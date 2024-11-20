@@ -1,6 +1,7 @@
-from compas import is_grasshopper
 import compas.datastructures as cd
+from compas_viewer import Viewer
 
+# Create an empty mesh
 mesh = cd.Mesh()
 
 a = mesh.add_vertex()  # x,y,z coordinates are optional and default to 0,0,0
@@ -12,11 +13,7 @@ mesh.add_face([a, b, c, d])
 
 print(mesh.summary())
 
-# Draw!
-if is_grasshopper():
-    a = mesh
-else:
-    from compas_viewer import Viewer
-    viewer = Viewer()
-    viewer.scene.add(mesh)
-    viewer.show()
+# Visualize the mesh
+viewer = Viewer()
+viewer.scene.add(mesh)
+viewer.show()

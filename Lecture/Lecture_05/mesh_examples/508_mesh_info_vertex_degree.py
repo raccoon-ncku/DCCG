@@ -18,18 +18,14 @@ for vertex_key in mesh.vertices():
 coordinates = [cg.Point(*mesh.vertex_coordinates(vertex_key))
                for vertex_key in mesh.vertices()]
 
-if compas.is_grasshopper():
-    a = mesh
-    b = tags
-    c = coordinates
-else:
-    from compas_viewer import Viewer
-    from compas_viewer.scene import Tag
-    viewer = Viewer()
 
-    viewer.scene.add(mesh)
-    for i, tag in enumerate(tags):
-        viewer.scene.add(
-            Tag(tag, coordinates[i])
-        )
-    viewer.show()
+from compas_viewer import Viewer
+from compas_viewer.scene import Tag
+viewer = Viewer()
+
+viewer.scene.add(mesh)
+for i, tag in enumerate(tags):
+    viewer.scene.add(
+        Tag(tag, coordinates[i])
+    )
+viewer.show()

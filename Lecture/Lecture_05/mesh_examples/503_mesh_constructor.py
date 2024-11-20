@@ -1,6 +1,6 @@
 import compas.geometry as cg
 import compas.datastructures as cd
-from compas import is_grasshopper
+from compas_viewer import Viewer
 
 box_frame = cg.Frame((3, 0, 0), (1, 2, 3), (-1, 3, 4))
 box = cg.Box(3, 2, 4, box_frame)
@@ -18,10 +18,6 @@ mesh_polygon = cd.Mesh.from_polygons([polygon])
 # mesh = cd.Mesh.from_vertices_and_faces(vertices, faces)
 
 # Draw!
-if is_grasshopper():
-    a = [mesh_box, mesh_polygon]
-else:
-    from compas_viewer import Viewer
-    viewer = Viewer()
-    viewer.scene.add([mesh_box, mesh_polygon])
-    viewer.show()
+viewer = Viewer()
+viewer.scene.add([mesh_box, mesh_polygon])
+viewer.show()

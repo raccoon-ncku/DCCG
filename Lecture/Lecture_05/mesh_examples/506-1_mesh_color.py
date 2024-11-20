@@ -30,5 +30,5 @@ for vertex in mesh.vertices():
     mesh.vertex_attribute(vertex, "color", Color.from_i(random()))
 
 viewer = Viewer()
-viewer.scene.add(mesh, use_vertexcolors=True)
+viewer.scene.add(mesh)
 viewer.show()

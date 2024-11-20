@@ -26,7 +26,7 @@ mesh = cd.Mesh.from_obj(compas.get('hypar.obj'))
 # Operators
 mesh = mesh_conway_ambo(mesh)
 mesh = mesh_conway_truncate(mesh)
-mesh = cd.mesh_thicken(mesh, 0.5)
+mesh = mesh.thickened(0.1)
 
 
 # Viz
