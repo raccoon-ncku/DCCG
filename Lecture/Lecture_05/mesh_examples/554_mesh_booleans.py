@@ -1,10 +1,9 @@
 import compas
 import compas.geometry as cg
 import compas.datastructures as cd
-import compas_cgal.booleans as c_cgal_bool
 
-b1 = cg.Box(cg.Frame([+4, +4, 2], [1, 0, 0], [0, 1, 0]), 10, 10, 10)
-b2 = cg.Box(cg.Frame([-4, -4, -2], [1, 0, 0], [0, 1, 0]), 10, 10, 10)
+b1 = cg.Box(10, 10, 10, cg.Frame([+4, +4, 2], [1, 0, 0], [0, 1, 0]))
+b2 = cg.Box(10, 10, 10, cg.Frame([-4, -4, -2], [1, 0, 0], [0, 1, 0]))
 
 A = cd.Mesh.from_shape(b1)
 B = cd.Mesh.from_shape(b2)
@@ -17,7 +16,7 @@ B = B.to_vertices_and_faces()
 
 # Use best boolean union available depending on context
 # V, F = cg.boolean_union_mesh_mesh(A, B)
-V, F = c_cgal_bool.boolean_union(A, B)
+V, F = cg.boolean_union_mesh_mesh(A, B)
 
 mesh = cd.Mesh.from_vertices_and_faces(V, F)
 print(mesh.summary())
