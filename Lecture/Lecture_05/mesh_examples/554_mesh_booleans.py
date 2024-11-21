@@ -23,10 +23,7 @@ mesh = cd.Mesh.from_vertices_and_faces(V, F)
 print(mesh.summary())
 
 # Draw!
-if compas.is_grasshopper():
-    a = mesh
-else:
-    from compas_viewer import Viewer
-    viewer = Viewer()
-    viewer.scene.add(mesh)
-    viewer.show()
+from compas_viewer import Viewer
+viewer = Viewer()
+viewer.scene.add(mesh)
+viewer.show()

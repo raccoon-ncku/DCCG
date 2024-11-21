@@ -26,7 +26,7 @@ S8.transform(Translation.from_vector([4, 0, 0]))
 
 
 # Viz
-viewer = App(width=1200, height=750)
+viewer = Viewer(width=1200, height=750)
 viewer.view.camera.tx = -2.5
 viewer.view.camera.ty = -1
 viewer.view.camera.rz = 0

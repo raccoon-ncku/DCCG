@@ -19,7 +19,7 @@ from compas_viewer import Viewer
 
 
 # Mesh
-box = cg.Box(cg.Frame.worldXY(), 1, 1, 1)
+box = cg.Box( 1, 1, 1, cg.Frame.worldXY())
 mesh = Mesh.from_shape(box)
 
 

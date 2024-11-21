@@ -7,7 +7,7 @@ box = Box.from_diagonal([(0.0, 0.0, 0.0), (1.0, 1.0, 1.0)])
 mesh = Mesh.from_shape(box)
 
 trimesh = Mesh.from_polyhedron(4)
-tribox = Box.from_bounding_box(trimesh.bounding_box())
+tribox = trimesh.aabb()
 
 S = tribox.width / box.width
 
@@ -15,13 +15,13 @@ trimesh.transform(Scale.from_factors([S, S, S]))
 trimesh.transform(Translation.from_vector(
     Point(0.5, 0.5, 0.5) - Point(0, 0, 0)))
 
-tri = mesh.subdivide(k=3, scheme='tri')
-quad = mesh.subdivide(k=3, scheme='quad')
-corner = mesh.subdivide(k=3, scheme='corner')
-ck = mesh.subdivide(k=3, scheme='catmullclark')
-doosabin = mesh.subdivide(k=3, scheme='doosabin')
-frames = mesh.subdivide(offset=0.2, scheme='frames', add_windows=True)
-loop = trimesh.subdivide(k=3, scheme='loop')
+tri = mesh.subdivided(k=3, scheme='tri')
+quad = mesh.subdivided(k=3, scheme='quad')
+corner = mesh.subdivided(k=3, scheme='corner')
+ck = mesh.subdivided(k=3, scheme='catmullclark')
+doosabin = mesh.subdivided(k=3, scheme='doosabin')
+frames = mesh.subdivided(offset=0.2, scheme='frames', add_windows=True)
+loop = trimesh.subdivided(k=3, scheme='loop')
 
 corner.transform(Translation.from_vector([1.2 * 1, 0.0, 0.0]))
 loop.transform(Translation.from_vector([1.2 * 2, 0.0, 0.0]))
