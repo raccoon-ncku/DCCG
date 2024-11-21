@@ -2,7 +2,7 @@
 import math
 import compas.datastructures as cd
 import compas.geometry as cg
-from compas.utilities import remap_values
+from compas.itertools import remap_values
 from compas.colors import Color
 from compas_viewer import Viewer
 
@@ -22,7 +22,7 @@ points = [
 ]
 curve = cg.Bezier(points)
 # Convert the curve into a polyline, as the former has less methods available
-curve = cg.Polyline(curve.locus())
+curve = cg.Polyline(curve.points)
 
 # Create a column using math functions
 for i in range(COLUMN_Z_COUNT):
@@ -55,7 +55,7 @@ for i in range(COLUMN_Z_COUNT):
 
         # Add the point to the mesh
         mesh.add_vertex(x=point.x, y=point.y, z=point.z)
-
+print(mesh.number_of_vertices())
 # Create faces
 for i in range(COLUMN_Z_COUNT - 1):
     for j in range(COLUMN_CIRCLE_DIVISION):
@@ -64,19 +64,11 @@ for i in range(COLUMN_Z_COUNT - 1):
                        (i + 1) * COLUMN_CIRCLE_DIVISION + (j + 1) % COLUMN_CIRCLE_DIVISION,
                        (i + 1) * COLUMN_CIRCLE_DIVISION + j])
 
-# Color the mesh
-for vertex in mesh.vertices():
-    red_value = 1 - remap_values(
-        [mesh.vertex_coordinates(vertex)[2]],
-        original_min=0,
-        original_max=COLUMN_HEIGHT)[0]
-    color = Color(red_value*0.7,0.5-red_value*0.3,1-red_value*0.6)
-    mesh.vertex_attribute(vertex, 'color', color)
         
 # Create a viewer
-viewer = App(show_grid=False, viewmode='lighted')
+viewer = Viewer(show_grid=False, viewmode='lighted')
 for pt in points:
     viewer.scene.add(cg.Point(* pt), pointsize=10, pointcolor=(0.8, 0.2, 0.2))
 viewer.scene.add(curve)
-viewer.scene.add(mesh, use_vertex_color=True, show_lines=False)
+viewer.scene.add(mesh)
 viewer.show()

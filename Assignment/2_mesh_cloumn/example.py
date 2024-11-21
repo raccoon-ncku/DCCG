@@ -2,7 +2,7 @@
 import math
 import compas.datastructures as cd
 import compas.geometry as cg
-from compas.utilities import remap_values
+from compas.itertools import remap_values
 from compas.colors import Color
 from compas_viewer import Viewer
 
@@ -103,7 +103,7 @@ for i in range(COLUMN_Z_COUNT - 1):
                        i * COLUMN_CIRCLE_DIVISION + (j + 1) % COLUMN_CIRCLE_DIVISION,
                        (i + 1) * COLUMN_CIRCLE_DIVISION + (j + 1) % COLUMN_CIRCLE_DIVISION,
                        (i + 1) * COLUMN_CIRCLE_DIVISION + j])
-mesh = mesh.subdivide(k=1, scheme="tri")        
+mesh = mesh.subdivided(k=1, scheme="tri")        
 
 # Freeze the mesh keys
 facekeys = list(mesh.faces())
@@ -112,9 +112,9 @@ for i, face in enumerate(facekeys):
     width = math.sin(10 * i / len(facekeys) * math.pi)*0.3 + 0.5
     create_face_window(mesh, face, width)
 
-mesh = cd.mesh_thicken(mesh, thickness=0.2)
+mesh = mesh.thickened(thickness=0.2)
         
 # Create a viewer
-viewer = App(show_grid=False)
+viewer = Viewer(show_grid=False)
 viewer.scene.add(mesh)
 viewer.show()

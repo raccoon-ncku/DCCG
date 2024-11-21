@@ -2,7 +2,7 @@
 import math
 import compas.datastructures as cd
 import compas.geometry as cg
-from compas.utilities import remap_values
+from compas.itertools import remap_values
 from compas.colors import Color
 from compas_viewer import Viewer
 
@@ -45,17 +45,6 @@ for i in range(COLUMN_Z_COUNT):
         # Add the point to the mesh
         vertex = mesh.add_vertex(x=point.x, y=point.y, z=point.z)
 
-        # Color the mesh
-        red_value = 1 - remap_values(
-            [z],
-            original_min=0,
-            original_max=COLUMN_HEIGHT)[0]
-        green_value = (math.cos(angle+z*0.1)+1)/2
-        color = Color(red_value*0.7,
-                      0.6-red_value*0.3-green_value*0.3,
-                      1-red_value*0.6)
-        mesh.vertex_attribute(vertex, 'color', color)
-
 # Create faces
 for i in range(COLUMN_Z_COUNT - 1):
     for j in range(COLUMN_CIRCLE_DIVISION):
@@ -66,6 +55,6 @@ for i in range(COLUMN_Z_COUNT - 1):
 
         
 # Create a viewer
-viewer = App(show_grid=False, viewmode='lighted')
-viewer.scene.add(mesh, use_vertex_color=True, show_lines=False)
+viewer = Viewer(show_grid=False, viewmode='lighted')
+viewer.scene.add(mesh, show_lines=True)
 viewer.show()

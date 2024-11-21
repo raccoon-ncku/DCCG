@@ -6,7 +6,7 @@ from compas_viewer import Viewer
 
 
 # Create a sphere and convert it to a mesh
-sphere = cg.Sphere(cg.Point(0,0,0), 1)
+sphere = cg.Sphere(1, cg.Frame.worldXY())
 mesh = cd.Mesh.from_shape(sphere, u=50, v=50)
 
 pts = []
@@ -39,7 +39,7 @@ for vertex in mesh.vertices():
 
 
 # Viz
-viewer = App(show_grid=False)
+viewer = Viewer(show_grid=False)
 viewer.scene.add(mesh, use_vertex_color=True)
 for pt in pts:
     viewer.scene.add(pt)
