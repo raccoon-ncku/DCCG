@@ -1,4 +1,3 @@
-from compas_view2.shapes import Text
 from compas_viewer import Viewer
 import compas.geometry as cg
 import compas.datastructures as cd
@@ -24,8 +23,4 @@ coordinates = [cg.Point(*mesh.vertex_coordinates(vertex_key))
 viewer = Viewer()
 
 viewer.scene.add(mesh)
-for i, tag in enumerate(tags):
-    viewer.scene.add(
-        Text(tag, coordinates[i])
-    )
 viewer.show()

@@ -2,7 +2,7 @@
 import random
 import compas.geometry as cg
 from compas_viewer import Viewer
-viewer = App(show_grid=False)
+viewer = Viewer(show_grid=False)
 MAX_DEPTH = 5
 
 def branch(parent_stem, length, depth, angle_deviation=0.9):

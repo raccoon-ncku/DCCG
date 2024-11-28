@@ -2,7 +2,7 @@
 import random
 import compas.geometry as cg
 from compas_viewer import Viewer
-viewer = App(show_grid=False)
+viewer = Viewer(show_grid=False)
 MAX_DEPTH = 4
 
 def branch(parent_stem, length, depth, angle_deviation=0.5):
@@ -12,7 +12,7 @@ def branch(parent_stem, length, depth, angle_deviation=0.5):
     if random_stop < 0.3:
         return
     if depth > MAX_DEPTH:
-        sphere = cg.Sphere(parent_stem.end, 0.3)
+        sphere = cg.Sphere(0.3, point=parent_stem.end)
         viewer.scene.add(sphere, facecolor=(1, 0, 0))
         return
 

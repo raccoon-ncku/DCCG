@@ -1,7 +1,6 @@
 import random
 import compas.datastructures as cd
-from compas import is_grasshopper
-
+from compas_viewer import Viewer
 
 mesh = cd.Mesh.from_polyhedron(4)
 
@@ -61,10 +60,6 @@ def sierpinski(v_keys, depth=0, max_depth=5):
 sierpinski((0, 1, 2, 3), 0, 5)
 mesh = cd.Mesh.from_vertices_and_faces(v, f)
 
-if is_grasshopper():
-    a = mesh
-else:
-    from compas_viewer import Viewer
-    viewer = Viewer()
-    viewer.scene.add(mesh)
-    viewer.show()
+viewer = Viewer()
+viewer.scene.add(mesh)
+viewer.show()
