@@ -85,16 +85,6 @@ for i in range(COLUMN_Z_COUNT):
         # Add the point to the mesh
         vertex = mesh.add_vertex(x=point.x, y=point.y, z=point.z)
 
-        # Color the mesh
-        red_value = 1 - remap_values(
-            [z],
-            original_min=0,
-            original_max=COLUMN_HEIGHT)[0]
-        green_value = (math.cos(angle+z*0.1)+1)/2
-        color = Color(red_value*0.7,
-                      0.6-red_value*0.3-green_value*0.3,
-                      1-red_value*0.6)
-        mesh.vertex_attribute(vertex, 'color', color)
 
 # Create faces
 for i in range(COLUMN_Z_COUNT - 1):

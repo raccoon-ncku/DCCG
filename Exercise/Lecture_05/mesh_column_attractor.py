@@ -18,7 +18,7 @@ COLUMN_CIRCLE_DIVISION = int(round(COLUMN_RADIUS * 2 * math.pi/ MESH_EDGE_LENGTH
 
 # Create a bezier curve
 points = [
-    [10, 0, 0], [0, 30, 20], [-30, 0, 60], [0, -10, 100]
+    [15, 0, 0], [0, 12, 20], [-12, 0, 60], [0, -15, 100]
 ]
 curve = cg.Bezier(points)
 # Convert the curve into a polyline, as the former has less methods available
@@ -45,7 +45,7 @@ for i in range(COLUMN_Z_COUNT):
             0
         )
         vector.scale(
-            1000 / (3 * distance ** 2 )
+            1000 / (10 * distance ** 2 )
             )
         
         translation = cg.Translation.from_vector(vector)
@@ -55,7 +55,7 @@ for i in range(COLUMN_Z_COUNT):
 
         # Add the point to the mesh
         mesh.add_vertex(x=point.x, y=point.y, z=point.z)
-print(mesh.number_of_vertices())
+
 # Create faces
 for i in range(COLUMN_Z_COUNT - 1):
     for j in range(COLUMN_CIRCLE_DIVISION):
