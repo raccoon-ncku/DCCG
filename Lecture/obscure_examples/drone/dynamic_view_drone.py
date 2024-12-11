@@ -3,13 +3,11 @@ import compas.geometry as cg
 from drone import Drone
 import random
 
-FRAMERATE = 1
-MAX_FRAME = 1000
-DRONE_COUNT = 10
+DRONE_COUNT = 1
 
 viewer = Viewer()
 
-model_objs = []
+drones = []
 
 for i in range(DRONE_COUNT):
     init_location = cg.Frame(
@@ -18,22 +16,22 @@ for i in range(DRONE_COUNT):
         (0, 1, 0)
     )
     drone = Drone(init_location)
-    viewer_obj = viewer.scene.add(drone.get_body())
+    drone.velocity = cg.Vector(0,0,1) # set the initial velocity to 1 in the z direction
 
-    model_objs.append(
-        {
-            "obj": drone,
-            "viewer_obj": viewer_obj
-        }
-    )
+    # pass the viewer object to the drone, so it can update its position
+    viewer_obj = viewer.scene.add(drone.body)
+    drone.set_viewer_obj(viewer_obj)
+
+    drones.append(drone)
 
 
-@viewer.on(interval=1000 / FRAMERATE, frames=MAX_FRAME)
-def update(f):
-    for obj in model_objs:
-        obj["obj"].move()
-        obj["viewer_obj"]._data = obj["obj"].get_body()
-        obj["viewer_obj"].update()
+@viewer.on(interval=100)
+def update(frame):
+    for drone in drones:
+        drone.move()
+
+        # update the object in the viewer
+        drone.viewer_obj.update()
 
 
 viewer.show()
