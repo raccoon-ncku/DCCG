@@ -11,8 +11,6 @@ The final project is an open-ended assignment. You can choose any topic you like
 ## Examples / Inspiration
 Here are some keywords that might help you to come up with a topic:
 
-- Recursion: tree, fractal, Koch curve, Sierpinski triangle, etc.
-- Fractal spirograph
 - Solar system: Agent-based modeling
 - Game of Life: Agent-based modeling
 - Lorenz attractor: [examples](https://www.deviantart.com/chaoticatmospheres/gallery/44050549)
@@ -28,5 +26,5 @@ Here are some keywords that might help you to come up with a topic:
 - 60%: technical difficulty
 
 ## Deadline and Submission
-- Deadline: 2024/01/17 23:55, no late submission this time as the school requires the grades to be submitted by 2024/01/20.
+- Deadline: 2025/01/10 23:30, no late submission this time as the school requires the grades to be submitted by 2025/01/24.
 - Submission: upload your codes and images/videos to Moodle.
