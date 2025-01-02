@@ -12,7 +12,7 @@ There are plenty of modules for optimization in Python. One of the most popular 
 Although we could install OR-Tools in our DCCG environment, we will create a new environment for OR-Tools to simplify the installation time. 
 
 ```bash
-conda create -n DCCG-optim python=3.9 deap pymoo sklearn
+conda create -n DCCG-optim python=3.9 deap pymoo
 conda activate DCCG-optim
-python -m pip install --upgrade --user ortools
+python -m pip install ortools
 ```
