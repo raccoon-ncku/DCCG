@@ -21,14 +21,16 @@ for vertex in mesh.vertices():
     z_min = min(z_min, z_coor)
     z_max = max(z_max, z_coor)
 print(z_min, z_max)
+
+vertexcolor = {}
 for vertex in mesh.vertices():
     red_value = 1 - remap_values(
         [mesh.vertex_coordinates(vertex)[2]],
         original_min=z_min,
         original_max=z_max)[0]
     color = Color(red_value,1-red_value,1-red_value)
-    mesh.vertex_attribute(vertex, "color", Color.from_i(random()))
+    vertexcolor[vertex] = color
 
 viewer = Viewer()
-viewer.scene.add(mesh)
+viewer.scene.add(mesh, use_vertexcolors=True, vertexcolor=vertexcolor)
 viewer.show()
