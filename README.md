@@ -6,11 +6,11 @@ The intersection of computational design and digital fabrication has changed how
 
 ### Info
 * E7-125 / E735400 / ARCH3045
-* WED 10:10-12:00
+* WED 13:10-15:00
 * classroom: Computer lab (5102)
 
 ### Office Hour and Support
-* Office hour: Wed 09:00-12:00 at Raccoon Studio (Arch)
+* Office hour: Wed 15:10-17:00
 * email: ccyen @ gs.ncku.edu.tw
 
 ## Schedule, 2025 Fall
@@ -38,6 +38,4 @@ The intersection of computational design and digital fabrication has changed how
 
 
 ## Grading Policy
-* Assignments 100%
-
-All assignments should be submitted via NCKU Moodle. 
+* Final Project 100%
