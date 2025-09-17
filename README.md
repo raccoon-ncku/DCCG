@@ -15,6 +15,8 @@ The intersection of computational design and digital fabrication has changed how
 
 ## Schedule, 2025 Fall
 
+🎬[Slide Streaming](https://slide-stream.rccn.dev/) This link provides a real-time stream of the slides as they are presented during the class time.
+
 | Week | Date       | Session content                                                                                                                                                                                                            | Exercise                                                        | Assignment                                                                        |
 | ---- | ---------- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --------------------------------------------------------------- | --------------------------------------------------------------------------------- |
 | 01   | 2025.09.10 | **Introduction**<br>Introduction to the course, the software toolchain.<br>👉[Go to Lecture](/Lecture/Lecture_00/README.md)                                                                                                | -                                          | 📄[Copilot](/Assignment/0_copilot/README.md)<br>(0%)              |
