@@ -17,11 +17,13 @@ conda config --add channels conda-forge
 ```
 If the command return nothing, it means the channel has been added successfully.
 
-Next, create a new environment for this course:
+Next, create a new environment for this course, and here we explicitly specify the Python version to be `3.9.10`, which is the version shipped with Rhino 8.
 ```
-conda create -n DCCG compas
+conda create -n DCCG python=3.9.10 compas pyside6
 ```
 ![conda_create_env](/Assets/imgs/conda_create.png)
+
+> note: As of Oct 2025, `pyside6` need to be explicitly installed for `compas_viewer` to be `pip` installed correctly.
 
 When prompted, type `y` to proceed.
 ![conda_create_env](/Assets/imgs/conda_create_prompt.png)
@@ -42,7 +44,7 @@ These step might take a while. You might experience a warning like this. It is b
 ![conda_install_compas](/Assets/imgs/conda_install_prompt.png)
 
 ## Verify COMPAS installation
-When finished, test if the installation is successful. Go back to vscode and open the example `Lecture/Lecture_03/compas_core_examples_I/1.4.2_visualization_II.py`. Check the bottom right corner of the window. If it shows `Python 3.12.7 64-bit ('DCCG': conda)`, it means the script will be executed in the correct environment. If not, click the Python version and select `DCCG: conda`.
+When finished, test if the installation is successful. Go back to vscode and open the example `Lecture/Lecture_03/compas_core_examples_I/1.4.2_visualization_II.py`. Check the bottom right corner of the window. If it shows `Python 3.9.10 64-bit ('DCCG': conda)` or similar, it means the script will be executed in the correct environment. If not, click the Python version and select `DCCG: conda`.
 
 ![vscode_select_env](/Assets/imgs/vscode_python_interpreter.png)
 
@@ -54,7 +56,7 @@ Once the correct environment is selected, click the `Run` button on the top righ
 ## Installing COMPAS for Rhino
 
 > [!IMPORTANT]
-> The section on integrating Rhino with COMPAS has been temporarily removed for the Class of 2024. At the time of writing, there are ongoing transitions, such as from Rhino 7 to 8 and from IronPython to CPython. Additionally, Rhino integration is not heavily utilized in this course.
+> This section is still under investigation, will be updated soon.
 
 ## Conda init issue
 
