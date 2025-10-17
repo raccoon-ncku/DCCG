@@ -58,17 +58,20 @@ Once the correct environment is selected, click the `Run` button on the top righ
 > [!IMPORTANT]
 > This section is still under investigation, will be updated soon.
 
-## Conda init issue
+## Troubleshooting
 
-Windows:
-Open Powershell and type `$PROFILE`, manually edit the `.ps1` file with the following code.
+If you already have conda isntalled a while ago, you might encounter some issues installing packages.
 
+```bash
+conda clean --all
+conda update -n base conda
 ```
 
-#region conda initialize
-# !! Contents within this block are managed by 'conda init' !!
-(& "%UserProfile%\miniconda3\Scripts\conda.exe" "shell.powershell" "hook") | Out-String | Invoke-Expression
-#endregion
+Then try to create the environment again.
 
-
+```bash
+conda create -n DCCG python=3.9.10
+conda activate DCCG
+conda install compas pyside6
+pip install compas_viewer
 ```
