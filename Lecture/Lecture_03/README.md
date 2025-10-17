@@ -60,8 +60,17 @@ Once the correct environment is selected, click the `Run` button on the top righ
 
 ## Troubleshooting
 
-If you already have conda isntalled a while ago, you might encounter some issues installing packages.
-In this case, try to reset the conda-forge channel by running the following commands:
+If you already have conda installed a while ago, you might encounter some issues installing packages.
+
+like this
+```text
+Collecting package metadata (repodata.json): - 
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): repo.anaconda.com:443
+```
+
+Related GitHub [issue](https://github.com/conda/conda-build/issues/4539)
+
+In this case, try to reset the conda-forge channel and update conda itself:
 
 ```bash
 conda config --remove channels conda-forge
