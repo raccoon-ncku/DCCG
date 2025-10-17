@@ -61,8 +61,11 @@ Once the correct environment is selected, click the `Run` button on the top righ
 ## Troubleshooting
 
 If you already have conda isntalled a while ago, you might encounter some issues installing packages.
+In this case, try to reset the conda-forge channel by running the following commands:
 
 ```bash
+conda config --remove channels conda-forge
+conda config --add channels conda-forge
 conda clean --all
 conda update -n base conda
 ```
@@ -70,8 +73,7 @@ conda update -n base conda
 Then try to create the environment again.
 
 ```bash
-conda create -n DCCG python=3.9.10
+conda create -n DCCG python=3.9.10 compas pyside6
 conda activate DCCG
-conda install compas pyside6
 pip install compas_viewer
 ```
