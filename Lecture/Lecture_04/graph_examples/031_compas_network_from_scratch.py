@@ -25,13 +25,14 @@ print(graph.summary())
 geometries = [graph]
 
 from compas_viewer import Viewer
+from compas_viewer.scene import Tag
 
 viewer = Viewer()
 for geometry in geometries:
     viewer.scene.add(geometry)
-# for node in graph.nodes():
-#     node_coordinate = graph.node_coordinates(node)
-#     node_weight_tag = str(node)
-#     t = Text(node_weight_tag, node_coordinate, height=50)
-#     viewer.scene.add(t)
+for node in graph.nodes():
+    node_coordinate = graph.node_coordinates(node)
+    node_weight_tag = str(node)
+    t = Tag(node_weight_tag, node_coordinate)
+    viewer.scene.add(t)
 viewer.show()
