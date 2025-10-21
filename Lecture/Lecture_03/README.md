@@ -58,6 +58,15 @@ Once the correct environment is selected, click the `Run` button on the top righ
 > [!IMPORTANT]
 > This section is still under investigation, will be updated soon.
 
+## Jupyter Notebook
+
+Jupyter Notebook is another way to run Python scripts interactively. It is especially useful for learning and prototyping.
+
+```
+conda activate DCCG
+pip install compas_notebook
+```
+
 ## Troubleshooting
 
 If you already have conda installed a while ago, you might encounter some issues installing packages.
