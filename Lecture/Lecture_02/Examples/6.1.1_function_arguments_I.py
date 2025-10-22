@@ -11,3 +11,4 @@ def fib(n):
 
 # Now call the function we just defined:
 fib(10000)
+fib(100)
