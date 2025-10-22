@@ -67,6 +67,11 @@ conda activate DCCG
 pip install compas_notebook
 ```
 
+Then, install the Jupyter extension in VSCode. Follow the instructions [here](https://code.visualstudio.com/docs/datascience/jupyter-notebooks).
+
+### Jupyter Notebook vs *.py scripts
+The syntax is almost the same between Jupyter Notebook and Python scripts. The main difference is that in Jupyter Notebook, code is organized into cells, which can be executed independently. This allows for a more interactive coding experience, which is particularly useful for learning and prototyping. But for all other purposes, Python scripts are preferred or required.
+
 ## Troubleshooting
 
 If you already have conda installed a while ago, you might encounter some issues installing packages.
