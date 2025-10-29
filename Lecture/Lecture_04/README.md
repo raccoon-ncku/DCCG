@@ -15,7 +15,7 @@ First, activate your environment, update installed packages, and install the req
 ```bash
 conda activate DCCG
 conda update --all
-conda install pandas libpysal contextily geopandas
+conda install pandas libpysal contextily geopandas compas_cgal
 ```
 
 
