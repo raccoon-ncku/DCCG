@@ -32,13 +32,13 @@ for row in range(rows):
         
         # Connect bricks in even rows to the two above (offset bonding pattern)
         if row > 0:
-            if row % 2 == 0:  # Even row
-                # Connect to the two bricks directly above in the previous row
-                previous_row_left = (row - 1) * cols + col - 1
-                previous_row_right = (row - 1) * cols + col
+            if row % 2 == 0:  # Even row (offset)
+                # Connect to the two bricks in the previous row
+                previous_row_left = (row - 1) * cols + col
+                previous_row_right = (row - 1) * cols + col + 1
                 if previous_row_left in wall_graph.nodes():
                     wall_graph.add_edge(brick_id, previous_row_left)
-                if previous_row_right in wall_graph.nodes():
+                if previous_row_right in wall_graph.nodes() and col < cols - 1:
                     wall_graph.add_edge(brick_id, previous_row_right)
             else:  # Odd row
                 # Connect to the one centered brick in the previous row
