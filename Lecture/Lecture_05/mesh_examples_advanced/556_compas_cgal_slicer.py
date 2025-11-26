@@ -19,10 +19,10 @@ benchy = Mesh.from_stl(FILE)
 
 
 # Create planes
-bbox = benchy.bounding_box()
+bbox = benchy.compute_aabb()
 
-x, y, z = zip(*bbox)
-zmin, zmax = min(z), max(z)
+x, y, z = bbox.xsize, bbox.ysize, bbox.zsize
+zmin, zmax = bbox.zmin, bbox.zmax
 
 normal = Vector(0, 0, 1)
 planes = []

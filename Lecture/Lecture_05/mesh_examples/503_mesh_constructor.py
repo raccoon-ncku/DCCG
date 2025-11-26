@@ -19,5 +19,6 @@ mesh_polygon = cd.Mesh.from_polygons([polygon])
 
 # Draw!
 viewer = Viewer()
-viewer.scene.add([mesh_box, mesh_polygon])
+viewer.scene.add(mesh_box)
+viewer.scene.add(mesh_polygon)
 viewer.show()

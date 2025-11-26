@@ -1,11 +1,11 @@
-from compas.geometry import Point, Box, Sphere, Translation
+from compas.geometry import Point, Box, Sphere, Translation, Frame
 from compas.geometry import bounding_box
 from compas.datastructures import Mesh
 
-from compas_cgal.booleans import boolean_union
-from compas_cgal.booleans import boolean_difference
-from compas_cgal.booleans import boolean_intersection
-from compas_cgal.meshing import remesh
+from compas_cgal.booleans import boolean_union_mesh_mesh
+from compas_cgal.booleans import boolean_difference_mesh_mesh
+from compas_cgal.booleans import boolean_intersection_mesh_mesh
+from compas_cgal.meshing import trimesh_remesh
 
 from compas_viewer import Viewer
 
@@ -16,12 +16,12 @@ box.quads_to_triangles()
 
 A = box.to_vertices_and_faces()
 
-sphere = Sphere(Point(1, 1, 1), 1)
+sphere = Sphere(1, Frame((1,1,1)))
 sphere = Mesh.from_shape(sphere, u=30, v=30)
 sphere.quads_to_triangles()
 
 B = sphere.to_vertices_and_faces()
-B = remesh(B, 0.3, 10)
+B = trimesh_remesh(B, 0.3, 10)
 
 # Create a bounding box to organize visualization
 bbox = bounding_box(box.vertices_attributes('xyz') +
@@ -31,17 +31,17 @@ width = bbox.xsize
 
 
 # Compute the boolean union
-V, F = boolean_union(A, B)
+V, F = boolean_union_mesh_mesh(A, B)
 union = Mesh.from_vertices_and_faces(V, F)
 
 
 # Compute the boolean difference
-V, F = boolean_difference(A, B)
+V, F = boolean_difference_mesh_mesh(A, B)
 difference = Mesh.from_vertices_and_faces(V, F)
 
 
 # Compute the boolean intersection
-V, F = boolean_intersection(A, B)
+V, F = boolean_intersection_mesh_mesh(A, B)
 intersection = Mesh.from_vertices_and_faces(V, F)
 
 
