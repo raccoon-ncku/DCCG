@@ -1,0 +1,16 @@
+name: DCCG
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9.10
+  - pip
+  - compas
+  - compas_cgal
+  - pyside6
+  - pandas
+  - libpysal
+  - contextily
+  - geopandas
+  - pip:
+    - compas_viewer
+    - compas_notebook

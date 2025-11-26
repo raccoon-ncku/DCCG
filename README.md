@@ -38,6 +38,13 @@ The intersection of computational design and digital fabrication has changed how
 | 17   | 2025.12.31 | **Basic Optimization Algorithms**<br>👉[Go to lecture](Lecture/Lecture_09/README.md)<br> **Final Project** <br>Final Project help desk    | -                                                               | -                                                                                 |
 | 18   | 2026.01.07 | **Final Projects Presentation**                                                                                                                                                                                   | -                                                               | -                                                                                 |
 
+## Troubleshooting
 
+If you encounter any issues related to package dependencies, please try to recreate the conda environment by running the following commands in your terminal:
+
+```bash
+conda env remove -n DCCG
+conda env create -f environment.yml
+```
 ## Grading Policy
 * Final Project 100%
