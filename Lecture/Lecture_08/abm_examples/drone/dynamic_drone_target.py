@@ -46,7 +46,7 @@ def update(frame):
         drone.linear_approach()
         drone.move()
         # update the object in the viewer
-        drone.viewer_obj.update()
+        drone.viewer_obj.update(update_data=True)
 
 
 viewer.show()

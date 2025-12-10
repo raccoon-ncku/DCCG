@@ -25,7 +25,7 @@ def update(frame):
         ant.move()
 
         # update the object in the viewer
-        ant.viewer_obj.update()
+        ant.viewer_obj.update(update_data=True)
 
 
 viewer.show()
