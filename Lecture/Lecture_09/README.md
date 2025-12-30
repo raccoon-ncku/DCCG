@@ -1,18 +1,46 @@
-## Basic Machine Learning and Optimization
+# Lecture 09: Architectural Optimization
 
-### Basic Machine Learning
-👉[Slides](https://app.rccn.dev/slidev/DCCG-09)
+This lecture focuses on **Optimization** in the context of architectural design. We move beyond simply generating geometry to finding the "best" geometry based on performance criteria.
 
-### Basic Optimization
-👉[Slides](https://app.rccn.dev/slidev/DCCG-09)
+## 1. Concepts
 
-## Optimization with OR-Tools
-There are plenty of modules for optimization in Python. One of the most popular is [OR-Tools](https://developers.google.com/optimization). It is a Google product and is open source. It is also available in many other programming languages.
+Optimization is the process of finding the best solution from all feasible solutions. In architecture, this often involves:
+*   **Variables**: Parameters we can change (e.g., beam width, column spacing).
+*   **Objectives**: Goals we want to achieve (e.g., minimize weight, maximize daylight).
+*   **Constraints**: Rules we must follow (e.g., max deflection < 5mm, total cost < $1M).
 
-Although we could install OR-Tools in our DCCG environment, we will create a new environment for OR-Tools to simplify the installation time. 
+## 2. Examples
+
+### Example 01: The Optimal Beam (Single Objective)
+**File:** `01_beam_optimization_scipy.py`
+
+A classic structural engineering problem. We use `scipy.optimize` to find the lightest possible rectangular beam that can support a 500kg load without deflecting more than 5mm.
+
+*   **Library**: `scipy` (Standard scientific computing library)
+*   **Method**: SLSQP (Sequential Least SQuares Programming)
+
+### Example 02: Design Trade-offs (Multi-Objective)
+**File:** `02_beam_optimization_pymoo.py`
+
+Real design problems often have conflicting goals. Here, we explore the trade-off between a **light beam** (cheap) and a **stiff beam** (performant). The result is not one single answer, but a **Pareto Front** of optimal compromises.
+
+*   **Library**: `pymoo` (Multi-objective Optimization in Python)
+*   **Method**: NSGA-II (Non-dominated Sorting Genetic Algorithm II)
+
+## 3. Legacy Examples
+Older examples covering generic mathematical optimization (Knapsack, TSP, etc.) using `ortools` and `deap` can be found in the `legacy_examples/` folder.
+
+## 4. Installation
+
+For the easiest setup, create the dedicated AI environment from the root of the repository:
 
 ```bash
-conda create -n DCCG-optim python=3.9 deap pymoo scikit-learn
-conda activate DCCG-optim
-python -m pip install ortools
+conda env create -f environment_ai.yml
+conda activate DCCG_AI
+```
+
+Alternatively, you can install the required libraries manually in your existing environment:
+
+```bash
+pip install scipy pymoo matplotlib
 ```
