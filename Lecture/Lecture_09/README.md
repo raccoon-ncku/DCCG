@@ -2,6 +2,8 @@
 
 This lecture focuses on **Optimization** in the context of architectural design. We move beyond simply generating geometry to finding the "best" geometry based on performance criteria.
 
+👉[Slides: Optimization](https://app.rccn.dev/slidev/DCCG-09)
+
 ## 1. Concepts
 
 Optimization is the process of finding the best solution from all feasible solutions. In architecture, this often involves:
