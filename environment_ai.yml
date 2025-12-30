@@ -1,0 +1,23 @@
+name: DCCG_AI
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - compas
+  - numpy
+  - scipy
+  - matplotlib
+  - pytorch
+  - torchvision
+  - torchaudio
+  - transformers
+  - accelerate
+  - pip
+  - pip:
+    - pymoo
+    - diffusers
+    - opencv-python
+    - pillow
+    - requests
