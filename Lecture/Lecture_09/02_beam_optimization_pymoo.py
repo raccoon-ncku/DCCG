@@ -14,8 +14,8 @@ Objectives:
     2. Minimize Deflection
 
 Variables:
-    b (width): 0.01m to 0.5m
-    h (height): 0.01m to 0.5m
+    b (width): 0.15m to 1m
+    h (height): 0.15m to 1m
 """
 
 import numpy as np
@@ -29,8 +29,8 @@ class BeamProblem(ElementwiseProblem):
         super().__init__(n_var=2, 
                          n_obj=2, 
                          n_ieq_constr=0, # No hard constraints for this exploration
-                         xl=np.array([0.01, 0.01]), 
-                         xu=np.array([0.5, 0.5]))
+                         xl=np.array([0.15, 0.15]), 
+                         xu=np.array([1.0, 1.0]))
         
         # Constants
         self.L = 2.0
@@ -88,6 +88,7 @@ def run_optimization():
     try:
         plot = Scatter(title="Pareto Front: Weight vs Deflection")
         plot.add(res.F, color="red")
+        plot.axis_labels = ["Area (m²)", "Deflection (m)"]
         plot.show()
         print("\nPlot displayed. Close window to exit.")
     except Exception as e:
