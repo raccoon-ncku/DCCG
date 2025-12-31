@@ -37,8 +37,8 @@ Older examples covering generic mathematical optimization (Knapsack, TSP, etc.) 
 For the easiest setup, create the dedicated AI environment from the root of the repository:
 
 ```bash
-conda env create -f environment_ai.yml
-conda activate DCCG_AI
+conda env create -f environment_ml.yml
+conda activate DCCG_ML
 ```
 
 Alternatively, you can install the required libraries manually in your existing environment:

@@ -1,4 +1,4 @@
-name: DCCG_AI
+name: DCCG_NEURAL
 channels:
   - pytorch
   - conda-forge

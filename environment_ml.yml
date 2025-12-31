@@ -1,0 +1,21 @@
+name: DCCG_ML
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - compas
+  - scikit-learn
+  - numpy
+  - scipy
+  - matplotlib
+  - transformers
+  - accelerate
+  - pip
+  - pip:
+    - pymoo
+    - diffusers
+    - opencv-python
+    - pillow
+    - requests

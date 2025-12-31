@@ -36,8 +36,8 @@ The `clustering/` and `regression/` folders contain examples of traditional Mach
 For the easiest setup, create the dedicated AI environment from the root of the repository. This handles PyTorch and other complex dependencies automatically.
 
 ```bash
-conda env create -f environment_ai.yml
-conda activate DCCG_AI
+conda env create -f environment_neural.yml
+conda activate DCCG_NEURAL
 ```
 
 
