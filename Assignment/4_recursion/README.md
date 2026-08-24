@@ -1,7 +1,12 @@
+> [!NOTE]
+> **Retired as a graded assignment for Fall 2026.** The course is now graded on
+> the [final project](/Assignment/5_Final_Project/README.md) alone, and Week 08 (recursion) — the `sierpinski` and `tree_segments` checkpoints
+> now covers this ground with an automatic checker. Kept as **optional extra
+> practice** — do it if the topic feels shaky.
+
 ## Assignment Instruction
 use recursion to create a fractal geometry with Python.
 
-This assignment is __15%__ of your total grade.
 
 # Requirements
 - The fractal must be generated entirely through Python scripts, with recursion as the core technique.

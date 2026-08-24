@@ -1,7 +1,12 @@
+> [!NOTE]
+> **Retired as a graded assignment for Fall 2026.** The course is now graded on
+> the [final project](/Assignment/5_Final_Project/README.md) alone, and Week 03 (control flow) — the `primes_below` checkpoint
+> now covers this ground with an automatic checker. Kept as **optional extra
+> practice** — do it if the topic feels shaky.
+
 # Assignment Instruction
 Please write a python script that will print all prime numbers in a given range. Please leave comments in your script. Only Python and Python modules that could be installed via `conda` or `pip` could be used in this assignment.
 
-This assignment is __10%__ of your total grade.
 
 ## Expected result
 ```

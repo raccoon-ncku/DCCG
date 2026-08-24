@@ -1,3 +1,9 @@
+> [!NOTE]
+> **Retired as a graded assignment for Fall 2026.** The course is now graded on
+> the [final project](/Assignment/5_Final_Project/README.md) alone. Kept as
+> optional reference material for mesh-based projects; Week 09's `grid_mesh`
+> checkpoint covers the fundamentals.
+
 ## Assignment Instruction
 Create __3__ different mesh column models.
 

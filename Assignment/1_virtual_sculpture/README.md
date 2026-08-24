@@ -1,7 +1,12 @@
+> [!NOTE]
+> **Retired as a graded assignment for Fall 2026.** The course is now graded on
+> the [final project](/Assignment/5_Final_Project/README.md) alone, and Week 06 (the dual-mode architecture) core work
+> now covers this ground with an automatic checker. Kept as **optional extra
+> practice** — do it if the topic feels shaky.
+
 ## Assignment Instruction
 use `compas.geometry` to create a virtual sculpture.
 
-This assignment is __20%__ of your total grade.
 
 # Requirements
 - The sculpture must be a single object, i.e. all the elements of the sculpture must be connected. The connection only needs to be visual, so no need to boolean union the elements.
