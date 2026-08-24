@@ -1,5 +1,7 @@
 # ARCH3045 Design Computation and Computational Geometry
 
+![banner](./Assets/imgs/dccg_banner.png)
+
 The intersection of computational design and digital fabrication has changed how
 we design, analyze, and construct our built environment. Computational geometry
 is at the core of that — from initial form-finding to actual construction — and
