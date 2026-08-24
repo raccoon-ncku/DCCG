@@ -1,48 +1,113 @@
-# Lecture 09: Architectural Optimization
-
-This lecture focuses on **Optimization** in the context of architectural design. We move beyond simply generating geometry to finding the "best" geometry based on performance criteria.
+# Week 15 (Lecture 09) — Optimization: letting the computer choose
 
 👉[Slides: Optimization](https://app.rccn.dev/slidev/DCCG-09)
 
-## 1. Concepts
+> Optional material for the Build weeks. Nothing in the final project *requires*
+> optimization — but if your project has a "best" version of something (lightest
+> beam, tightest packing, least material), this is how you find it instead of
+> guessing.
 
-Optimization is the process of finding the best solution from all feasible solutions. In architecture, this often involves:
-*   **Variables**: Parameters we can change (e.g., beam width, column spacing).
-*   **Objectives**: Goals we want to achieve (e.g., minimize weight, maximize daylight).
-*   **Constraints**: Rules we must follow (e.g., max deflection < 5mm, total cost < $1M).
+## 1. The idea
 
-## 2. Examples
+So far you have *generated* geometry. Optimization *chooses* geometry: you
+describe what "good" means as a number, and an algorithm searches for the
+inputs that make that number best.
 
-### Example 01: The Optimal Beam (Single Objective)
-**File:** `01_beam_optimization_scipy.py`
+Three ingredients, and naming them is most of the work:
 
-A classic structural engineering problem. We use `scipy.optimize` to find the lightest possible rectangular beam that can support a 500kg load without deflecting more than 5mm.
+- **Variables** — what you are allowed to change (beam width, column spacing,
+  panel angle).
+- **Objective** — the single number to minimise or maximise (weight, cost,
+  deflection, daylight).
+- **Constraints** — what must stay true regardless (deflection < 5 mm,
+  every part fits on the sheet, cost < budget).
 
-*   **Library**: `scipy` (Standard scientific computing library)
-*   **Method**: SLSQP (Sequential Least SQuares Programming)
+If you cannot write the objective as a function that returns one number, you
+cannot optimise yet — you are still deciding what you actually want. That is
+the same lesson as the executable spec in Week 10, wearing engineering clothes.
 
-### Example 02: Design Trade-offs (Multi-Objective)
-**File:** `02_beam_optimization_pymoo.py`
+## 2. Optimization *is* the dual-mode architecture
 
-Real design problems often have conflicting goals. Here, we explore the trade-off between a **light beam** (cheap) and a **stiff beam** (performant). The result is not one single answer, but a **Pareto Front** of optimal compromises.
+This is why the topic sits here and not in a vacuum. An objective function is a
+**pure core function**: numbers in, one number out, no viewer, no files. The
+optimiser calls it thousands of times, so it *must* be pure and fast — any
+printing, drawing, or file IO inside it would be a disaster.
 
-*   **Library**: `pymoo` (Multi-objective Optimization in Python)
-*   **Method**: NSGA-II (Non-dominated Sorting Genetic Algorithm II)
-
-## 3. Legacy Examples
-Older examples covering generic mathematical optimization (Knapsack, TSP, etc.) using `ortools` and `deap` can be found in the `legacy_examples/` folder.
-
-## 4. Installation
-
-For the easiest setup, create the dedicated AI environment from the root of the repository:
-
-```bash
-conda env create -f environment_ml.yml
-conda activate DCCG_ML
+```python
+def beam_weight(width, height):
+    """Pure: dimensions in, one number out. The optimiser calls this a lot."""
+    return width * height * LENGTH * DENSITY
 ```
 
-Alternatively, you can install the required libraries manually in your existing environment:
+Everything you learned in Week 06 about keeping the core clean pays off
+directly here. The optimiser is just a very persistent caller.
+
+## 3. Examples
+
+Run them from the repo root:
 
 ```bash
-pip install scipy pymoo matplotlib
+uv run Lecture/Lecture_09/01_beam_optimization_scipy.py
+uv run Lecture/Lecture_09/02_beam_optimization_pymoo.py
 ```
+
+### `01_beam_optimization_scipy.py` — one objective
+
+Find the lightest rectangular beam that carries a 500 kg load without
+deflecting more than 5 mm.
+
+- **Library**: `scipy.optimize` (standard scientific Python)
+- **Method**: SLSQP (Sequential Least SQuares Programming)
+- **Shape**: one objective, one answer
+
+### `02_beam_optimization_pymoo.py` — competing objectives
+
+Real design rarely has one goal. Here, *light* and *stiff* pull against each
+other: the lightest beam is floppy, the stiffest is heavy. There is no single
+winner — there is a **Pareto front** of the best available compromises, and
+choosing among them is a design decision the maths deliberately leaves to you.
+
+- **Library**: `pymoo` (multi-objective optimization)
+- **Method**: NSGA-II (a genetic algorithm)
+
+> The takeaway is not the algorithm. It is that "optimal" is only meaningful
+> once you have said *optimal for what*, and that when goals conflict the
+> computer hands the trade-off back to you rather than resolving it.
+
+### Legacy examples
+
+`legacy_examples/` has generic optimization classics (knapsack, TSP) with
+`ortools` and `deap`. Not maintained for this year; read for interest.
+
+## 4. Setup
+
+`scipy`, `pymoo` and `matplotlib` are light enough to add to the project
+environment directly:
+
+```bash
+uv add scipy pymoo matplotlib
+uv run Lecture/Lecture_09/01_beam_optimization_scipy.py
+```
+
+(These are not in the default `uv.lock` because they are optional — `uv add`
+records them in `pyproject.toml`. Commit that change only if your project uses
+them.)
+
+The legacy conda environment still works if you prefer it:
+
+```bash
+conda env create -f environment_ml.yml && conda activate DCCG_ML
+```
+
+## Using it in a final project
+
+The cleanest way to make optimization part of a project:
+
+1. Write your objective as a pure function in your **core** layer.
+2. Let the optimiser find the best variables (this replaces you turning
+   sliders by hand).
+3. Feed those variables back into your normal geometry core to build the
+   winning design, and save it as your **artifact**.
+
+The optimiser chooses the numbers; your tested core turns them into geometry.
+Same architecture, one new caller.

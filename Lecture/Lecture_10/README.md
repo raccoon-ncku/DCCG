@@ -1,66 +1,94 @@
-# Lecture 10: AI in Design
+# Week 15 (Lecture 10) — AI models as design ingredients
 
-This lecture introduces **Artificial Intelligence** and **Machine Learning** workflows for architectural design. We explore two main categories: **Generative AI** (creating new data) and **Discriminative AI** (understanding existing data).
+> Optional, and the heaviest material in the course to install. The point is
+> not to make you an ML engineer — it is to see how a trained model becomes one
+> **component** inside a design tool you still architect the same way as
+> everything else: a core that calls the model, an artifact, an adapter.
 
-## 1. Concepts
+## 1. Two kinds of model
 
-### Generative AI (Diffusion Models)
-Models like Stable Diffusion learn to generate images by reversing a noise process. By using **ControlNet**, we can guide this generation with precise geometry (edges, depth maps, segmentation), making it a powerful tool for architectural visualization.
+**Generative** — makes new data. Diffusion models (Stable Diffusion) turn noise
+into images; with **ControlNet** you steer that generation with real geometry
+(edges, depth, a scribble), so your wireframe drives the render instead of a
+text prompt alone.
 
-### Discriminative AI (Transformers/CLIP)
-Models like CLIP (Contrastive Language-Image Pre-training) learn to associate images with text. This allows us to "search" our design assets using natural language, or categorize images automatically.
+**Discriminative** — understands existing data. **CLIP** links images and text
+in the same space, so you can search a folder of references with a phrase like
+"modern glass facade", or sort images automatically.
+
+The lesson for *you* is architectural, not statistical: a model is a function
+that happens to have been trained rather than written. It still belongs behind
+a clean boundary. Your core calls `render(sketch, prompt)` or
+`search(query, images)`; whether that function is 10 lines of maths or a
+2 GB neural network does not change how the rest of your program is shaped.
 
 ## 2. Examples
 
-### Example 01: Neural Rendering
-**File:** `01_neural_rendering.py`
+```bash
+uv run Lecture/Lecture_10/01_neural_rendering.py
+uv run Lecture/Lecture_10/02_semantic_search.py
+```
 
-Takes a simple sketch or wireframe and turns it into a high-quality rendering using a text prompt.
-*   **Model**: Stable Diffusion v1.5 + ControlNet (Scribble)
-*   **Library**: `diffusers` (Hugging Face)
+### `01_neural_rendering.py` — sketch to render
 
-### Example 02: Semantic Search
-**File:** `02_semantic_search.py`
+A wireframe or scribble plus a text prompt becomes a high-quality image.
 
-Demonstrates how to search through a collection of images using text queries like "modern glass facade" or "brick house".
-*   **Model**: CLIP (OpenAI)
-*   **Library**: `transformers` (Hugging Face)
+- **Model**: Stable Diffusion v1.5 + ControlNet (Scribble)
+- **Library**: `diffusers` (Hugging Face)
 
-> caveat: These models are large, try it with a good and unlimited internet connection. 
+### `02_semantic_search.py` — search by meaning
 
-## 3. Data Analysis (Legacy)
-The `clustering/` and `regression/` folders contain examples of traditional Machine Learning techniques (K-Means, Linear Regression) applied to design data.
+Search a collection of images with natural-language queries instead of
+filenames.
 
-## 4. Installation
+- **Model**: CLIP (OpenAI)
+- **Library**: `transformers` (Hugging Face)
 
-For the easiest setup, create the dedicated AI environment from the root of the repository. This handles PyTorch and other complex dependencies automatically.
+> ⚠️ These models are large (gigabytes) and download on first run. Use a fast,
+> unlimited connection, and expect the first run to be slow.
+
+### Traditional ML (legacy)
+
+`clustering/` (K-Means) and `regression/` (linear regression) apply classic
+machine learning to design data — lighter to run, and often more appropriate
+than a giant model when your problem is small.
+
+## 3. Setup
+
+Because of PyTorch, diffusers and their CUDA/Metal dependencies, the
+**conda environment is the reliable path** here — this is the one place in the
+course where conda earns its keep:
 
 ```bash
 conda env create -f environment_neural.yml
 conda activate DCCG_NEURAL
+python Lecture/Lecture_10/01_neural_rendering.py
 ```
 
+You *can* add the packages to the uv project (`uv add torch torchvision
+transformers diffusers`), but the heavy binary wheels resolve more predictably
+through conda. Do not add them to the shared `uv.lock` — keep this optional
+stack out of everyone else's environment.
 
+## 4. Clean up
 
-## Clean Up
-Pretrained models can take up significant disk space. To remove cached models, you can delete the `~/.cache/huggingface/` folder:
-
-on macOS/Linux:
+The downloaded models are cached and take real disk space. To reclaim it:
 
 ```bash
+# macOS / Linux
 rm -rf ~/.cache/huggingface/
-```
 
-on Windows (PowerShell):
-
-```powershell
+# Windows (PowerShell)
 Remove-Item -Recurse -Force $env:USERPROFILE\.cache\huggingface\
 ```
 
-or navigate to the folder in your file explorer and delete it manually, which is typically located at:
+## Using it in a final project
 
-```C:\Users\<YourUsername>\.cache\huggingface\
-```
+A strong project pattern: wrap the model call in a pure-ish core function, run
+it headlessly to produce an artifact (a rendered image, a ranked list of
+matches), and keep the model itself behind that boundary. The heavy,
+non-deterministic part stays in one place; the rest of your tool stays testable.
 
-or `/home/<YourUsername>/.cache/huggingface/` on macOS/Linux.
-
+Be honest in your reflection about what the model got right and wrong — the same
+"verify, don't trust" rule from Week 11 applies to a diffusion model exactly as
+it does to a coding agent.
