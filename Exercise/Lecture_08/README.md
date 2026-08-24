@@ -1,20 +1,42 @@
-# Class
-1. Create a `Vector2D` class:
-   - It has two attributes: `x` and `y`.
-   - When printing a vector, it should be printed as `Vector2D(x, y)`.
-   - When `x` and `y` are not given, they should be set to `0`.
-   - When adding two vectors, the `+` operator should return **a new vector** whose `x` and `y` are the sum of the two vectors.
-   - It has a method named `dot` that returns the dot product of the vector.
-   - It has a class attribute named `name` that is set to `Vector2D`.
-   - Create two vectors and print their dot product and addition result, also print the class attribute `name`.
-2. Create a `Rectangle` class:
-   - It has two attributes: `width` and `height`.
-   - It has a method named `area` that returns the area of the rectangle.
-   - It has a method named `perimeter` that returns the perimeter of the rectangle. 
-   - `area` and `perimeter` should be properties, i.e. you can access them without using `()`, but you cannot assign values to them.
-   - It has a class method named `from_two_points` that returns a rectangle given two points.
-   - Create a rectangle and print its area and perimeter with default constructor.
-   - Create a rectangle and print its area and perimeter with `from_two_points` method.
+# Exercises — Week 07 (Object-oriented programming)
 
-# Agent-Based Modeling
-Using the given code `drone.py`, `tracing_drone` and `dynamic_view_drone.py`, create a tracing drone agent view that utilized the attraction and repulsion behavior.
+> Open-ended practice for classes. The [Week 07 checkpoints](/Lecture/Lecture_08/README.md#checkpoints)
+> build `Vector2D`, `Rectangle`, `Square` and `Wall` with a checker; these push
+> further. `uv run your_script.py`.
+
+## 1. Vector2D, extended
+
+Beyond the checkpoint version, add:
+- a default constructor: `Vector2D()` gives `(0, 0)`;
+- a `dot(other)` method returning the dot product;
+- a class attribute `name = "Vector2D"` shared by all instances;
+- `__mul__` so `v * 3` scales the vector.
+
+Create two vectors and print their sum, their dot product, and `Vector2D.name`.
+
+## 2. Rectangle, extended
+
+Beyond the checkpoint version, add a **class method** `from_two_points(p1, p2)`
+that builds a rectangle from two opposite corners. Confirm that `area` and
+`perimeter` are read-only properties — assigning to them should fail.
+
+Then ask the design question from the lecture: should `Square` subclass
+`Rectangle`, and should a `House` that contains rooms subclass anything? Write
+one sentence per case justifying "is-a" vs "has-a".
+
+## 3. Agent-based modelling
+
+Using `drone.py`, `tracing_drone.py` and `dynamic_view_drone.py`, build a
+tracing-drone view that combines **attraction and repulsion** behaviour. Each
+drone is an object following simple local rules; the interesting behaviour is
+emergent.
+
+Run locally (uses the viewer):
+
+```bash
+uv run Exercise/Lecture_08/dynamic_view_drone.py
+```
+
+This is a natural seed for a final project — many simple objects, local rules,
+collective behaviour. See also
+[Re-write to OOP](/Exercise/2_re-write_to_oop/README.md).
