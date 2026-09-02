@@ -1,0 +1,20 @@
+{
+    "name": "Grid Mesh",
+    "nickname": "Grid",
+    "category": "COMPAS Studio",
+    "subcategory": "Mesh",
+    "description": "Build a flat quad grid mesh. Pure COMPAS core, tested outside Rhino.",
+    "exposure": 2,
+    "ghpython": {
+        "isAdvancedMode": true,
+        "iconDisplay": 0,
+        "inputParameters": [
+            {"name": "nx", "description": "Faces along x", "typeHintID": "int", "scriptParamAccess": 0},
+            {"name": "ny", "description": "Faces along y", "typeHintID": "int", "scriptParamAccess": 0},
+            {"name": "spacing", "description": "Distance between vertices (m)", "typeHintID": "float", "optional": true, "scriptParamAccess": 0}
+        ],
+        "outputParameters": [
+            {"name": "mesh", "description": "The grid, as a Rhino Mesh"}
+        ]
+    }
+}

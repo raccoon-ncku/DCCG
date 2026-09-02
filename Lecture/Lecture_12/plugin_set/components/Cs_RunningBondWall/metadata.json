@@ -1,0 +1,21 @@
+{
+    "name": "Running Bond Wall",
+    "nickname": "RBWall",
+    "category": "COMPAS Studio",
+    "subcategory": "Masonry",
+    "description": "Build a running-bond brick wall from length and height. Pure COMPAS core, tested outside Rhino.",
+    "exposure": 2,
+    "ghpython": {
+        "isAdvancedMode": true,
+        "iconDisplay": 0,
+        "inputParameters": [
+            {"name": "length", "description": "Wall length along x (m)", "typeHintID": "float", "scriptParamAccess": 0},
+            {"name": "height", "description": "Wall height along z (m)", "typeHintID": "float", "scriptParamAccess": 0},
+            {"name": "brick_length", "description": "Single brick length (m)", "typeHintID": "float", "optional": true, "scriptParamAccess": 0},
+            {"name": "joint", "description": "Mortar joint thickness (m)", "typeHintID": "float", "optional": true, "scriptParamAccess": 0}
+        ],
+        "outputParameters": [
+            {"name": "bricks", "description": "The wall, as Rhino Box geometry"}
+        ]
+    }
+}

@@ -99,7 +99,7 @@ that fails in visible, instructive ways.
 ## 3. Get the repository
 
 ```bash
-git clone https://github.com/<the-course-repo>.git DCCG
+git clone https://github.com/raccoon-ncku/DCCG.git DCCG
 cd DCCG
 uv sync
 ```

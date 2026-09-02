@@ -1,0 +1,12 @@
+# generated at runtime
+output/
+
+# NOTE: wall.py is deliberately NOT ignored.
+# Both copies are teaching specimens the README links directly:
+#   wall.py                              -- raw model output, ~150 lines, passes
+#   plugin_set/src/compas_studio/wall.py -- the reviewed 20-line version
+# "Correct is not good" (README section 4) needs both to exist.
+# tdd_agent.py overwrites the first one; that shows up as a diff, which is the
+# point -- compare what your model wrote against the committed reference.
+# (An unanchored `wall.py` here also silently ignored the plugin_set copy,
+#  which broke test_wall.py and the Cs_RunningBondWall component build.)

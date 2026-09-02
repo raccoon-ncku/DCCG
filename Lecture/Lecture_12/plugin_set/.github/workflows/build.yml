@@ -1,0 +1,52 @@
+# CD — build the Grasshopper .ghuser components and publish them.
+#
+# This is the deploy step. It turns each folder in components/ into a
+# Cs_*.ghuser file, using the COMPAS componentizer. Read what it does NOT need:
+#
+#   - it does NOT need Rhino installed (the componentizer builds .ghuser files
+#     headlessly via the Grasshopper IO assembly, fetched through NuGet);
+#   - it does NOT need a graphical machine;
+#   - it does NOT run any of your geometry code -- it packages the source.
+#
+# It runs only on a version tag (e.g. `git tag v0.1.0 && git push --tags`), so
+# that a release is a deliberate act, not every commit. The tests above are the
+# gate; this is what ships once they pass.
+name: build-ghuser
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    runs-on: windows-latest      # the componentizer needs a Windows runner
+    steps:
+      - uses: actions/checkout@v4
+      - uses: NuGet/setup-nuget@v2
+
+      # CPython path, for Rhino 8. (For Rhino 7, use interpreter: ironpython
+      # and install IronPython instead -- see the componentizer README.)
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.9.10"
+      - name: Install pythonnet
+        run: pip install pythonnet==3.0.3
+
+      - name: Componentize (Python -> .ghuser)
+        uses: compas-dev/compas-actions.ghpython_components@v5
+        with:
+          source: components
+          target: build
+          interpreter: cpython
+
+      - name: Upload the built components
+        uses: actions/upload-artifact@v4
+        with:
+          name: compas_studio-ghuser
+          path: build
+
+      - name: Attach the components to the GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/*.ghuser

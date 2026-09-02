@@ -1,0 +1,24 @@
+# CI — run the tests on every push and pull request.
+#
+# The core library is pure Python + COMPAS, so this runs on a plain Linux
+# runner with no Rhino, no display, nothing special. This is the "verify"
+# stage of the workflow: nobody -- human or agent -- merges to main until it
+# is green.
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install the package and its test dependencies
+        run: pip install -e ".[dev]"
+      - name: Run pytest
+        run: pytest -q

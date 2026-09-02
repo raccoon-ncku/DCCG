@@ -1,0 +1,16 @@
+[project]
+name = "compas_studio"
+version = "0.1.0"
+description = "A small COMPAS-based Grasshopper plugin set, developed and tested outside Rhino."
+requires-python = ">=3.9"
+dependencies = ["compas>=2.0"]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

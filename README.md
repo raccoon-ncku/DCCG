@@ -87,14 +87,27 @@ by the checkpoints).
 
 ## AI usage
 
-AI assistants are **allowed and encouraged everywhere, including the final
-project** — using them well is a goal of the course. Three rules:
+A course should state its AI policy plainly and say *why* it holds ([MIT Ad Hoc
+Committee on AI Use in Teaching, Learning, and Research Training](https://aihub.mit.edu),
+Aug 2026 — report in [`Reference/`](/Reference/AI-Committee-Final-Report.pdf)).
+In that report's terms, this course is **Required use**: you are *expected* to
+build with AI assistants, including on the final project — with two deliberately
+**AI-free** carve-outs.
 
-1. **Explain every line you submit.** "The AI wrote it" is not an answer.
-2. **Disclose** — keep meaningful prompts in comments or a `log.md`.
-3. **Verify, don't trust** — tests and an inspected artifact are evidence; "it
-   looked right in the viewer" is not.
+**Why required, not merely allowed.** A model can write most of this code now,
+so the skill being taught — and assessed — is not typing it but *specifying,
+reading, verifying, and owning* it. Forbidding AI would train the wrong thing;
+using it carelessly would teach nothing. Three rules keep it honest:
 
-The one carve-out: in the agentic lab, the brief, log, and reflection must be
-written **by you, not an LLM** — that is the part of the workflow that stays
-human.
+1. **Explain every line you submit.** "The AI wrote it" is not an answer — and
+   at the final demo you will be asked to, live.
+2. **Disclose** — keep meaningful prompts in comments or a `log.md`, and commit
+   as you go: your git history is part of the evidence.
+3. **Verify, don't trust** — LLMs fabricate facts, cite things that do not
+   exist, and emit code that is subtly wrong or insecure. Tests and an inspected
+   artifact are evidence; "it looked right in the viewer" is not. You own every
+   line you submit, including anything the AI got wrong.
+
+**The AI-free parts.** In the agentic lab, the brief, log, and reflection are
+written **by you, not an LLM** — that reflection *is* the learning. And the
+final **live demo is an oral defense**: no assistant, just you and your code.

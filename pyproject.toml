@@ -1,0 +1,13 @@
+[project]
+name = "dccg"
+version = "0.1.0"
+description = "ARCH3045 Design Computation and Computational Geometry -- course materials"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "compas>=2.15.1",
+    "compas-cgal>=0.9.4",
+    "compas-viewer>=2.0.2",
+    "openai>=2.48.0",
+    "pytest>=9.1.1",
+]

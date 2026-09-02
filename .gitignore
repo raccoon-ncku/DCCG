@@ -170,5 +170,17 @@ Practices/*
 !Reference/placeholder
 !Practices/placeholder
 
+# The MIT report is the stated basis of the AI policy in README.md -- it has to
+# ship with the course, unlike the cloned repos that Reference/* exists to exclude.
+!Reference/AI-Committee-Final-Report.pdf
+!Reference/MIT-AI-Report-summary.md
+
 */output.stl
+
+# Generated artifacts stay out (output/*.json is produced by running the code),
+# but two kinds of .json are source, not output:
 *.json
+#   - the componentizer requires one metadata.json per Grasshopper component
+!Lecture/Lecture_12/plugin_set/components/*/metadata.json
+#   - input data for the Lecture_04 network examples
+!Lecture/Lecture_04/compas_ipynb/brickwall_network.json
