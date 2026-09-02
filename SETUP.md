@@ -20,7 +20,7 @@ We use `uv` and Zed this year. If you find an older tutorial that says
 ## First run
 
 ```bash
-git clone <the-course-repo> DCCG
+git clone https://github.com/raccoon-ncku/DCCG.git DCCG
 cd DCCG
 uv sync            # build the environment from uv.lock — do this once, first
 uv run check.py    # confirm it works: your progress across every week
