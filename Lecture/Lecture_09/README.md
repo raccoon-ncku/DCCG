@@ -1,6 +1,6 @@
 # Week 15 (Lecture 09) — Optimization: letting the computer choose
 
-👉[Slides: Optimization](https://app.rccn.dev/slidev/DCCG-09)
+👉[Slides: Optimization](https://slides.rccn.dev/courses/DCCG/DCCG-W15-optimization/)
 
 > Optional material for the Build weeks. Nothing in the final project *requires*
 > optimization — but if your project has a "best" version of something (lightest
