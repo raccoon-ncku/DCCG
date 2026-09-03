@@ -111,7 +111,7 @@ def load_rooms(path):
 # and repair them. Before you run `uv run check.py 04`, write down what you
 # think is broken. Then compare your list with what the checks say.
 #
-# (The five things to look for are in README section 5.)
+# (The five things to look for are in README section 6.)
 # ---------------------------------------------------------------------------
 
 
