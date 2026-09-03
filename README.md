@@ -46,30 +46,30 @@ week's lecture — it is searchable, runnable, and available at 3am.
 
 | Week | Date | Session | Practice |
 | ---- | ---------- | ------- | -------- |
-| 05 | 2026.10.07 | **COMPAS core** — Point, Vector, Frame, Box; transformations; geometry as a pure function.<br>👉[Lecture](/Lecture/Lecture_03/README.md) | 📝[Rotating boxes](/Exercise/Lecture_03/README.md) |
-| 06 | 2026.10.14 | **Software Engineering I — the dual-mode architecture** ⭐ — core → artifact → adapter; the `uv` lockfile; git branches and PRs.<br>👉[Lecture](/Lecture/Lecture_06/README.md) | Refactor a script into core + runner |
-| 07 | 2026.10.21 | 🚫 self-paced · **OOP** — classes, attributes, methods; a design element as an object.<br>👉[Lecture](/Lecture/Lecture_08/README.md) | 📝[OOP exercises](/Exercise/Lecture_08/README.md) |
-| 08 | 2026.10.28 | 🚫 self-paced · **Recursion** — base cases, depth, self-similar geometry; AI as a tutor.<br>👉[Lecture](/Lecture/Lecture_07/README.md) | 📝[Branching tree](/Exercise/Lecture_07/README.md) |
-| 09 | 2026.11.04 | **Mesh + debrief** — `Mesh` as a data structure; attributes as dictionaries; peer review of the self-paced weeks.<br>👉[Lecture](/Lecture/Lecture_05/README.md) | 📝[Mesh exercise](/Exercise/Lecture_05/README.md) |
+| 05 | 2026.10.07 | **COMPAS core** — Point, Vector, Frame, Box; transformations; geometry as a pure function.<br>👉[Lecture](/Lecture/Lecture_03/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W05/) | 📝[Rotating boxes](/Exercise/Lecture_03/README.md) |
+| 06 | 2026.10.14 | **Software Engineering I — the dual-mode architecture** ⭐ — core → artifact → adapter; the `uv` lockfile; git branches and PRs.<br>👉[Lecture](/Lecture/Lecture_06/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W06/) | Refactor a script into core + runner |
+| 07 | 2026.10.21 | 🚫 self-paced · **OOP** — classes, attributes, methods; a design element as an object.<br>👉[Lecture](/Lecture/Lecture_08/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W07/) | 📝[OOP exercises](/Exercise/Lecture_08/README.md) |
+| 08 | 2026.10.28 | 🚫 self-paced · **Recursion** — base cases, depth, self-similar geometry; AI as a tutor.<br>👉[Lecture](/Lecture/Lecture_07/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W08/) | 📝[Branching tree](/Exercise/Lecture_07/README.md) |
+| 09 | 2026.11.04 | **Mesh + debrief** — `Mesh` as a data structure; attributes as dictionaries; peer review of the self-paced weeks.<br>👉[Lecture](/Lecture/Lecture_05/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W09/) | 📝[Mesh exercise](/Exercise/Lecture_05/README.md) |
 
 ### Part III — Engineering the workflow with AI (W10–W14)
 
 | Week | Date | Session | Milestone |
 | ---- | ---------- | ------- | --------- |
-| 10 | 2026.11.11 | **Software Engineering II — Testing** — `pytest`; properties not pictures; the failure path; tests as an executable spec.<br>👉[Lecture](/Lecture/Lecture_12/README.md#part-a--testing-week-10) | 🎓 **Final project brief released** |
-| 11 | 2026.11.18 | **Agentic Workflows I** — the LLM as a stateless function; structured output; tools + loop = agent. Build the harness yourself.<br>👉[Lecture](/Lecture/Lecture_11/README.md) | — |
-| 12 | 2026.11.25 | **Agentic Workflows II** — multi-agent, the coder/reviewer loop, the human gate, why `--auto` is dangerous.<br>👉[Lecture](/Lecture/Lecture_11/README.md) | 🎓 **Proposal + pitch**<br>📝 [Agentic lab](/Assignment/6_agentic_workflow/README.md) opens |
-| 13 | 2026.12.02 | **Review, git & test-driven agents** — pytest as the un-arguable reviewer; the human review that remains; PR-based review.<br>👉[Lecture](/Lecture/Lecture_12/README.md#part-b--review-and-the-test-driven-agent-week-13) | 📝 Agentic lab |
-| 14 | 2026.12.09 | **Deploy: a Grasshopper plugin set, outside Rhino** ⭐ — components without `rhinoscriptsyntax`; the COMPAS Python→`.ghuser` pipeline on GitHub Actions; the loop as a workflow you *direct*.<br>👉[Lecture](/Lecture/Lecture_12/README.md#part-c--deploy-shipping-a-grasshopper-plugin-set-week-14) · 📦[Plugin set](/Lecture/Lecture_12/plugin_set/README.md) | 📝 Agentic lab due<br>🎓 **Project iteration 1** |
+| 10 | 2026.11.11 | **Software Engineering II — Testing** — `pytest`; properties not pictures; the failure path; tests as an executable spec.<br>👉[Lecture](/Lecture/Lecture_12/README.md#part-a--testing-week-10) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W10/) | 🎓 **Final project brief released** |
+| 11 | 2026.11.18 | **Agentic Workflows I** — the LLM as a stateless function; structured output; tools + loop = agent. Build the harness yourself.<br>👉[Lecture](/Lecture/Lecture_11/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W11/) | — |
+| 12 | 2026.11.25 | **Agentic Workflows II** — multi-agent, the coder/reviewer loop, the human gate, why `--auto` is dangerous.<br>👉[Lecture](/Lecture/Lecture_11/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W12/) | 🎓 **Proposal + pitch**<br>📝 [Agentic lab](/Assignment/6_agentic_workflow/README.md) opens |
+| 13 | 2026.12.02 | **Review, git & test-driven agents** — pytest as the un-arguable reviewer; the human review that remains; PR-based review.<br>👉[Lecture](/Lecture/Lecture_12/README.md#part-b--review-and-the-test-driven-agent-week-13) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W13/) | 📝 Agentic lab |
+| 14 | 2026.12.09 | **Deploy: a Grasshopper plugin set, outside Rhino** ⭐ — components without `rhinoscriptsyntax`; the COMPAS Python→`.ghuser` pipeline on GitHub Actions; the loop as a workflow you *direct*.<br>👉[Lecture](/Lecture/Lecture_12/README.md#part-c--deploy-shipping-a-grasshopper-plugin-set-week-14) · 📦[Plugin set](/Lecture/Lecture_12/plugin_set/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W14/) | 📝 Agentic lab due<br>🎓 **Project iteration 1** |
 
 ### Part IV — Build (W15–W18)
 
 | Week | Date | Session | Milestone |
 | ---- | ---------- | ------- | --------- |
-| 15 | 2026.12.16 | **AI in Design (models, not agents)** — diffusion/ControlNet and CLIP as *ingredients*; optional optimization.<br>👉[AI](/Lecture/Lecture_10/README.md) · 👉[Optimization](/Lecture/Lecture_09/README.md) | Project work |
-| 16 | 2026.12.23 | **Final Project — help desk** (register-based one-on-ones). | 🎓 **Project iteration 2** |
-| 17 | 2026.12.30 | **Final Project — packaging clinic.** Feature freeze: README, install, tests green, artifact committed, adapter verified. | 🎓 **Feature freeze** |
-| 18 | 2027.01.06 | 🎓 **Final Presentations** — live demo: the same core, headless *and* in Rhino/Grasshopper. | 🎓 **Repo due 2027.01.10 23:59** |
+| 15 | 2026.12.16 | **AI in Design (models, not agents)** — diffusion/ControlNet and CLIP as *ingredients*; optional optimization.<br>👉[AI](/Lecture/Lecture_10/README.md) · 👉[Optimization](/Lecture/Lecture_09/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W15-optimization/) | Project work |
+| 16 | 2026.12.23 | **Final Project — help desk** (register-based one-on-ones).<br>🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W16/) | 🎓 **Project iteration 2** |
+| 17 | 2026.12.30 | **Final Project — packaging clinic.** Feature freeze: README, install, tests green, artifact committed, adapter verified.<br>🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W17/) | 🎓 **Feature freeze** |
+| 18 | 2027.01.06 | 🎓 **Final Presentations** — live demo: the same core, headless *and* in Rhino/Grasshopper.<br>🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W18/) | 🎓 **Repo due 2027.01.10 23:59** |
 
 ## Grading
 
