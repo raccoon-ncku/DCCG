@@ -33,6 +33,17 @@ uv run python
 >>> exit()
 ```
 
+Two tools you will use constantly from today. `print()` shows you a value, and
+`type()` tells you what kind of thing it is:
+
+```python
+print(f"{width=} {type(width)=}")     # width=10 type(width)=<class 'int'>
+```
+
+The `=` inside the braces prints the expression *and* its value. When something
+behaves oddly, printing the value you are assuming is almost always the fastest
+way to find out you were wrong about it.
+
 ## 2. Comments
 
 ```python
@@ -222,6 +233,9 @@ Three things to get right:
        return w * h        # gives you 12 to use
    x = bad(3, 4) + 1       # TypeError -- None + 1
    ```
+   **A function with no `return` returns `None`.** Not zero, not nothing — a
+   value called `None`. That `TypeError` above is the most common way you will
+   discover you forgot one.
 2. **The body is indented.** Python uses indentation, not braces. Four spaces.
 3. **Write a docstring.** Every checkpoint function in this course expects one.
    It is also the single most effective thing you can do to make an AI

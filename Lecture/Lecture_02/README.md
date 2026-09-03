@@ -277,6 +277,80 @@ This habit is what makes the Week 06 architecture possible.
 > Worth knowing because AI assistants reproduce this bug regularly — it is
 > common in their training data.
 
+## 6. When it goes wrong
+
+This is the first week your code can fail in interesting ways, so this is the
+week to learn what to do about it. There are two different problems here and
+they need different tools.
+
+### It crashed: read the traceback
+
+Python tells you exactly what happened. Read it **from the bottom up** — the
+last line is *what*, the lines above are *where* and *how you got there*.
+
+```
+Traceback (most recent call last):
+  File "primes.py", line 18, in <module>
+    print(primes_below(20))
+  File "primes.py", line 12, in primes_below
+    if n % candidates[i] == 0:
+IndexError: list index out of range
+```
+
+Bottom line: `IndexError` — an index past the end of a list. Line above: the
+exact expression, at line 12. Above that: who called it. Two lines is usually
+the whole answer.
+
+The ones you will meet this week:
+
+| Error | Usually means |
+| ----- | ------------- |
+| `NameError` | typo, or used before it was defined |
+| `TypeError` | wrong kind of value — very often a `None` from a function that forgot to `return` |
+| `IndexError` | list index past the end — check your `range()` |
+| `ValueError` | right type, impossible value — `int("abc")` |
+| `IndentationError` | inconsistent indentation |
+| `ZeroDivisionError` | you divided by a count that turned out to be 0 |
+
+> An error message is not an insult. It is the most specific and most accurate
+> information you will get all day, and it is free. When you ask anyone —
+> including an AI assistant — for help, paste the **whole** traceback. "It
+> doesn't work" is unanswerable.
+
+### It didn't crash, and the answer is wrong
+
+Harder, and much more common in this course. Staring at the code does not
+work. Do this instead:
+
+**1. Print the value you are assuming.** Most bugs are a gap between what you
+believe a variable holds and what it actually holds.
+
+```python
+for i in range(n):
+    print(f"{i=} {total=}")     # the = prints both the name and the value
+```
+
+**2. Narrow it down.** Does it fail with 100 items? With 3? With 1? With 0?
+Does the first pass of the loop produce the right value? Each answer halves
+the search; four or five halvings is usually enough.
+
+**3. Check the boundaries.** Bugs live at the edges — the first and last
+iteration, empty input, one item, zero. Not in the middle.
+
+**4. Run it on an answer you already know.** If `fizz_buzz(5)` doesn't give you
+what you worked out by hand, you have found the bug without understanding the
+code at all.
+
+**5. Say it out loud.** Explain each line, in order, as though to someone else.
+The sentence you cannot finish is the line with the bug.
+
+📄 A worked example: run `Examples/4.2.5_for_if_statement.py` and predict the
+grid before you look.
+
+> Reference version, with more errors and the interactive debugger:
+> [rccn wiki → Errors & Debugging](https://kb.rccn.dev/computation/python/syntax-essentials/errors-and-debugging).
+> Deliberate error *handling* — `try` / `except` — is next week.
+
 ---
 
 ## Checkpoints
@@ -294,9 +368,12 @@ uv run check.py 03
 | 5 | `circle_points(count, radius)` | `math`, radians, floats |
 | 6 | `roll_dice(seed, count)` | `random`, and why seeding makes code testable |
 
-Checkpoint 4 is a warm-up for assignment **A1**
-([Prime Numbers](/Assignment/0_prime_numbers/README.md)) — get it right here and
-A1 becomes mostly presentation.
+Checkpoint 4 (`primes_below`) is the one people find hardest. It is a real
+algorithm rather than a syntax drill, and it is worth the struggle — if you can
+write it and explain it, you can read most of what an assistant hands you.
+There is optional extra practice on the same ground in
+[0_prime_numbers](/Assignment/0_prime_numbers/README.md), retired as a graded
+assignment but kept because the write-up is good.
 
 ## Exercise
 
@@ -310,3 +387,6 @@ A1 becomes mostly presentation.
 4. `math.sin(90)` returns `0.894...`, not `1.0`. Why?
 5. When would you use `while` instead of `for`?
 6. A loop builds a list but returns only one item. What is almost certainly wrong?
+7. Which line of a traceback do you read first, and why?
+8. Your function returns the wrong number but raises no error. What are the
+   first two things you do?

@@ -38,9 +38,9 @@ week's lecture — it is searchable, runnable, and available at 3am.
 | Week | Date | Session | Practice |
 | ---- | ---------- | ------- | -------- |
 | 01 | 2026.09.09 | **Introduction & Toolchain** — how the course works; Python, git/GitHub, Zed, `uv`, and an AI assistant.<br>👉[Lecture](/Lecture/Lecture_00/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W01/) | Setup + first commit (**A0**) |
-| 02 | 2026.09.16 | **Python I** — values, types, lists, functions. Reading code, not only writing it.<br>👉[Lecture](/Lecture/Lecture_01/README.md) | 📝[Exercise](/Exercise/Lecture_01/README.md) |
-| 03 | 2026.09.23 | **Python II** — control flow, modules; reading a traceback.<br>👉[Lecture](/Lecture/Lecture_02/README.md) | 📝[Exercise](/Exercise/Lecture_02/README.md) |
-| 04 | 2026.09.30 | **Python III + AI literacy** — dicts, file IO, JSON; what an LLM is, and reviewing generated code.<br>👉[Lecture](/Lecture/Lecture_04/README.md) | Checkpoint 5: find the AI's bugs |
+| 02 | 2026.09.16 | **Python I** — values, types, lists, functions. Reading code, not only writing it.<br>👉[Lecture](/Lecture/Lecture_01/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W02/) | 📝[Exercise](/Exercise/Lecture_01/README.md) |
+| 03 | 2026.09.23 | **Python II** — control flow, modules; reading a traceback and debugging what doesn't crash.<br>👉[Lecture](/Lecture/Lecture_02/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W03/) | 📝[Exercise](/Exercise/Lecture_02/README.md) |
+| 04 | 2026.09.30 | **Python III + AI literacy** — dicts, file IO, JSON; what an LLM is, how to ask, and reviewing generated code.<br>👉[Lecture](/Lecture/Lecture_04/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W04/) | Checkpoint 5: find the AI's bugs |
 
 ### Part II — Geometry as pure functions (W05–W09)
 

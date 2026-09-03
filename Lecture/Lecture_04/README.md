@@ -182,34 +182,17 @@ What it cannot: tuples (they come back as lists), sets, and your own classes.
 > which *can* store geometry objects. You will meet it in Week 05 and rely on
 > it from Week 06.
 
-## 4. Errors, and reading a traceback
+## 4. Handling errors on purpose
 
-When Python fails it prints a **traceback**. Read it **from the bottom up**:
-the last line is what went wrong, and the lines above show how you got there.
-
-```
-Traceback (most recent call last):
-  File "script.py", line 12, in <module>
-    area = rooms["kitchen"]["area"]
-KeyError: 'kitchen'
-```
-
-Bottom line: `KeyError: 'kitchen'` — there is no such key. Line above: exactly
-where. That is usually enough.
-
-Common ones:
+Week 03 covered *reading* a traceback — bottom line first — and the errors you
+meet most. Dictionaries and files add two more to that list:
 
 | Error | Usually means |
 | ----- | ------------- |
-| `NameError` | typo in a name, or used before it was defined |
-| `TypeError` | wrong kind of value — often a `None` from a function that forgot to `return` |
-| `KeyError` | dictionary key does not exist |
-| `IndexError` | list index past the end |
-| `ValueError` | right type, impossible value (`int("abc")`) |
-| `AttributeError` | that object has no such method — often a typo, or it is `None` |
-| `IndentationError` | your indentation is inconsistent |
+| `KeyError` | that dictionary key does not exist — use `.get()` if absence is normal |
+| `FileNotFoundError` | the path is wrong, or relative to a different folder than you think |
 
-### Handling errors on purpose
+This week is the other half: failure you **expect**, and choose to handle.
 
 ```python
 try:
@@ -218,20 +201,88 @@ except ValueError:
     print("That was not a number.")
 ```
 
-Catch only what you can actually handle. A bare `except:` that swallows
-everything turns a loud, findable bug into a silent, unfindable one.
+Catch only what you can actually handle, and name it. A bare `except:` swallows
+everything — including the typo you have not found yet — and turns a loud,
+findable bug into a silent, permanent one.
+
+The distinction is worth stating plainly, because it is a design decision you
+will make repeatedly from Week 06 onward:
+
+- A missing key that means **your program is broken** should crash. Let it.
+- A missing key that is **a normal situation** deserves `.get()` or a `try`.
+
+Silencing the first kind is how a wall with eleven courses gets built.
 
 📄 `../Lecture_05/python_examples/try_statement.py`
 
-## 5. Reading AI-generated code
+## 5. What an LLM actually is
+
+You have been using an assistant since Week 01. Here is what it is doing, and
+it is less than most people assume.
+
+**A language model predicts plausible continuations of text.** Give it your
+code and your question, and it produces what tends to follow text like that.
+That is the whole mechanism. It is not executing your code, not checking your
+units, not reasoning about your wall.
+
+Three consequences that matter this week:
+
+1. **It is a function, not a colleague.** Same input, same distribution of
+   outputs. It has no memory of yesterday, and within one conversation it only
+   sees what is on screen. If a constraint matters, it has to be in the prompt.
+2. **Fluency is not correctness.** Confident prose, tidy variable names and a
+   well-formed docstring are properties of the *writing*. They are not evidence
+   about the code. This is the single most expensive misunderstanding available
+   to you this semester.
+3. **It fails silently and plausibly.** A human who does not know says so. A
+   model produces its best guess in the same confident voice it uses when
+   right — including inventing methods that do not exist and citing papers that
+   were never written.
+
+It follows that it is strongest where a mistake is cheap and obvious —
+boilerplate, format conversion, a first draft, explaining unfamiliar code — and
+weakest where a mistake is silent: numeric detail, units, edge cases, and
+anything that depends on facts about your project it cannot see.
+
+In Week 11 you will build the loop that drives one of these, from scratch, and
+this description becomes a piece of code you can read.
+
+### Asking well
+
+The quality of what comes back tracks the specificity of the request more than
+anything else you control.
+
+| Instead of | Ask |
+| ---------- | --- |
+| "write a function for rooms" | "Write `summarise_rooms(rooms)` taking a list of dicts with `name` and `area` keys, returning the count, the total area, and the mean. Decide what an empty list should do and say why." |
+| "fix this" | "This raises `KeyError: 'area'` on line 12. Here is the traceback and the input. What causes it?" |
+| "is this good?" | "What happens for an empty list? For one item? For a negative area?" |
+| "explain dictionaries" | "Explain line by line what `counts[word] = counts.get(word, 0) + 1` does." |
+
+Four habits worth building now:
+
+- **State the signature you want** — name, parameters, what comes back. You
+  design the interface; let it fill the body.
+- **Paste the real error**, complete, as text.
+- **Ask one thing.** Four requests in a prompt get four mediocre answers.
+- **Ask it to explain rather than produce** when you are trying to learn.
+  Accepted-but-not-understood code is a debt, and Week 13 is when it comes due.
+
+> If you cannot describe what you want precisely enough for a model to build
+> it, you have not finished thinking about the problem. That difficulty is
+> information. In Week 10 this becomes a formal idea: a brief you can turn into
+> a test is a finished brief.
+
+The general, non-course version of this — including where *not* to reach for an
+assistant — is on the lab wiki:
+[AI Assistants](https://kb.rccn.dev/computation/ai-assistants).
+
+## 6. Reading AI-generated code
 
 You now know enough Python to review it — and that is the job.
 
-An AI assistant produces code that is **fluent**: correct-looking names,
-plausible structure, a confident docstring. Fluency is not correctness. The
-model is not reasoning about your problem; it is producing text that resembles
-solutions to problems like yours. Most of the time that lands. When it misses,
-it misses in ways that look fine.
+Most of the time a model lands it. When it misses, it misses in ways that look
+fine — which is why review is a procedure and not a feeling.
 
 **The five places to look first** — nearly every bug you will meet this
 semester is one of these:
@@ -259,7 +310,7 @@ semester is one of these:
 > "It ran without an error" is not evidence that it is correct. Silent wrong
 > answers are the expensive kind. This is also why Week 10 exists.
 
-## 6. Optional: graphs and networks
+## 7. Optional: graphs and networks
 
 `graph_examples/` contains a full set of COMPAS `Network` / networkx examples —
 shortest paths, a brick-wall network, real data on the New York subway and
@@ -298,3 +349,6 @@ That comparison is the actual exercise.
 4. You call a function and get `TypeError: unsupported operand type(s) for +:
    'NoneType' and 'int'`. What is the most likely cause?
 5. Name three bugs that AI-generated Python commonly contains.
+6. Why is "it ran without an error" not evidence that code is correct?
+7. An assistant gives you a function and a test case that passes. Why should
+   you not treat that as verification?
