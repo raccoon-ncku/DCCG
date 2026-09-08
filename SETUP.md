@@ -74,6 +74,51 @@ from Week 06 on. When you do want it, install Rhino 8 and authenticate against
 the class licence server — details in
 [Week 01 §4](/Lecture/Lecture_00/README.md#4-rhino-optional-this-week).
 
+## Git for this course
+
+You **read from** the instructor's repo (updates every week) and **write to** a
+fork of your own. Two remotes, one clone. This becomes the backbone of the
+course: your commits *are* the record of what you did, your fork *is* your
+final-project submission at the end.
+
+**Week 01** is local-only: clone from the instructor's URL, commit A0 locally.
+Nothing to push yet.
+
+**From Week 02** the setup is fork-based:
+
+```bash
+# 1. Fork raccoon-ncku/DCCG on GitHub (browser, one click)
+# 2. In your terminal, from a fresh clone of YOUR fork:
+git remote add upstream https://github.com/raccoon-ncku/DCCG.git
+git remote -v                             # confirm origin AND upstream are listed
+```
+
+Then the weekly loop is four commands:
+
+```bash
+git pull upstream main                    # get the instructor's new material
+git add MyWork/week03-notes.md            # stage your work
+git commit -m "Week 03: notes + checkpoint 4 attempt"
+git push                                  # publish to your fork
+```
+
+**Your own work goes in [`MyWork/`](MyWork/README.md)** — a top-level folder
+reserved for you. The instructor never adds, edits, or deletes files there, so
+`git pull` never conflicts with it. Put practice, notes, sketches, and scratch
+here. For files you want kept strictly on your laptop and *not* committed, use
+`Notes/` instead — it's gitignored.
+
+The one file the instructor **and** you both edit is
+`Lecture/<folder>/checkpoints/tasks.py`. Merge conflicts there are rare (the
+instructor's edits are usually additions or docstring fixes, not on the lines
+you filled in), and are a legitimate learning moment when they happen.
+
+**When something goes wrong** — merge conflict, rejected push, "I committed to
+the wrong branch", accidental `.env` push — see the failure catalogue in
+[rccn wiki ▸ Git for coursework](https://kb.rccn.dev/computation/development-environment/version-control/coursework-git#what-can-go-wrong).
+It is ten failure modes with the three-line recovery for each. Read once now,
+come back to it in Week 04.
+
 ---
 
 Something not working? See [TROUBLESHOOTING.md](TROUBLESHOOTING.md).

@@ -24,6 +24,7 @@ Rhino 8 / Grasshopper through a thin adapter.
 * E7-125 / E735400 / ARCH3045 · **WED 13:10–15:00** · Computer lab (5102)
 * First session **2026.09.09** · Office hour Wed 15:10–17:00 · ccyen @ gs.ncku.edu.tw
 * **New here? → [Setup](SETUP.md)** · stuck? → [Troubleshooting](TROUBLESHOOTING.md)
+* **Working in this repo:** your own notes and practice live in [`MyWork/`](MyWork/README.md) (tracked, instructor-never-touches). The instructor's updates arrive weekly via `git pull upstream main` — full setup in [SETUP ▸ Git for this course](SETUP.md#git-for-this-course), failure catalogue on the [wiki](https://kb.rccn.dev/computation/development-environment/version-control/coursework-git).
 
 ## Schedule, 2026 Fall
 
@@ -37,8 +38,8 @@ week's lecture — it is searchable, runnable, and available at 3am.
 
 | Week | Date | Session | Practice |
 | ---- | ---------- | ------- | -------- |
-| 01 | 2026.09.09 | **Introduction & Toolchain** — how the course works; Python, git/GitHub, Zed, `uv`, and an AI assistant.<br>👉[Lecture](/Lecture/Lecture_00/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W01/) | Setup + first commit (**A0**) |
-| 02 | 2026.09.16 | **Python I** — values, types, lists, functions. Reading code, not only writing it.<br>👉[Lecture](/Lecture/Lecture_01/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W02/) | 📝[Exercise](/Exercise/Lecture_01/README.md) |
+| 01 | 2026.09.09 | **Introduction & Toolchain** — how the course works; Python, git/GitHub, Zed, `uv`, and an AI assistant.<br>👉[Lecture](/Lecture/Lecture_00/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W01/) | Setup + first commit (**A0**, local) · fork the course before W02 |
+| 02 | 2026.09.16 | **Python I** — values, types, lists, functions. Reading code, not only writing it.<br>👉[Lecture](/Lecture/Lecture_01/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W02/) | 10-min git housekeeping: fork + push **A0** · 📝[Exercise](/Exercise/Lecture_01/README.md) |
 | 03 | 2026.09.23 | **Python II** — control flow, modules; reading a traceback and debugging what doesn't crash.<br>👉[Lecture](/Lecture/Lecture_02/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W03/) | 📝[Exercise](/Exercise/Lecture_02/README.md) |
 | 04 | 2026.09.30 | **Python III + AI literacy** — dicts, file IO, JSON; what an LLM is, how to ask, and reviewing generated code.<br>👉[Lecture](/Lecture/Lecture_04/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W04/) | Checkpoint 5: find the AI's bugs |
 

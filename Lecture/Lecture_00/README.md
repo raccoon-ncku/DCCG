@@ -107,6 +107,28 @@ uv sync
 `uv sync` reads `pyproject.toml` and `uv.lock` and builds an exact,
 reproducible environment in `.venv/`. It takes a minute the first time.
 
+> **Week 01 is local-only.** You clone directly from the instructor's URL and
+> commit A0 locally — no push required today. Next week we set up a
+> **fork** so your commits land on your own copy, and the weekly `git pull`
+> ritual for new course material begins. If you want to read ahead:
+> [SETUP.md ▸ Git for this course](/SETUP.md#git-for-this-course) and
+> [rccn wiki ▸ Git for coursework](https://kb.rccn.dev/computation/development-environment/version-control/coursework-git).
+{.is-info}
+
+### Your work vs. the instructor's
+
+Two kinds of file live in this repo. The distinction matters for the rest of
+the term:
+
+| | Path | Whose | Rule |
+| --- | --- | --- | --- |
+| Instructor's | `Lecture/…/README.md`, `Reference/…` | theirs | you read, sometimes edit (checkpoint stubs) |
+| Yours | [`MyWork/`](/MyWork/README.md) | yours | put notes, sketches, practice here |
+| Private | `Notes/` | yours, laptop-only | gitignored — never pushed |
+
+The instructor promises to never write into `MyWork/`, so `git pull` on Week 03
+will never conflict with your Week 02 notes.
+
 **You never activate this environment.** Instead, prefix commands with
 `uv run`, which runs them inside it:
 
@@ -198,16 +220,20 @@ rather than your code. The fifth asks you to edit one line.
 uv run check.py 01
 ```
 
-When all five pass, commit and push:
+When all five pass, commit locally:
 
 ```bash
 git add -A
 git commit -m "Week 01: environment set up"
-git push
 ```
 
-That push is assignment **A0** — see
-[A0: Setup & Copilot](/Assignment/0_copilot/README.md).
+That commit is assignment **A0** — see
+[A0: Setup & Copilot](/Assignment/0_copilot/README.md). No push this week; you
+do not have a fork yet. Next week we set one up in the first ten minutes of
+class and the commit above gets its first `git push`.
+
+If you want to fork ahead of Week 02: the setup and the four weekly commands
+are in [SETUP.md ▸ Git for this course](/SETUP.md#git-for-this-course).
 
 ## 7. Troubleshooting
 
@@ -229,6 +255,12 @@ fast and it is not a defeat:
 ```bash
 rm -rf .venv && uv sync
 ```
+
+**Git said something you don't understand** — the ten common cases and their
+three-line recoveries are in
+[rccn wiki ▸ Git for coursework ▸ What can go wrong](https://kb.rccn.dev/computation/development-environment/version-control/coursework-git#what-can-go-wrong).
+Merge conflicts, rejected pushes, authentication failures, accidental secret
+commits — all named, all recoverable.
 
 **Still stuck** — open an issue on the course repo with the *exact* command you
 ran and the *complete* error output. "It doesn't work" is unanswerable; a

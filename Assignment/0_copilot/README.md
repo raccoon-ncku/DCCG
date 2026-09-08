@@ -1,6 +1,8 @@
 # A0 — Setup
 
-**Due: Week 01 (2026.09.09), by the end of the session if you can.**
+**Due:** by the end of Week 01. If you don't finish in the session, finish
+before Week 02 — checkpoints stack on it. See the [schedule](/README.md#schedule-2026-fall)
+for dates.
 
 This is the one assignment with no code to write. You are proving that your
 machine can run the course, and making your first commit.
@@ -38,17 +40,37 @@ follow that. This page is only the checklist and the deliverable.
    Four of these check your machine. The fifth asks you to edit one line in
    `Lecture/Lecture_00/checkpoints/tasks.py`.
 
-## Deliverable
+## Deliverable — Week 01
 
-The push itself:
+Commit locally. No push this week; you do not have a fork yet.
 
 ```bash
 git add -A
 git commit -m "Week 01: environment set up"
-git push
 ```
 
-That's it. Nothing to submit on Moodle — your commit is the submission.
+**That commit is A0.** No Moodle upload — the commit itself is the record.
+
+## Then — Week 02, first ten minutes
+
+We set up your fork on GitHub together and push that commit for the first
+time. If you want to do it ahead of class, the full instructions are in
+[SETUP.md ▸ Git for this course](/SETUP.md#git-for-this-course) and the
+[wiki page on coursework git](https://kb.rccn.dev/computation/development-environment/version-control/coursework-git).
+
+The short version:
+
+```bash
+# on GitHub, one click: fork raccoon-ncku/DCCG to <your-username>/DCCG
+# then, in your terminal:
+git remote add upstream https://github.com/raccoon-ncku/DCCG.git
+git remote set-url origin https://github.com/<your-username>/DCCG.git
+git push -u origin main
+```
+
+From then on: `git pull upstream main` weekly for new material,
+`git push` to your fork for your own work. Your notes and practice live in
+[`MyWork/`](/MyWork/README.md).
 
 Stuck? [Troubleshooting](/TROUBLESHOOTING.md), then bring the exact command
 and the complete error to Week 02.

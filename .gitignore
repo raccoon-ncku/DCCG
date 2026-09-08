@@ -112,6 +112,12 @@ ipython_config.py
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
 __pypackages__/
 
+# editor swap / backup files (vim, emacs, and friends)
+*.swp
+*.swo
+*~
+.*.sw?
+
 # Celery stuff
 celerybeat-schedule
 celerybeat.pid
@@ -165,6 +171,11 @@ Practices/*
 *.gslides
 .vscode/
 .DS_Store
+
+# Student-only scratch: use MyWork/ for anything you want committed (tracked
+# and reserved for you — the instructor never writes into it). Use Notes/ for
+# strictly-private files that must never leave your laptop.
+Notes/
 
 !.gitignore
 !Reference/placeholder
