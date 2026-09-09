@@ -1,7 +1,7 @@
 # Week 02 — Python I: values, types, lists, functions
 
 > Self-contained. Read this page, run the examples next to it, then do the
-> checkpoints. `uv run check.py 02` tells you when you are done.
+> checkpoints. `uv run check.py 01` tells you when you are done.
 
 ## Why we start by *reading*
 
@@ -32,17 +32,6 @@ uv run python
 4
 >>> exit()
 ```
-
-Two tools you will use constantly from today. `print()` shows you a value, and
-`type()` tells you what kind of thing it is:
-
-```python
-print(f"{width=} {type(width)=}")     # width=10 type(width)=<class 'int'>
-```
-
-The `=` inside the braces prints the expression *and* its value. When something
-behaves oddly, printing the value you are assuming is almost always the fastest
-way to find out you were wrong about it.
 
 ## 2. Comments
 
@@ -97,6 +86,17 @@ print(type(3))        # <class 'int'>
 print(type(3.0))      # <class 'float'>
 print(3 == 3.0)       # True  -- equal in value
 ```
+
+Two tools you will use constantly from today. `print()` shows you a value, and
+`type()` tells you what kind of thing it is:
+
+```python
+print(f"{width=} {type(width)=}")     # width=10 type(width)=<class 'int'>
+```
+
+The `=` inside the braces prints the expression *and* its value. When something
+behaves oddly, printing the value you are assuming is almost always the fastest
+way to find out you were wrong about it.
 
 > ### ⚠️ Floats are approximate — remember this one
 > ```python

@@ -34,15 +34,15 @@ ROOT = Path(__file__).parent.resolve()
 # (week, lecture folder, title). The folder numbers are historical and do not
 # match the week numbers -- the course schedule in README.md is the authority.
 COURSE = [
-    ("01", "Lecture_00", "Toolchain: uv, Zed, git, and an AI assistant"),
-    ("02", "Lecture_01", "Python I: values, types, lists, functions"),
-    ("03", "Lecture_02", "Python II: control flow, modules, functions"),
+    ("00", "Lecture_00", "Toolchain: uv, Zed, git, and an AI assistant"),
+    ("01", "Lecture_01", "Python I: values, types, lists, functions"),
+    ("02", "Lecture_02", "Python II: control flow, modules, functions"),
     ("04", "Lecture_04", "Python III: dictionaries, files, JSON + AI literacy"),
-    ("05", "Lecture_03", "COMPAS core: primitives and transformations"),
+    ("03", "Lecture_03", "COMPAS core: primitives and transformations"),
     ("06", "Lecture_06", "Software engineering I: the dual-mode architecture"),
-    ("07", "Lecture_08", "Object-oriented programming  (self-paced week)"),
-    ("08", "Lecture_07", "Recursion and self-similar geometry  (self-paced week)"),
-    ("09", "Lecture_05", "Mesh: a real geometric data structure"),
+    ("08", "Lecture_08", "Object-oriented programming  (self-paced week)"),
+    ("07", "Lecture_07", "Recursion and self-similar geometry  (self-paced week)"),
+    ("05", "Lecture_05", "Mesh: a real geometric data structure"),
 ]
 
 # ----------------------------------------------------------------------------
