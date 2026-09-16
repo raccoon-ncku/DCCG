@@ -5,9 +5,9 @@ Edit ONLY this file. Run from the repository root:
 
     uv run check.py 07
 
-This is a self-paced week. Read test_tasks.py whenever a docstring here is
-not specific enough -- and note how much of the "spec" for a class is really
-a list of small promises about how it behaves.
+This is a self-paced week. Read `spec/test_tasks.py` whenever a docstring
+here is not specific enough -- and note how much of the "spec" for a class
+is really a list of small promises about how it behaves.
 """
 
 import math

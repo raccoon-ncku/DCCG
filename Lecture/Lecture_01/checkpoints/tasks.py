@@ -6,8 +6,9 @@ implementation, then run from the repository root:
 
     uv run check.py 02
 
-The precise specification for each function is in `test_tasks.py`, next to
-this file. Read it. It answers the questions this docstring leaves open.
+The precise specification for each function is in `spec/test_tasks.py` (one
+folder down, marked READ ONLY). Read it. It answers the questions this
+docstring leaves open.
 """
 
 
@@ -90,7 +91,7 @@ def list_stats(numbers):
 
     The empty list is a real case you must decide about. This specification
     decides for you: see `test_list_stats_handles_the_empty_list` in
-    test_tasks.py before you implement this.
+    `spec/test_tasks.py` before you implement this.
 
     Returns
     -------

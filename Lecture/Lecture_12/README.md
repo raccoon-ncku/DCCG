@@ -63,8 +63,8 @@ units, counts, offsets, or tolerances survives translation into a test.
 This is the planner's real skill, and the through-line of the whole course:
 **a brief you can turn into a test is a finished brief; if you cannot write the
 test, you have not finished planning.** It is the same claim the Week 01–09
-checkpoints made — the `test_tasks.py` beside each `tasks.py` was this, with
-training wheels. Now you write them.
+checkpoints made — the `spec/test_tasks.py` one folder down from each
+`tasks.py` was this, with training wheels. Now you write them.
 
 ---
 

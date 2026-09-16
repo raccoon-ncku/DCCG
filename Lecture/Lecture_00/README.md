@@ -31,9 +31,64 @@ find an old tutorial online, you will see `conda` and VS Code. We now use:
 Nothing you learn is tool-specific: `uv` manages a normal Python virtual
 environment, and Zed edits normal text files.
 
+### 1.1 What is `uv`?
+
+`uv` is a **Python project manager** — one small binary that handles four
+jobs that have historically needed four different tools:
+
+1. **Install Python itself** — if `python 3.13` is not on your machine, `uv`
+   downloads it. You do not need to install Python separately.
+2. **Create a project environment** — a `.venv/` folder next to your code,
+   isolated from every other project on your machine.
+3. **Install and pin packages** — reads `pyproject.toml` (which packages you
+   want), writes `uv.lock` (which exact versions you got), and installs
+   them into `.venv/`.
+4. **Run your code inside that environment** — `uv run <script.py>` uses the
+   project's Python and its packages, not whatever your shell would pick.
+
+That is the whole model. Two files describe the environment; one command
+(`uv sync`) rebuilds it from those files on any machine.
+
+### 1.2 What is `conda`, and what does it give you?
+
+`conda` (also `miniconda`, `anaconda`) is the older tool this course used
+last year and the one you will still see in most tutorials. It does most of
+what `uv` does — creates isolated environments, installs Python packages —
+but the model is different:
+
+- Environments live in **one shared folder** on your machine
+  (`~/miniconda3/envs/foo`, `~/miniconda3/envs/bar`), not next to the
+  project code.
+- You **activate** an environment with `conda activate foo` before running
+  Python. If you forget, you use the wrong one silently.
+- Package versions are described in an `environment.yml`, but conda does
+  **not lock** them by default — the same file installed a month later can
+  give you slightly different versions.
+- Conda has a huge ecosystem of scientific packages (some, like `pytorch`
+  with CUDA, are still easier to install through conda than through pip).
+
+Conda works. Millions of people ship code with it. It is not wrong; it is
+just heavier and looser than we need.
+
+### 1.3 Why we favour `uv` now
+
+Three reasons that matter for this course:
+
+1. **`uv.lock` is a real lockfile.** Everyone in the course runs the
+   *exact* same versions of every package, down to sub-dependencies. When
+   your code breaks, it is your code — not a library that quietly moved.
+2. **You never activate anything.** `uv run` picks the right Python every
+   time, from any shell, without ceremony. That closes the single most
+   common "worked for me" failure of a first-year course.
+3. **It is fast.** A cold environment build is ~5 seconds instead of
+   ~5 minutes. When something breaks the answer becomes `rm -rf .venv &&
+   uv sync` — fast enough to not be a defeat.
+
 > **If you already have conda installed, leave it alone.** It will not
 > conflict. Just do not use it for this course — mixing the two is the most
-> common source of "it works for you but not for me".
+> common source of "it works for you but not for me". The legacy conda
+> files at the repo root (`environment*.yml`) are for the Week 15 ML
+> material and older student projects; ignore them for Weeks 01–14.
 
 ## 2. Install
 
@@ -152,6 +207,53 @@ it can never use the wrong Python by accident.
 | `uv remove <package>` | Remove one |
 | `uv tree` | Show what is installed and why |
 
+### Verify your laptop is ready to do the work
+
+Before you leave today, prove your laptop can do the three things every
+week from now on asks of you: **read** a Python file, **edit** it, and
+**run** it inside the course environment. The `check.py 01` gate in §6
+does this too, but running it once by hand — reading the code as it goes
+— makes the loop concrete.
+
+**1. Open the repo in Zed.**
+```bash
+zed .          # from inside the DCCG folder
+```
+If that command is not on your PATH, open Zed and *File ▸ Open Folder…*
+the DCCG folder.
+
+**2. Run a shipped example.** In Zed's integrated terminal
+(<kbd>ctrl</kbd> + `` ` ``):
+```bash
+uv run Lecture/Lecture_01/Examples/1_hello_world.py
+```
+You should see a greeting and no traceback. If you see
+`ModuleNotFoundError: No module named 'compas'`, you ran `python` instead
+of `uv run` — always `uv run`.
+
+**3. Write and run your own file.** In your [`MyWork/`](/MyWork/README.md)
+folder, create `hello.py`:
+```python
+from compas.geometry import Point, Vector
+
+p = Point(1.0, 2.0, 3.0)
+v = Vector(0.0, 0.0, 1.0)
+print(f"{p} moved by {v} is {p + v}")
+```
+Run it:
+```bash
+uv run MyWork/hello.py
+```
+Expected output:
+```
+Point(x=1.000, y=2.000, z=3.000) moved by Vector(x=0.000, y=0.000, z=1.000) is Point(x=1.000, y=2.000, z=4.000)
+```
+
+If those three things worked — you read shipped code, wrote a new file,
+ran it with the course's Python — your laptop can do every weekly
+exercise. If any of them failed, the fix is in §7 or in the error
+message. Do not skip this; every W02 checkpoint stacks on it.
+
 ## 4. Rhino (optional this week)
 
 Rhino is not required until Week 14, but the licence is available now.
@@ -178,11 +280,21 @@ uv run check.py 01     # this week, with hints
 uv run check.py 01 -v  # ... and the full failure output
 ```
 
-Each week's tasks live in `Lecture/<folder>/checkpoints/tasks.py`. You edit
-**only that file**. Next to it, `test_tasks.py` is the *specification*: the
-precise, machine-checkable statement of what your code must do. Read it. It is
+Each week's checkpoints folder is deliberately shaped so **the file you edit
+sits alone**, and the read-only spec lives one folder down:
+
+```
+Lecture/<folder>/checkpoints/
+├── tasks.py         ← YOU EDIT THIS   (or core.py + runner.py in Week 06)
+└── spec/
+    └── test_tasks.py    ← READ ONLY — the specification
+```
+
+You edit `tasks.py`. The spec at `spec/test_tasks.py` is the precise,
+machine-checkable statement of what your code must do. **Read it.** It is
 allowed — in fact it is the point. A spec you are not allowed to read is not a
-spec, it is a guessing game.
+spec, it is a guessing game. The `spec/` folder is where it lives so you cannot
+accidentally edit it by clicking the wrong sibling in your file tree.
 
 Three states:
 

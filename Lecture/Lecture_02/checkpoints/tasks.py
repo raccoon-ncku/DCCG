@@ -5,8 +5,8 @@ Edit ONLY this file. Run from the repository root:
 
     uv run check.py 03
 
-`test_tasks.py` next to this file is the specification. Read it whenever a
-docstring here leaves you guessing -- that is what it is for.
+`spec/test_tasks.py` (one folder down, marked READ ONLY) is the specification.
+Read it whenever a docstring here leaves you guessing -- that is what it is for.
 """
 
 import math

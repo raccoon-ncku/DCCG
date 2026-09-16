@@ -53,12 +53,21 @@ full tutorial in its `README.md` plus a `checkpoints/` directory:
 
 ```
 Lecture/<folder>/checkpoints/
-├── tasks.py        # student edits this; functions raise NotImplementedError
-└── test_tasks.py   # the spec, written as pytest; students are told to read it
+├── tasks.py           # student edits this; functions raise NotImplementedError
+├── conftest.py        # one-line sys.path bridge so spec/ can import tasks
+└── spec/
+    └── test_tasks.py  # the spec, written as pytest; students are told to read it
 ```
+
+The spec was moved into `spec/` on 2026-09-10 so students see one clearly-
+editable file at the checkpoints/ root and cannot accidentally edit the
+read-only test by clicking a visual sibling. `conftest.py` is what keeps
+`from tasks import …` working across the split — do not delete it. Every
+`spec/test_tasks.py` also carries a READ ONLY banner at line 1.
 
 Week 06 is the exception — it ships `core.py` + `runner.py` instead of
 `tasks.py`, because the whole lesson is that those are separate layers.
+Same `spec/` split applies.
 
 `check.py` at the repo root runs a week's checkpoints via an in-process pytest
 plugin and prints PASS / FAIL / TODO (TODO = still raising `NotImplementedError`).

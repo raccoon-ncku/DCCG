@@ -7,8 +7,9 @@ DCCG self-check runner.
     uv run check.py 03 -v      # ... and show the full failure output
 
 Every week in Part I and II ships with a set of CHECKPOINTS: small functions
-you implement in `checkpoints/tasks.py`, and a matching spec that decides
-whether your implementation is right.
+you implement in `checkpoints/tasks.py` (the file you edit), and a matching
+spec at `checkpoints/spec/test_tasks.py` (READ ONLY) that decides whether
+your implementation is right.
 
 The spec is written with `pytest`. You are not expected to understand it yet
 -- in Week 10 you will write these yourself, and at that point this runner

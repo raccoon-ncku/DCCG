@@ -48,8 +48,9 @@ uv run check.py 05     # work on Week 05, with hints
 uv run check.py 05 -v  # ... and full failure output
 ```
 
-You edit `Lecture/<folder>/checkpoints/tasks.py`; the `test_*.py` beside it is
-the *specification*, and you are meant to read it. Three states: `TODO` (not
+You edit `Lecture/<folder>/checkpoints/tasks.py`; the spec at
+`checkpoints/spec/test_tasks.py` (one folder down, marked READ ONLY) is the
+*specification*, and you are meant to read it. Three states: `TODO` (not
 attempted), `FAIL` (attempted, doesn't match the spec), `PASS`.
 
 Checkpoints aren't scored, but completing them is **required** — a gate you must

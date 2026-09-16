@@ -1,3 +1,10 @@
+# ──────────────────────────────────────────────────────────────────────────────
+#  READ ONLY  ·  this file is the SPEC, not the answers.
+#
+#  If a checkpoint fails, edit `../tasks.py` (or `../core.py` / `../runner.py`
+#  in Week 06), NOT this file. Read the assertions below to understand what
+#  each checkpoint is checking; do not change them.
+# ──────────────────────────────────────────────────────────────────────────────
 """
 The SPECIFICATION for Week 03.
 

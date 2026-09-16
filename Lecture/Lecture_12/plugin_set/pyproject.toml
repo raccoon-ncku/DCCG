@@ -8,9 +8,17 @@ dependencies = ["compas>=2.0"]
 [project.optional-dependencies]
 dev = ["pytest"]
 
+# uv resolves and locks these; they are never part of the published wheel.
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.6",
+]
+
 [build-system]
 requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
