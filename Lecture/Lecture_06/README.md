@@ -55,20 +55,24 @@ program's contact with the outside world are tangled together.**
 └────────────────────────────────────────────────────────────┘
 ```
 
-As files:
+As files (this week's actual layout):
 
 ```
-project/
-├── core.py       # def running_bond_wall(length, height, ...) -> list[Box]
-├── runner.py     # calls the core, writes output/wall.json
-├── output/
-│   └── wall.json # the artifact
-├── view.py       # optional: open the artifact in compas_viewer
-├── adapters/
-│   └── rhino_load.py
-└── tests/
-    └── test_core.py
+Lecture/Lecture_06/checkpoints/
+├── core.py       # def stacked_wall(n_courses, length=2.0, thickness=0.3,
+│                 #                   course_height=0.2, offset=0.1) -> list[Box]
+│                 # def wall_height(n_courses, course_height=0.2) -> float
+├── runner.py     # def build_artifact(path, n_courses=8, **kwargs)
+│                 # — calls the core, writes output/wall.json
+└── spec/
+    └── test_tasks.py    # the checkpoint spec (READ ONLY)
 ```
+
+The **artifact** — `output/wall.json` — is created the first time you run
+`build_artifact`; commit it. The **adapter** — a two-line Rhino script that
+loads that artifact — is what you write in Week 14, not this week; the
+worked example lives at [`Lecture_12/rhino_load.py`](/Lecture/Lecture_12/rhino_load.py)
+for anyone who wants to see it early.
 
 **The one-sentence rule: keep the intelligence out of the host application.**
 Rhino and Grasshopper only ever *receive* results.
