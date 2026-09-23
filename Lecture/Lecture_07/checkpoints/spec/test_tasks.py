@@ -1,9 +1,11 @@
 # ──────────────────────────────────────────────────────────────────────────────
 #  READ ONLY  ·  this file is the SPEC, not the answers.
 #
-#  If a checkpoint fails, edit `../tasks.py` (or `../core.py` / `../runner.py`
-#  in Week 06), NOT this file. Read the assertions below to understand what
-#  each checkpoint is checking; do not change them.
+#  Your work goes in  ../answers.py  (or ../answers_core.py + ../answers_runner.py
+#  in Week 06). That file is auto-created from the shipped starter on first run
+#  and is gitignored, so `git pull` never conflicts with it. Read the
+#  assertions below to understand what each checkpoint is checking; do not
+#  change them.
 # ──────────────────────────────────────────────────────────────────────────────
 """
 The SPECIFICATION for Week 07.
@@ -23,7 +25,7 @@ from pathlib import Path
 import compas.geometry as cg
 import pytest
 
-from tasks import Rectangle, Square, Vector2D, Wall
+from answers import Rectangle, Square, Vector2D, Wall
 
 HERE = Path(__file__).parent
 TOL = 1e-9

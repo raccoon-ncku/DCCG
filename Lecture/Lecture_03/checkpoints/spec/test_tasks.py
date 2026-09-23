@@ -1,9 +1,11 @@
 # ──────────────────────────────────────────────────────────────────────────────
 #  READ ONLY  ·  this file is the SPEC, not the answers.
 #
-#  If a checkpoint fails, edit `../tasks.py` (or `../core.py` / `../runner.py`
-#  in Week 06), NOT this file. Read the assertions below to understand what
-#  each checkpoint is checking; do not change them.
+#  Your work goes in  ../answers.py  (or ../answers_core.py + ../answers_runner.py
+#  in Week 06). That file is auto-created from the shipped starter on first run
+#  and is gitignored, so `git pull` never conflicts with it. Read the
+#  assertions below to understand what each checkpoint is checking; do not
+#  change them.
 # ──────────────────────────────────────────────────────────────────────────────
 """
 The SPECIFICATION for Week 03.
@@ -16,7 +18,7 @@ the only way to test geometry that carries floating-point noise.
 
 import math
 
-from tasks import (
+from answers import (
     circle_points,
     fizz_buzz,
     is_palindrome,

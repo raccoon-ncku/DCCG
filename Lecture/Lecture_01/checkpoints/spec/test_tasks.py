@@ -1,9 +1,11 @@
 # ──────────────────────────────────────────────────────────────────────────────
 #  READ ONLY  ·  this file is the SPEC, not the answers.
 #
-#  If a checkpoint fails, edit `../tasks.py` (or `../core.py` / `../runner.py`
-#  in Week 06), NOT this file. Read the assertions below to understand what
-#  each checkpoint is checking; do not change them.
+#  Your work goes in  ../answers.py  (or ../answers_core.py + ../answers_runner.py
+#  in Week 06). That file is auto-created from the shipped starter on first run
+#  and is gitignored, so `git pull` never conflicts with it. Read the
+#  assertions below to understand what each checkpoint is checking; do not
+#  change them.
 # ──────────────────────────────────────────────────────────────────────────────
 """
 The SPECIFICATION for Week 01.
@@ -18,7 +20,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from tasks import student_name
+from answers import student_name
 
 ROOT = Path(__file__).resolve().parents[3]
 
@@ -72,6 +74,6 @@ def test_you_introduced_yourself():
     assert isinstance(name, str), "student_name() must return a string."
     assert name.strip(), "student_name() returned an empty string."
     assert name.strip().upper() != "CHANGE ME", (
-        "Open Lecture/Lecture_00/checkpoints/tasks.py and put your own name in "
+        "Open Lecture/Lecture_01/checkpoints/tasks.py and put your own name in "
         "student_name(). This is the one edit for Week 01."
     )

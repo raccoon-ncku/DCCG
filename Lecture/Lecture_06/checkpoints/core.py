@@ -1,3 +1,6 @@
+# STARTER FILE — READ ONLY.
+# Edit  answers_core.py  instead (auto-created from this file on first run).
+
 """
 Week 06 — THE CORE LAYER.
 

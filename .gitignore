@@ -177,6 +177,14 @@ Practices/*
 # strictly-private files that must never leave your laptop.
 Notes/
 
+# Student's editable copies of the shipped checkpoint starters. On first run
+# `checkpoints/conftest.py` copies tasks.py -> answers.py (plus core/runner
+# for Week 06). Students edit the copy; the shipped file stays clean so
+# `git pull upstream main` never conflicts with student work.
+Lecture/Lecture_*/checkpoints/answers.py
+Lecture/Lecture_*/checkpoints/answers_core.py
+Lecture/Lecture_*/checkpoints/answers_runner.py
+
 !.gitignore
 !Reference/placeholder
 !Practices/placeholder

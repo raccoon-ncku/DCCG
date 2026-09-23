@@ -2,7 +2,7 @@
 
 Everything you need to run this repository. For the guided, first-time
 walkthrough with screenshots and the AI-assistant setup, follow
-[Week 01](/Lecture/Lecture_00/README.md); this page is the quick reference.
+[Week 01](/Lecture/Lecture_01/README.md); this page is the quick reference.
 
 ## Toolchain
 
@@ -48,17 +48,20 @@ uv run check.py 05     # work on Week 05, with hints
 uv run check.py 05 -v  # ... and full failure output
 ```
 
-You edit `Lecture/<folder>/checkpoints/tasks.py`; the spec at
-`checkpoints/spec/test_tasks.py` (one folder down, marked READ ONLY) is the
-*specification*, and you are meant to read it. Three states: `TODO` (not
-attempted), `FAIL` (attempted, doesn't match the spec), `PASS`.
+On first `check.py NN` for a week, the runner copies the shipped starter
+`tasks.py` to a gitignored `answers.py`. **You edit `answers.py`**; the
+starter stays clean so `git pull upstream main` never conflicts with your
+work. The spec at `checkpoints/spec/test_tasks.py` (one folder down, marked
+READ ONLY) is the *specification*, and you are meant to read it. Three
+states: `TODO` (not attempted), `FAIL` (attempted, doesn't match the spec),
+`PASS`. Delete `answers.py` at any time to reset from the current starter.
 
 Checkpoints aren't scored, but completing them is **required** — a gate you must
 clear on the way to the final project, which is the whole grade (see the
 [main README](README.md#grading)). `uv run check.py` turns them green and you're
 done, so a `FAIL` just means keep going, not a penalty. In **Week 10** you learn
 to write these specs yourself, and the checker stops being magic. Full
-explanation: [Week 01 §5](/Lecture/Lecture_00/README.md#5-how-checkpoints-work).
+explanation: [Week 01 §5](/Lecture/Lecture_01/README.md#5-how-checkpoints-work).
 
 ## Legacy conda environments
 
@@ -73,7 +76,7 @@ for me".
 The course runs entirely without Rhino; the JSON artifact is the primary output
 from Week 06 on. When you do want it, install Rhino 8 and authenticate against
 the class licence server — details in
-[Week 01 §4](/Lecture/Lecture_00/README.md#4-rhino-optional-this-week).
+[Week 01 §4](/Lecture/Lecture_01/README.md#4-rhino-optional-this-week).
 
 ## Git for this course
 
@@ -109,10 +112,11 @@ reserved for you. The instructor never adds, edits, or deletes files there, so
 here. For files you want kept strictly on your laptop and *not* committed, use
 `Notes/` instead — it's gitignored.
 
-The one file the instructor **and** you both edit is
-`Lecture/<folder>/checkpoints/tasks.py`. Merge conflicts there are rare (the
-instructor's edits are usually additions or docstring fixes, not on the lines
-you filled in), and are a legitimate learning moment when they happen.
+**`git pull` never conflicts with your checkpoint work.** You edit
+`checkpoints/answers.py`, which is gitignored; the instructor only ever
+touches `checkpoints/tasks.py` (the read-only starter). When a pull brings
+in a new checkpoint stub, delete your `answers.py` and re-run to pick it up
+(or copy the new function's `raise NotImplementedError` line in by hand).
 
 **When something goes wrong** — merge conflict, rejected push, "I committed to
 the wrong branch", accidental `.env` push — see the failure catalogue in

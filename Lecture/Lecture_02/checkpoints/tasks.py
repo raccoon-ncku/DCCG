@@ -1,8 +1,14 @@
+# STARTER FILE — READ ONLY.
+#
+# `checkpoints/conftest.py` copied me to  answers.py  on first run.
+# Edit that file, not this one. If you delete answers.py, the next
+# `uv run check.py NN` will regenerate it from this starter.
+
 """
 Week 02 checkpoints — values, types, lists, functions.
 
-Edit ONLY this file. Replace each `raise NotImplementedError(...)` with a real
-implementation, then run from the repository root:
+In  answers.py  (auto-copied from this starter), replace each
+`raise NotImplementedError(...)` with a real implementation, then run from the repository root:
 
     uv run check.py 02
 

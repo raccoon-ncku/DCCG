@@ -1,3 +1,9 @@
+# STARTER FILE — READ ONLY.
+#
+# `checkpoints/conftest.py` copied me to  answers.py  on first run.
+# Edit that file, not this one. If you delete answers.py, the next
+# `uv run check.py NN` will regenerate it from this starter.
+
 """
 Week 01 checkpoints — prove your toolchain works.
 

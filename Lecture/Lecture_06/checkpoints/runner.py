@@ -1,3 +1,6 @@
+# STARTER FILE — READ ONLY.
+# Edit  answers_runner.py  instead (auto-created from this file on first run).
+
 """
 Week 06 — THE RUNNER / ARTIFACT LAYER.
 

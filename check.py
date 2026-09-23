@@ -35,15 +35,15 @@ ROOT = Path(__file__).parent.resolve()
 # (week, lecture folder, title). The folder numbers are historical and do not
 # match the week numbers -- the course schedule in README.md is the authority.
 COURSE = [
-    ("00", "Lecture_00", "Toolchain: uv, Zed, git, and an AI assistant"),
-    ("01", "Lecture_01", "Python I: values, types, lists, functions"),
-    ("02", "Lecture_02", "Python II: control flow, modules, functions"),
+    ("01", "Lecture_01", "Toolchain: uv, Zed, git, and an AI assistant"),
+    ("02", "Lecture_02", "Python I: values, types, lists, functions"),
+    ("03", "Lecture_03", "Python II: control flow, modules, functions"),
     ("04", "Lecture_04", "Python III: dictionaries, files, JSON + AI literacy"),
-    ("03", "Lecture_03", "COMPAS core: primitives and transformations"),
+    ("05", "Lecture_05", "COMPAS core: primitives and transformations"),
     ("06", "Lecture_06", "Software engineering I: the dual-mode architecture"),
-    ("08", "Lecture_08", "Object-oriented programming  (self-paced week)"),
-    ("07", "Lecture_07", "Recursion and self-similar geometry  (self-paced week)"),
-    ("05", "Lecture_05", "Mesh: a real geometric data structure"),
+    ("07", "Lecture_07", "Object-oriented programming  (self-paced week)"),
+    ("08", "Lecture_08", "Recursion and self-similar geometry  (self-paced week)"),
+    ("09", "Lecture_09", "Mesh: a real geometric data structure"),
 ]
 
 # ----------------------------------------------------------------------------
@@ -67,8 +67,13 @@ BOLD = lambda s: _c("1", s)     # noqa: E731
 class _Collector:
     """A small pytest plugin that records the outcome of every checkpoint."""
 
+    # Synthetic nodeid used when pytest cannot even collect the tests -- usually
+    # because the student's answers.py has a SyntaxError or a bad import. Without
+    # this, the run silently reports "0/0 done" and hides a real problem.
+    COLLECTION_NODE = "__collection__"
+
     def __init__(self) -> None:
-        self.results: dict[str, str] = {}   # nodeid -> PASS | FAIL | TODO
+        self.results: dict[str, str] = {}   # nodeid -> PASS | FAIL | TODO | ERROR
         self.hints: dict[str, str] = {}     # nodeid -> first line of docstring
         self.details: dict[str, str] = {}   # nodeid -> failure text
         self.order: list[str] = []
@@ -78,6 +83,23 @@ class _Collector:
             self.order.append(item.nodeid)
             doc = (item.function.__doc__ or "").strip()
             self.hints[item.nodeid] = doc.split("\n")[0] if doc else item.name
+
+    def pytest_collectreport(self, report):
+        # Fires once per collector node. A `failed` outcome here means test
+        # collection itself blew up -- typically a SyntaxError or an import
+        # failure in the student's answers.py. Capture it as a synthetic
+        # ERROR entry so detail() surfaces it instead of reporting 0/0.
+        if report.outcome != "failed":
+            return
+        node = self.COLLECTION_NODE
+        if node not in self.order:
+            self.order.insert(0, node)
+        self.results[node] = "ERROR"
+        self.hints[node] = "your file cannot be imported (syntax error or bad import)"
+        # Append the collector's error to whatever we already had — one file
+        # can produce multiple collection errors in a single run.
+        prev = self.details.get(node, "")
+        self.details[node] = (prev + "\n" + str(report.longrepr)).strip()
 
     def pytest_exception_interact(self, node, call, report):
         # NotImplementedError means "not attempted yet", anything else is a real failure.
@@ -165,14 +187,25 @@ def overview() -> None:
         if collector is None:
             print(f"  W{week}  {DIM('no checkpoints')}   {title}")
             continue
-        total = len(collector.order)
-        done = sum(1 for v in collector.results.values() if v == "PASS")
-        fails = sum(1 for v in collector.results.values() if v == "FAIL")
-        if done < total and first_unfinished is None:
+        errored = _Collector.COLLECTION_NODE in collector.results
+        # Do not count the synthetic collection-error node in the total.
+        real_ids = [n for n in collector.order if n != _Collector.COLLECTION_NODE]
+        total = len(real_ids)
+        done = sum(1 for n in real_ids if collector.results.get(n) == "PASS")
+        fails = sum(1 for n in real_ids if collector.results.get(n) == "FAIL")
+        if (errored or done < total) and first_unfinished is None:
             first_unfinished = week
-        mark = GREEN("✔") if done == total and total else (RED("✗") if fails else YELLOW("●"))
-        counter = f"{done}/{total}"
-        print(f"  {BOLD('W' + week)}  {mark} {_bar(done, total)} {counter:>6}  {title}")
+        if errored:
+            mark = RED("!")
+        elif done == total and total:
+            mark = GREEN("✔")
+        elif fails:
+            mark = RED("✗")
+        else:
+            mark = YELLOW("●")
+        counter = f"{done}/{total}" if not errored else RED("ERR   ")
+        bar = _bar(done, total) if not errored else RED("!" * 18)
+        print(f"  {BOLD('W' + week)}  {mark} {bar} {counter:>6}  {title}")
     print(DIM("  " + "─" * 68))
     if first_unfinished:
         print(f"  next:  {BLUE('uv run check.py ' + first_unfinished)}")
@@ -192,13 +225,22 @@ def detail(week: str, verbose: bool = False) -> int:
 
     print()
     print(BOLD(f"  Week {week} — {title}"))
-    editable = sorted(
-        f.name for f in (path / "checkpoints").glob("*.py")
-        if not f.name.startswith("test_") and f.name != "conftest.py"
-    )
+    # The FILE STUDENTS EDIT is the gitignored answer copy; the shipped
+    # tasks.py / core.py / runner.py are read-only starters. Prefer to name
+    # the answers.* files if they already exist; otherwise name what they
+    # will be after the first run creates them.
+    cp_dir = path / "checkpoints"
+    starters = ["tasks.py", "core.py", "runner.py"]
+    editable = []
+    for st in starters:
+        answer = "answers.py" if st == "tasks.py" else f"answers_{st.split('.')[0]}.py"
+        if (cp_dir / st).exists():
+            editable.append(answer)
     where = path.relative_to(ROOT) / "checkpoints"
+    if not editable:
+        editable = ["?"]
     print(DIM(f"  edit: {where}/{{{', '.join(editable)}}}" if len(editable) > 1
-              else f"  edit: {where}/{editable[0] if editable else '?'}"))
+              else f"  edit: {where}/{editable[0]}"))
     print(DIM("  " + "─" * 68))
 
     collector = _run(path, quiet=not verbose)
@@ -213,6 +255,13 @@ def detail(week: str, verbose: bool = False) -> int:
             print(f"  {GREEN('PASS')}  {hint}")
         elif state == "TODO":
             print(f"  {YELLOW('TODO')}  {hint}")
+        elif state == "ERROR":
+            # A collection-time failure -- SyntaxError or import failure in the
+            # student's file. No individual test even ran. Always show the full
+            # error since there is nothing else to look at.
+            print(f"  {RED('ERROR')} {BOLD(hint)}")
+            for line in collector.details.get(nodeid, "").splitlines():
+                print(RED("        " + line))
         else:
             print(f"  {RED('FAIL')}  {BOLD(hint)}")
             if verbose:
@@ -226,16 +275,25 @@ def detail(week: str, verbose: bool = False) -> int:
                         print(DIM("        " + line.strip()[2:].strip()))
                         break
 
-    total = len(collector.order)
-    done = sum(1 for v in collector.results.values() if v == "PASS")
+    real_ids = [n for n in collector.order if n != _Collector.COLLECTION_NODE]
+    total = len(real_ids)
+    done = sum(1 for n in real_ids if collector.results.get(n) == "PASS")
+    errored = _Collector.COLLECTION_NODE in collector.results
     print(DIM("  " + "─" * 68))
-    print(f"  {_bar(done, total)}  {done}/{total} checkpoints passed")
-    if done < total:
+    if errored:
+        print(f"  {RED('!' * 18)}  {RED('checkpoints could not run — fix the ERROR above')}")
+        print(DIM("  Most common cause: a SyntaxError, or a missing/renamed function"))
+        print(DIM("  in your answers.py. The traceback above names the file and line."))
+    else:
+        print(f"  {_bar(done, total)}  {done}/{total} checkpoints passed")
+    if errored:
+        pass
+    elif done < total:
         print(DIM("  Re-run this command after each edit. Use -v for full failure output."))
     else:
         print(GREEN("  Week complete. "))
     print()
-    return 0 if done == total else 1
+    return 0 if (not errored and done == total) else 1
 
 
 def main() -> int:

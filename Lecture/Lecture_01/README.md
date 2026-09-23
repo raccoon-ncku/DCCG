@@ -189,7 +189,7 @@ will never conflict with your Week 02 notes.
 
 ```bash
 uv run python                       # a Python REPL with compas available
-uv run Lecture/Lecture_01/Examples/1_hello_world.py
+uv run Lecture/Lecture_02/Examples/1_hello_world.py
 uv run check.py
 ```
 
@@ -225,7 +225,7 @@ the DCCG folder.
 **2. Run a shipped example.** In Zed's integrated terminal
 (<kbd>ctrl</kbd> + `` ` ``):
 ```bash
-uv run Lecture/Lecture_01/Examples/1_hello_world.py
+uv run Lecture/Lecture_02/Examples/1_hello_world.py
 ```
 You should see a greeting and no traceback. If you see
 `ModuleNotFoundError: No module named 'compas'`, you ran `python` instead
@@ -281,20 +281,35 @@ uv run check.py 01 -v  # ... and the full failure output
 ```
 
 Each week's checkpoints folder is deliberately shaped so **the file you edit
-sits alone**, and the read-only spec lives one folder down:
+is separate from anything the instructor ships:**
 
 ```
 Lecture/<folder>/checkpoints/
-├── tasks.py         ← YOU EDIT THIS   (or core.py + runner.py in Week 06)
+├── tasks.py         ← STARTER  ─┐  (or core.py + runner.py in Week 06)
+│                                │  read-only; git-tracked
+│                    auto-copied ├─ every `git pull` refreshes it
+│                                │
+├── answers.py       ← YOU EDIT ─┘  (or answers_core.py + answers_runner.py)
+│                                   gitignored; never conflicts on pull
+├── conftest.py                     ← plumbing, ignore
 └── spec/
-    └── test_tasks.py    ← READ ONLY — the specification
+    └── test_tasks.py               ← READ ONLY — the specification
 ```
 
-You edit `tasks.py`. The spec at `spec/test_tasks.py` is the precise,
-machine-checkable statement of what your code must do. **Read it.** It is
-allowed — in fact it is the point. A spec you are not allowed to read is not a
-spec, it is a guessing game. The `spec/` folder is where it lives so you cannot
-accidentally edit it by clicking the wrong sibling in your file tree.
+The first time you run `uv run check.py NN`, the runner **copies
+`tasks.py` to `answers.py`** for you and never touches `answers.py` again.
+You edit `answers.py`; the instructor's `tasks.py` stays clean, so every
+`git pull upstream main` refreshes the starter (with any new checkpoint
+stubs) without conflicting with your work.
+
+**If you want a fresh start**, delete `answers.py` and re-run — the next
+run recreates it from the current starter.
+
+The spec at `spec/test_tasks.py` is the precise, machine-checkable statement
+of what your code must do. **Read it.** It is allowed — in fact it is the
+point. A spec you are not allowed to read is not a spec, it is a guessing
+game. The `spec/` folder is where it lives so you cannot accidentally edit
+it by clicking the wrong sibling in your file tree.
 
 Three states:
 
@@ -324,9 +339,13 @@ A good habit, starting now: try it yourself first, then ask the AI, then
 
 ## 6. This week's checkpoints
 
-Open `Lecture/Lecture_00/checkpoints/tasks.py` and follow the instructions at
-the top. Four of the five checks are diagnostics — they verify your install
-rather than your code. The fifth asks you to edit one line.
+Run `uv run check.py 01` once. It creates `Lecture/Lecture_01/checkpoints/answers.py`
+(from the shipped starter) — that is the file you edit. Four of the five
+checks are diagnostics that verify your install rather than your code; the
+fifth asks you to edit one line: the
+`student_name()` function at the bottom of the file returns your name as a
+string, and the checker looks for something other than the placeholder.
+That is the whole week: change one line, run one command, see it turn green.
 
 ```bash
 uv run check.py 01
