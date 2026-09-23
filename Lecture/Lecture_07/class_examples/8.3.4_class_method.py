@@ -1,47 +1,63 @@
-import datetime
+"""
+@classmethod — an alternative constructor.
+
+Sometimes there is more than one natural way to make an instance. Rather
+than jamming every case into __init__ with confusing defaults, define a
+@classmethod that takes different inputs and returns a fresh instance.
+"""
 
 
-class Customer():
+class Rectangle:
+    def __init__(self, width, height):
+        if width <= 0 or height <= 0:
+            raise ValueError("a rectangle needs positive dimensions")
+        self.width = width
+        self.height = height
 
-    email_promotion = False
+    def __repr__(self):
+        return f"Rectangle({self.width} × {self.height})"
 
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
-
-    def __str__(self):
-        return f"Customer Details: {self.name}, age {self.age}"
+    # --- alternative constructors ------------------------------------
 
     @classmethod
-    def from_birthyear(cls, name, b_year):
-        age = datetime.datetime.now().year - b_year
-        return cls(name, age)
+    def square(cls, side):
+        """Make a square — one side length, both dimensions equal."""
+        # `cls` is the class itself. Using cls(...) instead of Rectangle(...)
+        # means this also works for subclasses (see 8.4.1_inheritance.py).
+        return cls(side, side)
 
     @classmethod
-    def start_email_promotion(cls):
-        cls.email_promotion = True
+    def from_diagonal(cls, diagonal, aspect):
+        """Make a rectangle from its diagonal length and width/height ratio."""
+        # aspect = width / height, so:
+        #   width  = height * aspect
+        #   diag^2 = width^2 + height^2 = height^2 * (aspect^2 + 1)
+        height = (diagonal ** 2 / (aspect ** 2 + 1)) ** 0.5
+        width = height * aspect
+        return cls(width, height)
 
+
+# --- three ways to construct a Rectangle --------------------------------
+
+a = Rectangle(3, 4)                       # the direct constructor
+b = Rectangle.square(5)                   # via @classmethod
+c = Rectangle.from_diagonal(5, aspect=4/3)  # 3-4-5 triangle
+
+print(a)                                  # Rectangle(3 × 4)
+print(b)                                  # Rectangle(5 × 5)
+print(c)                                  # Rectangle(4.0 × 3.0)
+
+
+# --- @staticmethod: no `self`, no `cls` ---------------------------------
+
+# A plain function that happens to be inside the class. Use it when the
+# logic BELONGS to the class conceptually but does not need any of its state.
+
+class Geometry:
     @staticmethod
-    def calc_age(b_year):
-        age = datetime.datetime.now().year - b_year
-        return age
+    def clamp(value, low, high):
+        return max(low, min(value, high))
 
 
-# Classmethod as a constructor
-c1 = Customer("Chris", 25)
-c2 = Customer.from_birthyear("Ryan", 1993)
-
-print(c1)
-print(c2)
-
-# Classmethod to modify class attribute
-print("Before starting email promotion")
-print(f"c1.email_promotion: {c1.email_promotion}")
-print(f"c2.email_promotion: {c2.email_promotion}")
-Customer.start_email_promotion()
-print("After starting email promotion")
-print(f"c1.email_promotion: {c1.email_promotion}")
-print(f"c2.email_promotion: {c2.email_promotion}")  # both c1 and c2 are affected
-
-# Staticmethod as utilities
-print(Customer.calc_age(2001))  # not related to any instance
+print(Geometry.clamp(15, 0, 10))          # 10
+print(Geometry.clamp(-3, 0, 10))          # 0

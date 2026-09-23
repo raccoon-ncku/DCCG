@@ -1,41 +1,66 @@
-class Car():
-    def __init__(self, init_color, init_brand):
-        """
-        constructor for Car class
-        """
-        self.color = init_color
-        self.brand = init_brand
+"""
+@property — a method you access WITHOUT parentheses, for values that are
+DERIVED rather than stored.
 
-        # Private instance attributes
-        self.__capacity = 4
+The rule: derive, do not duplicate. Two copies of one fact will disagree
+eventually, and the moment they do is never the moment you are looking.
+"""
+
+
+class Rectangle:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
 
     @property
-    def capacity(self):
-        """
-        A getter method for the private attribute __capacity
-        """
-        return self.__capacity
-    
-    @capacity.setter
-    def capacity(self, new_val):
-        """
-        A setter method for the private attribute __capacity
-        """
-        if new_val < 0:
-            new_val = 0
+    def area(self):
+        # No self.area stored anywhere. Recomputed each read.
+        return self.width * self.height
 
-        self.__capacity = new_val
+    @property
+    def perimeter(self):
+        return 2 * (self.width + self.height)
 
 
-car = Car("Blue", "Volkswagen")
+r = Rectangle(3, 4)
 
-# Overriding the instance attribute
-car.capacity = 10
-print("1. car.capacity: ", car.capacity)
+# Note: no parentheses. That is the whole point of @property.
+print(r.area)                    # 12
+print(r.perimeter)               # 14
 
-# Invalid value will be ignored
-car.capacity = -1
-print("2. car.capacity: ", car.capacity)
+# Change an input; the derived value is up to date automatically.
+r.width = 10
+print(r.area)                    # 40   -- recomputed, never stale
 
-# Directly accessing the private attribute will cause an error
-print("3. car.capacity: ", car.__capacity)
+
+# --- validation via a setter: refuse a bad assignment -------------------
+
+class Positive:
+    """A number that refuses to be negative."""
+
+    def __init__(self, value):
+        self.value = value       # goes through the setter below
+
+    @property
+    def value(self):
+        return self._value
+
+    @value.setter
+    def value(self, new):
+        if new < 0:
+            raise ValueError(f"must be >= 0, got {new}")
+        self._value = new
+
+
+p = Positive(5)
+print(p.value)                   # 5
+p.value = 12                     # fine
+try:
+    p.value = -3                 # rejected
+except ValueError as e:
+    print("rejected:", e)
+
+
+# The alternative is to write get_x() / set_x() everywhere, which every
+# other language forces you to do. @property lets you START with a plain
+# attribute and add validation LATER without changing any caller.
