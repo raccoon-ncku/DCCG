@@ -1,283 +1,380 @@
-# Week 02 — Python I: values, types, lists, functions
+# Week 01 — Toolchain: uv, Zed, git, and an AI assistant
 
-> Self-contained. Read this page, run the examples next to it, then do the
-> checkpoints. `uv run check.py 01` tells you when you are done.
+> **Everything you need is in this repository.** There are no slides you must
+> attend to understand this page, and no step that only works if someone shows
+> you. If you get stuck, the fix is in here or in the error message.
 
-## Why we start by *reading*
+## 0. What this week is for
 
-You are learning Python in a year when a machine can produce it faster than
-you can type. That does not make this week optional — it makes it different.
-The purpose is no longer to memorise syntax so you can produce it. It is to be
-able to **look at a screen of code and say what it does, and whether it is
-right.**
+By the end of today you will have a working Python environment, an editor, a
+git identity, and an AI assistant — and you will have *proven* it by running
+one command that checks all of it:
 
-So for every example below: predict the output *before* you run it. If your
-prediction is wrong, that gap is the actual lesson. This is exactly the skill
-you will need in Week 11, when the code on your screen was written by
-something that does not know what it is doing.
+```bash
+uv run check.py 01
+```
 
----
+That command is how every week in Part I and II works. Read §5 before you
+start, so you know what you are aiming at.
 
-## 1. Running code
+## 1. Why this toolchain
 
+We changed tools this semester. If you took a similar course before, or you
+find an old tutorial online, you will see `conda` and VS Code. We now use:
+
+| Job | Old | **Now** | Why |
+| --- | --- | ------- | --- |
+| Python + packages | conda | **uv** | One tool, ~10× faster, and it *locks* exact versions so your machine and mine agree |
+| Editor | VS Code | **Zed** | Fast, and its AI integration shows you diffs to accept or reject — which is the reviewing habit this course is about |
+| Version control | git | **git** | unchanged |
+
+Nothing you learn is tool-specific: `uv` manages a normal Python virtual
+environment, and Zed edits normal text files.
+
+### 1.1 What is `uv`?
+
+`uv` is a **Python project manager** — one small binary that handles four
+jobs that have historically needed four different tools:
+
+1. **Install Python itself** — if `python 3.13` is not on your machine, `uv`
+   downloads it. You do not need to install Python separately.
+2. **Create a project environment** — a `.venv/` folder next to your code,
+   isolated from every other project on your machine.
+3. **Install and pin packages** — reads `pyproject.toml` (which packages you
+   want), writes `uv.lock` (which exact versions you got), and installs
+   them into `.venv/`.
+4. **Run your code inside that environment** — `uv run <script.py>` uses the
+   project's Python and its packages, not whatever your shell would pick.
+
+That is the whole model. Two files describe the environment; one command
+(`uv sync`) rebuilds it from those files on any machine.
+
+### 1.2 What is `conda`, and what does it give you?
+
+`conda` (also `miniconda`, `anaconda`) is the older tool this course used
+last year and the one you will still see in most tutorials. It does most of
+what `uv` does — creates isolated environments, installs Python packages —
+but the model is different:
+
+- Environments live in **one shared folder** on your machine
+  (`~/miniconda3/envs/foo`, `~/miniconda3/envs/bar`), not next to the
+  project code.
+- You **activate** an environment with `conda activate foo` before running
+  Python. If you forget, you use the wrong one silently.
+- Package versions are described in an `environment.yml`, but conda does
+  **not lock** them by default — the same file installed a month later can
+  give you slightly different versions.
+- Conda has a huge ecosystem of scientific packages (some, like `pytorch`
+  with CUDA, are still easier to install through conda than through pip).
+
+Conda works. Millions of people ship code with it. It is not wrong; it is
+just heavier and looser than we need.
+
+### 1.3 Why we favour `uv` now
+
+Three reasons that matter for this course:
+
+1. **`uv.lock` is a real lockfile.** Everyone in the course runs the
+   *exact* same versions of every package, down to sub-dependencies. When
+   your code breaks, it is your code — not a library that quietly moved.
+2. **You never activate anything.** `uv run` picks the right Python every
+   time, from any shell, without ceremony. That closes the single most
+   common "worked for me" failure of a first-year course.
+3. **It is fast.** A cold environment build is ~5 seconds instead of
+   ~5 minutes. When something breaks the answer becomes `rm -rf .venv &&
+   uv sync` — fast enough to not be a defeat.
+
+> **If you already have conda installed, leave it alone.** It will not
+> conflict. Just do not use it for this course — mixing the two is the most
+> common source of "it works for you but not for me". The legacy conda
+> files at the repo root (`environment*.yml`) are for the Week 15 ML
+> material and older student projects; ignore them for Weeks 01–14.
+
+## 2. Install
+
+### 2.1 uv
+
+macOS / Linux:
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+Windows (PowerShell):
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+Close and reopen your terminal, then confirm:
+```bash
+uv --version
+```
+
+### 2.2 git
+
+macOS ships with git. Windows: install from <https://git-scm.com/downloads>.
+
+Tell git who you are — this is what shows up on every commit you make all
+semester, and one of this week's checkpoints looks for it:
+
+```bash
+git config --global user.name  "Your Name"
+git config --global user.email "your@email.address"
+```
+
+### 2.3 Zed
+
+Download from <https://zed.dev>. macOS and Linux are supported natively;
+on Windows use the preview build, or stay on VS Code — **the editor is the one
+tool here you may substitute.** Everything else in this repo assumes uv and git.
+
+Useful Zed commands (`cmd`/`ctrl` + `shift` + `P` opens the palette):
+
+| Action | Shortcut |
+| ------ | -------- |
+| Command palette | `cmd/ctrl + shift + P` |
+| Open project | `cmd/ctrl + O` |
+| Integrated terminal | `` ctrl + ` `` |
+| Find in project | `cmd/ctrl + shift + F` |
+| AI: inline assist | `ctrl + enter` |
+| AI: chat panel | `cmd/ctrl + ?` |
+
+### 2.4 An AI assistant
+
+Pick **one** to start:
+
+- **Zed's built-in assistant** — sign in with GitHub; free tier is enough.
+- **GitHub Copilot** — free for students via the
+  [GitHub Student Developer Pack](https://education.github.com/pack).
+- **Claude Code / Codex CLI** — terminal-based agents. We use these properly in
+  Weeks 11–14; you do not need one yet.
+
+You will also get a key for the **course LLM node** (`llm-api.rccn.dev`) in
+Week 11. It is free and unlimited for you, and deliberately runs a small model
+that fails in visible, instructive ways.
+
+## 3. Get the repository
+
+```bash
+git clone https://github.com/raccoon-ncku/DCCG.git DCCG
+cd DCCG
+uv sync
+```
+
+`uv sync` reads `pyproject.toml` and `uv.lock` and builds an exact,
+reproducible environment in `.venv/`. It takes a minute the first time.
+
+> **Week 01 is local-only.** You clone directly from the instructor's URL and
+> commit A0 locally — no push required today. Next week we set up a
+> **fork** so your commits land on your own copy, and the weekly `git pull`
+> ritual for new course material begins. If you want to read ahead:
+> [SETUP.md ▸ Git for this course](/SETUP.md#git-for-this-course) and
+> [rccn wiki ▸ Git for coursework](https://kb.rccn.dev/computation/development-environment/version-control/coursework-git).
+{.is-info}
+
+### Your work vs. the instructor's
+
+Two kinds of file live in this repo. The distinction matters for the rest of
+the term:
+
+| | Path | Whose | Rule |
+| --- | --- | --- | --- |
+| Instructor's | `Lecture/…/README.md`, `Reference/…` | theirs | you read, sometimes edit (checkpoint stubs) |
+| Yours | [`MyWork/`](/MyWork/README.md) | yours | put notes, sketches, practice here |
+| Private | `Notes/` | yours, laptop-only | gitignored — never pushed |
+
+The instructor promises to never write into `MyWork/`, so `git pull` on Week 03
+will never conflict with your Week 02 notes.
+
+**You never activate this environment.** Instead, prefix commands with
+`uv run`, which runs them inside it:
+
+```bash
+uv run python                       # a Python REPL with compas available
+uv run Lecture/Lecture_01/Examples/1_hello_world.py
+uv run check.py
+```
+
+If you *want* an activated shell (some editors like it), `source
+.venv/bin/activate` still works — but `uv run` is the habit to build, because
+it can never use the wrong Python by accident.
+
+### Useful uv commands
+
+| Command | What it does |
+| ------- | ------------ |
+| `uv sync` | Build/repair the environment to match the lockfile |
+| `uv run <script.py>` | Run a script inside the environment |
+| `uv add <package>` | Add a dependency (updates `pyproject.toml` + `uv.lock`) |
+| `uv remove <package>` | Remove one |
+| `uv tree` | Show what is installed and why |
+
+### Verify your laptop is ready to do the work
+
+Before you leave today, prove your laptop can do the three things every
+week from now on asks of you: **read** a Python file, **edit** it, and
+**run** it inside the course environment. The `check.py 01` gate in §6
+does this too, but running it once by hand — reading the code as it goes
+— makes the loop concrete.
+
+**1. Open the repo in Zed.**
+```bash
+zed .          # from inside the DCCG folder
+```
+If that command is not on your PATH, open Zed and *File ▸ Open Folder…*
+the DCCG folder.
+
+**2. Run a shipped example.** In Zed's integrated terminal
+(<kbd>ctrl</kbd> + `` ` ``):
 ```bash
 uv run Lecture/Lecture_01/Examples/1_hello_world.py
 ```
+You should see a greeting and no traceback. If you see
+`ModuleNotFoundError: No module named 'compas'`, you ran `python` instead
+of `uv run` — always `uv run`.
 
-An interactive prompt, useful for trying one line:
+**3. Write and run your own file.** In your [`MyWork/`](/MyWork/README.md)
+folder, create `hello.py`:
+```python
+from compas.geometry import Point, Vector
+
+p = Point(1.0, 2.0, 3.0)
+v = Vector(0.0, 0.0, 1.0)
+print(f"{p} moved by {v} is {p + v}")
+```
+Run it:
+```bash
+uv run MyWork/hello.py
+```
+Expected output:
+```
+Point(x=1.000, y=2.000, z=3.000) moved by Vector(x=0.000, y=0.000, z=1.000) is Point(x=1.000, y=2.000, z=4.000)
+```
+
+If those three things worked — you read shipped code, wrote a new file,
+ran it with the course's Python — your laptop can do every weekly
+exercise. If any of them failed, the fix is in §7 or in the error
+message. Do not skip this; every W02 checkpoint stacks on it.
+
+## 4. Rhino (optional this week)
+
+Rhino is not required until Week 14, but the licence is available now.
+
+Download Rhino 8 from <https://www.rhino3d.com/download>. When prompted for a
+licence, choose **`zoo`** as the authentication method and **`zoo.rccn.dev`**
+as the server. It covers Rhino 6 and 8, Windows and Mac.
+
+> The licence server is reachable only from the computer lab's wifi and from
+> Workspace Raccoon.
+
+Everything in this course runs **without** Rhino. That is the point of the
+architecture you will meet in Week 06.
+
+## 5. How checkpoints work
+
+This repository is not a set of slides you read. Each week ships with
+**checkpoints** — small, precisely-specified tasks — and a runner that tells
+you whether you have them right.
 
 ```bash
-uv run python
->>> 2 + 2
-4
->>> exit()
+uv run check.py        # overview of every week
+uv run check.py 01     # this week, with hints
+uv run check.py 01 -v  # ... and the full failure output
 ```
 
-## 2. Comments
+Each week's checkpoints folder is deliberately shaped so **the file you edit
+sits alone**, and the read-only spec lives one folder down:
 
-```python
-# Everything after a hash is ignored by Python.
-width = 10  # ... including at the end of a line
+```
+Lecture/<folder>/checkpoints/
+├── tasks.py         ← YOU EDIT THIS   (or core.py + runner.py in Week 06)
+└── spec/
+    └── test_tasks.py    ← READ ONLY — the specification
 ```
 
-Comments explain **why**, not **what**. `x = x + 1  # add one to x` is noise.
-`x = x + 1  # rows are 1-indexed in the fabrication file` is worth its space.
+You edit `tasks.py`. The spec at `spec/test_tasks.py` is the precise,
+machine-checkable statement of what your code must do. **Read it.** It is
+allowed — in fact it is the point. A spec you are not allowed to read is not a
+spec, it is a guessing game. The `spec/` folder is where it lives so you cannot
+accidentally edit it by clicking the wrong sibling in your file tree.
 
-📄 `Examples/2.1_variables.py`
+Three states:
 
-## 3. Variables
+| | meaning |
+| - | ------- |
+| `TODO` | not attempted yet — the stub still raises `NotImplementedError` |
+| `FAIL` | attempted, but does not match the spec |
+| `PASS` | correct |
 
-A variable is a **name pointing at a value**. `=` is not equality; it is "make
-this name refer to that value".
+**A `FAIL` is not a penalty — it is a fast, free, patient answer to "did I get
+this right?".** Checkpoints aren't scored, but completing them is required (they
+are your gate to the final project, which is the whole grade), so turning them
+green is all that counts; run the checker as often as you like.
 
-```python
-width = 10
-height = 9
-print(height)     # 9
+In Week 10 you will learn to *write* these specs yourself, and this runner
+stops being magic.
 
-height = 20       # the name now points somewhere else
-print(height)     # 20
-```
+### Using AI on checkpoints
 
-Names must start with a letter or `_`, contain letters/digits/`_`, and are
-case-sensitive. `width`, `total_area`, `n_steps` — lowercase with underscores
-is the Python convention, and following it is free.
+Allowed, and encouraged. But the deal from the syllabus applies from day one:
+**you must be able to explain every line you submit.** A checkpoint that passes
+with code you cannot explain has taught you nothing and will cost you in Week
+11, when your job becomes reviewing exactly this kind of code.
 
-Names are documentation. `w` costs you nothing today and costs you an hour in
-December. Name things after what they *mean*: `course_height`, not `ch`.
+A good habit, starting now: try it yourself first, then ask the AI, then
+*diff the two* and work out who was right and why.
 
-📄 `Examples/2.1.1_variables_II.py`, `Examples/2.1.2_variable_names.py`
+## 6. This week's checkpoints
 
-## 4. Types
-
-Every value has a type, and the type decides what operations mean.
-
-| Type | Example | Notes |
-| ---- | ------- | ----- |
-| `int` | `42` | whole numbers, unlimited size |
-| `float` | `3.14` | decimals — **approximate**, see the warning below |
-| `str` | `"hello"` | text, single or double quotes |
-| `bool` | `True` / `False` | capitalised |
-| `list` | `[1, 2, 3]` | ordered, changeable |
-| `NoneType` | `None` | "no value" |
-
-```python
-print(type(3))        # <class 'int'>
-print(type(3.0))      # <class 'float'>
-print(3 == 3.0)       # True  -- equal in value
-```
-
-Two tools you will use constantly from today. `print()` shows you a value, and
-`type()` tells you what kind of thing it is:
-
-```python
-print(f"{width=} {type(width)=}")     # width=10 type(width)=<class 'int'>
-```
-
-The `=` inside the braces prints the expression *and* its value. When something
-behaves oddly, printing the value you are assuming is almost always the fastest
-way to find out you were wrong about it.
-
-> ### ⚠️ Floats are approximate — remember this one
-> ```python
-> >>> 0.1 + 0.2
-> 0.30000000000000004
-> >>> 0.1 + 0.2 == 0.3
-> False
-> ```
-> This is not a Python bug; it is how binary fractions work in every language.
-> **Never compare computed floats with `==`.** Every coordinate you compute
-> this semester is a float. In Week 10 you will learn the proper tool
-> (`pytest.approx`); until then, compare with a tolerance:
-> ```python
-> abs(a - b) < 1e-9
-> ```
-
-📄 `Examples/2.3_data_type.py`
-
-## 5. Operators
-
-```python
-7 + 2     # 9
-7 - 2     # 5
-7 * 2     # 14
-7 / 2     # 3.5   <- true division ALWAYS gives a float
-7 // 2    # 3     <- floor division, drops the remainder
-7 % 2     # 1     <- modulo, the remainder
-7 ** 2    # 49    <- power
-```
-
-`%` looks obscure and is everywhere in geometry: `i % 2` tells you whether row
-`i` is odd or even — which is exactly how you offset alternating courses in a
-brick wall.
-
-📄 `Examples/2.2_operators.py`
-
-## 6. Strings and f-strings
-
-```python
-name = "wall"
-count = 12
-
-# f-strings: put an f before the quote, then {expressions} inside
-print(f"The {name} has {count} bricks.")
-print(f"Half of that is {count / 2}.")
-print(f"Rounded to 2 decimals: {3.14159:.2f}")   # 3.14
-```
-
-Useful string operations:
-
-```python
-"hello".upper()          # 'HELLO'
-"  padded  ".strip()     # 'padded'
-"a,b,c".split(",")       # ['a', 'b', 'c']
-"-".join(["a", "b"])     # 'a-b'
-len("hello")             # 5
-```
-
-📄 `Examples/2.5_string_fromating.py`, `Examples/2.4_built_in_functions.py`
-
-## 7. Lists
-
-An ordered, changeable sequence. **Indices start at 0.**
-
-```python
-squares = [1, 4, 9, 16, 25]
-
-squares[0]     # 1    first
-squares[4]     # 25   fifth
-squares[-1]    # 25   last -- negative counts from the end
-squares[-2]    # 16
-len(squares)   # 5
-```
-
-Changing a list:
-
-```python
-squares.append(36)      # add to the end
-squares.pop()           # remove and return the last item
-squares.pop(0)          # remove and return item at index 0
-squares.index(16)       # position of the first 16 -- raises if absent
-```
-
-📄 `Examples/3.1.1_list.py`, `Examples/3.1.2_list_methods.py`
-
-### Slicing
-
-`list[start:stop:step]` — `start` is included, `stop` is **excluded**.
-
-```python
-items = [0, 1, 2, 3, 4, 5]
-
-items[1:4]     # [1, 2, 3]      -- index 4 NOT included
-items[:3]      # [0, 1, 2]      -- from the start
-items[3:]      # [3, 4, 5]      -- to the end
-items[::2]     # [0, 2, 4]      -- every 2nd item
-items[1::2]    # [1, 3, 5]      -- every 2nd, starting at 1
-items[::-1]    # [5, 4, 3, 2, 1, 0]  -- reversed
-```
-
-"Stop is excluded" is the single most common off-by-one bug in this course —
-and one an AI assistant will happily reproduce for you.
-
-📄 `Examples/3.1.3_list_slicing.py`
-
-## 8. Functions
-
-A function packages a piece of logic behind a name so you can use it more than
-once, and test it.
-
-```python
-def rectangle_area(width, height):
-    """Return the area of a rectangle.      <- docstring: what it does
-
-    Parameters
-    ----------
-    width : float   -- in metres
-    height : float  -- in metres
-    """
-    return width * height
-
-
-area = rectangle_area(3, 4)     # 12
-```
-
-Three things to get right:
-
-1. **`return` sends a value back. `print` only shows it on screen.** They are
-   not the same, and confusing them is the most common beginner bug:
-   ```python
-   def bad(w, h):
-       print(w * h)        # shows 12, returns None
-   def good(w, h):
-       return w * h        # gives you 12 to use
-   x = bad(3, 4) + 1       # TypeError -- None + 1
-   ```
-   **A function with no `return` returns `None`.** Not zero, not nothing — a
-   value called `None`. That `TypeError` above is the most common way you will
-   discover you forgot one.
-2. **The body is indented.** Python uses indentation, not braces. Four spaces.
-3. **Write a docstring.** Every checkpoint function in this course expects one.
-   It is also the single most effective thing you can do to make an AI
-   assistant write the function you actually wanted.
-
-Deeper treatment of arguments, defaults, and scope comes next week
-(`Lecture/Lecture_02/Examples/6*`).
-
----
-
-## Checkpoints
+Open `Lecture/Lecture_00/checkpoints/tasks.py` and follow the instructions at
+the top. Four of the five checks are diagnostics — they verify your install
+rather than your code. The fifth asks you to edit one line.
 
 ```bash
-uv run check.py 02
+uv run check.py 01
 ```
 
-Edit `Lecture/Lecture_01/checkpoints/tasks.py`. Read
-`checkpoints/test_tasks.py` — it is the spec, and reading the spec is not
-cheating.
+When all five pass, commit locally:
 
-| # | Task |
-| - | ---- |
-| 1 | `rectangle_area(width, height)` — the arithmetic and the `return` |
-| 2 | `celsius_to_fahrenheit(c)` — a formula, and floats |
-| 3 | `describe_box(w, h, d)` — f-strings and exact formatting |
-| 4 | `every_other(items)` — slicing |
-| 5 | `list_stats(numbers)` — returning more than one value, and an edge case |
+```bash
+git add -A
+git commit -m "Week 01: environment set up"
+```
 
-Checkpoint 5 asks what should happen for an **empty list**. There is no
-obviously right answer — which is why the spec states one. Read it. Getting
-used to "the spec decides, not my intuition" is the point of the exercise.
+That commit is assignment **A0** — see
+[A0: Setup & Copilot](/Assignment/0_copilot/README.md). No push this week; you
+do not have a fork yet. Next week we set one up in the first ten minutes of
+class and the commit above gets its first `git push`.
 
-## Exercise
+If you want to fork ahead of Week 02: the setup and the four weekly commands
+are in [SETUP.md ▸ Git for this course](/SETUP.md#git-for-this-course).
 
-📝 [Temperature converter + inventory management](/Exercise/Lecture_01/README.md)
+## 7. Troubleshooting
 
-## Self-test: can you answer these without running them?
+**`uv: command not found`** — your terminal has not picked up the new PATH.
+Close it and open a new one. If it persists, the installer prints the line to
+add to your shell profile; add it.
 
-1. What does `[1,2,3,4,5][1:3]` evaluate to?
-2. Why is `7 / 2` a float but `7 // 2` an int?
-3. What does a function return if it has no `return` statement?
-4. Why does `0.1 + 0.2 == 0.3` give `False`?
-5. What is the difference between `squares.pop()` and `squares.pop(0)`?
+**`ModuleNotFoundError: No module named 'compas'`** — you ran `python foo.py`
+instead of `uv run foo.py`. That is the single most common error in this
+course. Always `uv run`.
 
-If any of these are shaky, that topic is the one to reread — not the whole page.
+**A viewer window opens then immediately closes / crashes** — this is a
+graphics-driver issue, not a Python one. Every viewer example in this repo has
+a headless equivalent that writes a `.json` file instead; from Week 06 that is
+the primary mode anyway.
+
+**Something is broken in a way you cannot name** — nuke and rebuild. It is
+fast and it is not a defeat:
+```bash
+rm -rf .venv && uv sync
+```
+
+**Git said something you don't understand** — the ten common cases and their
+three-line recoveries are in
+[rccn wiki ▸ Git for coursework ▸ What can go wrong](https://kb.rccn.dev/computation/development-environment/version-control/coursework-git#what-can-go-wrong).
+Merge conflicts, rejected pushes, authentication failures, accidental secret
+commits — all named, all recoverable.
+
+**Still stuck** — open an issue on the course repo with the *exact* command you
+ran and the *complete* error output. "It doesn't work" is unanswerable; a
+traceback is usually self-answering, and pasting one is how you learn to read
+them.

@@ -61,7 +61,7 @@ for value in room.values():
     print(value)
 ```
 
-📄 `../Lecture_03/python_examples/3.2.1_dictionary.py`, `3.2.2_update_dictionary.py`,
+📄 `../Lecture_05/python_examples/3.2.1_dictionary.py`, `3.2.2_update_dictionary.py`,
 `3.2.3_dictionary_iteration.py`
 
 ### The counting pattern
@@ -93,7 +93,7 @@ Use a tuple when the collection is a fixed record (a coordinate, an RGB
 colour) rather than a growing sequence. Tuples can be dictionary keys; lists
 cannot.
 
-📄 `../Lecture_03/python_examples/3.3_tuples.py`
+📄 `../Lecture_05/python_examples/3.3_tuples.py`
 
 ## 2. Files
 
@@ -213,7 +213,7 @@ will make repeatedly from Week 06 onward:
 
 Silencing the first kind is how a wall with eleven courses gets built.
 
-📄 `../Lecture_05/python_examples/try_statement.py`
+📄 `../Lecture_09/python_examples/try_statement.py`
 
 ## 5. What an LLM actually is
 

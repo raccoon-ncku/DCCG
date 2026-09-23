@@ -136,7 +136,7 @@ applied to the whole project.
 - A wall / facade / bond generator with real fabrication constraints
 - A stair or ramp generator that validates against building-code rules
 - A packing or nesting tool for sheet-material fabrication
-- A structural sizing tool driven by an optimizer (see [Lecture 09](/Lecture/Lecture_09/README.md))
+- A structural sizing tool driven by an optimizer (see [Lecture 09](/Lecture/Lecture_15_optimization/README.md))
 - A mesh-relaxation or form-finding component
 - A pathfinding / circulation analysis tool on a Graph
 - A semantic image search over a reference library (see [Lecture 10](/Lecture/Lecture_10/README.md))

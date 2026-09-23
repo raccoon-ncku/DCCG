@@ -1,6 +1,6 @@
 # Exercise — Project a box to the XY plane  (Week 05 companion)
 
-> Open-ended practice alongside the [Week 05](/Lecture/Lecture_03/README.md)
+> Open-ended practice alongside the [Week 05](/Lecture/Lecture_05/README.md)
 > checkpoints. `uv run your_script.py`.
 
 - Create a box and transform it to some location off the ground.

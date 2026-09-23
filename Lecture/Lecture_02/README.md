@@ -1,392 +1,283 @@
-# Week 03 — Python II: control flow, modules, functions
+# Week 02 — Python I: values, types, lists, functions
 
-> Self-contained. Read, run the examples, do the checkpoints:
-> `uv run check.py 03`.
+> Self-contained. Read this page, run the examples next to it, then do the
+> checkpoints. `uv run check.py 01` tells you when you are done.
 
-Last week your code ran top to bottom, once. This week it makes **decisions**
-and **repeats** — which is where the interesting bugs start, and where reading
-code carefully starts to pay.
+## Why we start by *reading*
+
+You are learning Python in a year when a machine can produce it faster than
+you can type. That does not make this week optional — it makes it different.
+The purpose is no longer to memorise syntax so you can produce it. It is to be
+able to **look at a screen of code and say what it does, and whether it is
+right.**
+
+So for every example below: predict the output *before* you run it. If your
+prediction is wrong, that gap is the actual lesson. This is exactly the skill
+you will need in Week 11, when the code on your screen was written by
+something that does not know what it is doing.
 
 ---
 
-## 1. `if` / `elif` / `else`
+## 1. Running code
 
-```python
-temperature = 18
-
-if temperature > 25:
-    print("hot")
-elif temperature > 15:
-    print("mild")
-else:
-    print("cold")
+```bash
+uv run Lecture/Lecture_02/Examples/1_hello_world.py
 ```
 
-Rules that catch everyone once:
+An interactive prompt, useful for trying one line:
 
-- The colon `:` at the end of the line is required.
-- The body is **indented** — four spaces. Python has no `{}`.
-- `elif` branches are tested **in order**, and only the first true one runs.
-  Order therefore changes behaviour: swap the two conditions above and every
-  mild day prints "hot".
-- `=` assigns, `==` compares. `if x = 5:` is a syntax error.
-
-📄 `Examples/4.1_if_statement.py`, `4.1.1_elif_statement.py`, `4.1.2_else_statement.py`
-
-### Comparison and logical operators
-
-```python
-a == b     a != b     a < b     a <= b     a > b     a >= b
-
-x > 0 and x < 10       # both must be true
-x < 0 or x > 10        # at least one
-not x                  # inverts
-0 < x < 10             # Python allows this chain, and it reads well
+```bash
+uv run python
+>>> 2 + 2
+4
+>>> exit()
 ```
 
-📄 `Examples/4.1.3_logical_operator.py`
-
-### Truthiness
-
-Empty things are false; non-empty things are true.
+## 2. Comments
 
 ```python
-if items:          # better than  if len(items) > 0:
-    ...
+# Everything after a hash is ignored by Python.
+width = 10  # ... including at the end of a line
 ```
-Falsy values: `False`, `None`, `0`, `0.0`, `""`, `[]`, `{}`.
 
-## 2. `for` loops
+Comments explain **why**, not **what**. `x = x + 1  # add one to x` is noise.
+`x = x + 1  # rows are 1-indexed in the fabrication file` is worth its space.
 
-A `for` loop walks through a sequence, one item at a time.
+📄 `Examples/2.1_variables.py`
+
+## 3. Variables
+
+A variable is a **name pointing at a value**. `=` is not equality; it is "make
+this name refer to that value".
 
 ```python
-for colour in ["red", "green", "blue"]:
-    print(colour)
+width = 10
+height = 9
+print(height)     # 9
+
+height = 20       # the name now points somewhere else
+print(height)     # 20
 ```
 
-### `range()`
+Names must start with a letter or `_`, contain letters/digits/`_`, and are
+case-sensitive. `width`, `total_area`, `n_steps` — lowercase with underscores
+is the Python convention, and following it is free.
+
+Names are documentation. `w` costs you nothing today and costs you an hour in
+December. Name things after what they *mean*: `course_height`, not `ch`.
+
+📄 `Examples/2.1.1_variables_II.py`, `Examples/2.1.2_variable_names.py`
+
+## 4. Types
+
+Every value has a type, and the type decides what operations mean.
+
+| Type | Example | Notes |
+| ---- | ------- | ----- |
+| `int` | `42` | whole numbers, unlimited size |
+| `float` | `3.14` | decimals — **approximate**, see the warning below |
+| `str` | `"hello"` | text, single or double quotes |
+| `bool` | `True` / `False` | capitalised |
+| `list` | `[1, 2, 3]` | ordered, changeable |
+| `NoneType` | `None` | "no value" |
 
 ```python
-range(5)          # 0 1 2 3 4          -- stop is EXCLUDED
-range(2, 6)       # 2 3 4 5
-range(0, 10, 3)   # 0 3 6 9            -- step
-range(5, 0, -1)   # 5 4 3 2 1          -- counting down
+print(type(3))        # <class 'int'>
+print(type(3.0))      # <class 'float'>
+print(3 == 3.0)       # True  -- equal in value
 ```
 
-`range(n)` gives you `n` numbers starting at 0. This is why a list of `n`
-items has indices `0` to `n-1`, and why `range(1, n)` is a classic off-by-one.
-
-📄 `Examples/4.2_for_statement.py`, `4.2.3_range_function.py`
-
-### `enumerate()` — when you need the index too
+Two tools you will use constantly from today. `print()` shows you a value, and
+`type()` tells you what kind of thing it is:
 
 ```python
-for i, colour in enumerate(["red", "green", "blue"]):
-    print(i, colour)      # 0 red / 1 green / 2 blue
+print(f"{width=} {type(width)=}")     # width=10 type(width)=<class 'int'>
 ```
 
-Reach for this instead of `for i in range(len(items))`. It is shorter, and it
-cannot go out of range.
+The `=` inside the braces prints the expression *and* its value. When something
+behaves oddly, printing the value you are assuming is almost always the fastest
+way to find out you were wrong about it.
 
-📄 `Examples/4.2.6_enumerate.py`
-
-### `break` and `continue`
-
-```python
-for n in range(100):
-    if n == 5:
-        break        # leave the loop entirely
-    if n % 2 == 0:
-        continue     # skip to the next iteration
-    print(n)         # 1 3
-```
-
-📄 `Examples/4.2.2_break_continue.py`
-
-### Nested loops — the grid pattern
-
-This one you will use constantly in geometry:
-
-```python
-for row in range(3):
-    for col in range(4):
-        print(row, col)     # 12 combinations: a 3 x 4 grid
-```
-
-📄 `Examples/4.2.4_nested_for.py`, `4.2.5_for_if_statement.py`
-
-### Accumulating a result
-
-The most common shape in this course: start empty, append as you go, return.
-
-```python
-def squares_up_to(n):
-    """Return [0, 1, 4, 9, ...] for n terms."""
-    result = []                 # 1. start empty
-    for i in range(n):
-        result.append(i * i)    # 2. add one item per pass
-    return result               # 3. return AFTER the loop
-```
-
-> ⚠️ `return` inside the loop exits on the **first** pass. Indentation decides
-> whether you get a list of `n` items or a list of 1. This is the bug you will
-> most often find in AI-generated code, because it looks completely fine.
-
-## 3. `while` loops
-
-Use `while` when you do not know in advance how many repetitions you need.
-
-```python
-total = 0
-n = 1
-while total < 100:
-    total += n
-    n += 1
-```
-
-**Every `while` loop needs something that eventually makes the condition
-false.** If you write an infinite loop, `ctrl + C` stops it.
-
-📄 `Examples/4.3.while_statement.py`
-
-## 4. Modules
-
-A module is a file of Python you can use from another file. The standard
-library ships with hundreds.
-
-```python
-import math
-print(math.pi)          # 3.141592653589793
-print(math.sqrt(16))    # 4.0
-print(math.cos(0))      # 1.0
-
-from math import pi, cos      # import specific names
-import math as m             # import under a shorter name
-```
-
-Useful ones this semester:
-
-| Module | For |
-| ------ | --- |
-| `math` | `pi`, `sqrt`, `sin`, `cos`, `radians`, `floor`, `ceil` |
-| `random` | `random()`, `randint()`, `choice()`, `shuffle()`, `seed()` |
-| `pathlib` | file paths (Week 04) |
-| `json` | reading/writing data (Week 04) |
-
-📄 `Examples/5_modules.py`, `5.3_math.py`, `5.4_import.py`
-
-> ### Angles are in radians
-> `math.sin`, `math.cos` and COMPAS all take **radians**, not degrees.
-> `math.radians(90)` converts. Forgetting this produces geometry that is wrong
-> but not obviously wrong — the worst kind.
-
-### Random, and why seeding matters
-
-```python
-import random
-random.seed(42)         # fix the starting point
-print(random.randint(1, 6))   # same number every single run
-```
-
-Without a seed, a random result is different each run — which means you cannot
-reproduce a bug, and you cannot test it. `seed()` makes randomness
-**deterministic**: still varied, but repeatable. One of this week's checkpoints
-depends on this, and it is a real engineering habit, not a classroom trick.
-
-📄 `Examples/5.1.1_random.py`, `5.1.2_random_seed.py`
-
-## 5. Functions, properly
-
-Last week: `def`, `return`, docstrings. Now the rest.
-
-### Default arguments
-
-```python
-def greet(name, greeting="Hello"):
-    return f"{greeting}, {name}!"
-
-greet("Ada")                    # 'Hello, Ada!'
-greet("Ada", "Good morning")    # 'Good morning, Ada!'
-```
-
-Parameters with defaults must come **after** those without.
-
-### Keyword arguments
-
-```python
-def box(width, height, depth):
-    ...
-
-box(2, 3, 4)                          # positional -- which is which?
-box(width=2, height=3, depth=4)       # unambiguous, and self-documenting
-```
-
-For anything with more than two numbers, use keywords. Your future self and
-your reviewer will both thank you.
-
-📄 `Examples/6.1.1`–`6.1.4_function_arguments_*.py`
-
-### Returning several values
-
-```python
-def min_max(numbers):
-    return min(numbers), max(numbers)
-
-low, high = min_max([3, 1, 4])      # unpacking
-```
-
-📄 `Examples/6.2.1_return_statement_I.py`, `6.2.2_return_statement_II.py`
-
-### Scope
-
-Names created inside a function are local to it and vanish when it returns.
-
-```python
-def f():
-    x = 10        # local
-    return x
-
-f()
-print(x)          # NameError -- x does not exist out here
-```
-
-A function can *read* names from outside, but relying on that makes it
-impossible to test in isolation. **Pass what you need in as an argument.**
-This habit is what makes the Week 06 architecture possible.
-
-📄 `Examples/6.3.1`, `6.3.2_function_variable_scope_*.py`
-
-> ### ⚠️ The mutable default argument trap
+> ### ⚠️ Floats are approximate — remember this one
 > ```python
-> def add_item(item, basket=[]):     # WRONG
->     basket.append(item)
->     return basket
->
-> add_item("a")     # ['a']
-> add_item("b")     # ['a', 'b']   <- the SAME list, still there
+> >>> 0.1 + 0.2
+> 0.30000000000000004
+> >>> 0.1 + 0.2 == 0.3
+> False
 > ```
-> The default is created once, when the function is defined. Use `None`:
+> This is not a Python bug; it is how binary fractions work in every language.
+> **Never compare computed floats with `==`.** Every coordinate you compute
+> this semester is a float. In Week 10 you will learn the proper tool
+> (`pytest.approx`); until then, compare with a tolerance:
 > ```python
-> def add_item(item, basket=None):
->     if basket is None:
->         basket = []
->     basket.append(item)
->     return basket
+> abs(a - b) < 1e-9
 > ```
-> Worth knowing because AI assistants reproduce this bug regularly — it is
-> common in their training data.
 
-## 6. When it goes wrong
+📄 `Examples/2.3_data_type.py`
 
-This is the first week your code can fail in interesting ways, so this is the
-week to learn what to do about it. There are two different problems here and
-they need different tools.
-
-### It crashed: read the traceback
-
-Python tells you exactly what happened. Read it **from the bottom up** — the
-last line is *what*, the lines above are *where* and *how you got there*.
-
-```
-Traceback (most recent call last):
-  File "primes.py", line 18, in <module>
-    print(primes_below(20))
-  File "primes.py", line 12, in primes_below
-    if n % candidates[i] == 0:
-IndexError: list index out of range
-```
-
-Bottom line: `IndexError` — an index past the end of a list. Line above: the
-exact expression, at line 12. Above that: who called it. Two lines is usually
-the whole answer.
-
-The ones you will meet this week:
-
-| Error | Usually means |
-| ----- | ------------- |
-| `NameError` | typo, or used before it was defined |
-| `TypeError` | wrong kind of value — very often a `None` from a function that forgot to `return` |
-| `IndexError` | list index past the end — check your `range()` |
-| `ValueError` | right type, impossible value — `int("abc")` |
-| `IndentationError` | inconsistent indentation |
-| `ZeroDivisionError` | you divided by a count that turned out to be 0 |
-
-> An error message is not an insult. It is the most specific and most accurate
-> information you will get all day, and it is free. When you ask anyone —
-> including an AI assistant — for help, paste the **whole** traceback. "It
-> doesn't work" is unanswerable.
-
-### It didn't crash, and the answer is wrong
-
-Harder, and much more common in this course. Staring at the code does not
-work. Do this instead:
-
-**1. Print the value you are assuming.** Most bugs are a gap between what you
-believe a variable holds and what it actually holds.
+## 5. Operators
 
 ```python
-for i in range(n):
-    print(f"{i=} {total=}")     # the = prints both the name and the value
+7 + 2     # 9
+7 - 2     # 5
+7 * 2     # 14
+7 / 2     # 3.5   <- true division ALWAYS gives a float
+7 // 2    # 3     <- floor division, drops the remainder
+7 % 2     # 1     <- modulo, the remainder
+7 ** 2    # 49    <- power
 ```
 
-**2. Narrow it down.** Does it fail with 100 items? With 3? With 1? With 0?
-Does the first pass of the loop produce the right value? Each answer halves
-the search; four or five halvings is usually enough.
+`%` looks obscure and is everywhere in geometry: `i % 2` tells you whether row
+`i` is odd or even — which is exactly how you offset alternating courses in a
+brick wall.
 
-**3. Check the boundaries.** Bugs live at the edges — the first and last
-iteration, empty input, one item, zero. Not in the middle.
+📄 `Examples/2.2_operators.py`
 
-**4. Run it on an answer you already know.** If `fizz_buzz(5)` doesn't give you
-what you worked out by hand, you have found the bug without understanding the
-code at all.
+## 6. Strings and f-strings
 
-**5. Say it out loud.** Explain each line, in order, as though to someone else.
-The sentence you cannot finish is the line with the bug.
+```python
+name = "wall"
+count = 12
 
-📄 A worked example: run `Examples/4.2.5_for_if_statement.py` and predict the
-grid before you look.
+# f-strings: put an f before the quote, then {expressions} inside
+print(f"The {name} has {count} bricks.")
+print(f"Half of that is {count / 2}.")
+print(f"Rounded to 2 decimals: {3.14159:.2f}")   # 3.14
+```
 
-> Reference version, with more errors and the interactive debugger:
-> [rccn wiki → Errors & Debugging](https://kb.rccn.dev/computation/python/syntax-essentials/errors-and-debugging).
-> Deliberate error *handling* — `try` / `except` — is next week.
+Useful string operations:
+
+```python
+"hello".upper()          # 'HELLO'
+"  padded  ".strip()     # 'padded'
+"a,b,c".split(",")       # ['a', 'b', 'c']
+"-".join(["a", "b"])     # 'a-b'
+len("hello")             # 5
+```
+
+📄 `Examples/2.5_string_fromating.py`, `Examples/2.4_built_in_functions.py`
+
+## 7. Lists
+
+An ordered, changeable sequence. **Indices start at 0.**
+
+```python
+squares = [1, 4, 9, 16, 25]
+
+squares[0]     # 1    first
+squares[4]     # 25   fifth
+squares[-1]    # 25   last -- negative counts from the end
+squares[-2]    # 16
+len(squares)   # 5
+```
+
+Changing a list:
+
+```python
+squares.append(36)      # add to the end
+squares.pop()           # remove and return the last item
+squares.pop(0)          # remove and return item at index 0
+squares.index(16)       # position of the first 16 -- raises if absent
+```
+
+📄 `Examples/3.1.1_list.py`, `Examples/3.1.2_list_methods.py`
+
+### Slicing
+
+`list[start:stop:step]` — `start` is included, `stop` is **excluded**.
+
+```python
+items = [0, 1, 2, 3, 4, 5]
+
+items[1:4]     # [1, 2, 3]      -- index 4 NOT included
+items[:3]      # [0, 1, 2]      -- from the start
+items[3:]      # [3, 4, 5]      -- to the end
+items[::2]     # [0, 2, 4]      -- every 2nd item
+items[1::2]    # [1, 3, 5]      -- every 2nd, starting at 1
+items[::-1]    # [5, 4, 3, 2, 1, 0]  -- reversed
+```
+
+"Stop is excluded" is the single most common off-by-one bug in this course —
+and one an AI assistant will happily reproduce for you.
+
+📄 `Examples/3.1.3_list_slicing.py`
+
+## 8. Functions
+
+A function packages a piece of logic behind a name so you can use it more than
+once, and test it.
+
+```python
+def rectangle_area(width, height):
+    """Return the area of a rectangle.      <- docstring: what it does
+
+    Parameters
+    ----------
+    width : float   -- in metres
+    height : float  -- in metres
+    """
+    return width * height
+
+
+area = rectangle_area(3, 4)     # 12
+```
+
+Three things to get right:
+
+1. **`return` sends a value back. `print` only shows it on screen.** They are
+   not the same, and confusing them is the most common beginner bug:
+   ```python
+   def bad(w, h):
+       print(w * h)        # shows 12, returns None
+   def good(w, h):
+       return w * h        # gives you 12 to use
+   x = bad(3, 4) + 1       # TypeError -- None + 1
+   ```
+   **A function with no `return` returns `None`.** Not zero, not nothing — a
+   value called `None`. That `TypeError` above is the most common way you will
+   discover you forgot one.
+2. **The body is indented.** Python uses indentation, not braces. Four spaces.
+3. **Write a docstring.** Every checkpoint function in this course expects one.
+   It is also the single most effective thing you can do to make an AI
+   assistant write the function you actually wanted.
+
+Deeper treatment of arguments, defaults, and scope comes next week
+(`Lecture/Lecture_03/Examples/6*`).
 
 ---
 
 ## Checkpoints
 
 ```bash
-uv run check.py 03
+uv run check.py 02
 ```
 
-| # | Task | Exercises |
-| - | ---- | --------- |
-| 1 | `fizz_buzz(n)` | `if`/`elif`/`else`, `%`, accumulating a list |
-| 2 | `triangle(n)` | nested repetition, string building |
-| 3 | `is_palindrome(text)` | strings, slicing, normalising input |
-| 4 | `primes_below(n)` | nested loops, `break`, an algorithm |
-| 5 | `circle_points(count, radius)` | `math`, radians, floats |
-| 6 | `roll_dice(seed, count)` | `random`, and why seeding makes code testable |
+Edit `Lecture/Lecture_02/checkpoints/tasks.py`. Read
+`checkpoints/test_tasks.py` — it is the spec, and reading the spec is not
+cheating.
 
-Checkpoint 4 (`primes_below`) is the one people find hardest. It is a real
-algorithm rather than a syntax drill, and it is worth the struggle — if you can
-write it and explain it, you can read most of what an assistant hands you.
-There is optional extra practice on the same ground in
-[0_prime_numbers](/Assignment/0_prime_numbers/README.md), retired as a graded
-assignment but kept because the write-up is good.
+| # | Task |
+| - | ---- |
+| 1 | `rectangle_area(width, height)` — the arithmetic and the `return` |
+| 2 | `celsius_to_fahrenheit(c)` — a formula, and floats |
+| 3 | `describe_box(w, h, d)` — f-strings and exact formatting |
+| 4 | `every_other(items)` — slicing |
+| 5 | `list_stats(numbers)` — returning more than one value, and an edge case |
+
+Checkpoint 5 asks what should happen for an **empty list**. There is no
+obviously right answer — which is why the spec states one. Read it. Getting
+used to "the spec decides, not my intuition" is the point of the exercise.
 
 ## Exercise
 
-📝 [Asterisk pattern, factorial, guess-the-number, palindrome](/Exercise/Lecture_02/README.md)
+📝 [Temperature converter + inventory management](/Exercise/Lecture_02/README.md)
 
-## Self-test
+## Self-test: can you answer these without running them?
 
-1. How many times does `for i in range(2, 10, 3)` run, and what are the values?
-2. What is the difference between `break` and `continue`?
-3. Why does `def f(items=[])` behave surprisingly on the second call?
-4. `math.sin(90)` returns `0.894...`, not `1.0`. Why?
-5. When would you use `while` instead of `for`?
-6. A loop builds a list but returns only one item. What is almost certainly wrong?
-7. Which line of a traceback do you read first, and why?
-8. Your function returns the wrong number but raises no error. What are the
-   first two things you do?
+1. What does `[1,2,3,4,5][1:3]` evaluate to?
+2. Why is `7 / 2` a float but `7 // 2` an int?
+3. What does a function return if it has no `return` statement?
+4. Why does `0.1 + 0.2 == 0.3` give `False`?
+5. What is the difference between `squares.pop()` and `squares.pop(0)`?
+
+If any of these are shaky, that topic is the one to reread — not the whole page.

@@ -1,112 +1,103 @@
 """
-Week 03 checkpoints — control flow, modules, functions.
+Week 02 checkpoints — values, types, lists, functions.
 
-Edit ONLY this file. Run from the repository root:
+Edit ONLY this file. Replace each `raise NotImplementedError(...)` with a real
+implementation, then run from the repository root:
 
-    uv run check.py 03
+    uv run check.py 02
 
-`spec/test_tasks.py` (one folder down, marked READ ONLY) is the specification.
-Read it whenever a docstring here leaves you guessing -- that is what it is for.
+The precise specification for each function is in `spec/test_tasks.py` (one
+folder down, marked READ ONLY). Read it. It answers the questions this
+docstring leaves open.
 """
 
-import math
-import random
 
+def rectangle_area(width, height):
+    """Return the area of a rectangle.
 
-def fizz_buzz(n):
-    """Return the FizzBuzz sequence for 1..n as a list of strings.
+    Parameters
+    ----------
+    width : float   -- the horizontal dimension
+    height : float  -- the vertical dimension
 
-    For each number from 1 to n inclusive:
-      - divisible by 3 AND 5  -> "FizzBuzz"
-      - divisible by 3        -> "Fizz"
-      - divisible by 5        -> "Buzz"
-      - otherwise             -> the number, as a string
+    Returns
+    -------
+    float -- width * height
 
-    fizz_buzz(5)  ->  ["1", "2", "Fizz", "4", "Buzz"]
-
-    Hint: the order of your if/elif branches matters. Test 15 first, or it
-    will never be reached. Note also that every item is a STRING.
+    Hint: the whole body is one line. The trap is writing `print` instead of
+    `return` -- see section 8 of the README.
     """
-    raise NotImplementedError("fizz_buzz")
+    raise NotImplementedError("rectangle_area")
 
 
-def triangle(n):
-    """Return a left-aligned triangle of asterisks, n rows tall, as one string.
+def celsius_to_fahrenheit(celsius):
+    """Convert a temperature from Celsius to Fahrenheit.
 
-    triangle(3) returns the string:
+    The formula is:  F = C * 9/5 + 32
 
-        *
-        **
-        ***
+    Parameters
+    ----------
+    celsius : float
 
-    That is: "*\\n**\\n***" -- rows joined by newlines, with NO trailing
-    newline at the end.
+    Returns
+    -------
+    float
 
-    Hint: build a list of rows, then "\\n".join(rows). The string "*" * 3 is
-    "***", so you may not need a nested loop at all.
+    Hint: in Python 3, `9/5` is 1.8, not 1. Section 5 of the README explains
+    why that is worth checking rather than assuming.
     """
-    raise NotImplementedError("triangle")
+    raise NotImplementedError("celsius_to_fahrenheit")
 
 
-def is_palindrome(text):
-    """Return True if `text` reads the same forwards and backwards.
+def describe_box(width, height, depth):
+    """Return a one-line human-readable description of a box.
 
-    Spaces and capitalisation are IGNORED:
+    For width=2, height=3, depth=4 the result must be EXACTLY:
 
-        is_palindrome("Racecar")                   -> True
-        is_palindrome("A man a plan a canal Panama") -> True
-        is_palindrome("hello")                     -> False
+        "Box 2.00 x 3.00 x 4.00 m, volume 24.00 m3"
 
-    Hint: first normalise (lowercase, remove spaces), then compare the result
-    with its own reverse. Week 02's slicing section has the reverse trick.
+    Note the format: every number shown with exactly two decimal places.
+
+    Returns
+    -------
+    str
+
+    Hint: f-strings, and the `:.2f` format specifier. README section 6.
     """
-    raise NotImplementedError("is_palindrome")
+    raise NotImplementedError("describe_box")
 
 
-def primes_below(n):
-    """Return a list of all prime numbers strictly less than n, in order.
+def every_other(items):
+    """Return a new list containing every second element, starting with the first.
 
-    primes_below(10)  ->  [2, 3, 5, 7]
-    primes_below(2)   ->  []
+    every_other([0, 1, 2, 3, 4, 5])  ->  [0, 2, 4]
+    every_other(["a", "b", "c"])     ->  ["a", "c"]
 
-    A prime is a whole number greater than 1 that is divisible only by 1 and
-    itself.
+    Returns
+    -------
+    list
 
-    Hint: for each candidate, try dividing by every number from 2 upward. If
-    any divides it evenly, it is not prime -- and you can stop checking that
-    candidate immediately (`break`). You only need to test divisors up to the
-    square root of the candidate; understanding WHY is the interesting part,
-    and it is what earns an A on assignment A1.
+    Hint: this is one slice. You should not need a loop -- and you have not
+    been taught loops yet, so if you find yourself wanting one, reread
+    README section 7 on slicing.
     """
-    raise NotImplementedError("primes_below")
+    raise NotImplementedError("every_other")
 
 
-def circle_points(count, radius):
-    """Return `count` points spaced evenly around a circle of the given radius.
+def list_stats(numbers):
+    """Return (smallest, largest, mean) for a list of numbers.
 
-    Each point is a tuple (x, y). The first point is at angle 0, i.e. exactly
-    (radius, 0.0). Points go counter-clockwise.
+    list_stats([1, 2, 3, 4])  ->  (1, 4, 2.5)
 
-    circle_points(4, 1) -> approximately [(1,0), (0,1), (-1,0), (0,-1)]
+    The empty list is a real case you must decide about. This specification
+    decides for you: see `test_list_stats_handles_the_empty_list` in
+    `spec/test_tasks.py` before you implement this.
 
-    Hint: the angle of point i is  i * 2*pi / count  (radians -- see the README
-    warning). Then x = radius * cos(angle), y = radius * sin(angle).
-    You will get values like 6.1e-17 instead of 0. That is normal, and it is
-    why the spec compares with a tolerance instead of ==.
+    Returns
+    -------
+    tuple -- (min, max, mean)
+
+    Hint: `min()`, `max()`, `sum()` and `len()` are built in. Returning several
+    values at once is just `return a, b, c`.
     """
-    raise NotImplementedError("circle_points")
-
-
-def roll_dice(seed, count):
-    """Return `count` dice rolls (integers 1-6), reproducibly.
-
-    The same seed must ALWAYS produce the same sequence:
-
-        roll_dice(42, 5) == roll_dice(42, 5)     # always True
-        roll_dice(42, 5) != roll_dice(7, 5)      # different seeds differ
-
-    Hint: call random.seed(seed) first, then random.randint(1, 6) `count`
-    times. This is the point of the exercise: seeded randomness is repeatable,
-    and repeatable means testable. Unrepeatable bugs are the ones that survive.
-    """
-    raise NotImplementedError("roll_dice")
+    raise NotImplementedError("list_stats")

@@ -38,20 +38,20 @@ week's lecture — it is searchable, runnable, and available at 3am.
 
 | Week | Date | Session | Practice |
 | ---- | ---------- | ------- | -------- |
-| 01 | 2026.09.09 | **Introduction & Toolchain** — how the course works; Python, git/GitHub, Zed, `uv`, and an AI assistant.<br>👉[Lecture](/Lecture/Lecture_00/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W01/) | Setup + first commit (**A0**, local) · fork the course before W02 |
-| 02 | 2026.09.16 | **Python I** — values, types, lists, functions. Reading code, not only writing it.<br>👉[Lecture](/Lecture/Lecture_01/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W02/) | 10-min git housekeeping: fork + push **A0** · 📝[Exercise](/Exercise/Lecture_01/README.md) |
-| 03 | 2026.09.23 | **Python II** — control flow, modules; reading a traceback and debugging what doesn't crash.<br>👉[Lecture](/Lecture/Lecture_02/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W03/) | 📝[Exercise](/Exercise/Lecture_02/README.md) |
+| 01 | 2026.09.09 | **Introduction & Toolchain** — how the course works; Python, git/GitHub, Zed, `uv`, and an AI assistant.<br>👉[Lecture](/Lecture/Lecture_01/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W01/) | Setup + first commit (**A0**, local) · fork the course before W02 |
+| 02 | 2026.09.16 | **Python I** — values, types, lists, functions. Reading code, not only writing it.<br>👉[Lecture](/Lecture/Lecture_02/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W02/) | 10-min git housekeeping: fork + push **A0** · 📝[Exercise](/Exercise/Lecture_02/README.md) |
+| 03 | 2026.09.23 | **Python II** — control flow, modules; reading a traceback and debugging what doesn't crash.<br>👉[Lecture](/Lecture/Lecture_03/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W03/) | 📝[Exercise](/Exercise/Lecture_03/README.md) |
 | 04 | 2026.09.30 | **Python III + AI literacy** — dicts, file IO, JSON; what an LLM is, how to ask, and reviewing generated code.<br>👉[Lecture](/Lecture/Lecture_04/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W04/) | Checkpoint 5: find the AI's bugs |
 
 ### Part II — Geometry as pure functions (W05–W09)
 
 | Week | Date | Session | Practice |
 | ---- | ---------- | ------- | -------- |
-| 05 | 2026.10.07 | **COMPAS core** — Point, Vector, Frame, Box; transformations; geometry as a pure function.<br>👉[Lecture](/Lecture/Lecture_03/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W05/) | 📝[Rotating boxes](/Exercise/Lecture_03/README.md) |
+| 05 | 2026.10.07 | **COMPAS core** — Point, Vector, Frame, Box; transformations; geometry as a pure function.<br>👉[Lecture](/Lecture/Lecture_05/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W05/) | 📝[Rotating boxes](/Exercise/Lecture_05/README.md) |
 | 06 | 2026.10.14 | **Software Engineering I — the dual-mode architecture** ⭐ — core → artifact → adapter; the `uv` lockfile; git branches and PRs.<br>👉[Lecture](/Lecture/Lecture_06/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W06/) | Refactor a script into core + runner |
-| 07 | 2026.10.21 | 🚫 self-paced · **OOP** — classes, attributes, methods; a design element as an object.<br>👉[Lecture](/Lecture/Lecture_08/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W07/) | 📝[OOP exercises](/Exercise/Lecture_08/README.md) |
-| 08 | 2026.10.28 | 🚫 self-paced · **Recursion** — base cases, depth, self-similar geometry; AI as a tutor.<br>👉[Lecture](/Lecture/Lecture_07/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W08/) | 📝[Branching tree](/Exercise/Lecture_07/README.md) |
-| 09 | 2026.11.04 | **Mesh + debrief** — `Mesh` as a data structure; attributes as dictionaries; peer review of the self-paced weeks.<br>👉[Lecture](/Lecture/Lecture_05/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W09/) | 📝[Mesh exercise](/Exercise/Lecture_05/README.md) |
+| 07 | 2026.10.21 | 🚫 self-paced · **OOP** — classes, attributes, methods; a design element as an object.<br>👉[Lecture](/Lecture/Lecture_07/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W07/) | 📝[OOP exercises](/Exercise/Lecture_07/README.md) |
+| 08 | 2026.10.28 | 🚫 self-paced · **Recursion** — base cases, depth, self-similar geometry; AI as a tutor.<br>👉[Lecture](/Lecture/Lecture_08/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W08/) | 📝[Branching tree](/Exercise/Lecture_08/README.md) |
+| 09 | 2026.11.04 | **Mesh + debrief** — `Mesh` as a data structure; attributes as dictionaries; peer review of the self-paced weeks.<br>👉[Lecture](/Lecture/Lecture_09/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W09/) | 📝[Mesh exercise](/Exercise/Lecture_09/README.md) |
 
 ### Part III — Engineering the workflow with AI (W10–W14)
 
@@ -67,7 +67,7 @@ week's lecture — it is searchable, runnable, and available at 3am.
 
 | Week | Date | Session | Milestone |
 | ---- | ---------- | ------- | --------- |
-| 15 | 2026.12.16 | **AI in Design (models, not agents)** — diffusion/ControlNet and CLIP as *ingredients*; optional optimization.<br>👉[AI](/Lecture/Lecture_10/README.md) · 👉[Optimization](/Lecture/Lecture_09/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W15-optimization/) | Project work |
+| 15 | 2026.12.16 | **AI in Design (models, not agents)** — diffusion/ControlNet and CLIP as *ingredients*; optional optimization.<br>👉[AI](/Lecture/Lecture_10/README.md) · 👉[Optimization](/Lecture/Lecture_15_optimization/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W15-optimization/) | Project work |
 | 16 | 2026.12.23 | **Final Project — help desk** (register-based one-on-ones).<br>🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W16/) | 🎓 **Project iteration 2** |
 | 17 | 2026.12.30 | **Final Project — packaging clinic.** Feature freeze: README, install, tests green, artifact committed, adapter verified.<br>🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W17/) | 🎓 **Feature freeze** |
 | 18 | 2027.01.06 | 🎓 **Final Presentations** — live demo: the same core, headless *and* in Rhino/Grasshopper.<br>🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W18/) | 🎓 **Repo due 2027.01.10 23:59** |

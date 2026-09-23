@@ -1,12 +1,13 @@
 """
-Week 08 checkpoints — recursion and self-similar geometry.
+Week 07 checkpoints — object-oriented programming.
 
 Edit ONLY this file. Run from the repository root:
 
-    uv run check.py 08
+    uv run check.py 07
 
-Every function here must be recursive AND pure: no list defined outside the
-function that the calls append into. See README section 4 for why.
+This is a self-paced week. Read `spec/test_tasks.py` whenever a docstring
+here is not specific enough -- and note how much of the "spec" for a class
+is really a list of small promises about how it behaves.
 """
 
 import math
@@ -14,99 +15,92 @@ import math
 import compas.geometry as cg
 
 
-def factorial(n):
-    """Return n! = n * (n-1) * ... * 1, recursively.
+class Vector2D:
+    """A 2D vector.
 
-    factorial(0) -> 1     (this is the mathematical convention, not a mistake)
-    factorial(5) -> 120
-
-    A negative number has no factorial: raise ValueError.
-
-    Hint: base case first, then the recursive case. If you get RecursionError,
-    your recursive case is not moving toward the base case.
-    """
-    raise NotImplementedError("factorial")
-
-
-def flatten(nested):
-    """Flatten an arbitrarily nested list into a single flat list.
-
-    flatten([1, [2, [3, 4]], 5])  ->  [1, 2, 3, 4, 5]
-    flatten([])                   ->  []
-
-    The nesting can be any depth, so a fixed number of loops will not do --
-    this is recursion over STRUCTURE rather than over a number, which is the
-    more useful of the two patterns.
-
-    Hint: loop over the items. If an item is itself a list, flatten it and
-    extend; otherwise append it. `isinstance(item, list)` is your test.
-    """
-    raise NotImplementedError("flatten")
-
-
-def sierpinski(a, b, c, depth):
-    """Return the triangles of a Sierpinski subdivision.
-
-    Each triangle is a tuple of three compas.geometry.Point objects.
-
-    - depth 0 -> [(a, b, c)]                 the triangle itself, 1 of them
-    - depth 1 -> 3 triangles, each at one corner, half the size
-    - depth d -> 3**d triangles
-
-    The rule: find the midpoints of the three edges, then recurse on the three
-    corner triangles (a, ab, ca), (ab, b, bc), (ca, bc, c). The middle triangle
-    is the hole and is NOT recursed into.
-
-    Parameters
-    ----------
-    a, b, c : compas.geometry.Point
-    depth : int -- 0 or greater; negative raises ValueError
-
-    Returns
-    -------
-    list[tuple[Point, Point, Point]]
-
-    Hint: the midpoint of two Points p and q is
-        cg.Point(*[(p[i] + q[i]) / 2 for i in range(3)])
-    Build your result by CONCATENATING what the three recursive calls return.
-    """
-    raise NotImplementedError("sierpinski")
-
-
-def tree_segments(length, angle_degrees, depth, scale=0.7):
-    """Return the line segments of a 2D branching tree, growing upward from the origin.
-
-    Each segment is a tuple (start_point, end_point) of compas.geometry.Point.
-
-    Rules
-    -----
-    - depth 0 -> []                       (no tree at all)
-    - depth 1 -> one trunk, from (0,0,0) straight up to (0, length, 0)
-    - at the tip of every branch, two shorter branches grow: one rotated
-      +angle_degrees, one rotated -angle_degrees (about the Z axis), each
-      `scale` times the length of its parent
-    - a tree of depth d has 2**d - 1 segments
-
-    Parameters
-    ----------
-    length : float          -- length of the trunk
-    angle_degrees : float   -- branching angle, in DEGREES
-    depth : int             -- 0 or greater; negative raises ValueError
-    scale : float           -- how much each generation shrinks
-
-    Returns
-    -------
-    list[tuple[Point, Point]]
+    Must support:
+        Vector2D(3, 4)                  -> an instance with .x and .y
+        repr(v)                         -> exactly "Vector2D(3, 4)"
+        v1 + v2                         -> a NEW Vector2D
+        v1 == v2                        -> True when x and y both match
+        v.length                        -> a PROPERTY (no parentheses), 5.0 here
+        v.unitized()                    -> a NEW Vector2D of length 1
 
     Hints
     -----
-    - Write a small recursive helper that takes (start_point, direction_vector,
-      length, depth) -- passing the direction along is much easier than
-      accumulating a total angle.
-    - Rotate a direction vector with
-        cg.Rotation.from_axis_and_angle([0, 0, 1], math.radians(angle))
-      and `vector.transformed(R)`.
-    - Stay pure: return a new list from each call and concatenate. Do NOT
-      append into a list defined outside the function.
+    - `__repr__` must return a string, not print one.
+    - `__add__(self, other)` is what makes `+` work.
+    - `length` is derived from x and y, so it is a @property -- if you store it
+      in __init__ it goes stale the moment anyone changes .x
+    - unitizing a zero-length vector is impossible; raise ValueError.
     """
-    raise NotImplementedError("tree_segments")
+
+    def __init__(self, x, y):
+        raise NotImplementedError("Vector2D.__init__")
+
+
+class Rectangle:
+    """An axis-aligned rectangle, positioned by its lower-left corner.
+
+    Must support:
+        Rectangle(width, height, x=0, y=0)
+        r.area                  -> PROPERTY, width * height
+        r.perimeter             -> PROPERTY, 2 * (width + height)
+        r.contains(px, py)      -> True if the point is inside or on the edge
+        repr(r)                 -> "Rectangle(3, 4, at (0, 0))"
+
+    A rectangle with a zero or negative dimension is not a rectangle: raise
+    ValueError from the constructor rather than allowing a broken object to
+    exist. An object that can never be in an invalid state is one you never
+    have to check again.
+    """
+
+    def __init__(self, width, height, x=0, y=0):
+        raise NotImplementedError("Rectangle.__init__")
+
+
+class Square(Rectangle):
+    """A Rectangle whose sides are equal.
+
+    Must support:
+        Square(5)          -> a 5 x 5 rectangle at (0, 0)
+        Square(5, x=2)     -> ... at (2, 0)
+        s.area             -> 25, inherited, NOT reimplemented
+        isinstance(Square(1), Rectangle)   -> True
+
+    Hints
+    -----
+    - Call `super().__init__(...)` to run Rectangle's constructor.
+    - Do NOT redefine `area` or `perimeter`. Inheriting them is the point; a
+      second copy of that formula is a second thing that can be wrong.
+    """
+
+    def __init__(self, side, x=0, y=0):
+        raise NotImplementedError("Square.__init__")
+
+
+class Wall:
+    """The Week 06 wall, as a class -- and still part of the CORE layer.
+
+    Must support:
+        wall = Wall(n_courses=8, length=2.0, thickness=0.3,
+                    course_height=0.2, offset=0.1)
+        wall.height          -> PROPERTY: n_courses * course_height
+        wall.to_boxes()      -> list[compas.geometry.Box], bottom course first
+        repr(wall)           -> "Wall(8 courses, 1.60 m tall)"
+
+    Geometry rules (identical to Week 06 -- reuse what you worked out then):
+        - course i spans z from i*course_height to (i+1)*course_height
+        - odd courses (1, 3, 5...) are offset along X by `offset`
+        - even courses are centred on x = 0
+        - the wall sits on z = 0
+
+    `n_courses` below 1 raises ValueError from the constructor.
+
+    This class must stay PURE: no viewer, no files, no print. A checkpoint
+    checks the file for you, the same way Week 06 did.
+    """
+
+    def __init__(self, n_courses, length=2.0, thickness=0.3,
+                 course_height=0.2, offset=0.1):
+        raise NotImplementedError("Wall.__init__")

@@ -7,7 +7,7 @@ for dates.
 This is the one assignment with no code to write. You are proving that your
 machine can run the course, and making your first commit.
 
-The full walkthrough is [Week 01's lecture](/Lecture/Lecture_00/README.md) —
+The full walkthrough is [Week 01's lecture](/Lecture/Lecture_01/README.md) —
 follow that. This page is only the checklist and the deliverable.
 
 ## Checklist
@@ -16,7 +16,7 @@ follow that. This page is only the checklist and the deliverable.
    [Student Developer Pack](https://education.github.com/pack) while you're
    there — it is free and it unlocks Copilot.
 2. **`uv`, `git`, and an editor** installed — see
-   [Week 01 §2](/Lecture/Lecture_00/README.md#2-install). Zed is what the
+   [Week 01 §2](/Lecture/Lecture_01/README.md#2-install). Zed is what the
    course uses; the editor is the one tool here you may substitute.
 3. **An AI assistant**, one of:
    - Zed's built-in assistant (sign in with GitHub; the free tier is enough)
@@ -38,7 +38,7 @@ follow that. This page is only the checklist and the deliverable.
    uv run check.py 01
    ```
    Four of these check your machine. The fifth asks you to edit one line in
-   `Lecture/Lecture_00/checkpoints/tasks.py`.
+   `Lecture/Lecture_01/checkpoints/tasks.py`.
 
 ## Deliverable — Week 01
 

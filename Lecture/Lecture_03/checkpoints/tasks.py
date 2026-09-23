@@ -1,104 +1,112 @@
 """
-Week 05 checkpoints — COMPAS primitives and transformations.
+Week 03 checkpoints — control flow, modules, functions.
 
 Edit ONLY this file. Run from the repository root:
 
-    uv run check.py 05
+    uv run check.py 03
 
-Every function here is PURE: it takes numbers or geometry in and returns
-geometry out. No printing, no viewer, no files. That is not a stylistic
-preference -- it is what makes these testable at all, and it is the subject of
-next week.
+`spec/test_tasks.py` (one folder down, marked READ ONLY) is the specification.
+Read it whenever a docstring here leaves you guessing -- that is what it is for.
 """
 
 import math
+import random
 
-import compas.geometry as cg
 
+def fizz_buzz(n):
+    """Return the FizzBuzz sequence for 1..n as a list of strings.
 
-def box_on_ground(x, y, size):
-    """Return a cube of edge length `size` SITTING ON the XY plane at (x, y).
+    For each number from 1 to n inclusive:
+      - divisible by 3 AND 5  -> "FizzBuzz"
+      - divisible by 3        -> "Fizz"
+      - divisible by 5        -> "Buzz"
+      - otherwise             -> the number, as a string
 
-    "Sitting on" means its lowest face is exactly at z = 0, and its centre is
-    directly above (x, y).
+    fizz_buzz(5)  ->  ["1", "2", "Fizz", "4", "Buzz"]
 
-    box_on_ground(0, 0, 2)  ->  a 2x2x2 cube spanning z from 0 to 2
-
-    Returns
-    -------
-    compas.geometry.Box
-
-    Hint: a COMPAS Box is CENTRED on its frame, so Box(2,2,2) at the origin
-    spans z from -1 to +1. Read the warning in README section 3, then work out
-    how high the frame has to be.
+    Hint: the order of your if/elif branches matters. Test 15 first, or it
+    will never be reached. Note also that every item is a STRING.
     """
-    raise NotImplementedError("box_on_ground")
+    raise NotImplementedError("fizz_buzz")
 
 
-def move(shape, dx, dy, dz):
-    """Return a COPY of `shape` moved by (dx, dy, dz).
+def triangle(n):
+    """Return a left-aligned triangle of asterisks, n rows tall, as one string.
 
-    The original must NOT be modified -- the caller still needs it.
+    triangle(3) returns the string:
 
-    Returns
-    -------
-    the same type of shape that was passed in
+        *
+        **
+        ***
 
-    Hint: build a Translation, then use the method that returns a new object
-    rather than the one that edits in place. README section 1, the `-ed` rule.
+    That is: "*\\n**\\n***" -- rows joined by newlines, with NO trailing
+    newline at the end.
+
+    Hint: build a list of rows, then "\\n".join(rows). The string "*" * 3 is
+    "***", so you may not need a nested loop at all.
     """
-    raise NotImplementedError("move")
+    raise NotImplementedError("triangle")
 
 
-def rotate_point_about_z(point, degrees):
-    """Return a new Point, rotated about the world Z axis through the origin.
+def is_palindrome(text):
+    """Return True if `text` reads the same forwards and backwards.
 
-    rotate_point_about_z(Point(1, 0, 0), 90)  ->  Point(0, 1, 0)
+    Spaces and capitalisation are IGNORED:
 
-    `degrees` is in DEGREES, because that is what a human designing a facade
-    thinks in. COMPAS is not. Converting at the boundary of your function --
-    so the inside is consistently radians -- is the habit to build.
+        is_palindrome("Racecar")                   -> True
+        is_palindrome("A man a plan a canal Panama") -> True
+        is_palindrome("hello")                     -> False
 
-    Returns
-    -------
-    compas.geometry.Point
+    Hint: first normalise (lowercase, remove spaces), then compare the result
+    with its own reverse. Week 02's slicing section has the reverse trick.
     """
-    raise NotImplementedError("rotate_point_about_z")
+    raise NotImplementedError("is_palindrome")
 
 
-def grid_of_boxes(nx, ny, spacing, size):
-    """Return a list of cubes arranged in an nx by ny grid on the ground.
+def primes_below(n):
+    """Return a list of all prime numbers strictly less than n, in order.
 
-    - `nx` columns along x, `ny` rows along y
-    - centres `spacing` apart
-    - the first box is centred over (0, 0); the last over
-      ((nx-1)*spacing, (ny-1)*spacing)
-    - every box has edge length `size` and sits ON the ground (z >= 0)
-    - ordered with x changing fastest: (0,0), (1,0), (2,0), (0,1), ...
+    primes_below(10)  ->  [2, 3, 5, 7]
+    primes_below(2)   ->  []
 
-    Returns
-    -------
-    list[compas.geometry.Box] -- nx * ny of them
+    A prime is a whole number greater than 1 that is divisible only by 1 and
+    itself.
 
-    Hint: reuse box_on_ground(). Reusing your own tested function instead of
-    repeating its logic is the cheapest quality win available to you.
+    Hint: for each candidate, try dividing by every number from 2 upward. If
+    any divides it evenly, it is not prime -- and you can stop checking that
+    candidate immediately (`break`). You only need to test divisors up to the
+    square root of the candidate; understanding WHY is the interesting part,
+    and it is what earns an A on assignment A1.
     """
-    raise NotImplementedError("grid_of_boxes")
+    raise NotImplementedError("primes_below")
 
 
-def flatten_to_xy(points):
-    """Return a new list of Points with z set to 0 -- a projection onto the ground.
+def circle_points(count, radius):
+    """Return `count` points spaced evenly around a circle of the given radius.
 
-    The input list and the Points inside it must NOT be modified.
+    Each point is a tuple (x, y). The first point is at angle 0, i.e. exactly
+    (radius, 0.0). Points go counter-clockwise.
 
-    flatten_to_xy([Point(1, 2, 9)])  ->  [Point(1, 2, 0)]
+    circle_points(4, 1) -> approximately [(1,0), (0,1), (-1,0), (0,-1)]
 
-    Returns
-    -------
-    list[compas.geometry.Point]
-
-    Hint: make new Points rather than editing the ones you were given. If you
-    write `p.z = 0` you have just silently changed the caller's data -- the
-    Week 04 mutation bug, now with geometry.
+    Hint: the angle of point i is  i * 2*pi / count  (radians -- see the README
+    warning). Then x = radius * cos(angle), y = radius * sin(angle).
+    You will get values like 6.1e-17 instead of 0. That is normal, and it is
+    why the spec compares with a tolerance instead of ==.
     """
-    raise NotImplementedError("flatten_to_xy")
+    raise NotImplementedError("circle_points")
+
+
+def roll_dice(seed, count):
+    """Return `count` dice rolls (integers 1-6), reproducibly.
+
+    The same seed must ALWAYS produce the same sequence:
+
+        roll_dice(42, 5) == roll_dice(42, 5)     # always True
+        roll_dice(42, 5) != roll_dice(7, 5)      # different seeds differ
+
+    Hint: call random.seed(seed) first, then random.randint(1, 6) `count`
+    times. This is the point of the exercise: seeded randomness is repeatable,
+    and repeatable means testable. Unrepeatable bugs are the ones that survive.
+    """
+    raise NotImplementedError("roll_dice")

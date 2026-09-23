@@ -1,103 +1,26 @@
 """
-Week 02 checkpoints — values, types, lists, functions.
+Week 01 checkpoints — prove your toolchain works.
 
-Edit ONLY this file. Replace each `raise NotImplementedError(...)` with a real
-implementation, then run from the repository root:
+Most of this week's checks are DIAGNOSTICS: they inspect your installation,
+not your code. There is exactly one thing for you to edit, at the bottom.
 
-    uv run check.py 02
+Run them with:
 
-The precise specification for each function is in `spec/test_tasks.py` (one
-folder down, marked READ ONLY). Read it. It answers the questions this
-docstring leaves open.
+    uv run check.py 01
+
+from the repository root (the folder containing pyproject.toml).
 """
 
 
-def rectangle_area(width, height):
-    """Return the area of a rectangle.
+def student_name() -> str:
+    """Return your own name as a string.
 
-    Parameters
-    ----------
-    width : float   -- the horizontal dimension
-    height : float  -- the vertical dimension
+    This is the one line you edit this week. It exists so that the very first
+    thing you do in this repository is change a file, run a check, and see it
+    turn green -- the loop you will repeat all semester.
 
-    Returns
-    -------
-    float -- width * height
+    Replace the return value below with your name, then run:
 
-    Hint: the whole body is one line. The trap is writing `print` instead of
-    `return` -- see section 8 of the README.
+        uv run check.py 01
     """
-    raise NotImplementedError("rectangle_area")
-
-
-def celsius_to_fahrenheit(celsius):
-    """Convert a temperature from Celsius to Fahrenheit.
-
-    The formula is:  F = C * 9/5 + 32
-
-    Parameters
-    ----------
-    celsius : float
-
-    Returns
-    -------
-    float
-
-    Hint: in Python 3, `9/5` is 1.8, not 1. Section 5 of the README explains
-    why that is worth checking rather than assuming.
-    """
-    raise NotImplementedError("celsius_to_fahrenheit")
-
-
-def describe_box(width, height, depth):
-    """Return a one-line human-readable description of a box.
-
-    For width=2, height=3, depth=4 the result must be EXACTLY:
-
-        "Box 2.00 x 3.00 x 4.00 m, volume 24.00 m3"
-
-    Note the format: every number shown with exactly two decimal places.
-
-    Returns
-    -------
-    str
-
-    Hint: f-strings, and the `:.2f` format specifier. README section 6.
-    """
-    raise NotImplementedError("describe_box")
-
-
-def every_other(items):
-    """Return a new list containing every second element, starting with the first.
-
-    every_other([0, 1, 2, 3, 4, 5])  ->  [0, 2, 4]
-    every_other(["a", "b", "c"])     ->  ["a", "c"]
-
-    Returns
-    -------
-    list
-
-    Hint: this is one slice. You should not need a loop -- and you have not
-    been taught loops yet, so if you find yourself wanting one, reread
-    README section 7 on slicing.
-    """
-    raise NotImplementedError("every_other")
-
-
-def list_stats(numbers):
-    """Return (smallest, largest, mean) for a list of numbers.
-
-    list_stats([1, 2, 3, 4])  ->  (1, 4, 2.5)
-
-    The empty list is a real case you must decide about. This specification
-    decides for you: see `test_list_stats_handles_the_empty_list` in
-    `spec/test_tasks.py` before you implement this.
-
-    Returns
-    -------
-    tuple -- (min, max, mean)
-
-    Hint: `min()`, `max()`, `sum()` and `len()` are built in. Returning several
-    values at once is just `return a, b, c`.
-    """
-    raise NotImplementedError("list_stats")
+    return "CHANGE ME"

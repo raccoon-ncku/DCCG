@@ -6,196 +6,222 @@
 #  each checkpoint is checking; do not change them.
 # ──────────────────────────────────────────────────────────────────────────────
 """
-The SPECIFICATION for Week 08.
+The SPECIFICATION for Week 07.
 
-Note what the geometry tests check: COUNTS and LENGTHS and RELATIONSHIPS.
-None of them looks at a picture, because a picture cannot tell you that you
-produced 121 branches where you meant 127.
+Read how a class gets specified: not "it is a vector", but a list of small,
+checkable promises -- this constructor works, this operator does that, this
+property stays correct after you change something.
 
-`test_tree_is_pure_between_calls` is the one to read twice. It calls the
-function on the same input and checks that the answer does not change. That
-sounds trivially true -- and it is exactly what breaks the moment you
-accumulate into a list defined outside the function.
+If you cannot write that list for a class you are designing, the class is not
+finished being designed.
 """
 
+import ast
 import math
+from pathlib import Path
 
 import compas.geometry as cg
 import pytest
 
-from tasks import factorial, flatten, sierpinski, tree_segments
+from tasks import Rectangle, Square, Vector2D, Wall
 
+HERE = Path(__file__).parent
 TOL = 1e-9
-A = cg.Point(0, 0, 0)
-B = cg.Point(4, 0, 0)
-C = cg.Point(0, 4, 0)
 
 
 def approx(a, b, tol=TOL):
     return abs(a - b) < tol
 
 
-# --- 1. factorial -----------------------------------------------------------
+# --- 1. Vector2D ------------------------------------------------------------
 
-def test_factorial_known_values():
-    """factorial() computes 0!, 1!, 5! and 10! correctly"""
-    assert factorial(0) == 1
-    assert factorial(1) == 1
-    assert factorial(5) == 120
-    assert factorial(10) == 3628800
+def test_vector_stores_its_components():
+    """Vector2D(3, 4) has .x == 3 and .y == 4"""
+    v = Vector2D(3, 4)
+    assert v.x == 3 and v.y == 4
 
 
-def test_factorial_rejects_negative_input():
-    """factorial(-1) raises ValueError instead of recursing forever"""
-    with pytest.raises(ValueError):
-        factorial(-1)
+def test_vector_repr_is_readable():
+    """repr(Vector2D(3, 4)) is exactly 'Vector2D(3, 4)'"""
+    assert repr(Vector2D(3, 4)) == "Vector2D(3, 4)"
 
 
-# --- 2. flatten -------------------------------------------------------------
-
-def test_flatten_one_level():
-    """flatten() unpacks a single level of nesting"""
-    assert flatten([1, [2, 3], 4]) == [1, 2, 3, 4]
-
-
-def test_flatten_deep_nesting():
-    """flatten() handles nesting of any depth"""
-    assert flatten([1, [2, [3, [4, [5]]]]]) == [1, 2, 3, 4, 5]
+def test_vector_addition():
+    """v1 + v2 returns a new Vector2D with the components summed"""
+    result = Vector2D(1, 2) + Vector2D(10, 20)
+    assert isinstance(result, Vector2D)
+    assert result.x == 11 and result.y == 22
 
 
-def test_flatten_edge_cases():
-    """flatten() copes with empty lists at any position"""
-    assert flatten([]) == []
-    assert flatten([[], [1], [[], [2]]]) == [1, 2]
+def test_vector_addition_does_not_modify_the_operands():
+    """a + b leaves both a and b unchanged"""
+    a, b = Vector2D(1, 2), Vector2D(10, 20)
+    a + b
+    assert (a.x, a.y) == (1, 2) and (b.x, b.y) == (10, 20)
 
 
-def test_flatten_preserves_order():
-    """flatten() keeps the left-to-right order of the original"""
-    assert flatten([[3, 1], [2, [9, 4]]]) == [3, 1, 2, 9, 4]
+def test_vector_equality_compares_values():
+    """two vectors with the same components are equal"""
+    assert Vector2D(3, 4) == Vector2D(3, 4)
+    assert not (Vector2D(3, 4) == Vector2D(4, 3))
 
 
-# --- 3. sierpinski ----------------------------------------------------------
-
-def test_sierpinski_depth_zero_is_the_triangle_itself():
-    """depth 0 returns exactly one triangle: the input"""
-    result = sierpinski(A, B, C, 0)
-    assert len(result) == 1
-    assert len(result[0]) == 3
-
-
-def test_sierpinski_triangle_count_is_three_to_the_depth():
-    """depth d produces 3**d triangles"""
-    for depth in range(5):
-        assert len(sierpinski(A, B, C, depth)) == 3 ** depth, (
-            f"depth {depth} should give {3 ** depth} triangles. If you got "
-            f"{4 ** depth}, you are recursing into the middle triangle too -- "
-            "that one is the hole."
-        )
-
-
-def test_sierpinski_halves_the_edge_length_each_level():
-    """every triangle at depth 1 has edges half the length of the original"""
-    for triangle in sierpinski(A, B, C, 1):
-        p, q, r = triangle
-        edge = p.distance_to_point(q)
-        assert approx(edge, 2.0), (
-            f"edge length {edge}, expected 2.0 (half of the original 4.0)"
-        )
-
-
-def test_sierpinski_total_area_shrinks_by_three_quarters():
-    """each level keeps 3/4 of the previous total area (a property test)"""
-    def area(tri):
-        p, q, r = tri
-        return abs(cg.Vector(*(q - p)).cross(cg.Vector(*(r - p))).length) / 2
-
-    previous = sum(area(t) for t in sierpinski(A, B, C, 0))
-    for depth in range(1, 4):
-        total = sum(area(t) for t in sierpinski(A, B, C, depth))
-        assert approx(total, previous * 0.75), (
-            f"depth {depth}: total area {total}, expected {previous * 0.75}"
-        )
-        previous = total
-
-
-def test_sierpinski_rejects_negative_depth():
-    """a negative depth raises ValueError"""
-    with pytest.raises(ValueError):
-        sierpinski(A, B, C, -1)
-
-
-# --- 4. tree_segments -------------------------------------------------------
-
-def test_tree_depth_zero_is_empty():
-    """a tree of depth 0 has no segments at all"""
-    assert tree_segments(1.0, 30, 0) == []
-
-
-def test_tree_depth_one_is_a_single_trunk():
-    """depth 1 is one segment, from the origin straight up"""
-    segments = tree_segments(2.0, 30, 1)
-    assert len(segments) == 1
-    start, end = segments[0]
-    assert approx(start.x, 0) and approx(start.y, 0)
-    assert approx(end.x, 0), "the trunk should be vertical"
-    assert approx(end.y, 2.0), "the trunk should be `length` long"
-
-
-def test_tree_segment_count_doubles_each_level():
-    """a tree of depth d has 2**d - 1 segments"""
-    for depth in range(1, 8):
-        expected = 2 ** depth - 1
-        actual = len(tree_segments(1.0, 25, depth))
-        assert actual == expected, (
-            f"depth {depth}: got {actual} segments, expected {expected}. "
-            "Every branch tip must spawn exactly two children."
-        )
-
-
-def test_tree_branches_shrink_by_the_scale_factor():
-    """each generation is `scale` times the length of the one before"""
-    segments = tree_segments(1.0, 30, 3, scale=0.5)
-    lengths = sorted({round(s.distance_to_point(e), 6) for s, e in segments})
-    assert lengths == [0.25, 0.5, 1.0], (
-        f"found branch lengths {lengths}, expected [0.25, 0.5, 1.0]"
+def test_vector_length_is_a_property():
+    """v.length is accessed WITHOUT parentheses"""
+    v = Vector2D(3, 4)
+    assert approx(v.length, 5.0), (
+        "If this raised a TypeError, `length` is a method. Add @property "
+        "above it -- see README section 4."
     )
 
 
-def test_tree_branches_actually_branch():
-    """the two children of the trunk go to different places"""
-    segments = tree_segments(1.0, 30, 2)
-    tips = [(round(e.x, 6), round(e.y, 6)) for _, e in segments]
-    assert len(set(tips)) == 3, (
-        "The branches all ended in the same place -- the angle is not being "
-        "applied, or it is being applied in the same direction twice."
+def test_vector_length_stays_correct_after_a_change():
+    """changing .x updates .length -- it is derived, not stored"""
+    v = Vector2D(3, 4)
+    v.x = 6
+    assert approx(v.length, math.hypot(6, 4)), (
+        "length is stale. You computed it once in __init__ and stored it. "
+        "Derive it in a @property instead."
     )
 
 
-def test_tree_children_start_where_the_parent_ended():
-    """no branch floats away from its parent"""
-    segments = tree_segments(1.0, 30, 3)
-    starts = {(round(s.x, 6), round(s.y, 6)) for s, _ in segments}
-    ends = {(round(e.x, 6), round(e.y, 6)) for _, e in segments}
-    origin = (0.0, 0.0)
-    orphans = starts - ends - {origin}
-    assert not orphans, f"these branches start nowhere: {orphans}"
+def test_vector_unitized_has_length_one():
+    """unitized() returns a new vector of length 1, pointing the same way"""
+    v = Vector2D(3, 4)
+    u = v.unitized()
+    assert approx(u.length, 1.0)
+    assert approx(u.x, 0.6) and approx(u.y, 0.8)
+    assert approx(v.length, 5.0), "unitized() must not modify the original."
 
 
-def test_tree_is_pure_between_calls():
-    """calling tree_segments twice gives the same answer both times"""
-    # If your function appends into a list defined OUTSIDE it, the second call
-    # returns the first call's segments as well and this fails. Same bug as the
-    # mutable default argument in Week 04, wearing different clothes.
-    first = tree_segments(1.0, 30, 4)
-    second = tree_segments(1.0, 30, 4)
-    assert len(first) == len(second) == 15, (
-        f"first call gave {len(first)} segments, second gave {len(second)}. "
-        "State is leaking between calls -- return a new list from each call "
-        "instead of appending into a shared one."
-    )
-
-
-def test_tree_rejects_negative_depth():
-    """a negative depth raises ValueError"""
+def test_unitizing_a_zero_vector_raises():
+    """a zero-length vector cannot be unitized"""
     with pytest.raises(ValueError):
-        tree_segments(1.0, 30, -1)
+        Vector2D(0, 0).unitized()
+
+
+# --- 2. Rectangle -----------------------------------------------------------
+
+def test_rectangle_area_and_perimeter_are_properties():
+    """r.area and r.perimeter need no parentheses"""
+    r = Rectangle(3, 4)
+    assert approx(r.area, 12)
+    assert approx(r.perimeter, 14)
+
+
+def test_rectangle_properties_track_changes():
+    """changing .width updates .area"""
+    r = Rectangle(3, 4)
+    r.width = 10
+    assert approx(r.area, 40), "area is stale -- derive it, do not store it."
+
+
+def test_rectangle_contains_points():
+    """contains() is true inside and on the boundary, false outside"""
+    r = Rectangle(4, 2, x=1, y=1)     # spans x 1..5, y 1..3
+    assert r.contains(2, 2) is True
+    assert r.contains(1, 1) is True, "a point on the corner counts as inside"
+    assert r.contains(5, 3) is True, "the far corner counts as inside"
+    assert r.contains(0, 2) is False
+    assert r.contains(2, 9) is False
+
+
+def test_rectangle_repr():
+    """repr(Rectangle(3, 4)) is 'Rectangle(3, 4, at (0, 0))'"""
+    assert repr(Rectangle(3, 4)) == "Rectangle(3, 4, at (0, 0))"
+
+
+def test_rectangle_rejects_impossible_dimensions():
+    """a rectangle with a zero or negative side cannot be constructed"""
+    with pytest.raises(ValueError):
+        Rectangle(0, 5)
+    with pytest.raises(ValueError):
+        Rectangle(5, -1)
+
+
+# --- 3. Square --------------------------------------------------------------
+
+def test_square_is_a_rectangle():
+    """Square inherits from Rectangle"""
+    assert isinstance(Square(3), Rectangle)
+
+
+def test_square_sides_are_equal():
+    """Square(5) is 5 wide and 5 tall"""
+    s = Square(5)
+    assert approx(s.width, 5) and approx(s.height, 5)
+
+
+def test_square_inherits_area_rather_than_redefining_it():
+    """Square uses Rectangle's area -- it does not define its own"""
+    assert approx(Square(5).area, 25)
+    assert "area" not in Square.__dict__, (
+        "Square defines its own `area`. It should inherit Rectangle's -- a "
+        "second copy of the same formula is a second thing that can go wrong."
+    )
+
+
+def test_square_accepts_a_position():
+    """Square(5, x=2, y=3) is positioned like a Rectangle"""
+    s = Square(5, x=2, y=3)
+    assert (s.x, s.y) == (2, 3)
+
+
+# --- 4. Wall ----------------------------------------------------------------
+
+def test_wall_height_is_a_property():
+    """wall.height is n_courses * course_height, without parentheses"""
+    assert approx(Wall(8, course_height=0.2).height, 1.6)
+
+
+def test_wall_builds_one_box_per_course():
+    """to_boxes() returns n_courses COMPAS Boxes"""
+    boxes = Wall(5).to_boxes()
+    assert len(boxes) == 5
+    assert all(isinstance(b, cg.Box) for b in boxes)
+
+
+def test_wall_geometry_matches_the_week_six_rules():
+    """courses stack from z=0 with no gaps, odd ones offset"""
+    wall = Wall(4, course_height=0.25, offset=0.1)
+    boxes = wall.to_boxes()
+    for i, box in enumerate(boxes):
+        assert approx(min(c.z for c in box.points), i * 0.25)
+        expected_x = 0.1 if i % 2 else 0.0
+        assert approx(box.frame.point.x, expected_x)
+
+
+def test_wall_height_agrees_with_the_geometry_it_builds():
+    """the derived height matches the boxes actually produced"""
+    wall = Wall(7, course_height=0.3)
+    measured = max(c.z for b in wall.to_boxes() for c in b.points)
+    assert approx(wall.height, measured)
+
+
+def test_wall_repr():
+    """repr(Wall(8)) is 'Wall(8 courses, 1.60 m tall)'"""
+    assert repr(Wall(8, course_height=0.2)) == "Wall(8 courses, 1.60 m tall)"
+
+
+def test_wall_rejects_nonsense():
+    """Wall(0) raises ValueError from the constructor"""
+    with pytest.raises(ValueError):
+        Wall(0)
+
+
+def test_tasks_file_stays_pure():
+    """tasks.py imports no viewer, files or Rhino -- classes live in the core too"""
+    tree = ast.parse((HERE / "tasks.py").read_text())
+    names = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            names.update(a.name.split(".")[0] for a in node.names)
+        elif isinstance(node, ast.ImportFrom) and node.module:
+            names.add(node.module.split(".")[0])
+    forbidden = {"compas_viewer", "json", "os", "sys", "pathlib",
+                 "rhinoscriptsyntax", "Rhino", "scriptcontext"}
+    leaked = names & forbidden
+    assert not leaked, (
+        f"tasks.py imports {sorted(leaked)}. Wrapping geometry in a class does "
+        "not change which layer it belongs to -- this is still the core."
+    )

@@ -6,88 +6,72 @@
 #  each checkpoint is checking; do not change them.
 # ──────────────────────────────────────────────────────────────────────────────
 """
-The SPECIFICATION for Week 02.
+The SPECIFICATION for Week 01.
 
-Read this file. Each test states one fact that must be true about your code.
-Where the task docstring was vague, this file is precise -- that is the
-division of labour between prose and a spec, and it is the reason Week 10
-exists.
+You are meant to read this file. It is the precise statement of what has to be
+true before you are set up correctly. In Week 10 you will write files like this
+one yourself; for now, notice only that each test states exactly one fact.
 """
 
-import pytest
+import shutil
+import subprocess
+import sys
+from pathlib import Path
 
-from tasks import (
-    celsius_to_fahrenheit,
-    describe_box,
-    every_other,
-    list_stats,
-    rectangle_area,
-)
+from tasks import student_name
 
-
-def test_rectangle_area_multiplies():
-    """rectangle_area() returns width * height"""
-    assert rectangle_area(3, 4) == 12
-    assert rectangle_area(2.5, 4) == 10
+ROOT = Path(__file__).resolve().parents[3]
 
 
-def test_rectangle_area_returns_rather_than_prints():
-    """rectangle_area() RETURNS the value (does not just print it)"""
-    result = rectangle_area(3, 4)
-    assert result is not None, (
-        "Your function printed the answer instead of returning it. "
-        "print() shows a value; return hands it back to the caller."
+def test_python_is_new_enough():
+    """Python 3.13+ is active (you are running through `uv run`)"""
+    assert sys.version_info >= (3, 13), (
+        f"This project needs Python 3.13+, but you are on {sys.version.split()[0]}.\n"
+        "Are you running with `uv run check.py 01` from the repo root?"
     )
 
 
-def test_celsius_to_fahrenheit_known_values():
-    """celsius_to_fahrenheit() converts correctly at 0, 100 and 37 degrees"""
-    assert celsius_to_fahrenheit(0) == 32
-    assert celsius_to_fahrenheit(100) == 212
-    # 37 C is 98.6 F -- and this is a float, so compare with a tolerance,
-    # never with ==. See the float warning in the README.
-    assert abs(celsius_to_fahrenheit(37) - 98.6) < 1e-9
-
-
-def test_describe_box_exact_format():
-    """describe_box() produces the exact specified string"""
-    assert describe_box(2, 3, 4) == "Box 2.00 x 3.00 x 4.00 m, volume 24.00 m3"
-
-
-def test_describe_box_always_two_decimals():
-    """describe_box() pads and rounds to exactly two decimal places"""
-    assert describe_box(1, 1, 1) == "Box 1.00 x 1.00 x 1.00 m, volume 1.00 m3"
-    assert describe_box(0.25, 0.5, 2) == "Box 0.25 x 0.50 x 2.00 m, volume 0.25 m3"
-
-
-def test_every_other_picks_alternate_items():
-    """every_other() returns items 0, 2, 4, ..."""
-    assert every_other([0, 1, 2, 3, 4, 5]) == [0, 2, 4]
-    assert every_other(["a", "b", "c"]) == ["a", "c"]
-    assert every_other([]) == []
-
-
-def test_every_other_does_not_modify_its_input():
-    """every_other() leaves the original list untouched"""
-    original = [0, 1, 2, 3]
-    every_other(original)
-    assert original == [0, 1, 2, 3], (
-        "Your function changed the list it was given. A function that quietly "
-        "modifies its input is a bug waiting to happen -- return a new list."
+def test_running_inside_the_project_environment():
+    """The project virtual environment in .venv/ is the one in use"""
+    venv = ROOT / ".venv"
+    assert venv.is_dir(), f"No .venv found at {venv}. Run `uv sync` in the repo root."
+    assert str(venv) in sys.prefix or str(venv.resolve()) in str(Path(sys.prefix).resolve()), (
+        f"Python is running from {sys.prefix}, not from the project's .venv.\n"
+        "Use `uv run check.py 01` rather than `python check.py`."
     )
 
 
-def test_list_stats_returns_min_max_mean():
-    """list_stats() returns (min, max, mean) as a 3-tuple"""
-    assert list_stats([1, 2, 3, 4]) == (1, 4, 2.5)
-    assert list_stats([5]) == (5, 5, 5.0)
+def test_compas_is_installed():
+    """COMPAS imports -- the geometry library the whole course is built on"""
+    try:
+        import compas
+    except ImportError as exc:  # pragma: no cover - the message is the point
+        raise AssertionError(
+            "Could not import compas. Run `uv sync` in the repo root, and make "
+            "sure you are launching this with `uv run`."
+        ) from exc
+    assert compas.__version__ >= "2", f"Expected COMPAS 2.x, found {compas.__version__}"
 
 
-def test_list_stats_handles_the_empty_list():
-    """list_stats([]) raises ValueError rather than returning nonsense"""
-    # THIS is the decision the task docstring left open. An empty list has no
-    # minimum, so there is no honest value to return. Returning 0 or None would
-    # be a lie that shows up much later, somewhere else, as a confusing bug.
-    # Refusing loudly is better than answering wrongly.
-    with pytest.raises(ValueError):
-        list_stats([])
+def test_git_knows_who_you_are():
+    """git is installed and your name + email are configured"""
+    assert shutil.which("git"), "git is not installed, or not on your PATH."
+    for key in ("user.name", "user.email"):
+        result = subprocess.run(
+            ["git", "config", "--get", key], capture_output=True, text=True
+        )
+        assert result.stdout.strip(), (
+            f"git has no {key} configured. Run:\n"
+            f'    git config --global {key} "..."'
+        )
+
+
+def test_you_introduced_yourself():
+    """tasks.py: student_name() returns your actual name"""
+    name = student_name()
+    assert isinstance(name, str), "student_name() must return a string."
+    assert name.strip(), "student_name() returned an empty string."
+    assert name.strip().upper() != "CHANGE ME", (
+        "Open Lecture/Lecture_00/checkpoints/tasks.py and put your own name in "
+        "student_name(). This is the one edit for Week 01."
+    )

@@ -72,17 +72,19 @@ Same `spec/` split applies.
 `check.py` at the repo root runs a week's checkpoints via an in-process pytest
 plugin and prints PASS / FAIL / TODO (TODO = still raising `NotImplementedError`).
 
-**Week → folder mapping is NOT the folder number.** The `COURSE` list at the top
-of `check.py` is the authority, and `README.md`'s schedule is the student-facing
-one:
+**Week N = `Lecture_N` = `check.py N`, always.** The mapping was scrambled
+in prior years; the 2026-09-22 rename aligned everything so folder numbers,
+CLI arguments and schedule weeks all agree. If you find a `Lecture_00`
+reference somewhere, it is a leftover from before the rename — sweep it.
 
-| Week | Folder | Week | Folder |
-| ---- | ------ | ---- | ------ |
-| 01 | `Lecture_00` | 06 | `Lecture_06` |
-| 02 | `Lecture_01` | 07 | `Lecture_08` |
-| 03 | `Lecture_02` | 08 | `Lecture_07` |
-| 04 | `Lecture_04` | 09 | `Lecture_05` |
-| 05 | `Lecture_03` | | |
+Part IV lectures (W10-W15) keep their topic-named folders because they
+serve multiple weeks each:
+
+| Week(s) | Folder | Why not aligned |
+| --- | --- | --- |
+| 10, 13, 14 | `Lecture_12` | SE II / review / deploy — one folder, three weeks |
+| 11, 12 | `Lecture_11` | Agentic I & II share the same harness code |
+| 15 | `Lecture_10` + `Lecture_15_optimization` | two threads, both optional |
 
 `Lecture_06` was repurposed from `compas_vol` (now parked in
 `Lecture_06/optional_compas_vol/`, excluded from the 2026 syllabus) to hold the

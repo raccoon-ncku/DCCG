@@ -1,204 +1,260 @@
-# Week 08 — Recursion and self-similar geometry  🚫 *no class this week*
+# Week 07 — Object-oriented programming  🚫 *no class this week*
 
-> **2026.10.28 — still at the conference.** Same arrangement as last week:
-> read, run, check yourself, push by Sunday. Week 09 opens with a debrief of
-> both weeks.
+> **2026.10.21 — I am at a conference. This week runs without me.**
+>
+> Everything you need is on this page. Work at your own pace, check yourself
+> with `uv run check.py 07`, and push your work by Sunday so I can see where
+> everyone got to.
 
-If Week 07 went smoothly, this one is shorter. If Week 07 was a struggle,
-finish it first — nothing here depends on classes, so you lose nothing by
-doing them in the other order.
+## How to run a week without an instructor
+
+This is a rehearsal, not a gap. The skill being trained is the one you will
+need for the rest of your career: **learning something new, from written
+material and a machine that answers questions, and knowing whether you
+actually got it.**
+
+A workable routine:
+
+1. Read §1–§5 below and run the examples as you go. ~60 minutes.
+2. Start the checkpoints. Get stuck. **Stay stuck for ten minutes** before
+   asking anything — that is where the learning happens.
+3. Then ask your AI assistant, but ask it the *right* question:
+   - ✅ "Explain what `self` means in this method, as if I have used
+     functions but never classes."
+   - ✅ "Why does my `__repr__` not show when I print a list of these?"
+   - ❌ "Write me a Vector2D class." *(You will pass the checkpoint and learn
+     nothing, and Week 11 will be much harder.)*
+4. The checkpoints are your marker. Nobody is watching; the only person you
+   can cheat is the one who has to build a final project in December.
+5. Stuck for real? Open an issue on the course repo, or email me — I read mail
+   at the conference, just slowly.
 
 ---
 
-## 1. The idea
+## 1. Why classes
 
-A recursive function calls itself on a smaller version of the same problem.
+You can already model a wall with a function returning boxes. So why this?
 
-```python
-def factorial(n):
-    if n <= 1:          # BASE CASE   -- stop here
-        return 1
-    return n * factorial(n - 1)   # RECURSIVE CASE -- smaller problem
-```
-
-Every recursive function needs exactly two things:
-
-1. A **base case** — a version of the problem small enough to answer outright.
-2. A **recursive case** that moves *toward* the base case.
-
-Miss either one and you get `RecursionError: maximum recursion depth exceeded`.
-That error means "your function never reached its base case" — read it as a
-logic error, not a limit you need to raise.
-
-📄 `recusion_examples/0_recursion.py`, `2_recursion_limit.py`
-
-### Tracing it
-
-```
-factorial(4)
-= 4 * factorial(3)
-= 4 * (3 * factorial(2))
-= 4 * (3 * (2 * factorial(1)))
-= 4 * (3 * (2 * 1))            <- base case reached, now it unwinds
-= 24
-```
-
-The calls stack up on the way down and collapse on the way back. Anything you
-write **after** the recursive call runs during that unwinding — on the way back
-*up*. This trips people up, so try it:
+Because some things have **state and behaviour that belong together**. Consider
+a `Walker` that wanders through space leaving spheres: it has a position, and
+it can step. With functions you would pass the position in and out of every
+call, by hand, forever:
 
 ```python
-def countdown(n):
-    if n == 0:
-        return
-    print(n)         # on the way down: 3 2 1
-    countdown(n - 1)
-
-def countup(n):
-    if n == 0:
-        return
-    countup(n - 1)
-    print(n)         # on the way back up: 1 2 3
+position, radius = step(position, radius)
+position, radius = step(position, radius)
 ```
 
-Same structure, one line moved, opposite output. If you can explain why, you
-understand recursion.
-
-## 2. When to use it
-
-Recursion is the natural fit when **the data or the geometry is itself nested
-or self-similar**:
-
-- a branching tree — each branch is a smaller tree
-- a subdivided surface — each patch subdivides the same way
-- a fractal — the definition is literally recursive
-- a folder containing folders; a nested list; a graph traversal
-
-For a flat sequence, a `for` loop is simpler and faster. Recursion is not a
-badge of sophistication; using it where a loop would do is a cost, not a
-flourish.
-
-> **Recursion over structure.** The most useful pattern is not `f(n-1)` but
-> recursing into a nested *shape*:
-> ```python
-> def total(items):
->     result = 0
->     for item in items:
->         if isinstance(item, list):
->             result += total(item)     # a list inside a list -- same problem
->         else:
->             result += item
->     return result
-> ```
-
-## 3. Self-similar geometry
-
-### Sierpinski triangle
-
-A triangle, split into three half-size triangles at its corners, each split the
-same way. Depth `d` produces `3**d` triangles.
-
-The midpoint of two points is `(a + b) / 2` — with COMPAS you can write that
-almost literally:
+With a class, the thing remembers what it is:
 
 ```python
-mid = cg.Point(*[(a[i] + b[i]) / 2 for i in range(3)])
+walker = Walker(start=(0, 0, 1), radius=1.0)
+walker.walk()
+walker.walk()
 ```
 
-📄 `recusion_examples/3-0_sierpinski_compas_preparation.py`,
-`3-1_sierpinski_compas.py`, `3-2_sierpinski_compas_conditional.py`
+**Use a class when data and the operations on it are inseparable.** Use a plain
+function when they are not. A class that is only a bag of functions with no
+state is a module wearing a costume.
 
-`3-2` is worth reading closely: it stops recursing **conditionally** — some
-branches go deeper than others. That single change turns a mechanical fractal
-into something that can respond to a site, a load, or an attractor. It is the
-difference between a pattern and a design.
-
-### Branching trees
-
-```
-      \|/     each branch spawns two shorter branches,
-       |      rotated by ± an angle, until depth runs out
-```
-
-Segments at depth `d`: `2**d - 1`. The growth is why depth 20 is not a good
-idea — that is about a million segments.
-
-📄 `recusion_examples/1_turtle_triangle.py`,
-`recusion_examples/heightmap_subdivision.ipynb`
-
-## 4. Recursion and purity
-
-A recursive function is easy to write impurely — appending into a list defined
-outside itself:
+## 2. Defining a class
 
 ```python
-segments = []                      # a global the function reaches out to
+class Rectangle:
+    """A rectangle, axis-aligned, defined by its width and height."""
 
-def branch(p, d):
-    segments.append(...)           # NOT pure: two calls contaminate each other
-    branch(..., d - 1)
+    def __init__(self, width, height):
+        """The constructor -- runs when you create an instance."""
+        self.width = width          # an ATTRIBUTE, stored on this instance
+        self.height = height
+
+    def area(self):
+        """A METHOD -- a function that belongs to the class."""
+        return self.width * self.height
+
+
+r = Rectangle(3, 4)      # __init__ runs here
+r.width                  # 3
+r.area()                 # 12
 ```
 
-It works once, then breaks the second time you call it, exactly like the
-mutable-default bug in Week 04. The pure version returns its own list and
-combines the results of its children:
+### `self`
+
+Every method's first parameter is `self`: the particular instance it was
+called on. You never pass it — `r.area()` becomes `Rectangle.area(r)`
+automatically.
+
+Forgetting `self` is the beginner error of this week:
 
 ```python
-def branch(p, d):
-    if d == 0:
-        return []
-    return [my_segment] + branch(left, d - 1) + branch(right, d - 1)
+def area(self):
+    return width * height        # NameError -- `width` is not a bare name
+    return self.width * self.height   # correct
 ```
 
-Slightly more thinking, and it stays in the core layer where it belongs.
+📄 `class_examples/8.1_class.py`, `8.2.1_class_constructor.py`
 
-## 5. Optional: classic algorithms
+## 3. Dunder methods
 
-`bin_packing/` and `convex_hull/` are notebooks on two classic computational
-geometry problems — fitting parts onto a sheet, and finding the outline of a
-point cloud. **Not examined**, and no checkpoint depends on them, but both are
-excellent final-project material with real fabrication uses.
+Methods with `__double_underscores__` hook into Python's built-in syntax.
+This is what makes a class feel like a real type rather than a struct.
+
+```python
+class Vector2D:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __repr__(self):
+        """What you see when you print it. Make it useful."""
+        return f"Vector2D({self.x}, {self.y})"
+
+    def __add__(self, other):
+        """Makes `a + b` work."""
+        return Vector2D(self.x + other.x, self.y + other.y)
+
+    def __eq__(self, other):
+        """Makes `a == b` compare values instead of identity."""
+        return self.x == other.x and self.y == other.y
+```
+
+Without `__repr__`, printing gives you
+`<Vector2D object at 0x104f8a>` — useless when debugging a list of 200 of them.
+**Write `__repr__` on every class you make.** It costs one line and it is the
+difference between a readable and an unreadable error message.
+
+📄 `class_examples/8.2.2_str_methods.py`, `8.2.3_arithmetic_operators.py`
+
+## 4. Properties
+
+A **property** is a method you access without parentheses — for values that
+are *derived* rather than stored.
+
+```python
+class Rectangle:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    @property
+    def area(self):
+        return self.width * self.height
+
+
+r = Rectangle(3, 4)
+r.area          # 12   -- no parentheses
+r.width = 10
+r.area          # 40   -- recomputed, never stale
+```
+
+Why not just store `self.area = width * height` in `__init__`? Because then
+changing `width` leaves `area` silently wrong. **Derive, do not duplicate.**
+Two copies of one fact will disagree eventually, and the moment they do is
+never the moment you are looking.
+
+📄 `class_examples/8.3.1_class_attribute.py`, `8.3.3_property.py`
+
+### Validating in the constructor
+
+```python
+def __init__(self, width, height):
+    if width <= 0 or height <= 0:
+        raise ValueError("a rectangle needs positive dimensions")
+    self.width = width
+    self.height = height
+```
+
+Refuse to build a nonsensical object at all. An object that cannot exist in an
+invalid state is one you never have to defend against later.
+
+### Class methods — alternative constructors
+
+```python
+@classmethod
+def square(cls, side):
+    return cls(side, side)
+
+r = Rectangle.square(5)
+```
+
+📄 `class_examples/8.3.4_class_method.py`
+
+## 5. Inheritance
+
+A subclass reuses and specialises another class.
+
+```python
+class Square(Rectangle):
+    """A rectangle whose sides are equal."""
+
+    def __init__(self, side):
+        super().__init__(side, side)      # run Rectangle's constructor
+```
+
+`Square` gets `area` for free. `isinstance(Square(2), Rectangle)` is `True`.
+
+Inheritance is easy to overuse. The test is **"is-a"**: a square *is a*
+rectangle, so this is fine. A wall is *not a* kind of box — it *has* boxes, so
+it should hold a list, not inherit. Composition ("has-a") is the right default;
+reach for inheritance when the subclass genuinely is a specialised version of
+the parent.
+
+📄 `class_examples/8.4.1_inheritance.py`
+
+## 6. Classes and the Week 06 architecture
+
+A class can be pure. `Wall` in checkpoint 4 holds parameters, validates them,
+derives values, and produces geometry on request — and imports no viewer, no
+files, no Rhino. It belongs in the **core** layer exactly as the function did.
+
+Objects do not change the architecture. They organise what is inside a layer.
+
+## 7. Optional: agent-based models
+
+`abm_examples/` contains ants and drones — many simple objects, each following
+local rules, producing collective behaviour. It is the most natural use of
+classes in design computation, and a strong final-project direction. Read it if
+it appeals; nothing this week depends on it.
+
+📄 `abm_examples/ants/`, `abm_examples/drone/`
 
 ---
 
 ## Checkpoints
 
 ```bash
-uv run check.py 08
+uv run check.py 07
 ```
 
 | # | Task | Exercises |
 | - | ---- | --------- |
-| 1 | `factorial(n)` | base case and validation |
-| 2 | `flatten(nested)` | recursion over structure, not over a number |
-| 3 | `sierpinski(a, b, c, depth)` | self-similar geometry, `3**depth` |
-| 4 | `tree_segments(length, angle, depth)` | branching, and staying pure |
+| 1 | `Vector2D` | `__init__`, `__repr__`, `__add__`, `__eq__`, a property |
+| 2 | `Rectangle` | properties, validation, a method taking another object |
+| 3 | `Square(Rectangle)` | inheritance and `super()` |
+| 4 | `Wall` | a class in the core layer — and it stays pure |
 
-Checkpoint 4's tests count segments and check lengths rather than looking at a
-picture. Get used to that: **a fractal that looks right and has the wrong
-number of branches is still wrong**, and only one of those two facts is visible.
+## Exercises
 
-## Exercise
-
-📝 [Branching tree](/Exercise/Lecture_07/README.md)
-
-## Assignment
-
-📝 [A3 — Recursion](/Assignment/4_recursion/README.md) is this week's
-assignment and is due Week 09. Checkpoint 4 is a working skeleton for it.
+📝 [Vector2D and Rectangle](/Exercise/Lecture_07/README.md) — the same ground,
+worked differently.
+📝 [Re-write to OOP](/Exercise/2_re-write_to_oop/README.md) — take the random
+walker and turn it into a class. Good practice for checkpoint 4.
 
 ## Self-test
 
-1. What are the two things every recursive function must have?
-2. `RecursionError` — what has actually gone wrong?
-3. Why does moving `print(n)` above or below the recursive call reverse the output?
-4. How many triangles does Sierpinski depth 5 produce? How many segments does a binary tree of depth 12?
-5. Why is appending to a list defined outside the function a bug rather than a style choice?
+1. What is `self`, and why do you never pass it in?
+2. When should a value be a `@property` rather than set in `__init__`?
+3. Why write `__repr__` on every class?
+4. A `Wall` contains boxes. Should `Wall` inherit from `Box`? Why not?
+5. What does `super().__init__(...)` do?
 
 ## Before Sunday
 
 ```bash
-uv run check.py 08
-git add -A && git commit -m "Week 08: recursion checkpoints"
+uv run check.py 07     # all green?
+git add -A && git commit -m "Week 07: OOP checkpoints"
 git push
 ```
+
+Bring one question to Week 09 — we open with a debrief and a peer code review
+of these two self-paced weeks.

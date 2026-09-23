@@ -1,6 +1,6 @@
 # Exercise — Re-write to OOP  (Week 07 companion)
 
-> Open-ended practice alongside the [Week 07](/Lecture/Lecture_08/README.md)
+> Open-ended practice alongside the [Week 07](/Lecture/Lecture_07/README.md)
 > checkpoints.
 
 Take an earlier procedural script — one of your Python-week exercises, or the

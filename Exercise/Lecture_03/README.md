@@ -1,37 +1,46 @@
-# Exercises — Week 05 (COMPAS core)
+# Exercises — Week 03 (Python II)
 
-> Open-ended geometry practice. The [Week 05 checkpoints](/Lecture/Lecture_03/README.md#checkpoints)
-> cover the mechanics with a checker; these ask you to *make* something.
->
-> These use the viewer, so run them locally: `uv run your_script.py`. If the
-> viewer will not open on your machine, build a headless version that saves a
-> COMPAS JSON artifact instead (Week 06 style) and you lose nothing.
+> Open-ended practice for control flow. The [Week 03 checkpoints](/Lecture/Lecture_03/README.md#checkpoints)
+> are the graded-style version; these are for exploring. `uv run your_script.py`.
 
-## 1. Rotating boxes
+## 1. Asterisk diamond
 
-Create a ring of boxes rotating incrementally around the Z axis, each a
-different colour. Use `Rotation.from_axis_and_angle` (remember: **radians** —
-`math.radians(deg)`), and colour by index.
+Print a symmetric pattern whose height is given by the user — grow, then shrink:
 
-![](https://app.rccn.dev/assets/dccg/imgs/exercise_rot_box.jpg)
+```
+please input a number: 5
+*
+**
+***
+****
+*****
+****
+***
+**
+*
+```
 
-Push it: make the rotation *and* the height vary together, so the boxes spiral
-upward. This is a good candidate to later refactor into a pure core function
-(`spiral_of_boxes(count, ...) -> list[Box]`) for Week 06.
+Then try: centre it into a pyramid; use a character other than `*`; make the
+width grow by twos.
 
-## 2. Box projection
+## 2. Guess the number
 
-Project a box onto a plane. `compas.geometry.Projection.from_plane_and_point()`
-builds a projection transformation; apply it to the box's corner points and draw
-the flattened result.
+The program picks a secret number (`random.randint`); the player guesses.
+After each wrong guess, print "higher" or "lower". End with a win message.
 
-![](https://app.rccn.dev/assets/dccg/imgs/exercise_box_projection.gif)
+Extend it: cap the number of guesses; count how many they used; use
+`random.seed()` so you can replay the exact same game while debugging (this is
+the same reproducibility idea as the `roll_dice` checkpoint).
 
-See also the companion exercise
-[Project a box to the XY plane](/Exercise/1_Project_box_to_xy_plane/README.md),
-and the checkpoint `flatten_to_xy`, which is the pure-function version of the
-same idea.
+## 3. Factorial
 
-Tip: read the `compas.geometry.Box` and `Projection` docs on
-[compas.dev](https://compas.dev) — reading library documentation you are about
-to depend on is a course habit, not an optional extra.
+Compute the factorial of a number the user enters. Print an error for negative
+input; treat a missing/zero input as `0! = 1`. Write it with a loop here — then,
+in **Week 08**, you will write it again with recursion and can compare.
+
+## 4. Palindrome
+
+Check whether a string reads the same forwards and backwards, ignoring spaces
+and capitalisation (`"A man a plan a canal Panama"` → yes). This is checkpoint
+`is_palindrome` in Week 03; here, extend it to also ignore punctuation, and to
+report *where* the mismatch is when it is not a palindrome.

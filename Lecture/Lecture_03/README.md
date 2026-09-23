@@ -1,262 +1,392 @@
-# Week 05 — COMPAS core: primitives and transformations
+# Week 03 — Python II: control flow, modules, functions
 
-> Self-contained. `uv run check.py 05` when you are ready.
+> Self-contained. Read, run the examples, do the checkpoints:
+> `uv run check.py 03`.
 
-From here on, everything is geometry. COMPAS is the library the whole course
-is built on — and unusually for a CAD-adjacent tool, it is **plain Python that
-runs anywhere**: your terminal, a test suite, a server with no screen, and
-also inside Rhino and Grasshopper. That property is what makes the Week 06
-architecture possible.
-
-## 0. Install
-
-Nothing to do. `uv sync` already installed COMPAS.
-
-```bash
-uv run python -c "import compas; print(compas.__version__)"
-```
-
-> If you are following an older tutorial, you will find pages of
-> `conda install compas_cgal` instructions. Ignore them. This project pins
-> everything in `uv.lock`; adding packages by hand is how you break it.
+Last week your code ran top to bottom, once. This week it makes **decisions**
+and **repeats** — which is where the interesting bugs start, and where reading
+code carefully starts to pay.
 
 ---
 
-## 1. Points and vectors
+## 1. `if` / `elif` / `else`
 
 ```python
-import compas.geometry as cg
+temperature = 18
 
-point = cg.Point(19, 25, 7)
-vector = cg.Vector(1, 0, 5)
-
-point.x, point.y, point.z      # by name
-vector[0], vector[1], vector[2] # or by index -- both work
+if temperature > 25:
+    print("hot")
+elif temperature > 15:
+    print("mild")
+else:
+    print("cold")
 ```
 
-A **Point** is a location. A **Vector** is a direction and a length. They hold
-the same three numbers and mean completely different things:
+Rules that catch everyone once:
+
+- The colon `:` at the end of the line is required.
+- The body is **indented** — four spaces. Python has no `{}`.
+- `elif` branches are tested **in order**, and only the first true one runs.
+  Order therefore changes behaviour: swap the two conditions above and every
+  mild day prints "hot".
+- `=` assigns, `==` compares. `if x = 5:` is a syntax error.
+
+📄 `Examples/4.1_if_statement.py`, `4.1.1_elif_statement.py`, `4.1.2_else_statement.py`
+
+### Comparison and logical operators
 
 ```python
-point + vector    # a Point -- "start here, move that way"
-point - point     # a Vector -- "the step from one to the other"
-vector + vector   # a Vector
+a == b     a != b     a < b     a <= b     a > b     a >= b
+
+x > 0 and x < 10       # both must be true
+x < 0 or x > 10        # at least one
+not x                  # inverts
+0 < x < 10             # Python allows this chain, and it reads well
 ```
 
-"Rotate a point about the origin" moves it. "Rotate a vector" only changes its
-direction — it has no position to move. Getting these two confused is the
-source of a whole category of geometry bugs that look like the object is in the
-wrong place for no reason.
+📄 `Examples/4.1.3_logical_operator.py`
+
+### Truthiness
+
+Empty things are false; non-empty things are true.
 
 ```python
-v = cg.Vector(3, 4, 0)
-v.length            # 5.0
-v.unitized()        # a NEW vector of length 1
-v.unitize()         # modifies v IN PLACE, returns None
+if items:          # better than  if len(items) > 0:
+    ...
 ```
+Falsy values: `False`, `None`, `0`, `0.0`, `""`, `[]`, `{}`.
 
-> ⚠️ **The `-ed` rule.** Across all of COMPAS: `unitize()`/`transform()`/`scale()`
-> change the object in place; `unitized()`/`transformed()`/`scaled()` return a
-> new one and leave the original alone. One letter, completely different
-> behaviour. When a shape mysteriously moves twice, this is usually why.
+## 2. `for` loops
 
-📄 `compas_core_examples/1.1_points_and_vectors.py`, `1.2_…operations.py`, `1.3_vector_operations.py`
-
-### Vector maths you will actually use
+A `for` loop walks through a sequence, one item at a time.
 
 ```python
-a.dot(b)      # scalar. 0 means perpendicular. Sign tells you "same side?"
-a.cross(b)    # a vector perpendicular to BOTH -- this is how you build a frame
-a.angle(b)    # radians
+for colour in ["red", "green", "blue"]:
+    print(colour)
 ```
 
-## 2. Planes and frames
-
-A **Plane** is a point plus a normal. A **Frame** is a point plus an x-axis and
-a y-axis — a full local coordinate system.
+### `range()`
 
 ```python
-frame = cg.Frame(
-    cg.Point(15, 24, 3),      # origin
-    cg.Vector(1, 0, 0),       # x-axis
-    cg.Vector(0, 1, 0),       # y-axis
-)
-
-frame.point     # origin
-frame.xaxis     # normalised automatically
-frame.yaxis
-frame.zaxis     # computed for you: xaxis cross yaxis
-
-cg.Frame.worldXY()     # the global origin frame -- the default everywhere
+range(5)          # 0 1 2 3 4          -- stop is EXCLUDED
+range(2, 6)       # 2 3 4 5
+range(0, 10, 3)   # 0 3 6 9            -- step
+range(5, 0, -1)   # 5 4 3 2 1          -- counting down
 ```
 
-**A frame is the single most useful idea in this course.** Rather than
-computing rotated coordinates by hand, you place a frame where you want it and
-build the object *in* the frame. Every element you make from Week 06 onward is
-positioned by its frame.
+`range(n)` gives you `n` numbers starting at 0. This is why a list of `n`
+items has indices `0` to `n-1`, and why `range(1, n)` is a classic off-by-one.
 
-📄 `compas_core_examples/2.1_planes.py`, `3.1_frames.py`, `3.2_frame_constructors.py`
+📄 `Examples/4.2_for_statement.py`, `4.2.3_range_function.py`
 
-## 3. Shapes
+### `enumerate()` — when you need the index too
 
 ```python
-box = cg.Box(2, 3, 4)                     # xsize, ysize, zsize, centred on worldXY
-box = cg.Box(2, 3, 4, frame=some_frame)   # ... or on a frame you choose
-
-box.xsize, box.ysize, box.zsize
-box.volume        # 24.0
-box.frame.point   # the CENTRE of the box
-box.points        # its 8 corners
-
-cg.Sphere(radius=2)
-cg.Cylinder(radius=1, height=5)
+for i, colour in enumerate(["red", "green", "blue"]):
+    print(i, colour)      # 0 red / 1 green / 2 blue
 ```
 
-> ⚠️ **A COMPAS box is centred on its frame, not resting on it.** `Box(2,3,4)`
-> spans z from **-2 to +2**, not 0 to 4. To sit a box on the ground, lift its
-> frame by half its height. Half the "why is my tower buried in the floor"
-> problems in this course are this one fact.
+Reach for this instead of `for i in range(len(items))`. It is shorter, and it
+cannot go out of range.
 
-📄 `compas_core_examples/5.1_shapes.py`
+📄 `Examples/4.2.6_enumerate.py`
 
-## 4. Transformations
+### `break` and `continue`
 
-A transformation is a 4×4 matrix. You almost never write one out; you build it
-with a constructor and apply it.
+```python
+for n in range(100):
+    if n == 5:
+        break        # leave the loop entirely
+    if n % 2 == 0:
+        continue     # skip to the next iteration
+    print(n)         # 1 3
+```
+
+📄 `Examples/4.2.2_break_continue.py`
+
+### Nested loops — the grid pattern
+
+This one you will use constantly in geometry:
+
+```python
+for row in range(3):
+    for col in range(4):
+        print(row, col)     # 12 combinations: a 3 x 4 grid
+```
+
+📄 `Examples/4.2.4_nested_for.py`, `4.2.5_for_if_statement.py`
+
+### Accumulating a result
+
+The most common shape in this course: start empty, append as you go, return.
+
+```python
+def squares_up_to(n):
+    """Return [0, 1, 4, 9, ...] for n terms."""
+    result = []                 # 1. start empty
+    for i in range(n):
+        result.append(i * i)    # 2. add one item per pass
+    return result               # 3. return AFTER the loop
+```
+
+> ⚠️ `return` inside the loop exits on the **first** pass. Indentation decides
+> whether you get a list of `n` items or a list of 1. This is the bug you will
+> most often find in AI-generated code, because it looks completely fine.
+
+## 3. `while` loops
+
+Use `while` when you do not know in advance how many repetitions you need.
+
+```python
+total = 0
+n = 1
+while total < 100:
+    total += n
+    n += 1
+```
+
+**Every `while` loop needs something that eventually makes the condition
+false.** If you write an infinite loop, `ctrl + C` stops it.
+
+📄 `Examples/4.3.while_statement.py`
+
+## 4. Modules
+
+A module is a file of Python you can use from another file. The standard
+library ships with hundreds.
 
 ```python
 import math
+print(math.pi)          # 3.141592653589793
+print(math.sqrt(16))    # 4.0
+print(math.cos(0))      # 1.0
 
-T = cg.Translation.from_vector([5, 0, 0])
-R = cg.Rotation.from_axis_and_angle([0, 0, 1], math.radians(45))
-S = cg.Scale.from_factors([2, 2, 2])
-
-moved = box.transformed(T)      # a NEW box
-box.transform(T)                # or modify in place
+from math import pi, cos      # import specific names
+import math as m             # import under a shorter name
 ```
 
-> ⚠️ **Angles are radians.** `math.radians(45)` converts. Passing 45 directly
-> asks for 45 radians ≈ 2578°, which is roughly 138° — wrong, but plausible
-> enough that you may not notice.
+Useful ones this semester:
 
-### Combining transformations
+| Module | For |
+| ------ | --- |
+| `math` | `pi`, `sqrt`, `sin`, `cos`, `radians`, `floor`, `ceil` |
+| `random` | `random()`, `randint()`, `choice()`, `shuffle()`, `seed()` |
+| `pathlib` | file paths (Week 04) |
+| `json` | reading/writing data (Week 04) |
 
-Multiply them. **Order matters**, and it reads right-to-left — the rightmost
-happens first:
+📄 `Examples/5_modules.py`, `5.3_math.py`, `5.4_import.py`
+
+> ### Angles are in radians
+> `math.sin`, `math.cos` and COMPAS all take **radians**, not degrees.
+> `math.radians(90)` converts. Forgetting this produces geometry that is wrong
+> but not obviously wrong — the worst kind.
+
+### Random, and why seeding matters
 
 ```python
-X = T * R          # rotate FIRST, then translate
-Y = R * T          # translate first, then rotate -- a different result
+import random
+random.seed(42)         # fix the starting point
+print(random.randint(1, 6))   # same number every single run
 ```
 
-Rotate-then-translate spins the object where it stands and then moves it.
-Translate-then-rotate swings it around the origin like a planet. Both are
-useful; picking the wrong one is a classic bug.
+Without a seed, a random result is different each run — which means you cannot
+reproduce a bug, and you cannot test it. `seed()` makes randomness
+**deterministic**: still varied, but repeatable. One of this week's checkpoints
+depends on this, and it is a real engineering habit, not a classroom trick.
+
+📄 `Examples/5.1.1_random.py`, `5.1.2_random_seed.py`
+
+## 5. Functions, properly
+
+Last week: `def`, `return`, docstrings. Now the rest.
+
+### Default arguments
 
 ```python
-X.inverted()                    # undo a transformation
-cg.Transformation()             # identity: changes nothing
+def greet(name, greeting="Hello"):
+    return f"{greeting}, {name}!"
+
+greet("Ada")                    # 'Hello, Ada!'
+greet("Ada", "Good morning")    # 'Good morning, Ada!'
 ```
 
-📄 `6.1_transformation.py`, `6.2_transformation_class.py`, `6.3.1_transform_I.py`,
-`107_inverse_transformation.py`, `108_premultiply_transformations.py`,
-`109_pre_vs_post_multiplication.py`
+Parameters with defaults must come **after** those without.
 
-### Rotations, several ways
+### Keyword arguments
 
 ```python
-cg.Rotation.from_axis_and_angle([0, 0, 1], angle)
-cg.Rotation.from_euler_angles([rx, ry, rz])
-cg.Rotation.from_frame_to_frame(frame_a, frame_b)
+def box(width, height, depth):
+    ...
+
+box(2, 3, 4)                          # positional -- which is which?
+box(width=2, height=3, depth=4)       # unambiguous, and self-documenting
 ```
 
-📄 `116_several_ways_to_construct_rotation.py`, `118_…euler_angles.py`,
-`119_…axis_angle_vector.py`
+For anything with more than two numbers, use keywords. Your future self and
+your reviewer will both thank you.
 
-### Frame-to-frame: the one that saves you
+📄 `Examples/6.1.1`–`6.1.4_function_arguments_*.py`
 
-To move an object from one coordinate system into another:
+### Returning several values
 
 ```python
-X = cg.Transformation.from_frame_to_frame(local_frame, target_frame)
+def min_max(numbers):
+    return min(numbers), max(numbers)
+
+low, high = min_max([3, 1, 4])      # unpacking
 ```
 
-Design your element once at the origin, then place copies wherever you like.
-This is how a parametric assembly is built.
+📄 `Examples/6.2.1_return_statement_I.py`, `6.2.2_return_statement_II.py`
 
-📄 `102_point_in_frame.py`, `112_transform_multiple.py`, `113_transform_multiple_2.py`
+### Scope
 
-## 5. Seeing your geometry
+Names created inside a function are local to it and vanish when it returns.
 
 ```python
-from compas_viewer import Viewer
+def f():
+    x = 10        # local
+    return x
 
-viewer = Viewer()
-viewer.scene.add(box)
-viewer.show()
+f()
+print(x)          # NameError -- x does not exist out here
 ```
 
-📄 `compas_core_examples/1.4.1_visualization_I.py`, `1.4.2_visualization_II.py`
+A function can *read* names from outside, but relying on that makes it
+impossible to test in isolation. **Pass what you need in as an argument.**
+This habit is what makes the Week 06 architecture possible.
 
-**But a viewer is not a test.** It shows you *something*; it does not tell you
-that something is right. A wall with 11 courses instead of 12 looks exactly
-like a wall. From Week 06 the viewer becomes a convenience, and a saved JSON
-artifact plus a test becomes the evidence.
+📄 `Examples/6.3.1`, `6.3.2_function_variable_scope_*.py`
 
-If the viewer crashes or refuses to open on your machine — a graphics-driver
-problem, not a Python one — you can complete every checkpoint in this course
-without it.
+> ### ⚠️ The mutable default argument trap
+> ```python
+> def add_item(item, basket=[]):     # WRONG
+>     basket.append(item)
+>     return basket
+>
+> add_item("a")     # ['a']
+> add_item("b")     # ['a', 'b']   <- the SAME list, still there
+> ```
+> The default is created once, when the function is defined. Use `None`:
+> ```python
+> def add_item(item, basket=None):
+>     if basket is None:
+>         basket = []
+>     basket.append(item)
+>     return basket
+> ```
+> Worth knowing because AI assistants reproduce this bug regularly — it is
+> common in their training data.
 
-### Saving geometry
+## 6. When it goes wrong
+
+This is the first week your code can fail in interesting ways, so this is the
+week to learn what to do about it. There are two different problems here and
+they need different tools.
+
+### It crashed: read the traceback
+
+Python tells you exactly what happened. Read it **from the bottom up** — the
+last line is *what*, the lines above are *where* and *how you got there*.
+
+```
+Traceback (most recent call last):
+  File "primes.py", line 18, in <module>
+    print(primes_below(20))
+  File "primes.py", line 12, in primes_below
+    if n % candidates[i] == 0:
+IndexError: list index out of range
+```
+
+Bottom line: `IndexError` — an index past the end of a list. Line above: the
+exact expression, at line 12. Above that: who called it. Two lines is usually
+the whole answer.
+
+The ones you will meet this week:
+
+| Error | Usually means |
+| ----- | ------------- |
+| `NameError` | typo, or used before it was defined |
+| `TypeError` | wrong kind of value — very often a `None` from a function that forgot to `return` |
+| `IndexError` | list index past the end — check your `range()` |
+| `ValueError` | right type, impossible value — `int("abc")` |
+| `IndentationError` | inconsistent indentation |
+| `ZeroDivisionError` | you divided by a count that turned out to be 0 |
+
+> An error message is not an insult. It is the most specific and most accurate
+> information you will get all day, and it is free. When you ask anyone —
+> including an AI assistant — for help, paste the **whole** traceback. "It
+> doesn't work" is unanswerable.
+
+### It didn't crash, and the answer is wrong
+
+Harder, and much more common in this course. Staring at the code does not
+work. Do this instead:
+
+**1. Print the value you are assuming.** Most bugs are a gap between what you
+believe a variable holds and what it actually holds.
 
 ```python
-import compas
-
-compas.json_dump(boxes, "output/boxes.json")     # geometry objects, not plain JSON
-boxes = compas.json_load("output/boxes.json")
+for i in range(n):
+    print(f"{i=} {total=}")     # the = prints both the name and the value
 ```
 
-Unlike the `json` module from Week 04, this preserves actual COMPAS objects.
-This file is the **artifact** at the centre of next week's architecture.
+**2. Narrow it down.** Does it fail with 100 items? With 3? With 1? With 0?
+Does the first pass of the loop produce the right value? Each answer halves
+the search; four or five halvings is usually enough.
 
-## 6. Notebooks (optional)
+**3. Check the boundaries.** Bugs live at the edges — the first and last
+iteration, empty input, one item, zero. Not in the middle.
 
-`compas_iypnb/` has the same material as Jupyter notebooks, if you prefer that
-way of exploring. Not required.
+**4. Run it on an answer you already know.** If `fizz_buzz(5)` doesn't give you
+what you worked out by hand, you have found the bug without understanding the
+code at all.
 
-## 7. Also here
+**5. Say it out loud.** Explain each line, in order, as though to someone else.
+The sentence you cannot finish is the line with the bug.
 
-`algorithm_basic_examples/binary_search.py` — an algorithm worth reading for
-its own sake, and a good target for "explain every line" practice.
+📄 A worked example: run `Examples/4.2.5_for_if_statement.py` and predict the
+grid before you look.
+
+> Reference version, with more errors and the interactive debugger:
+> [rccn wiki → Errors & Debugging](https://kb.rccn.dev/computation/python/syntax-essentials/errors-and-debugging).
+> Deliberate error *handling* — `try` / `except` — is next week.
 
 ---
 
 ## Checkpoints
 
 ```bash
-uv run check.py 05
+uv run check.py 03
 ```
 
 | # | Task | Exercises |
 | - | ---- | --------- |
-| 1 | `box_on_ground(x, y, size)` | frames, and the centred-box trap |
-| 2 | `move(shape, dx, dy, dz)` | `Translation`, and `transformed` vs `transform` |
-| 3 | `rotate_point_about_z(point, degrees)` | `Rotation`, degrees → radians |
-| 4 | `grid_of_boxes(nx, ny, spacing, size)` | nested loops that build real geometry |
-| 5 | `flatten_to_xy(points)` | projection, and not mutating your input |
+| 1 | `fizz_buzz(n)` | `if`/`elif`/`else`, `%`, accumulating a list |
+| 2 | `triangle(n)` | nested repetition, string building |
+| 3 | `is_palindrome(text)` | strings, slicing, normalising input |
+| 4 | `primes_below(n)` | nested loops, `break`, an algorithm |
+| 5 | `circle_points(count, radius)` | `math`, radians, floats |
+| 6 | `roll_dice(seed, count)` | `random`, and why seeding makes code testable |
 
-Checkpoints 1 and 3 are precisely the two traps flagged above. They are there
-because you will hit them anyway; better here, where something tells you.
+Checkpoint 4 (`primes_below`) is the one people find hardest. It is a real
+algorithm rather than a syntax drill, and it is worth the struggle — if you can
+write it and explain it, you can read most of what an assistant hands you.
+There is optional extra practice on the same ground in
+[0_prime_numbers](/Assignment/0_prime_numbers/README.md), retired as a graded
+assignment but kept because the write-up is good.
 
-## Exercises
+## Exercise
 
-📝 [Rotating boxes](/Exercise/Lecture_03/README.md) ·
-📝 [Project a box to the XY plane](/Exercise/1_Project_box_to_xy_plane/README.md)
+📝 [Asterisk pattern, factorial, guess-the-number, palindrome](/Exercise/Lecture_03/README.md)
 
 ## Self-test
 
-1. `Box(2, 2, 2)` is centred at the origin. What is the z of its lowest face?
-2. What is the difference between `v.unitize()` and `v.unitized()`?
-3. Why does `Rotation.from_axis_and_angle([0,0,1], 90)` not rotate by 90°?
-4. `T * R` and `R * T` differ. Which happens first in each?
-5. Why is "it looks right in the viewer" not evidence that it is right?
+1. How many times does `for i in range(2, 10, 3)` run, and what are the values?
+2. What is the difference between `break` and `continue`?
+3. Why does `def f(items=[])` behave surprisingly on the second call?
+4. `math.sin(90)` returns `0.894...`, not `1.0`. Why?
+5. When would you use `while` instead of `for`?
+6. A loop builds a list but returns only one item. What is almost certainly wrong?
+7. Which line of a traceback do you read first, and why?
+8. Your function returns the wrong number but raises no error. What are the
+   first two things you do?

@@ -1,42 +1,33 @@
-# Exercises — Week 07 (Object-oriented programming)
+# Exercises — Week 08 (Recursion)
 
-> Open-ended practice for classes. The [Week 07 checkpoints](/Lecture/Lecture_08/README.md#checkpoints)
-> build `Vector2D`, `Rectangle`, `Square` and `Wall` with a checker; these push
-> further. `uv run your_script.py`.
+> Open-ended practice for recursion. The [Week 08 checkpoints](/Lecture/Lecture_08/README.md#checkpoints)
+> cover `factorial`, `flatten`, `sierpinski` and `tree_segments` with a checker;
+> this is where you make a recursive structure of your own.
+>
+> Start from the branching-tree examples in
+> [`Lecture_08/recusion_examples/`](/Lecture/Lecture_08/README.md).
+> `uv run your_script.py`.
 
-## 1. Vector2D, extended
+## Branching tree, made your own
 
-Beyond the checkpoint version, add:
-- a default constructor: `Vector2D()` gives `(0, 0)`;
-- a `dot(other)` method returning the dot product;
-- a class attribute `name = "Vector2D"` shared by all instances;
-- `__mul__` so `v * 3` scales the vector.
+The example `branch` function calls itself to draw a tree. Read it until you can
+explain every line — including *when* each branch is drawn (on the way down the
+recursion, or on the way back up?).
 
-Create two vectors and print their sum, their dot product, and `Vector2D.name`.
+Then introduce variation so it stops looking mechanical:
 
-## 2. Rectangle, extended
+- add spheres at the branch tips;
+- vary branch length, thickness, or colour with depth;
+- vary the branching angle, or the number of children per branch;
+- **randomly stop** some branches early (seed your randomness so you can
+  reproduce a tree you like — the `roll_dice` reproducibility idea again);
+- make a branch's behaviour depend on its position or height (an attractor).
 
-Beyond the checkpoint version, add a **class method** `from_two_points(p1, p2)`
-that builds a rectangle from two opposite corners. Confirm that `area` and
-`perimeter` are read-only properties — assigning to them should fail.
+That last one is the jump from a fractal to a *design*: look at
+`Lecture_08/recusion_examples/3-2_sierpinski_compas_conditional.py` for the same
+move applied to a Sierpinski triangle.
 
-Then ask the design question from the lecture: should `Square` subclass
-`Rectangle`, and should a `House` that contains rooms subclass anything? Write
-one sentence per case justifying "is-a" vs "has-a".
-
-## 3. Agent-based modelling
-
-Using `drone.py`, `tracing_drone.py` and `dynamic_view_drone.py`, build a
-tracing-drone view that combines **attraction and repulsion** behaviour. Each
-drone is an object following simple local rules; the interesting behaviour is
-emergent.
-
-Run locally (uses the viewer):
-
-```bash
-uv run Exercise/Lecture_08/dynamic_view_drone.py
-```
-
-This is a natural seed for a final project — many simple objects, local rules,
-collective behaviour. See also
-[Re-write to OOP](/Exercise/2_re-write_to_oop/README.md).
+Keep the segment-generating part pure (return a list of segments; draw
+separately) so it could drop into a Week 06 core and be tested the way
+`tree_segments` is. A tree that looks right but has the wrong branch count is
+still wrong — and only the count is checkable.

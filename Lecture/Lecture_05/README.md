@@ -1,201 +1,262 @@
-# Week 09 — Mesh: a real geometric data structure
+# Week 05 — COMPAS core: primitives and transformations
 
-> In person again. We open with a **debrief and peer code review** of Weeks 07
-> and 08 — bring your checkpoints, working or not. A stuck checkpoint you can
-> describe precisely is more useful to the class than a green one you rushed.
->
-> Then: `uv run check.py 09`.
+> Self-contained. `uv run check.py 05` when you are ready.
 
-## 1. Why a mesh is not a list of triangles
+From here on, everything is geometry. COMPAS is the library the whole course
+is built on — and unusually for a CAD-adjacent tool, it is **plain Python that
+runs anywhere**: your terminal, a test suite, a server with no screen, and
+also inside Rhino and Grasshopper. That property is what makes the Week 06
+architecture possible.
 
-You could store a surface as a list of triangles, each with three points. It
-would draw correctly and be useless for everything else, because it does not
-know **which triangles touch**. Ask "what is next to this face?" or "is this
-edge on the boundary?" and you would have to compare floating-point
-coordinates — the one thing Week 02 told you never to do.
+## 0. Install
 
-A **mesh** stores topology explicitly:
+Nothing to do. `uv sync` already installed COMPAS.
 
-- **vertices** — points, each with an integer key
-- **faces** — ordered lists of vertex keys
-- **edges** — pairs of vertex keys, derived from the faces
+```bash
+uv run python -c "import compas; print(compas.__version__)"
+```
 
-Because faces refer to vertices *by key*, neighbours are found by looking up
-keys, not by comparing positions. Move a vertex and every face using it follows
-automatically. That single property is what makes subdivision, smoothing,
-relaxation, and offsetting possible at all.
+> If you are following an older tutorial, you will find pages of
+> `conda install compas_cgal` instructions. Ignore them. This project pins
+> everything in `uv.lock`; adding packages by hand is how you break it.
 
-**And every vertex, edge and face carries a dictionary of attributes.** This is
-where Week 04 pays off: a vertex is not just a point, it is a point with a
-colour, a load, a material, a fabrication ID — whatever your problem needs.
+---
 
-## 2. Making a mesh
+## 1. Points and vectors
 
 ```python
-from compas.datastructures import Mesh
+import compas.geometry as cg
 
-mesh = Mesh()
-a = mesh.add_vertex(x=0, y=0, z=0)     # returns an integer key
-b = mesh.add_vertex(x=1, y=0, z=0)
-c = mesh.add_vertex(x=1, y=1, z=0)
-d = mesh.add_vertex(x=0, y=1, z=0)
+point = cg.Point(19, 25, 7)
+vector = cg.Vector(1, 0, 5)
 
-f = mesh.add_face([a, b, c, d])        # vertex keys, in order around the face
+point.x, point.y, point.z      # by name
+vector[0], vector[1], vector[2] # or by index -- both work
 ```
 
-> ⚠️ **Face vertex order defines the normal.** Counter-clockwise seen from the
-> front gives an outward normal; reverse it and the face points the other way.
-> Inconsistent ordering across a mesh causes normals that flip randomly, which
-> breaks shading, offsetting, boolean operations and 3D printing — while
-> looking almost fine on screen.
-
-Ready-made constructors:
+A **Point** is a location. A **Vector** is a direction and a length. They hold
+the same three numbers and mean completely different things:
 
 ```python
-Mesh.from_meshgrid(dx=10, nx=10, dy=5, ny=5)   # a flat grid
-Mesh.from_polyhedron(6)                         # a cube
-Mesh.from_obj(path)                             # from file
-Mesh.from_shape(Box(1, 2, 3))
+point + vector    # a Point -- "start here, move that way"
+point - point     # a Vector -- "the step from one to the other"
+vector + vector   # a Vector
 ```
 
-📄 `mesh_examples/501_mesh.py`, `502_mesh_from_scratch.py`, `503_mesh_constructor.py`
-
-## 3. Getting around
+"Rotate a point about the origin" moves it. "Rotate a vector" only changes its
+direction — it has no position to move. Getting these two confused is the
+source of a whole category of geometry bugs that look like the object is in the
+wrong place for no reason.
 
 ```python
-mesh.number_of_vertices()
-mesh.number_of_edges()
-mesh.number_of_faces()
-
-for key in mesh.vertices():
-    x, y, z = mesh.vertex_coordinates(key)
-
-for fkey in mesh.faces():
-    mesh.face_vertices(fkey)
-    mesh.face_area(fkey)
-    mesh.face_normal(fkey)
-    mesh.face_centroid(fkey)
-
-for u, v in mesh.edges():
-    mesh.edge_length((u, v))
+v = cg.Vector(3, 4, 0)
+v.length            # 5.0
+v.unitized()        # a NEW vector of length 1
+v.unitize()         # modifies v IN PLACE, returns None
 ```
 
-Topology queries — the part a list of triangles cannot do:
+> ⚠️ **The `-ed` rule.** Across all of COMPAS: `unitize()`/`transform()`/`scale()`
+> change the object in place; `unitized()`/`transformed()`/`scaled()` return a
+> new one and leave the original alone. One letter, completely different
+> behaviour. When a shape mysteriously moves twice, this is usually why.
+
+📄 `compas_core_examples/1.1_points_and_vectors.py`, `1.2_…operations.py`, `1.3_vector_operations.py`
+
+### Vector maths you will actually use
 
 ```python
-mesh.vertex_neighbors(key)       # vertices connected to this one
-mesh.vertex_faces(key)           # faces touching this vertex
-mesh.face_neighbors(fkey)        # faces sharing an edge with this one
-mesh.vertices_on_boundary()      # the open edge of the mesh
-mesh.is_vertex_on_boundary(key)
+a.dot(b)      # scalar. 0 means perpendicular. Sign tells you "same side?"
+a.cross(b)    # a vector perpendicular to BOTH -- this is how you build a frame
+a.angle(b)    # radians
 ```
 
-📄 `mesh_examples/506_access_mesh_v_f_e.py`, `507_mesh_topology.py`,
-`509_mesh_info_vertices_on_boundary.py`, `510_mesh_face_normal.py`
+## 2. Planes and frames
 
-## 4. Attributes
+A **Plane** is a point plus a normal. A **Frame** is a point plus an x-axis and
+a y-axis — a full local coordinate system.
 
 ```python
-mesh.vertex_attribute(key, "color", [255, 0, 0])    # set one
-mesh.vertex_attribute(key, "color")                  # read it back
-mesh.vertex_attributes(key)                          # all of them, as a dict
+frame = cg.Frame(
+    cg.Point(15, 24, 3),      # origin
+    cg.Vector(1, 0, 0),       # x-axis
+    cg.Vector(0, 1, 0),       # y-axis
+)
 
-mesh.update_default_vertex_attributes({"load": 0.0}) # a default for every vertex
-mesh.face_attribute(fkey, "material", "timber")
+frame.point     # origin
+frame.xaxis     # normalised automatically
+frame.yaxis
+frame.zaxis     # computed for you: xaxis cross yaxis
+
+cg.Frame.worldXY()     # the global origin frame -- the default everywhere
 ```
 
-This is how a geometric model becomes a *design* model. Colour by height,
-store a panel ID per face, tag which vertices are supports — the mesh carries
-your data alongside the geometry, and `compas.json_dump` saves both together.
+**A frame is the single most useful idea in this course.** Rather than
+computing rotated coordinates by hand, you place a frame where you want it and
+build the object *in* the frame. Every element you make from Week 06 onward is
+positioned by its frame.
 
-📄 `mesh_examples/506-1_mesh_color.py`, `511_mesh_face_normal_pattern.py`
+📄 `compas_core_examples/2.1_planes.py`, `3.1_frames.py`, `3.2_frame_constructors.py`
 
-## 5. Euler's formula — a free correctness check
-
-For any single connected surface:
-
-```
-V - E + F = 2 - 2g        (g = number of holes/handles)
-```
-
-A closed sphere-like mesh gives 2. A flat disc-like grid gives 1. **A mesh
-whose Euler characteristic is unexpected has a topology bug** — a duplicated
-vertex, a missing face, a hole you did not intend.
-
-This is an unusually good test: it is one integer, it costs nothing, and it
-catches a whole class of errors that look perfectly fine on screen.
+## 3. Shapes
 
 ```python
-mesh.euler()
+box = cg.Box(2, 3, 4)                     # xsize, ysize, zsize, centred on worldXY
+box = cg.Box(2, 3, 4, frame=some_frame)   # ... or on a frame you choose
+
+box.xsize, box.ysize, box.zsize
+box.volume        # 24.0
+box.frame.point   # the CENTRE of the box
+box.points        # its 8 corners
+
+cg.Sphere(radius=2)
+cg.Cylinder(radius=1, height=5)
 ```
 
-## 6. Operations
+> ⚠️ **A COMPAS box is centred on its frame, not resting on it.** `Box(2,3,4)`
+> spans z from **-2 to +2**, not 0 to 4. To sit a box on the ground, lift its
+> frame by half its height. Half the "why is my tower buried in the floor"
+> problems in this course are this one fact.
+
+📄 `compas_core_examples/5.1_shapes.py`
+
+## 4. Transformations
+
+A transformation is a 4×4 matrix. You almost never write one out; you build it
+with a constructor and apply it.
 
 ```python
-mesh.subdivide(scheme="catmullclark", k=2)
-mesh.smooth_area(fixed=mesh.vertices_on_boundary(), kmax=50)
-mesh.flip_cycles()
-mesh.unify_cycles()      # make all face normals consistent -- run it when unsure
+import math
+
+T = cg.Translation.from_vector([5, 0, 0])
+R = cg.Rotation.from_axis_and_angle([0, 0, 1], math.radians(45))
+S = cg.Scale.from_factors([2, 2, 2])
+
+moved = box.transformed(T)      # a NEW box
+box.transform(T)                # or modify in place
 ```
 
-📄 `mesh_examples/562_mesh_subdivision_scheme.py`, `557_conway_1.py` …
-`559_conway_3.py`, `554_mesh_booleans.py`
+> ⚠️ **Angles are radians.** `math.radians(45)` converts. Passing 45 directly
+> asks for 45 radians ≈ 2578°, which is roughly 138° — wrong, but plausible
+> enough that you may not notice.
 
-Advanced material — remeshing, Delaunay triangulation, CGAL slicing, Catmull-
-Clark — is in `mesh_examples_advanced/`. Not examined; very useful for final
-projects, especially `556_compas_cgal_slicer.py` if you are heading toward
-fabrication.
+### Combining transformations
 
-`mesh_applications/mesh_relaxation.py` and `mesh_pavilion.ipynb` are worked
-examples of form-finding, and a strong starting point for a project.
+Multiply them. **Order matters**, and it reads right-to-left — the rightmost
+happens first:
 
-## 7. Saving
+```python
+X = T * R          # rotate FIRST, then translate
+Y = R * T          # translate first, then rotate -- a different result
+```
+
+Rotate-then-translate spins the object where it stands and then moves it.
+Translate-then-rotate swings it around the origin like a planet. Both are
+useful; picking the wrong one is a classic bug.
+
+```python
+X.inverted()                    # undo a transformation
+cg.Transformation()             # identity: changes nothing
+```
+
+📄 `6.1_transformation.py`, `6.2_transformation_class.py`, `6.3.1_transform_I.py`,
+`107_inverse_transformation.py`, `108_premultiply_transformations.py`,
+`109_pre_vs_post_multiplication.py`
+
+### Rotations, several ways
+
+```python
+cg.Rotation.from_axis_and_angle([0, 0, 1], angle)
+cg.Rotation.from_euler_angles([rx, ry, rz])
+cg.Rotation.from_frame_to_frame(frame_a, frame_b)
+```
+
+📄 `116_several_ways_to_construct_rotation.py`, `118_…euler_angles.py`,
+`119_…axis_angle_vector.py`
+
+### Frame-to-frame: the one that saves you
+
+To move an object from one coordinate system into another:
+
+```python
+X = cg.Transformation.from_frame_to_frame(local_frame, target_frame)
+```
+
+Design your element once at the origin, then place copies wherever you like.
+This is how a parametric assembly is built.
+
+📄 `102_point_in_frame.py`, `112_transform_multiple.py`, `113_transform_multiple_2.py`
+
+## 5. Seeing your geometry
+
+```python
+from compas_viewer import Viewer
+
+viewer = Viewer()
+viewer.scene.add(box)
+viewer.show()
+```
+
+📄 `compas_core_examples/1.4.1_visualization_I.py`, `1.4.2_visualization_II.py`
+
+**But a viewer is not a test.** It shows you *something*; it does not tell you
+that something is right. A wall with 11 courses instead of 12 looks exactly
+like a wall. From Week 06 the viewer becomes a convenience, and a saved JSON
+artifact plus a test becomes the evidence.
+
+If the viewer crashes or refuses to open on your machine — a graphics-driver
+problem, not a Python one — you can complete every checkpoint in this course
+without it.
+
+### Saving geometry
 
 ```python
 import compas
-compas.json_dump(mesh, "output/mesh.json")   # geometry AND attributes
-mesh = compas.json_load("output/mesh.json")
 
-mesh.to_obj("mesh.obj")        # for other software
-mesh.to_stl("mesh.stl")        # for 3D printing
+compas.json_dump(boxes, "output/boxes.json")     # geometry objects, not plain JSON
+boxes = compas.json_load("output/boxes.json")
 ```
 
-The JSON artifact is the one that keeps your attributes. OBJ and STL throw them
-away — they are export formats, not save formats.
+Unlike the `json` module from Week 04, this preserves actual COMPAS objects.
+This file is the **artifact** at the centre of next week's architecture.
+
+## 6. Notebooks (optional)
+
+`compas_iypnb/` has the same material as Jupyter notebooks, if you prefer that
+way of exploring. Not required.
+
+## 7. Also here
+
+`algorithm_basic_examples/binary_search.py` — an algorithm worth reading for
+its own sake, and a good target for "explain every line" practice.
 
 ---
 
 ## Checkpoints
 
 ```bash
-uv run check.py 09
+uv run check.py 05
 ```
 
 | # | Task | Exercises |
 | - | ---- | --------- |
-| 1 | `grid_mesh(nx, ny, spacing)` | building a mesh from scratch, vertex keys |
-| 2 | `mesh_stats(mesh)` | topology queries, and Euler as a sanity check |
-| 3 | `colour_by_height(mesh)` | attributes — data living on geometry |
-| 4 | `deform_by_wave(mesh, ...)` | moving vertices while keeping topology intact |
+| 1 | `box_on_ground(x, y, size)` | frames, and the centred-box trap |
+| 2 | `move(shape, dx, dy, dz)` | `Translation`, and `transformed` vs `transform` |
+| 3 | `rotate_point_about_z(point, degrees)` | `Rotation`, degrees → radians |
+| 4 | `grid_of_boxes(nx, ny, spacing, size)` | nested loops that build real geometry |
+| 5 | `flatten_to_xy(points)` | projection, and not mutating your input |
 
-Checkpoint 1 asks you to build the grid yourself rather than call
-`Mesh.from_meshgrid`, precisely so you have to think about which vertex keys
-form each face. Checkpoint 4 is the payoff: you change every coordinate in the
-mesh and the topology is completely unaffected — which is the whole reason this
-data structure exists.
+Checkpoints 1 and 3 are precisely the two traps flagged above. They are there
+because you will hit them anyway; better here, where something tells you.
 
-## Exercise
+## Exercises
 
-📝 [Mesh colouring and deformation](/Exercise/Lecture_05/README.md)
-
-## Due this week
-
-📝 [A3 — Recursion](/Assignment/4_recursion/README.md)
+📝 [Rotating boxes](/Exercise/Lecture_05/README.md) ·
+📝 [Project a box to the XY plane](/Exercise/1_Project_box_to_xy_plane/README.md)
 
 ## Self-test
 
-1. Why can a mesh answer "which faces touch this one?" when a list of triangles cannot?
-2. What does the order of vertices in a face determine?
-3. A flat grid has `V - E + F == 1`. Yours gives 0. What kind of mistake is that?
-4. Which file format keeps your vertex attributes: OBJ, STL, or COMPAS JSON?
-5. You move every vertex of a mesh. How many faces do you have to rebuild?
+1. `Box(2, 2, 2)` is centred at the origin. What is the z of its lowest face?
+2. What is the difference between `v.unitize()` and `v.unitized()`?
+3. Why does `Rotation.from_axis_and_angle([0,0,1], 90)` not rotate by 90°?
+4. `T * R` and `R * T` differ. Which happens first in each?
+5. Why is "it looks right in the viewer" not evidence that it is right?
