@@ -59,7 +59,7 @@ the policy and its rationale explicit, as §3.1.8 asks.
 | **Process evidence**, not detection | Git history + `log.md` disclosure are part of the evidence |
 | Experiential, artifact-scale projects | The [final project](/Assignment/5_Final_Project/README.md): a real, tested plugin |
 | Augmentation not automation | Intro framing; the agentic lecture's human-gate and "why `--auto` is dangerous" |
-| Effective/responsible/ethical AI as taught skills | W04 (reviewing generated code), W10–14 (spec → verify → review loop) |
+| Effective/responsible/ethical AI as taught skills | W09 (reviewing generated code), W10 + W13–14 (spec → verify → review loop) |
 | Deliberately AI-free work | Agentic-lab brief/log/reflection are human-written; the live demo |
 
 **Policy placement, precisely:** the course sits at **Required use** overall

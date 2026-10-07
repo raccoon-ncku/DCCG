@@ -63,18 +63,40 @@ done, so a `FAIL` just means keep going, not a penalty. In **Week 10** you learn
 to write these specs yourself, and the checker stops being magic. Full
 explanation: [Week 01 §5](/Lecture/Lecture_01/README.md#5-how-checkpoints-work).
 
-## Legacy conda environments
+## Notebooks (Week 05 onward)
 
-`environment.yml`, `environment_ml.yml` and `environment_neural.yml` remain only
-for the Week 15+ ML/neural material and for anyone continuing a previous year's
-project. They are **not needed for Weeks 01–14**. Do not mix them with `uv` in
-the same project — that is the most common cause of "it works for you but not
-for me".
+Step-by-step notebooks for meshes, graphs and the algorithms live in
+[`Lecture/notebooks/`](Lecture/notebooks/README.md). `uv sync` already
+installed the kernel. Do this **once per clone**, so notebook outputs never end
+up in your commits:
+
+```bash
+uv run nbstripout --install
+```
+
+Then copy a notebook into `MyWork/` before editing it
+(`uv run Lecture/notebooks/copy_to_mywork.py 01`), and open it in your browser
+with a small local server:
+
+```bash
+uv run jupyter lab MyWork/notebooks
+```
+
+That is the recommended route: it shows everything, including the interactive
+3D views (compas_notebook). VS Code and Zed work too, with limits; see the
+notebooks README.
+
+## The one conda environment left
+
+`environment_neural.yml` is only for the optional Week 15 diffusion / CLIP
+examples (`Lecture_10`), whose GPU packages are easier to install through conda.
+Nothing else needs conda. Never mix it with `uv` in the same project: that is
+the most common cause of "it works for you but not for me".
 
 ## Rhino (optional until Week 14)
 
 The course runs entirely without Rhino; the JSON artifact is the primary output
-from Week 06 on. When you do want it, install Rhino 8 and authenticate against
+from Week 09 on. When you do want it, install Rhino 8 and authenticate against
 the class licence server — details in
 [Week 01 §4](/Lecture/Lecture_01/README.md#4-rhino-optional-this-week).
 

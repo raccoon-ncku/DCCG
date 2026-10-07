@@ -21,7 +21,7 @@ follow that. This page is only the checklist and the deliverable.
 3. **An AI assistant**, one of:
    - Zed's built-in assistant (sign in with GitHub; the free tier is enough)
    - GitHub Copilot (free for students, via the pack above)
-   - Claude Code / Codex CLI — we use these properly in Weeks 11–14; you do
+   - Claude Code / Codex CLI — we use these properly in Weeks 13–14; you do
      not need one yet
 
    You are *expected* to use it. Read the
