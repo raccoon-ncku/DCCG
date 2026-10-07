@@ -1,5 +1,21 @@
 # Lecture 11: Agentic Workflows
 
+> **Week 13 — code review and the LLM-assisted workflow.** One session, three
+> blocks:
+>
+> 1. **Build the loop** (§1–3): the agent harness from scratch, on the
+>    course model. *What an assistant actually is.*
+> 2. **Review what it wrote**: [Lecture 12, Part B](/Lecture/Lecture_12/README.md#part-b--review-and-the-test-driven-agent-week-13):
+>    pytest as the reviewer that cannot be fooled, then the human review that
+>    remains.
+> 3. **Open block: review each other.** Pairs swap final-project repos, open a
+>    pull request with one change made *with* an assistant, and review each
+>    other's PR against the checklist. This block is deliberately left open, so
+>    the session can follow the questions the class actually has.
+>
+> The [agentic lab](/Assignment/6_agentic_workflow/README.md) opens this week
+> and is due in Week 15. §4–6 below are reading for the lab.
+
 Until now, *you* wrote every line of code. In this lecture we flip the roles:
 a language model writes the code, and you move up one level — you become the
 **planner** and the **reviewer**. This is how modern software teams

@@ -1,0 +1,3 @@
+-P ubuntu-latest=catthehacker/ubuntu:act-latest
+--container-daemon-socket /var/run/docker.sock
+--bind

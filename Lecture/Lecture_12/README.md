@@ -1,6 +1,9 @@
 # Lecture 12 — Engineering the Workflow: Tests, Review, Git, and Deploy
 
-> **Weeks 10, 13 and 14.** This is the software-engineering spine of the course.
+> **Weeks 10, 13 and 14.** This is the software-engineering spine of the course:
+> Part A (testing) is the second half of Week 10, beside the
+> [geometric algorithms](/Lecture/Algorithms/geometric/README.md) it tests; Part B
+> (review) is Week 13, with Lecture 11; Part C (deploy) is Week 14.
 > Lecture 11 showed that an agent can *write* geometry code. This lecture is the
 > harder half: **how do you know it is right, how do you keep it right while
 > other authors (human or AI) touch it, and how does it reach your actual design
@@ -35,7 +38,7 @@ uv run pytest Lecture/Lecture_12/test_staircase.py -v     # a single file, verbo
 
 [`plugin_set/src/compas_studio/staircase.py`](plugin_set/src/compas_studio/staircase.py)
 is a **pure function**: numbers in, geometry out. No viewer, no file IO, no
-Rhino. That separation — the habit from Week 06 — is exactly what makes it
+Rhino. That separation — the habit from Week 09 — is exactly what makes it
 testable, and what will let the same code become a Grasshopper component in
 Part C without changing a line.
 
@@ -175,12 +178,12 @@ into Grasshopper by hand?**
 │ 3. ADAPTER   components/Cs_*/code.py — import core, call,     │  thin, boring,
 │              convert to Rhino geometry. No logic here.        │  no tests needed
 ├──────────────────────────────────────────────────────────────┤
-│ 4. ARTIFACT  Cs_*.ghuser — the installable component,        │  built by CI on a tag,
-│              produced by CI on a Windows runner, no Rhino     │  attached to a Release
+│ 4. ARTIFACT  Cs_*.ghuser — the installable component,        │  built in Docker: laptop,
+│              packaged + verified in Docker, no Rhino          │  CI, or act — same image
 └──────────────────────────────────────────────────────────────┘
 ```
 
-The principle in one line, unchanged since Week 06: **keep the intelligence out
+The principle in one line, unchanged since Week 09: **keep the intelligence out
 of the host application.** Develop and verify headlessly; let Rhino only
 receive results.
 
@@ -208,12 +211,22 @@ Each component is a folder of three files:
 
 ## 8. The Python → `.ghuser` pipeline (COMPAS componentizer)
 
-You do not build components on your laptop, and — the surprising part — you do
-**not need Rhino to build them**. The
-[COMPAS GHPython componentizer](https://github.com/compas-dev/compas-actions.ghpython_components)
-is a GitHub Action that turns each folder in `components/` into a matching
-`Cs_*.ghuser` file, on a Windows CI runner, fetching the Grasshopper IO assembly
-through NuGet. No Rhino, no display, no manual step.
+The surprising part: you do **not need Rhino to build components**, nor
+Windows. The [COMPAS GHPython componentizer](https://github.com/compas-dev/compas-actions.ghpython_components)
+turns each folder in `components/` into a matching `Cs_*.ghuser` file using
+`GH_IO.dll`, the .NET library Grasshopper itself uses to save files. Upstream it
+is a GitHub Action that needs a Windows runner. We run the same script in a
+**Linux Docker image**, where Mono runs `GH_IO.dll`
+([`plugin_set/docker/Dockerfile`](plugin_set/docker/Dockerfile)). That buys
+three things:
+
+- **one build everywhere**: your laptop, GitHub's runner, and `act` (GitHub
+  Actions run locally) all execute the identical image;
+- **pinned tools**: the Grasshopper and componentizer versions are fixed in
+  the Dockerfile, like `uv.lock` pins Python packages;
+- **a verified artifact**: after packaging, the image reads every `.ghuser`
+  back with `GH_IO` and checks name, parameters and embedded code against the
+  source. If that fails, the build fails, and nothing ships.
 
 Two workflows in
 [`plugin_set/.github/workflows/`](plugin_set/.github/workflows/) split the two
@@ -222,19 +235,31 @@ jobs — this is the CI/CD half of the diagram:
 - **`test.yml`** (CI) runs on every push and pull request, on a plain Linux
   runner, because the core is pure: `pip install -e ".[dev]"` then `pytest`.
   This is the gate — nothing merges red.
-- **`build.yml`** (CD) runs only on a version **tag**, on `windows-latest`, and
-  invokes the componentizer:
+- **`build.yml`** (CD) runs on a version **tag** (or by hand), on a plain
+  Linux runner, and is one Docker build:
 
   ```yaml
-  - uses: compas-dev/compas-actions.ghpython_components@v5
-    with:
-      source: components
-      target: build
-      interpreter: cpython     # Rhino 8; use "ironpython" for Rhino 7
+  - run: |
+      set -o pipefail
+      docker build -f docker/Dockerfile --target export --output type=tar,dest=- . \
+        | tar -x --no-same-owner -C build
   ```
 
   The `.ghuser` files become a downloadable artifact and are attached to the
   GitHub Release.
+
+Before you push a tag, run the **whole workflow locally**:
+
+```bash
+cd Lecture/Lecture_12/plugin_set
+act workflow_dispatch -W .github/workflows/build.yml     # flags in .actrc
+```
+
+A workflow you can only test by pushing is one you debug in public, a commit at
+a time. `act` runs it in Docker on your machine, and the `.ghuser` files land
+in `build/`. (The steps that talk to GitHub's servers are skipped under
+`act`.) The plugin-set README explains the three `.actrc` flags; one of them is
+a macOS-only fix found while building this.
 
 Cutting a release is then a deliberate act:
 

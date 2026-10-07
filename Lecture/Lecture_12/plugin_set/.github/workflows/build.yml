@@ -1,52 +1,61 @@
 # CD — build the Grasshopper .ghuser components and publish them.
 #
 # This is the deploy step. It turns each folder in components/ into a
-# Cs_*.ghuser file, using the COMPAS componentizer. Read what it does NOT need:
+# Cs_*.ghuser file, using the COMPAS componentizer -- inside a Docker image
+# (docker/Dockerfile), so it needs:
 #
-#   - it does NOT need Rhino installed (the componentizer builds .ghuser files
-#     headlessly via the Grasshopper IO assembly, fetched through NuGet);
-#   - it does NOT need a graphical machine;
-#   - it does NOT run any of your geometry code -- it packages the source.
+#   - NO Windows: the image runs Grasshopper's own file library (GH_IO.dll)
+#     on Mono, on a plain Linux runner;
+#   - NO Rhino, and no graphical machine;
+#   - NOTHING that differs between CI and your laptop: the build step below is
+#     one `docker build` command, and you can run it by hand, or run this whole
+#     workflow locally with `act` (see README, Part C).
 #
-# It runs only on a version tag (e.g. `git tag v0.1.0 && git push --tags`), so
-# that a release is a deliberate act, not every commit. The tests above are the
-# gate; this is what ships once they pass.
+# The image does not trust its own output: after packaging, docker/verify_ghuser.py
+# opens every .ghuser with GH_IO and checks name, parameters and embedded code
+# against the source. If that fails, the build fails and nothing ships.
+#
+# It publishes only on a version tag (e.g. `git tag v0.1.0 && git push --tags`),
+# so that a release is a deliberate act. `workflow_dispatch` lets you run the
+# build without releasing -- from the Actions tab, or locally with `act`.
 name: build-ghuser
 
 on:
   push:
     tags:
       - "v*"
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: windows-latest      # the componentizer needs a Windows runner
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: NuGet/setup-nuget@v2
 
-      # CPython path, for Rhino 8. (For Rhino 7, use interpreter: ironpython
-      # and install IronPython instead -- see the componentizer README.)
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.9.10"
-      - name: Install pythonnet
-        run: pip install pythonnet==3.0.3
+      # Exported as a tar stream and unpacked here, rather than --output
+      # type=local: identical result, but it never tries to chown files, which
+      # fails when act bind-mounts a macOS folder (see .actrc).
+      - name: Build and verify the .ghuser files (Docker)
+        run: |
+          set -o pipefail      # a failed build must fail the step, not hide behind tar
+          mkdir -p build
+          docker build -f docker/Dockerfile --target export --output type=tar,dest=- . \
+            | tar -x --no-same-owner -C build
 
-      - name: Componentize (Python -> .ghuser)
-        uses: compas-dev/compas-actions.ghpython_components@v5
-        with:
-          source: components
-          target: build
-          interpreter: cpython
+      - name: List what was built
+        run: ls -la build
 
+      # The two steps below talk to GitHub's servers. Under `act` (which sets
+      # ACT=true) there is no GitHub to talk to, so they are skipped there.
       - name: Upload the built components
+        if: ${{ !env.ACT }}
         uses: actions/upload-artifact@v4
         with:
           name: compas_studio-ghuser
           path: build
 
       - name: Attach the components to the GitHub Release
+        if: ${{ !env.ACT && startsWith(github.ref, 'refs/tags/') }}
         uses: softprops/action-gh-release@v2
         with:
           files: build/*.ghuser

@@ -28,7 +28,11 @@ plugin_set/
 │   └── Cs_GridMesh/
 └── .github/workflows/        4. PIPELINE
     ├── test.yml              │   every push: run the tests (Linux, no Rhino)
-    └── build.yml             │   every tag:  build .ghuser files (Windows, no Rhino)
+    └── build.yml             │   every tag:  build + verify .ghuser files (Docker, no Rhino)
+docker/                       5. THE BUILD IMAGE — the same build on a laptop, in CI, under act
+├── Dockerfile                │   Mono + GH_IO.dll + componentizer, pinned
+└── verify_ghuser.py          │   reads every .ghuser back and checks it
+.actrc                        │   flags for running the CI workflow locally with act
 ```
 
 Four layers, one rule holding them apart: **the core knows nothing about
@@ -69,23 +73,50 @@ every push.
 
 ## Build the components (the deploy stage)
 
-You do **not** build these on your laptop, and you do not need Rhino to build
-them. `build.yml` runs the [COMPAS GHPython
-componentizer](https://github.com/compas-dev/compas-actions.ghpython_components)
-on a Windows CI runner. It reads each folder in `components/`, and writes a
-matching `Cs_*.ghuser` file — the installable Grasshopper user object — fetching
-the Grasshopper IO assembly through NuGet. No Rhino, no display, no manual step.
+You do not need Rhino, Windows, or Grasshopper to build these. The build runs
+the [COMPAS GHPython componentizer](https://github.com/compas-dev/compas-actions.ghpython_components)
+inside a **Docker image** ([`docker/Dockerfile`](docker/Dockerfile)), which
+packages each folder in `components/` into a matching `Cs_*.ghuser` file and
+then **verifies** it ([`docker/verify_ghuser.py`](docker/verify_ghuser.py)).
+The verifier opens every `.ghuser` with `GH_IO.dll`, the library Grasshopper
+itself uses to read files, and checks it against the source.
 
-Trigger it by tagging a release:
+The same build runs in three places, and that is the point:
 
 ```bash
-git tag v0.1.0
-git push --tags
+# 1. on your laptop (needs Docker Desktop), from plugin_set/
+docker build -f docker/Dockerfile --target export --output type=local,dest=build .
+
+# 2. the whole CI workflow, locally, with act (GitHub Actions in Docker)
+act workflow_dispatch -W .github/workflows/build.yml      # flags come from .actrc
+
+# 3. on GitHub, by tagging a release
+git tag v0.1.0 && git push --tags
 ```
 
-The built `.ghuser` files appear as a downloadable artifact on the Actions run,
-and are attached to the GitHub Release. A studio-mate installs them by dropping
-them into their Grasshopper `UserObjects` folder — no repo, no Python, no setup.
+`.ghuser` files appear in `build/` (1 and 2), or as a downloadable artifact
+attached to the GitHub Release (3). A studio-mate installs them by dropping them
+into their Grasshopper `UserObjects` folder: no repo, no Python, no setup.
+
+**Why run CI locally?** A workflow you can only test by pushing is a workflow
+you debug in public, one commit at a time. [`act`](https://github.com/nektos/act)
+runs the real `build.yml` in Docker containers on your machine. `.actrc` holds
+its flags:
+
+| Flag | Why |
+| --- | --- |
+| `-P ubuntu-latest=catthehacker/ubuntu:act-latest` | an image close to GitHub's runner that has the Docker CLI |
+| `--container-daemon-socket /var/run/docker.sock` | lets the job reach Docker. On macOS, act otherwise mounts a socket path that only exists outside Docker Desktop's VM, and fails with *Cannot connect to the Docker daemon* |
+| `--bind` | mounts this folder instead of copying it, so `build/` appears here |
+
+The upload and release steps talk to GitHub's servers, so the workflow skips
+them under `act` (`if: ${{ !env.ACT }}`).
+
+**What is pinned, and why.** The Grasshopper NuGet version (`GH_VERSION`) and
+the componentizer commit (`COMPONENTIZER_SHA`) are fixed in the Dockerfile. A
+`.ghuser` written with a newer `GH_IO` than your users' Rhino is the classic
+*component will not load* bug, so upgrading is a decision you make on purpose.
+It is the `uv.lock` idea from Week 09, applied to a build tool.
 
 > ⚠️ **A `.ghuser` forgets where it came from.** Once you drop a component into a
 > Grasshopper document it becomes a plain GHPython node; a later release will
@@ -113,7 +144,7 @@ chatbot:
 
 1. **Spec.** Write `tests/test_newthing.py` first — the executable brief.
 2. **Core.** Implement `src/compas_studio/newthing.py` until the tests pass.
-   This is the step you can safely delegate to an agent (Weeks 11–13): it is
+   This is the step you can safely delegate to an agent (Week 13): it is
    pure, and the tests are the reviewer that cannot be talked into approving.
 3. **Review.** Read the code the agent wrote. Green tests prove it is
    *correct*; only you decide it is *good* — clear, no waste, sane names.
