@@ -2,7 +2,7 @@
 # Edit  answers_runner.py  instead (auto-created from this file on first run).
 
 """
-Week 06 — THE RUNNER / ARTIFACT LAYER.
+Week 09 — THE RUNNER / ARTIFACT LAYER.
 
 This file is allowed to touch the outside world: paths, files, JSON. What it
 must NOT contain is geometry logic. It calls the core and saves what comes
@@ -17,7 +17,9 @@ from pathlib import Path
 
 import compas
 
-import core
+# Your core lives in answers_core.py (the editable copy of core.py), so that
+# is the module the runner imports. Everything else refers to it as `core`.
+import answers_core as core
 
 
 def build_artifact(path, n_courses=8, **kwargs):
@@ -39,7 +41,7 @@ def build_artifact(path, n_courses=8, **kwargs):
     list[compas.geometry.Box]
 
     Hint: `compas.json_dump(data, path)` writes COMPAS objects; the plain
-    `json` module from Week 04 cannot. `compas.json_load(path)` reads them back
+    `json` module (README section A3) cannot. `compas.json_load(path)` reads them back
     as real Boxes -- which is what makes the artifact useful rather than just a
     log file.
     """

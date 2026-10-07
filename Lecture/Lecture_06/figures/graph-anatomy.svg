@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="380" viewBox="0 0 900 380" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<text x="280.0" y="20.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">7 nodes, 7 edges</text>
+<line x1="64.1" y1="330.0" x2="268.6" y2="284.5" stroke="#e8590c" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<rect x="148.8" y="299.3" width="35.2" height="16.0" rx="5" fill="white" stroke="#e8590c" stroke-width="1.5"/>
+<text x="166.4" y="310.9" font-size="10" fill="#e8590c" text-anchor="middle" font-weight="bold" xml:space="preserve">1.2 m</text>
+<line x1="64.1" y1="330.0" x2="64.1" y2="125.5" stroke="#e8590c" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<rect x="46.5" y="219.7" width="35.2" height="16.0" rx="5" fill="white" stroke="#e8590c" stroke-width="1.5"/>
+<text x="64.1" y="231.3" font-size="10" fill="#e8590c" text-anchor="middle" font-weight="bold" xml:space="preserve">0.9 m</text>
+<line x1="268.6" y1="284.5" x2="495.9" y2="284.5" stroke="#e8590c" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<rect x="364.7" y="276.5" width="35.2" height="16.0" rx="5" fill="white" stroke="#e8590c" stroke-width="1.5"/>
+<text x="382.3" y="288.1" font-size="10" fill="#e8590c" text-anchor="middle" font-weight="bold" xml:space="preserve">1.6 m</text>
+<line x1="268.6" y1="284.5" x2="359.5" y2="80.0" stroke="#e8590c" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<rect x="296.5" y="174.3" width="35.2" height="16.0" rx="5" fill="white" stroke="#e8590c" stroke-width="1.5"/>
+<text x="314.1" y="185.9" font-size="10" fill="#e8590c" text-anchor="middle" font-weight="bold" xml:space="preserve">0.7 m</text>
+<line x1="495.9" y1="284.5" x2="495.9" y2="80.0" stroke="#e8590c" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<rect x="478.3" y="174.3" width="35.2" height="16.0" rx="5" fill="white" stroke="#e8590c" stroke-width="1.5"/>
+<text x="495.9" y="185.9" font-size="10" fill="#e8590c" text-anchor="middle" font-weight="bold" xml:space="preserve">0.8 m</text>
+<line x1="64.1" y1="125.5" x2="268.6" y2="284.5" stroke="#e8590c" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<rect x="148.8" y="197.0" width="35.2" height="16.0" rx="5" fill="white" stroke="#e8590c" stroke-width="1.5"/>
+<text x="166.4" y="208.6" font-size="10" fill="#e8590c" text-anchor="middle" font-weight="bold" xml:space="preserve">0.9 m</text>
+<line x1="64.1" y1="125.5" x2="223.2" y2="80.0" stroke="#e8590c" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<rect x="126.1" y="94.7" width="35.2" height="16.0" rx="5" fill="white" stroke="#e8590c" stroke-width="1.5"/>
+<text x="143.6" y="106.3" font-size="10" fill="#e8590c" text-anchor="middle" font-weight="bold" xml:space="preserve">0.8 m</text>
+<rect x="41.6" y="319.0" width="45.0" height="22.0" rx="5" fill="white" stroke="#1c7ed6" stroke-width="1.5"/>
+<text x="64.1" y="334.3" font-size="12" fill="#1c7ed6" text-anchor="middle" font-weight="bold" xml:space="preserve">entry</text>
+<rect x="242.6" y="273.5" width="52.0" height="22.0" rx="5" fill="white" stroke="#1c7ed6" stroke-width="1.5"/>
+<text x="268.6" y="288.9" font-size="12" fill="#1c7ed6" text-anchor="middle" font-weight="bold" xml:space="preserve">living</text>
+<rect x="466.4" y="273.5" width="59.0" height="22.0" rx="5" fill="white" stroke="#1c7ed6" stroke-width="1.5"/>
+<text x="495.9" y="288.9" font-size="12" fill="#1c7ed6" text-anchor="middle" font-weight="bold" xml:space="preserve">kitchen</text>
+<rect x="45.1" y="114.5" width="38.0" height="22.0" rx="5" fill="white" stroke="#1c7ed6" stroke-width="1.5"/>
+<text x="64.1" y="129.8" font-size="12" fill="#1c7ed6" text-anchor="middle" font-weight="bold" xml:space="preserve">hall</text>
+<rect x="204.2" y="69.0" width="38.0" height="22.0" rx="5" fill="white" stroke="#1c7ed6" stroke-width="1.5"/>
+<text x="223.2" y="84.3" font-size="12" fill="#1c7ed6" text-anchor="middle" font-weight="bold" xml:space="preserve">bed1</text>
+<rect x="340.5" y="69.0" width="38.0" height="22.0" rx="5" fill="white" stroke="#1c7ed6" stroke-width="1.5"/>
+<text x="359.5" y="84.3" font-size="12" fill="#1c7ed6" text-anchor="middle" font-weight="bold" xml:space="preserve">bath</text>
+<rect x="476.9" y="69.0" width="38.0" height="22.0" rx="5" fill="white" stroke="#1c7ed6" stroke-width="1.5"/>
+<text x="495.9" y="84.3" font-size="12" fill="#1c7ed6" text-anchor="middle" font-weight="bold" xml:space="preserve">bed2</text>
+<text x="575.0" y="70.0" font-size="13" fill="#1c7ed6" text-anchor="start" font-weight="bold" xml:space="preserve">graph.node_attributes("living")</text>
+<text x="575.0" y="92.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">{</text>
+<text x="575.0" y="114.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">  "x": 6.0, "y": 2.5, "z": 0.0,</text>
+<text x="575.0" y="136.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">  "area": 30.0</text>
+<text x="575.0" y="158.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">}</text>
+<text x="575.0" y="180.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve"></text>
+<text x="575.0" y="202.0" font-size="13" fill="#e8590c" text-anchor="start" font-weight="bold" xml:space="preserve">graph.edge_attributes(("entry", "living"))</text>
+<text x="575.0" y="224.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">{"width": 1.2}</text>
+<text x="575.0" y="246.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve"></text>
+<text x="575.0" y="268.0" font-size="13" fill="#212529" text-anchor="start" font-weight="bold" xml:space="preserve">graph.neighbors("living")</text>
+<text x="575.0" y="290.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">['bath', 'entry', 'hall', 'kitchen']</text>
+<text x="575.0" y="312.0" font-size="13" fill="#212529" text-anchor="start" font-weight="bold" xml:space="preserve">graph.degree("living")</text>
+<text x="575.0" y="334.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">4</text>
+</svg>

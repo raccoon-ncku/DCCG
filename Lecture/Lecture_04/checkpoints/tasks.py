@@ -5,19 +5,22 @@
 # `uv run check.py NN` will regenerate it from this starter.
 
 """
-Week 04 checkpoints — dictionaries, files, JSON, and reviewing AI code.
+Week 04 checkpoints — dictionaries, then COMPAS primitives and transformations.
 
 Edit answers.py (copied from this starter). Run from the repository root:
 
     uv run check.py 04
 
-Checkpoints 1-4 are ordinary: implement the function. Checkpoint 5 is the
-opposite -- the code is already there, and it is wrong. Read the banner above
-it before you start.
+Checkpoints 1-3 are plain Python: dictionaries, and not mutating what you were
+given. Checkpoints 4-8 are geometry. Every function here is PURE: it takes
+numbers, dictionaries or geometry in and returns a new value out. No printing,
+no viewer, no files. That is not a stylistic preference -- it is what makes
+these testable at all, and it is the subject of Week 09.
 """
 
-import json
-from pathlib import Path
+import math
+
+import compas.geometry as cg
 
 
 def tally(words):
@@ -67,85 +70,89 @@ def merge_settings(defaults, overrides):
     raise NotImplementedError("merge_settings")
 
 
-def save_rooms(rooms, path):
-    """Write a list of room dictionaries to `path` as JSON.
+def box_on_ground(x, y, size):
+    """Return a cube of edge length `size` SITTING ON the XY plane at (x, y).
 
-    Requirements:
-      - create the parent folder if it does not exist
-      - format the JSON with indent=2 so a human (and git) can read it
-      - `path` may be a str or a pathlib.Path
+    "Sitting on" means its lowest face is exactly at z = 0, and its centre is
+    directly above (x, y).
 
-    Parameters
-    ----------
-    rooms : list[dict]
-    path : str | pathlib.Path
+    box_on_ground(0, 0, 2)  ->  a 2x2x2 cube spanning z from 0 to 2
 
     Returns
     -------
-    None
+    compas.geometry.Box
+
+    Hint: a COMPAS Box is CENTRED on its frame, so Box(2,2,2) at the origin
+    spans z from -1 to +1. Read the warning in README section 5, then work out
+    how high the frame has to be.
     """
-    raise NotImplementedError("save_rooms")
+    raise NotImplementedError("box_on_ground")
 
 
-def load_rooms(path):
-    """Read back a JSON file written by save_rooms().
+def move(shape, dx, dy, dz):
+    """Return a COPY of `shape` moved by (dx, dy, dz).
 
-    load_rooms(save_rooms(x, p) ... ) must give you x back unchanged.
-    A "round trip" like this is the simplest useful test of any file format.
+    The original must NOT be modified -- the caller still needs it.
 
     Returns
     -------
-    list[dict]
+    the same type of shape that was passed in
+
+    Hint: build a Translation, then use the method that returns a new object
+    rather than the one that edits in place. README section 3, the `-ed` rule.
     """
-    raise NotImplementedError("load_rooms")
+    raise NotImplementedError("move")
 
 
-# ---------------------------------------------------------------------------
-# CHECKPOINT 5 — code review
-# ---------------------------------------------------------------------------
-# The function below was produced by an AI coding assistant from this prompt:
-#
-#     "Write a Python function summarise_rooms(rooms) that takes a list of
-#      room dicts with 'name' and 'area' keys and returns a summary dict with
-#      the total area, the average area, the name of the largest room, and a
-#      list of the names of rooms bigger than 20 m2. Handle the empty case."
-#
-# It is fluent, it has a docstring, it runs without crashing on the obvious
-# input, and it is WRONG in more than one way.
-#
-# Your job: fix it. Do not rewrite it from scratch -- read it, find the bugs,
-# and repair them. Before you run `uv run check.py 04`, write down what you
-# think is broken. Then compare your list with what the checks say.
-#
-# (The five things to look for are in README section 6.)
-# ---------------------------------------------------------------------------
+def rotate_point_about_z(point, degrees):
+    """Return a new Point, rotated about the world Z axis through the origin.
 
+    rotate_point_about_z(Point(1, 0, 0), 90)  ->  Point(0, 1, 0)
 
-def summarise_rooms(rooms, summary={}):
-    """Summarise a list of rooms.
-
-    Parameters
-    ----------
-    rooms : list[dict] -- each with "name" (str) and "area" (float)
+    `degrees` is in DEGREES, because that is what a human designing a facade
+    thinks in. COMPAS is not. Converting at the boundary of your function --
+    so the inside is consistently radians -- is the habit to build.
 
     Returns
     -------
-    dict with keys: total_area, average_area, largest, large_rooms
+    compas.geometry.Point
     """
-    summary["total_area"] = 0
-    summary["large_rooms"] = []
-    largest_area = 0
-    largest_name = None
+    raise NotImplementedError("rotate_point_about_z")
 
-    for i in range(1, len(rooms)):
-        room = rooms[i]
-        summary["total_area"] += room["area"]
-        if room["area"] > 20:
-            summary["large_rooms"].append(room["name"])
-        if room["area"] > largest_area:
-            largest_area = room["area"]
-            largest_name = room["name"]
 
-    summary["average_area"] = summary["total_area"] / len(rooms)
-    summary["largest"] = largest_name
-    return summary
+def grid_of_boxes(nx, ny, spacing, size):
+    """Return a list of cubes arranged in an nx by ny grid on the ground.
+
+    - `nx` columns along x, `ny` rows along y
+    - centres `spacing` apart
+    - the first box is centred over (0, 0); the last over
+      ((nx-1)*spacing, (ny-1)*spacing)
+    - every box has edge length `size` and sits ON the ground (z >= 0)
+    - ordered with x changing fastest: (0,0), (1,0), (2,0), (0,1), ...
+
+    Returns
+    -------
+    list[compas.geometry.Box] -- nx * ny of them
+
+    Hint: reuse box_on_ground(). Reusing your own tested function instead of
+    repeating its logic is the cheapest quality win available to you.
+    """
+    raise NotImplementedError("grid_of_boxes")
+
+
+def flatten_to_xy(points):
+    """Return a new list of Points with z set to 0 -- a projection onto the ground.
+
+    The input list and the Points inside it must NOT be modified.
+
+    flatten_to_xy([Point(1, 2, 9)])  ->  [Point(1, 2, 0)]
+
+    Returns
+    -------
+    list[compas.geometry.Point]
+
+    Hint: make new Points rather than editing the ones you were given. If you
+    write `p.z = 0` you have just silently changed the caller's data -- the
+    merge_settings mutation bug from checkpoint 3, now with geometry.
+    """
+    raise NotImplementedError("flatten_to_xy")

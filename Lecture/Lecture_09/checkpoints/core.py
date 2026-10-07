@@ -2,7 +2,7 @@
 # Edit  answers_core.py  instead (auto-created from this file on first run).
 
 """
-Week 06 — THE CORE LAYER.
+Week 09 — THE CORE LAYER.
 
 Rules for this file, enforced by checkpoint 3:
 
@@ -45,7 +45,7 @@ def stacked_wall(n_courses, length=2.0, thickness=0.3, course_height=0.2, offset
     ------
     ValueError -- if n_courses is less than 1
 
-    Hint: reuse what you learned in Week 05 about a Box being CENTRED on its
+    Hint: reuse what you learned in Week 04 about a Box being CENTRED on its
     frame. And remember `i % 2` from Week 03 -- that is your odd/even test.
     """
     raise NotImplementedError("stacked_wall")

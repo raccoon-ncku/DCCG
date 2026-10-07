@@ -86,7 +86,7 @@ class Square(Rectangle):
 
 
 class Wall:
-    """The Week 06 wall, as a class -- and still part of the CORE layer.
+    """A stacked wall, as a class -- and part of the CORE layer.
 
     Must support:
         wall = Wall(n_courses=8, length=2.0, thickness=0.3,
@@ -95,7 +95,8 @@ class Wall:
         wall.to_boxes()      -> list[compas.geometry.Box], bottom course first
         repr(wall)           -> "Wall(8 courses, 1.60 m tall)"
 
-    Geometry rules (identical to Week 06 -- reuse what you worked out then):
+    Geometry rules (Week 09 builds this same wall again, as plain functions
+    split into core + runner -- so what you work out here carries over):
         - course i spans z from i*course_height to (i+1)*course_height
         - odd courses (1, 3, 5...) are offset along X by `offset`
         - even courses are centred on x = 0
@@ -104,7 +105,8 @@ class Wall:
     `n_courses` below 1 raises ValueError from the constructor.
 
     This class must stay PURE: no viewer, no files, no print. A checkpoint
-    checks the file for you, the same way Week 06 did.
+    checks the file for you by reading its imports. Week 09 explains why that
+    rule matters so much; for now, just keep the class free of them.
     """
 
     def __init__(self, n_courses, length=2.0, thickness=0.3,

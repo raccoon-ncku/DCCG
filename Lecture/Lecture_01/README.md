@@ -145,10 +145,10 @@ Pick **one** to start:
 - **GitHub Copilot** — free for students via the
   [GitHub Student Developer Pack](https://education.github.com/pack).
 - **Claude Code / Codex CLI** — terminal-based agents. We use these properly in
-  Weeks 11–14; you do not need one yet.
+  Weeks 13–14; you do not need one yet.
 
 You will also get a key for the **course LLM node** (`llm-api.rccn.dev`) in
-Week 11. It is free and unlimited for you, and deliberately runs a small model
+Week 13. It is free and unlimited for you, and deliberately runs a small model
 that fails in visible, instructive ways.
 
 ## 3. Get the repository
@@ -266,7 +266,7 @@ as the server. It covers Rhino 6 and 8, Windows and Mac.
 > Workspace Raccoon.
 
 Everything in this course runs **without** Rhino. That is the point of the
-architecture you will meet in Week 06.
+architecture you will meet in Week 09.
 
 ## 5. How checkpoints work
 
@@ -285,7 +285,7 @@ is separate from anything the instructor ships:**
 
 ```
 Lecture/<folder>/checkpoints/
-├── tasks.py         ← STARTER  ─┐  (or core.py + runner.py in Week 06)
+├── tasks.py         ← STARTER  ─┐  (or core.py + runner.py in Week 09)
 │                                │  read-only; git-tracked
 │                    auto-copied ├─ every `git pull` refreshes it
 │                                │
@@ -378,7 +378,7 @@ course. Always `uv run`.
 
 **A viewer window opens then immediately closes / crashes** — this is a
 graphics-driver issue, not a Python one. Every viewer example in this repo has
-a headless equivalent that writes a `.json` file instead; from Week 06 that is
+a headless equivalent that writes a `.json` file instead; from Week 09 that is
 the primary mode anyway.
 
 **Something is broken in a way you cannot name** — nuke and rebuild. It is

@@ -13,7 +13,7 @@ right.**
 
 So for every example below: predict the output *before* you run it. If your
 prediction is wrong, that gap is the actual lesson. This is exactly the skill
-you will need in Week 11, when the code on your screen was written by
+you will need in Week 13, when the code on your screen was written by
 something that does not know what it is doing.
 
 ---

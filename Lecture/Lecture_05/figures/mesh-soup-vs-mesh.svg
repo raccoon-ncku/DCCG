@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="330" viewBox="0 0 860 330" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<text x="215.0" y="20.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">A list of triangles</text>
+<polygon points="142.1,236.3 307.8,236.3 307.8,70.6" fill="#fff4e6" stroke="#e8590c" stroke-width="1.5" stroke-linejoin="round" fill-opacity="1.0"/>
+<circle cx="142.1" cy="236.3" r="4" fill="#e8590c" stroke="white" stroke-width="1.5"/>
+<circle cx="307.8" cy="236.3" r="4" fill="#e8590c" stroke="white" stroke-width="1.5"/>
+<circle cx="307.8" cy="70.6" r="4" fill="#e8590c" stroke="white" stroke-width="1.5"/>
+<polygon points="122.2,223.1 287.9,57.4 122.2,57.4" fill="#fff4e6" stroke="#e8590c" stroke-width="1.5" stroke-linejoin="round" fill-opacity="1.0"/>
+<circle cx="122.2" cy="223.1" r="4" fill="#e8590c" stroke="white" stroke-width="1.5"/>
+<circle cx="287.9" cy="57.4" r="4" fill="#e8590c" stroke="white" stroke-width="1.5"/>
+<circle cx="122.2" cy="57.4" r="4" fill="#e8590c" stroke="white" stroke-width="1.5"/>
+<text x="215.0" y="267.0" font-size="12" fill="#e8590c" text-anchor="middle" font-weight="normal" xml:space="preserve">6 points -- the shared corners stored twice</text>
+<text x="215.0" y="291.9" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">who touches whom? compare floats</text>
+<text x="645.0" y="20.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">A mesh</text>
+<polygon points="562.1,229.7 727.9,229.7 727.9,64.0" fill="#e7f5ff" stroke="#212529" stroke-width="1.5" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="562.1,229.7 727.9,64.0 562.1,64.0" fill="#e7f5ff" stroke="#212529" stroke-width="1.5" stroke-linejoin="round" fill-opacity="1.0"/>
+<rect x="662.6" y="164.5" width="20" height="20" rx="3" fill="white" stroke="#1c7ed6" stroke-width="1.5"/>
+<text x="672.6" y="178.8" font-size="12" fill="#1c7ed6" text-anchor="middle" font-weight="bold" xml:space="preserve">0</text>
+<rect x="607.4" y="109.2" width="20" height="20" rx="3" fill="white" stroke="#1c7ed6" stroke-width="1.5"/>
+<text x="617.4" y="123.6" font-size="12" fill="#1c7ed6" text-anchor="middle" font-weight="bold" xml:space="preserve">1</text>
+<circle cx="562.1" cy="229.7" r="10" fill="#212529" stroke="white" stroke-width="1.5"/>
+<text x="562.1" y="233.7" font-size="11" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">0</text>
+<circle cx="727.9" cy="229.7" r="10" fill="#212529" stroke="white" stroke-width="1.5"/>
+<text x="727.9" y="233.7" font-size="11" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">1</text>
+<circle cx="727.9" cy="64.0" r="10" fill="#212529" stroke="white" stroke-width="1.5"/>
+<text x="727.9" y="68.0" font-size="11" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">2</text>
+<circle cx="562.1" cy="64.0" r="10" fill="#212529" stroke="white" stroke-width="1.5"/>
+<text x="562.1" y="68.0" font-size="11" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">3</text>
+<text x="645.0" y="267.0" font-size="12" fill="#1c7ed6" text-anchor="middle" font-weight="normal" xml:space="preserve">4 vertices -- faces [0, 1, 2] and [0, 2, 3]</text>
+<text x="645.0" y="291.9" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">edge (0, 2) is shared -- by key</text>
+</svg>

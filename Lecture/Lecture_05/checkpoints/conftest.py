@@ -3,8 +3,8 @@
 #   1) Add this folder to sys.path so tests in spec/ can `from answers import …`
 #   2) On first run, COPY the shipped starter to a gitignored answer file:
 #        tasks.py  ->  answers.py           (standard weeks)
-#        core.py   ->  answers_core.py      (Week 06)
-#        runner.py ->  answers_runner.py    (Week 06)
+#        core.py   ->  answers_core.py      (Week 09)
+#        runner.py ->  answers_runner.py    (Week 09)
 #
 # The starter is read-only reference; students edit the copy. Every `git pull
 # upstream main` refreshes the starter without touching student work.

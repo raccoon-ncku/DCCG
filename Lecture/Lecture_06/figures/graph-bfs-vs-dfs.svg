@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="360" viewBox="0 0 900 360" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<text x="225.0" y="20.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">breadth-first from entry: near rooms first</text>
+<line x1="46.0" y1="298.6" x2="215.6" y2="260.9" stroke="#adb5bd" stroke-width="2.5" stroke-linecap="round" opacity="1.0"/>
+<line x1="46.0" y1="298.6" x2="46.0" y2="129.1" stroke="#adb5bd" stroke-width="2.5" stroke-linecap="round" opacity="1.0"/>
+<line x1="215.6" y1="260.9" x2="404.0" y2="260.9" stroke="#adb5bd" stroke-width="2.5" stroke-linecap="round" opacity="1.0"/>
+<line x1="215.6" y1="260.9" x2="290.9" y2="91.4" stroke="#adb5bd" stroke-width="2.5" stroke-linecap="round" opacity="1.0"/>
+<line x1="404.0" y1="260.9" x2="404.0" y2="91.4" stroke="#adb5bd" stroke-width="2.5" stroke-linecap="round" opacity="1.0"/>
+<line x1="46.0" y1="129.1" x2="215.6" y2="260.9" stroke="#adb5bd" stroke-width="2.5" stroke-linecap="round" opacity="1.0"/>
+<line x1="46.0" y1="129.1" x2="177.9" y2="91.4" stroke="#adb5bd" stroke-width="2.5" stroke-linecap="round" opacity="1.0"/>
+<circle cx="46.0" cy="298.6" r="0" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="215.6" cy="260.9" r="0" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="404.0" cy="260.9" r="0" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="46.0" cy="129.1" r="0" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="177.9" cy="91.4" r="0" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="290.9" cy="91.4" r="0" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="404.0" cy="91.4" r="0" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="46.0" cy="298.6" r="13" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<text x="46.0" y="303.3" font-size="13" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">1</text>
+<text x="46.0" y="326.6" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">entry</text>
+<circle cx="46.0" cy="129.1" r="13" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<text x="46.0" y="133.7" font-size="13" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">2</text>
+<text x="46.0" y="157.1" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">hall</text>
+<circle cx="215.6" cy="260.9" r="13" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<text x="215.6" y="265.6" font-size="13" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">3</text>
+<text x="215.6" y="288.9" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">living</text>
+<circle cx="177.9" cy="91.4" r="13" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<text x="177.9" y="96.0" font-size="13" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">4</text>
+<text x="177.9" y="119.4" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">bed1</text>
+<circle cx="290.9" cy="91.4" r="13" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<text x="290.9" y="96.0" font-size="13" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">5</text>
+<text x="290.9" y="119.4" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">bath</text>
+<circle cx="404.0" cy="260.9" r="13" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<text x="404.0" y="265.6" font-size="13" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">6</text>
+<text x="404.0" y="288.9" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">kitchen</text>
+<circle cx="404.0" cy="91.4" r="13" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<text x="404.0" y="96.0" font-size="13" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">7</text>
+<text x="404.0" y="119.4" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">bed2</text>
+<text x="225.0" y="348.0" font-size="11" fill="#1c7ed6" text-anchor="middle" font-weight="normal" xml:space="preserve">entry → hall → living → bed1 → bath → kitchen → bed2</text>
+<text x="675.0" y="20.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">depth-first from entry: one corridor to the end</text>
+<line x1="496.0" y1="298.6" x2="665.6" y2="260.9" stroke="#adb5bd" stroke-width="2.5" stroke-linecap="round" opacity="1.0"/>
+<line x1="496.0" y1="298.6" x2="496.0" y2="129.1" stroke="#adb5bd" stroke-width="2.5" stroke-linecap="round" opacity="1.0"/>
+<line x1="665.6" y1="260.9" x2="854.0" y2="260.9" stroke="#adb5bd" stroke-width="2.5" stroke-linecap="round" opacity="1.0"/>
+<line x1="665.6" y1="260.9" x2="740.9" y2="91.4" stroke="#adb5bd" stroke-width="2.5" stroke-linecap="round" opacity="1.0"/>
+<line x1="854.0" y1="260.9" x2="854.0" y2="91.4" stroke="#adb5bd" stroke-width="2.5" stroke-linecap="round" opacity="1.0"/>
+<line x1="496.0" y1="129.1" x2="665.6" y2="260.9" stroke="#adb5bd" stroke-width="2.5" stroke-linecap="round" opacity="1.0"/>
+<line x1="496.0" y1="129.1" x2="627.9" y2="91.4" stroke="#adb5bd" stroke-width="2.5" stroke-linecap="round" opacity="1.0"/>
+<circle cx="496.0" cy="298.6" r="0" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="665.6" cy="260.9" r="0" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="854.0" cy="260.9" r="0" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="496.0" cy="129.1" r="0" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="627.9" cy="91.4" r="0" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="740.9" cy="91.4" r="0" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="854.0" cy="91.4" r="0" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="496.0" cy="298.6" r="13" fill="#7048e8" stroke="white" stroke-width="1.5"/>
+<text x="496.0" y="303.3" font-size="13" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">1</text>
+<text x="496.0" y="326.6" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">entry</text>
+<circle cx="496.0" cy="129.1" r="13" fill="#7048e8" stroke="white" stroke-width="1.5"/>
+<text x="496.0" y="133.7" font-size="13" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">2</text>
+<text x="496.0" y="157.1" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">hall</text>
+<circle cx="627.9" cy="91.4" r="13" fill="#7048e8" stroke="white" stroke-width="1.5"/>
+<text x="627.9" y="96.0" font-size="13" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">3</text>
+<text x="627.9" y="119.4" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">bed1</text>
+<circle cx="665.6" cy="260.9" r="13" fill="#7048e8" stroke="white" stroke-width="1.5"/>
+<text x="665.6" y="265.6" font-size="13" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">4</text>
+<text x="665.6" y="288.9" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">living</text>
+<circle cx="740.9" cy="91.4" r="13" fill="#7048e8" stroke="white" stroke-width="1.5"/>
+<text x="740.9" y="96.0" font-size="13" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">5</text>
+<text x="740.9" y="119.4" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">bath</text>
+<circle cx="854.0" cy="260.9" r="13" fill="#7048e8" stroke="white" stroke-width="1.5"/>
+<text x="854.0" y="265.6" font-size="13" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">6</text>
+<text x="854.0" y="288.9" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">kitchen</text>
+<circle cx="854.0" cy="91.4" r="13" fill="#7048e8" stroke="white" stroke-width="1.5"/>
+<text x="854.0" y="96.0" font-size="13" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">7</text>
+<text x="854.0" y="119.4" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">bed2</text>
+<text x="675.0" y="348.0" font-size="11" fill="#7048e8" text-anchor="middle" font-weight="normal" xml:space="preserve">entry → hall → bed1 → living → bath → kitchen → bed2</text>
+</svg>

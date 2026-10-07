@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="390" viewBox="0 0 900 390" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<text x="450.0" y="20.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">graph.degree(node): how many edges meet there</text>
+<line x1="268.6" y1="300.0" x2="440.5" y2="261.8" stroke="#adb5bd" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<line x1="268.6" y1="300.0" x2="268.6" y2="128.2" stroke="#adb5bd" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<line x1="440.5" y1="261.8" x2="631.4" y2="261.8" stroke="#adb5bd" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<line x1="440.5" y1="261.8" x2="516.8" y2="90.0" stroke="#adb5bd" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<line x1="631.4" y1="261.8" x2="631.4" y2="90.0" stroke="#adb5bd" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<line x1="268.6" y1="128.2" x2="440.5" y2="261.8" stroke="#adb5bd" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<line x1="268.6" y1="128.2" x2="402.3" y2="90.0" stroke="#adb5bd" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<circle cx="268.6" cy="300.0" r="0" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="440.5" cy="261.8" r="0" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="631.4" cy="261.8" r="0" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="268.6" cy="128.2" r="0" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="402.3" cy="90.0" r="0" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="516.8" cy="90.0" r="0" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="631.4" cy="90.0" r="0" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="268.6" cy="300.0" r="22" fill="#1c7ed6" fill-opacity="0.18" stroke="#1c7ed6" stroke-width="2"/>
+<text x="268.6" y="305.0" font-size="15" fill="#1c7ed6" text-anchor="middle" font-weight="bold" xml:space="preserve">2</text>
+<text x="268.6" y="337.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">entry</text>
+<circle cx="440.5" cy="261.8" r="32" fill="#1c7ed6" fill-opacity="0.18" stroke="#1c7ed6" stroke-width="2"/>
+<text x="440.5" y="266.8" font-size="15" fill="#1c7ed6" text-anchor="middle" font-weight="bold" xml:space="preserve">4</text>
+<text x="440.5" y="308.8" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">living</text>
+<circle cx="631.4" cy="261.8" r="22" fill="#1c7ed6" fill-opacity="0.18" stroke="#1c7ed6" stroke-width="2"/>
+<text x="631.4" y="266.8" font-size="15" fill="#1c7ed6" text-anchor="middle" font-weight="bold" xml:space="preserve">2</text>
+<text x="631.4" y="298.8" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">kitchen</text>
+<circle cx="268.6" cy="128.2" r="27" fill="#1c7ed6" fill-opacity="0.18" stroke="#1c7ed6" stroke-width="2"/>
+<text x="268.6" y="133.2" font-size="15" fill="#1c7ed6" text-anchor="middle" font-weight="bold" xml:space="preserve">3</text>
+<text x="268.6" y="170.2" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">hall</text>
+<circle cx="402.3" cy="90.0" r="17" fill="#e03131" fill-opacity="0.18" stroke="#e03131" stroke-width="2"/>
+<text x="402.3" y="95.0" font-size="15" fill="#e03131" text-anchor="middle" font-weight="bold" xml:space="preserve">1</text>
+<text x="402.3" y="122.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">bed1</text>
+<circle cx="516.8" cy="90.0" r="17" fill="#e03131" fill-opacity="0.18" stroke="#e03131" stroke-width="2"/>
+<text x="516.8" y="95.0" font-size="15" fill="#e03131" text-anchor="middle" font-weight="bold" xml:space="preserve">1</text>
+<text x="516.8" y="122.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">bath</text>
+<circle cx="631.4" cy="90.0" r="17" fill="#e03131" fill-opacity="0.18" stroke="#e03131" stroke-width="2"/>
+<text x="631.4" y="95.0" font-size="15" fill="#e03131" text-anchor="middle" font-weight="bold" xml:space="preserve">1</text>
+<text x="631.4" y="122.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">bed2</text>
+<text x="450.0" y="378.0" font-size="13" fill="#e03131" text-anchor="middle" font-weight="normal" xml:space="preserve">red: graph.leaves() = ['bath', 'bed1', 'bed2'] -- degree 1, dead ends</text>
+</svg>

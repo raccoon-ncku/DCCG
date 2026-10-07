@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="350" viewBox="0 0 900 350" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<text x="150.0" y="20.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">a flat grid</text>
+<polygon points="50.0,256.7 116.7,256.7 116.7,190.0 50.0,190.0" fill="#e7f5ff" stroke="#2f9e44" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="116.7,256.7 183.3,256.7 183.3,190.0 116.7,190.0" fill="#e7f5ff" stroke="#2f9e44" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="183.3,256.7 250.0,256.7 250.0,190.0 183.3,190.0" fill="#e7f5ff" stroke="#2f9e44" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="50.0,190.0 116.7,190.0 116.7,123.3 50.0,123.3" fill="#e7f5ff" stroke="#2f9e44" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="116.7,190.0 183.3,190.0 183.3,123.3 116.7,123.3" fill="#e7f5ff" stroke="#2f9e44" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="183.3,190.0 250.0,190.0 250.0,123.3 183.3,123.3" fill="#e7f5ff" stroke="#2f9e44" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<circle cx="50.0" cy="256.7" r="4" fill="#2f9e44" stroke="white" stroke-width="1.5"/>
+<circle cx="116.7" cy="256.7" r="4" fill="#2f9e44" stroke="white" stroke-width="1.5"/>
+<circle cx="183.3" cy="256.7" r="4" fill="#2f9e44" stroke="white" stroke-width="1.5"/>
+<circle cx="250.0" cy="256.7" r="4" fill="#2f9e44" stroke="white" stroke-width="1.5"/>
+<circle cx="50.0" cy="190.0" r="4" fill="#2f9e44" stroke="white" stroke-width="1.5"/>
+<circle cx="116.7" cy="190.0" r="4" fill="#2f9e44" stroke="white" stroke-width="1.5"/>
+<circle cx="183.3" cy="190.0" r="4" fill="#2f9e44" stroke="white" stroke-width="1.5"/>
+<circle cx="250.0" cy="190.0" r="4" fill="#2f9e44" stroke="white" stroke-width="1.5"/>
+<circle cx="50.0" cy="123.3" r="4" fill="#2f9e44" stroke="white" stroke-width="1.5"/>
+<circle cx="116.7" cy="123.3" r="4" fill="#2f9e44" stroke="white" stroke-width="1.5"/>
+<circle cx="183.3" cy="123.3" r="4" fill="#2f9e44" stroke="white" stroke-width="1.5"/>
+<circle cx="250.0" cy="123.3" r="4" fill="#2f9e44" stroke="white" stroke-width="1.5"/>
+<text x="150.0" y="318.0" font-size="14" fill="#2f9e44" text-anchor="middle" font-weight="bold" xml:space="preserve">V - E + F = 12 - 17 + 6 = 1</text>
+<text x="450.0" y="20.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">a grid with a hole</text>
+<polygon points="350.0,290.0 416.7,290.0 416.7,223.3 350.0,223.3" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="416.7,290.0 483.3,290.0 483.3,223.3 416.7,223.3" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="483.3,290.0 550.0,290.0 550.0,223.3 483.3,223.3" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="350.0,223.3 416.7,223.3 416.7,156.7 350.0,156.7" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="483.3,223.3 550.0,223.3 550.0,156.7 483.3,156.7" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="350.0,156.7 416.7,156.7 416.7,90.0 350.0,90.0" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="416.7,156.7 483.3,156.7 483.3,90.0 416.7,90.0" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="483.3,156.7 550.0,156.7 550.0,90.0 483.3,90.0" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<circle cx="350.0" cy="290.0" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="416.7" cy="290.0" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="483.3" cy="290.0" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="550.0" cy="290.0" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="350.0" cy="223.3" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="416.7" cy="223.3" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="483.3" cy="223.3" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="550.0" cy="223.3" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="350.0" cy="156.7" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="416.7" cy="156.7" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="483.3" cy="156.7" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="550.0" cy="156.7" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="350.0" cy="90.0" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="416.7" cy="90.0" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="483.3" cy="90.0" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="550.0" cy="90.0" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<text x="450.0" y="318.0" font-size="14" fill="#1c7ed6" text-anchor="middle" font-weight="bold" xml:space="preserve">V - E + F = 16 - 24 + 8 = 0</text>
+<text x="750.0" y="20.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">duplicated vertices (bug)</text>
+<polygon points="650.0,240.0 750.0,240.0 750.0,140.0 650.0,140.0" fill="white" stroke="#e03131" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="750.0,240.0 850.0,240.0 850.0,140.0 750.0,140.0" fill="white" stroke="#e03131" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<circle cx="650.0" cy="240.0" r="4" fill="#e03131" stroke="white" stroke-width="1.5"/>
+<circle cx="750.0" cy="240.0" r="4" fill="#e03131" stroke="white" stroke-width="1.5"/>
+<circle cx="750.0" cy="140.0" r="4" fill="#e03131" stroke="white" stroke-width="1.5"/>
+<circle cx="650.0" cy="140.0" r="4" fill="#e03131" stroke="white" stroke-width="1.5"/>
+<circle cx="750.0" cy="240.0" r="4" fill="#e03131" stroke="white" stroke-width="1.5"/>
+<circle cx="850.0" cy="240.0" r="4" fill="#e03131" stroke="white" stroke-width="1.5"/>
+<circle cx="850.0" cy="140.0" r="4" fill="#e03131" stroke="white" stroke-width="1.5"/>
+<circle cx="750.0" cy="140.0" r="4" fill="#e03131" stroke="white" stroke-width="1.5"/>
+<text x="764.0" y="132.0" font-size="12" fill="#e03131" text-anchor="start" font-weight="bold" xml:space="preserve">x2</text>
+<text x="764.0" y="256.0" font-size="12" fill="#e03131" text-anchor="start" font-weight="bold" xml:space="preserve">x2</text>
+<text x="750.0" y="318.0" font-size="14" fill="#e03131" text-anchor="middle" font-weight="bold" xml:space="preserve">V - E + F = 8 - 8 + 2 = 2</text>
+</svg>

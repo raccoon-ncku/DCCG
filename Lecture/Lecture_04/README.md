@@ -1,17 +1,17 @@
-# Week 04 — Python III: dictionaries, files, JSON — and reading AI code
+# Week 04 — Dictionaries, tuples, and COMPAS core
 
 > Self-contained. `uv run check.py 04` when you are ready.
 
 Two halves this week.
 
-**First**, the last pieces of core Python you need: dictionaries (how you
-attach *meaning* to data), files, and JSON (how data survives past the end of
-your program). JSON matters more than it looks — from Week 06 onward, the
-verified output of your work is a JSON file.
+**First**, the last pieces of core Python you need before geometry:
+dictionaries (how you attach *meaning* to data) and tuples (fixed records,
+like a coordinate). Dictionaries matter more than they look: from next week
+on, every vertex, edge and face you work with carries one.
 
-**Second**, the skill this course is actually about: **reading code you did not
-write and finding what is wrong with it.** The last checkpoint is an
-AI-generated module that looks completely reasonable and is not.
+**Second**, COMPAS: points, vectors, frames, shapes and the transformations
+that move them. This is the geometry kernel the rest of the course is built
+on.
 
 ---
 
@@ -61,7 +61,7 @@ for value in room.values():
     print(value)
 ```
 
-📄 `../Lecture_05/python_examples/3.2.1_dictionary.py`, `3.2.2_update_dictionary.py`,
+📄 `python_examples/3.2.1_dictionary.py`, `3.2.2_update_dictionary.py`,
 `3.2.3_dictionary_iteration.py`
 
 ### The counting pattern
@@ -78,9 +78,11 @@ for word in words:
 
 This is why we care. A mesh vertex is not just a point; it is a point *with
 attributes* — a colour, a load, a material, a fabrication ID. COMPAS stores
-exactly that, as dictionaries, on every vertex and face. Week 09 builds on this.
+exactly that, as dictionaries, on every vertex and face. Next week builds on
+this directly: a mesh is the first place in this course where dictionaries do
+real geometric work.
 
-### Tuples, briefly
+## 2. Tuples
 
 A tuple is an unchangeable list, written with parentheses:
 
@@ -91,233 +93,257 @@ x, y, z = point            # unpacking
 
 Use a tuple when the collection is a fixed record (a coordinate, an RGB
 colour) rather than a growing sequence. Tuples can be dictionary keys; lists
-cannot.
-
-📄 `../Lecture_05/python_examples/3.3_tuples.py`
-
-## 2. Files
-
-### Paths — use `pathlib`, always
+cannot:
 
 ```python
-from pathlib import Path
-
-folder = Path("data")
-file = folder / "result.json"      # the / operator joins path parts
-
-file.exists()
-file.parent
-file.name          # 'result.json'
-file.stem          # 'result'
-file.suffix        # '.json'
-folder.mkdir(parents=True, exist_ok=True)   # create it, no error if present
+cells = {}
+cells[(2, 3)] = "occupied"     # a grid cell, keyed by (column, row)
+cells[[2, 3]] = "occupied"     # TypeError: unhashable type: 'list'
 ```
 
-Never build paths by gluing strings with `"/"` or `"\\"` — that breaks between
-Windows and macOS, and it is the reason half of all "works on my machine"
-problems exist.
+That last trick turns up next week: a mesh edge is identified by a tuple of
+two vertex keys, `(u, v)`.
 
-**Where does a relative path point?** To your *current working directory* — the
-folder your terminal is in, not the folder the script is in. To get a path
-relative to the script itself:
+`for key, value in room.items()` was tuple unpacking all along: `.items()`
+hands you one `(key, value)` tuple at a time.
+
+📄 `python_examples/3.3_tuples.py`
+
+---
+
+## COMPAS core
+
+From here on, everything is geometry. COMPAS is the library the whole course
+is built on, and unusually for a CAD-adjacent tool it is **plain Python that
+runs anywhere**: your terminal, a test suite, a server with no screen, and
+also inside Rhino and Grasshopper. That property is what makes the Week 09
+architecture possible.
+
+### Install
+
+Nothing to do. `uv sync` already installed COMPAS.
+
+```bash
+uv run python -c "import compas; print(compas.__version__)"
+```
+
+> If you are following an older tutorial, you will find pages of
+> `conda install compas_cgal` instructions. Ignore them. This project pins
+> everything in `uv.lock`; adding packages by hand is how you break it.
+
+---
+
+## 3. Points and vectors
 
 ```python
-HERE = Path(__file__).parent
-data = HERE / "data" / "input.json"
+import compas.geometry as cg
+
+point = cg.Point(19, 25, 7)
+vector = cg.Vector(1, 0, 5)
+
+point.x, point.y, point.z      # by name
+vector[0], vector[1], vector[2] # or by index -- both work
 ```
 
-📄 `python_examples/7.2.1_path.py` … `7.3_pathlib.py`
-
-### Reading and writing
+A **Point** is a location. A **Vector** is a direction and a length. They hold
+the same three numbers and mean completely different things:
 
 ```python
-path = Path("notes.txt")
-
-path.write_text("hello")        # simplest possible write
-content = path.read_text()      # and read
+point + vector    # a Point -- "start here, move that way"
+point - point     # a Vector -- "the step from one to the other"
+vector + vector   # a Vector
 ```
 
-For anything larger, or line by line, use `with`:
+"Rotate a point about the origin" moves it. "Rotate a vector" only changes its
+direction — it has no position to move. Getting these two confused is the
+source of a whole category of geometry bugs that look like the object is in the
+wrong place for no reason.
 
 ```python
-with open(path, "w") as f:
-    f.write("hello\n")
-
-with open(path) as f:
-    for line in f:
-        print(line.rstrip())
+v = cg.Vector(3, 4, 0)
+v.length            # 5.0
+v.unitized()        # a NEW vector of length 1
+v.unitize()         # modifies v IN PLACE, returns None
 ```
 
-`with` closes the file for you, **even if an error happens inside the block.**
-That is the whole reason it exists.
+> ⚠️ **The `-ed` rule.** Across all of COMPAS: `unitize()`/`transform()`/`scale()`
+> change the object in place; `unitized()`/`transformed()`/`scaled()` return a
+> new one and leave the original alone. One letter, completely different
+> behaviour. When a shape mysteriously moves twice, this is usually why.
 
-Modes: `"r"` read (default), `"w"` write — **erases the file first** — `"a"`
-append.
+📄 `compas_core_examples/1.1_points_and_vectors.py`, `1.2_…operations.py`, `1.3_vector_operations.py`
 
-📄 `python_examples/7.1.1_write_file.py`, `7.1.2_with_statement.py`, `7.1.3_read_file.py`
-
-## 3. JSON
-
-JSON is a text format for structured data. Nearly every tool reads it, which
-is why it is how your geometry will travel between your code, the viewer, git,
-and Rhino.
+### Vector maths you will actually use
 
 ```python
-import json
-from pathlib import Path
-
-data = {"name": "wall", "courses": 12, "heights": [0.1, 0.2, 0.3]}
-
-Path("wall.json").write_text(json.dumps(data, indent=2))   # write
-loaded = json.loads(Path("wall.json").read_text())          # read back
+a.dot(b)      # scalar. 0 means perpendicular. Sign tells you "same side?"
+a.cross(b)    # a vector perpendicular to BOTH -- this is how you build a frame
+a.angle(b)    # radians
 ```
 
-`indent=2` makes the file human-readable *and* diffable in git — so a reviewer
-can see what changed between two versions of your design. Always use it.
+## 4. Planes and frames
 
-What JSON can hold: `dict`, `list`, `str`, `int`, `float`, `bool`, `None`.
-What it cannot: tuples (they come back as lists), sets, and your own classes.
-
-> COMPAS has its own JSON layer — `compas.json_dump` / `compas.json_load` —
-> which *can* store geometry objects. You will meet it in Week 05 and rely on
-> it from Week 06.
-
-## 4. Handling errors on purpose
-
-Week 03 covered *reading* a traceback — bottom line first — and the errors you
-meet most. Dictionaries and files add two more to that list:
-
-| Error | Usually means |
-| ----- | ------------- |
-| `KeyError` | that dictionary key does not exist — use `.get()` if absence is normal |
-| `FileNotFoundError` | the path is wrong, or relative to a different folder than you think |
-
-This week is the other half: failure you **expect**, and choose to handle.
+A **Plane** is a point plus a normal. A **Frame** is a point plus an x-axis and
+a y-axis — a full local coordinate system.
 
 ```python
-try:
-    value = int(user_input)
-except ValueError:
-    print("That was not a number.")
+frame = cg.Frame(
+    cg.Point(15, 24, 3),      # origin
+    cg.Vector(1, 0, 0),       # x-axis
+    cg.Vector(0, 1, 0),       # y-axis
+)
+
+frame.point     # origin
+frame.xaxis     # normalised automatically
+frame.yaxis
+frame.zaxis     # computed for you: xaxis cross yaxis
+
+cg.Frame.worldXY()     # the global origin frame -- the default everywhere
 ```
 
-Catch only what you can actually handle, and name it. A bare `except:` swallows
-everything — including the typo you have not found yet — and turns a loud,
-findable bug into a silent, permanent one.
+**A frame is the single most useful idea in this course.** Rather than
+computing rotated coordinates by hand, you place a frame where you want it and
+build the object *in* the frame. Every element you make from here on is positioned
+by its frame.
 
-The distinction is worth stating plainly, because it is a design decision you
-will make repeatedly from Week 06 onward:
+📄 `compas_core_examples/2.1_planes.py`, `3.1_frames.py`, `3.2_frame_constructors.py`
 
-- A missing key that means **your program is broken** should crash. Let it.
-- A missing key that is **a normal situation** deserves `.get()` or a `try`.
+## 5. Shapes
 
-Silencing the first kind is how a wall with eleven courses gets built.
+```python
+box = cg.Box(2, 3, 4)                     # xsize, ysize, zsize, centred on worldXY
+box = cg.Box(2, 3, 4, frame=some_frame)   # ... or on a frame you choose
 
-📄 `../Lecture_09/python_examples/try_statement.py`
+box.xsize, box.ysize, box.zsize
+box.volume        # 24.0
+box.frame.point   # the CENTRE of the box
+box.points        # its 8 corners
 
-## 5. What an LLM actually is
+cg.Sphere(radius=2)
+cg.Cylinder(radius=1, height=5)
+```
 
-You have been using an assistant since Week 01. Here is what it is doing, and
-it is less than most people assume.
+> ⚠️ **A COMPAS box is centred on its frame, not resting on it.** `Box(2,3,4)`
+> spans z from **-2 to +2**, not 0 to 4. To sit a box on the ground, lift its
+> frame by half its height. Half the "why is my tower buried in the floor"
+> problems in this course are this one fact.
 
-**A language model predicts plausible continuations of text.** Give it your
-code and your question, and it produces what tends to follow text like that.
-That is the whole mechanism. It is not executing your code, not checking your
-units, not reasoning about your wall.
+📄 `compas_core_examples/5.1_shapes.py`
 
-Three consequences that matter this week:
+## 6. Transformations
 
-1. **It is a function, not a colleague.** Same input, same distribution of
-   outputs. It has no memory of yesterday, and within one conversation it only
-   sees what is on screen. If a constraint matters, it has to be in the prompt.
-2. **Fluency is not correctness.** Confident prose, tidy variable names and a
-   well-formed docstring are properties of the *writing*. They are not evidence
-   about the code. This is the single most expensive misunderstanding available
-   to you this semester.
-3. **It fails silently and plausibly.** A human who does not know says so. A
-   model produces its best guess in the same confident voice it uses when
-   right — including inventing methods that do not exist and citing papers that
-   were never written.
+A transformation is a 4×4 matrix. You almost never write one out; you build it
+with a constructor and apply it.
 
-It follows that it is strongest where a mistake is cheap and obvious —
-boilerplate, format conversion, a first draft, explaining unfamiliar code — and
-weakest where a mistake is silent: numeric detail, units, edge cases, and
-anything that depends on facts about your project it cannot see.
+```python
+import math
 
-In Week 11 you will build the loop that drives one of these, from scratch, and
-this description becomes a piece of code you can read.
+T = cg.Translation.from_vector([5, 0, 0])
+R = cg.Rotation.from_axis_and_angle([0, 0, 1], math.radians(45))
+S = cg.Scale.from_factors([2, 2, 2])
 
-### Asking well
+moved = box.transformed(T)      # a NEW box
+box.transform(T)                # or modify in place
+```
 
-The quality of what comes back tracks the specificity of the request more than
-anything else you control.
+> ⚠️ **Angles are radians.** `math.radians(45)` converts. Passing 45 directly
+> asks for 45 radians ≈ 2578°, which is roughly 138° — wrong, but plausible
+> enough that you may not notice.
 
-| Instead of | Ask |
-| ---------- | --- |
-| "write a function for rooms" | "Write `summarise_rooms(rooms)` taking a list of dicts with `name` and `area` keys, returning the count, the total area, and the mean. Decide what an empty list should do and say why." |
-| "fix this" | "This raises `KeyError: 'area'` on line 12. Here is the traceback and the input. What causes it?" |
-| "is this good?" | "What happens for an empty list? For one item? For a negative area?" |
-| "explain dictionaries" | "Explain line by line what `counts[word] = counts.get(word, 0) + 1` does." |
+### Combining transformations
 
-Four habits worth building now:
+Multiply them. **Order matters**, and it reads right-to-left — the rightmost
+happens first:
 
-- **State the signature you want** — name, parameters, what comes back. You
-  design the interface; let it fill the body.
-- **Paste the real error**, complete, as text.
-- **Ask one thing.** Four requests in a prompt get four mediocre answers.
-- **Ask it to explain rather than produce** when you are trying to learn.
-  Accepted-but-not-understood code is a debt, and Week 13 is when it comes due.
+```python
+X = T * R          # rotate FIRST, then translate
+Y = R * T          # translate first, then rotate -- a different result
+```
 
-> If you cannot describe what you want precisely enough for a model to build
-> it, you have not finished thinking about the problem. That difficulty is
-> information. In Week 10 this becomes a formal idea: a brief you can turn into
-> a test is a finished brief.
+Rotate-then-translate spins the object where it stands and then moves it.
+Translate-then-rotate swings it around the origin like a planet. Both are
+useful; picking the wrong one is a classic bug.
 
-The general, non-course version of this — including where *not* to reach for an
-assistant — is on the lab wiki:
-[AI Assistants](https://kb.rccn.dev/computation/ai-assistants).
+```python
+X.inverted()                    # undo a transformation
+cg.Transformation()             # identity: changes nothing
+```
 
-## 6. Reading AI-generated code
+📄 `6.1_transformation.py`, `6.2_transformation_class.py`, `6.3.1_transform_I.py`,
+`107_inverse_transformation.py`, `108_premultiply_transformations.py`,
+`109_pre_vs_post_multiplication.py`
 
-You now know enough Python to review it — and that is the job.
+### Rotations, several ways
 
-Most of the time a model lands it. When it misses, it misses in ways that look
-fine — which is why review is a procedure and not a feeling.
+```python
+cg.Rotation.from_axis_and_angle([0, 0, 1], angle)
+cg.Rotation.from_euler_angles([rx, ry, rz])
+cg.Rotation.from_frame_to_frame(frame_a, frame_b)
+```
 
-**The five places to look first** — nearly every bug you will meet this
-semester is one of these:
+📄 `116_several_ways_to_construct_rotation.py`, `118_…euler_angles.py`,
+`119_…axis_angle_vector.py`
 
-1. **Off-by-one.** `range(1, n)` vs `range(n)`; slice `stop` is excluded.
-2. **Mutable default arguments.** `def f(items=[])` — Week 03's trap. Extremely
-   common in generated code.
-3. **Silent mutation.** A function that says it returns a new list but
-   modifies the one you passed in.
-4. **Floats compared with `==`.** Looks right, fails on real data.
-5. **Confidently wrong constants and formulas.** Degrees where radians belong;
-   a plausible-looking formula that is not the one you asked for.
+### Frame-to-frame: the one that saves you
 
-**How to actually review**, in order:
+To move an object from one coordinate system into another:
 
-1. Read the *signature and docstring* first. Is this even the function you
-   asked for?
-2. Read the body and say out loud what each line does. Anything you cannot
-   explain is a finding — either the code is unclear or you do not yet
-   understand the problem. Both are blockers.
-3. Check the edges: empty input, one item, zero, negative numbers.
-4. **Run it on an example where you already know the answer.** Not one it
-   suggested — one you chose.
+```python
+X = cg.Transformation.from_frame_to_frame(local_frame, target_frame)
+```
 
-> "It ran without an error" is not evidence that it is correct. Silent wrong
-> answers are the expensive kind. This is also why Week 10 exists.
+Design your element once at the origin, then place copies wherever you like.
+This is how a parametric assembly is built.
 
-## 7. Optional: graphs and networks
+📄 `102_point_in_frame.py`, `112_transform_multiple.py`, `113_transform_multiple_2.py`
 
-`graph_examples/` contains a full set of COMPAS `Network` / networkx examples —
-shortest paths, a brick-wall network, real data on the New York subway and
-cholera outbreaks. **Not examined this semester**, and not needed for any
-checkpoint. Kept because a graph is an excellent backbone for a final project
-(circulation analysis, assembly sequencing, structural topology). Browse if it
-is useful to you.
+## 7. Seeing and saving your geometry
+
+```python
+from compas_viewer import Viewer
+
+viewer = Viewer()
+viewer.scene.add(box)
+viewer.show()
+```
+
+📄 `compas_core_examples/1.4.1_visualization_I.py`, `1.4.2_visualization_II.py`
+
+**But a viewer is not a test.** It shows you *something*; it does not tell you
+that something is right. A wall with 11 courses instead of 12 looks exactly
+like a wall. From Week 09 the viewer becomes a convenience, and a saved JSON
+artifact plus a test becomes the evidence.
+
+If the viewer crashes or refuses to open on your machine — a graphics-driver
+problem, not a Python one — you can complete every checkpoint in this course
+without it.
+
+### Saving geometry
+
+```python
+import compas
+
+compas.json_dump(boxes, "output/boxes.json")     # geometry objects, not plain JSON
+boxes = compas.json_load("output/boxes.json")
+```
+
+Unlike Python's plain `json` module, this preserves actual COMPAS objects,
+and it works the same for a Box, a list of Boxes, or (next week) a whole mesh
+with all its attributes. In Week 09 this file becomes the **artifact** at the
+centre of the course's architecture.
+
+## 8. Also here (optional)
+
+- `compas_ipynb/` has the same COMPAS-core material as Jupyter notebooks, with
+  interactive 3D (frames, transformations) through compas_notebook. Not
+  required. Open them in your browser with
+  `uv run jupyter lab Lecture/Lecture_04/compas_ipynb` (copy one into `MyWork/`
+  first if you want to edit it); see the [notebooks README](/Lecture/notebooks/README.md).
+- `algorithm_basic_examples/binary_search.py` is an algorithm worth reading for
+  its own sake, and a good target for "explain every line" practice.
+- File handling (`pathlib`, `with open`, plain `json`) is in
+  [`../python_examples/`](../python_examples/) as reference. Week 09 teaches it
+  properly, at the point where you need it.
 
 ---
 
@@ -332,23 +358,28 @@ uv run check.py 04
 | 1 | `tally(words)` | the counting pattern |
 | 2 | `invert(mapping)` | dict iteration, and a case the spec has to decide |
 | 3 | `merge_settings(defaults, overrides)` | copying vs mutating |
-| 4 | `save_rooms` / `load_rooms` | pathlib + JSON round-trip |
-| 5 | **`summarise_rooms(rooms)` — find the bugs** | reviewing AI-generated code |
+| 4 | `box_on_ground(x, y, size)` | frames, and the centred-box trap |
+| 5 | `move(shape, dx, dy, dz)` | `Translation`, and `transformed` vs `transform` |
+| 6 | `rotate_point_about_z(point, degrees)` | `Rotation`, degrees → radians |
+| 7 | `grid_of_boxes(nx, ny, spacing, size)` | nested loops that build real geometry |
+| 8 | `flatten_to_xy(points)` | projection, and not mutating your input |
 
-Checkpoint 5 is different. The function is already written — by an AI
-assistant, in one shot, and it looks fine. It is not. Your job is to find and
-fix what is wrong. Read the code before you run the checks, and write down what
-you think is broken *first*; then see how many the specification agrees with.
-That comparison is the actual exercise.
+Checkpoints 4 and 6 are precisely the two traps flagged above (the centred box
+and the radians). They are there because you will hit them anyway; better
+here, where something tells you. Checkpoints 3, 5 and 8 are the same lesson
+three times: **do not change what you were given.**
+
+## Exercises
+
+📝 [Rotating boxes](/Exercise/Lecture_04/README.md) ·
+📝 [Project a box to the XY plane](/Exercise/1_Project_box_to_xy_plane/README.md)
 
 ## Self-test
 
 1. When should you use `dict.get(key)` instead of `dict[key]`?
-2. Why is `Path("data") / "out.json"` better than `"data/" + "out.json"`?
-3. What does `with open(...)` do that a plain `open(...)` does not?
-4. You call a function and get `TypeError: unsupported operand type(s) for +:
-   'NoneType' and 'int'`. What is the most likely cause?
-5. Name three bugs that AI-generated Python commonly contains.
-6. Why is "it ran without an error" not evidence that code is correct?
-7. An assistant gives you a function and a test case that passes. Why should
-   you not treat that as verification?
+2. Why can `(2, 3)` be a dictionary key when `[2, 3]` cannot?
+3. `Box(2, 2, 2)` is centred at the origin. What is the z of its lowest face?
+4. What is the difference between `v.unitize()` and `v.unitized()`?
+5. Why does `Rotation.from_axis_and_angle([0,0,1], 90)` not rotate by 90°?
+6. `T * R` and `R * T` differ. Which happens first in each?
+7. Why is "it looks right in the viewer" not evidence that it is right?

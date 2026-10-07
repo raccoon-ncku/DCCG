@@ -2,7 +2,7 @@
 #  READ ONLY  ·  this file is the SPEC, not the answers.
 #
 #  Your work goes in  ../answers.py  (or ../answers_core.py + ../answers_runner.py
-#  in Week 06). That file is auto-created from the shipped starter on first run
+#  in Week 09). That file is auto-created from the shipped starter on first run
 #  and is gitignored, so `git pull` never conflicts with it. Read the
 #  assertions below to understand what each checkpoint is checking; do not
 #  change them.
@@ -10,19 +10,30 @@
 """
 The SPECIFICATION for Week 09.
 
-`test_grid_satisfies_eulers_formula` is the one worth stealing for your own
-projects. It is a single integer comparison, it costs nothing, and it catches
-duplicated vertices, missing faces and accidental holes -- all of which look
-completely normal in a viewer.
+Two kinds of test live here, and the difference matters.
+
+Most tests RUN your code and check what it returns. `test_core_is_pure` does
+something else: it READS your core.py as text, parses it, and inspects the
+import statements. That is a *structural* test -- it checks a property of the
+code itself rather than of its behaviour.
+
+Structural tests are how architecture rules survive contact with a deadline.
+A rule nothing enforces is a rule that quietly stops being true.
 """
 
-import math
+import ast
+from pathlib import Path
 
+import compas
+import compas.geometry as cg
 import pytest
-from compas.datastructures import Mesh
 
-from answers import colour_by_height, deform_by_wave, grid_mesh, mesh_stats
+import answers_core as core
+from answers_runner import build_artifact
 
+HERE = Path(__file__).parent
+CORE = HERE.parent / "answers_core.py"       # what the student edits
+RUNNER = HERE.parent / "answers_runner.py"
 TOL = 1e-9
 
 
@@ -30,182 +41,198 @@ def approx(a, b, tol=TOL):
     return abs(a - b) < tol
 
 
-# --- 1. grid_mesh -----------------------------------------------------------
+# --- 1. the core builds a wall ----------------------------------------------
 
-def test_grid_has_the_right_counts():
-    """grid_mesh(nx, ny) has (nx+1)*(ny+1) vertices and nx*ny faces"""
-    mesh = grid_mesh(2, 3)
-    assert mesh.number_of_vertices() == 12
-    assert mesh.number_of_faces() == 6
-
-
-def test_grid_faces_are_all_quads():
-    """every face has exactly four vertices"""
-    mesh = grid_mesh(3, 2)
-    for fkey in mesh.faces():
-        assert len(mesh.face_vertices(fkey)) == 4
+def test_wall_has_one_box_per_course():
+    """stacked_wall() returns exactly n_courses boxes"""
+    assert len(core.stacked_wall(5)) == 5
+    assert len(core.stacked_wall(1)) == 1
 
 
-def test_grid_satisfies_eulers_formula():
-    """V - E + F == 1 for a flat disc-like grid"""
-    # If this is not 1, the topology is wrong: duplicated vertices (each corner
-    # added separately instead of shared), or a missing face. Neither is
-    # visible on screen -- this integer is the only thing that tells you.
-    for nx, ny in ((1, 1), (2, 3), (4, 4)):
-        mesh = grid_mesh(nx, ny)
-        assert mesh.euler() == 1, (
-            f"grid_mesh({nx}, {ny}) has euler={mesh.euler()}, expected 1. "
-            "The most likely cause is that neighbouring faces do not SHARE "
-            "vertices -- reuse the keys instead of adding new ones."
+def test_wall_sits_on_the_ground():
+    """the bottom of the lowest course is at z = 0"""
+    boxes = core.stacked_wall(4, course_height=0.25)
+    lowest = min(c.z for box in boxes for c in box.points)
+    assert approx(lowest, 0.0), f"The wall starts at z={lowest}, not 0."
+
+
+def test_wall_courses_are_stacked_without_gaps_or_overlaps():
+    """each course starts exactly where the one below it ended"""
+    # A property test: we do not care about absolute positions, only that the
+    # relationship between neighbours holds. This one assertion rules out
+    # floating courses, overlapping courses, and wrong spacing at once.
+    height = 0.25
+    boxes = core.stacked_wall(6, course_height=height)
+    for i, box in enumerate(boxes):
+        bottom = min(c.z for c in box.points)
+        top = max(c.z for c in box.points)
+        assert approx(bottom, i * height), (
+            f"course {i} starts at z={bottom}, expected {i * height}"
+        )
+        assert approx(top, (i + 1) * height), (
+            f"course {i} ends at z={top}, expected {(i + 1) * height}"
         )
 
 
-def test_grid_spacing_and_extent():
-    """the grid spans from the origin to (nx*spacing, ny*spacing)"""
-    mesh = grid_mesh(2, 3, spacing=0.5)
-    xs = [mesh.vertex_coordinates(k)[0] for k in mesh.vertices()]
-    ys = [mesh.vertex_coordinates(k)[1] for k in mesh.vertices()]
-    assert approx(min(xs), 0) and approx(max(xs), 1.0)
-    assert approx(min(ys), 0) and approx(max(ys), 1.5)
+def test_wall_is_returned_bottom_course_first():
+    """boxes come back in order, lowest first"""
+    boxes = core.stacked_wall(4)
+    heights = [box.frame.point.z for box in boxes]
+    assert heights == sorted(heights), "Courses are not ordered bottom to top."
 
 
-def test_grid_is_flat():
-    """every vertex of the grid is at z = 0"""
-    mesh = grid_mesh(2, 2)
-    assert all(approx(mesh.vertex_coordinates(k)[2], 0) for k in mesh.vertices())
+def test_odd_courses_are_offset_and_even_ones_are_not():
+    """odd courses are shifted along X; even courses are centred on x = 0"""
+    boxes = core.stacked_wall(4, offset=0.1)
+    assert approx(boxes[0].frame.point.x, 0.0), "course 0 is even: no offset"
+    assert approx(boxes[1].frame.point.x, 0.1), "course 1 is odd: offset by 0.1"
+    assert approx(boxes[2].frame.point.x, 0.0), "course 2 is even: no offset"
+    assert approx(boxes[3].frame.point.x, 0.1), "course 3 is odd: offset by 0.1"
 
 
-def test_grid_normals_all_point_up():
-    """faces are wound consistently, so every normal points along +Z"""
-    mesh = grid_mesh(3, 3)
-    for fkey in mesh.faces():
-        assert mesh.face_normal(fkey)[2] > 0, (
-            f"face {fkey} points downward. Face vertex order decides the "
-            "normal -- wind every face counter-clockwise seen from above."
+def test_wall_dimensions_follow_the_parameters():
+    """length and thickness are respected, not hard-coded"""
+    boxes = core.stacked_wall(2, length=3.5, thickness=0.44, course_height=0.11)
+    for box in boxes:
+        assert approx(box.xsize, 3.5)
+        assert approx(box.ysize, 0.44)
+        assert approx(box.zsize, 0.11)
+
+
+def test_wall_rejects_nonsense_input():
+    """stacked_wall(0) raises ValueError rather than returning []"""
+    # A wall with no courses is not a wall -- it is a caller who has made a
+    # mistake and would rather find out here than three functions later.
+    with pytest.raises(ValueError):
+        core.stacked_wall(0)
+    with pytest.raises(ValueError):
+        core.stacked_wall(-3)
+
+
+# --- 2. the derived value ---------------------------------------------------
+
+def test_wall_height_matches_the_geometry():
+    """wall_height() agrees with the wall the core actually builds"""
+    # The interesting part: this checks a COMPUTED number against a MEASURED
+    # one. If they ever disagree, one of the two is lying.
+    for n in (1, 5, 12):
+        boxes = core.stacked_wall(n, course_height=0.3)
+        measured = max(c.z for box in boxes for c in box.points)
+        assert approx(core.wall_height(n, 0.3), measured)
+
+
+def test_wall_height_rejects_nonsense_input():
+    """wall_height(0) raises ValueError too"""
+    with pytest.raises(ValueError):
+        core.wall_height(0)
+
+
+# --- 3. the architecture rule, enforced -------------------------------------
+
+FORBIDDEN_IMPORTS = {
+    "compas_viewer": "a viewer is presentation, not geometry",
+    "json": "file formats belong in the runner",
+    "pathlib": "paths belong in the runner",
+    "os": "the filesystem belongs in the runner",
+    "sys": "the runtime environment belongs in the runner",
+    "rhino": "the core must not know Rhino exists",
+    "rhinoscriptsyntax": "the core must not know Rhino exists",
+    "Rhino": "the core must not know Rhino exists",
+    "scriptcontext": "the core must not know Rhino exists",
+}
+
+
+def _imported_module_names(path):
+    """Every top-level module name imported by a Python file."""
+    tree = ast.parse(path.read_text())
+    names = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for alias in node.names:
+                names.add(alias.name.split(".")[0])
+        elif isinstance(node, ast.ImportFrom) and node.module:
+            names.add(node.module.split(".")[0])
+    return names
+
+
+def test_core_is_pure():
+    """core.py imports nothing from the outside world (a structural test)"""
+    imported = _imported_module_names(CORE)
+    for name in sorted(imported):
+        assert name not in FORBIDDEN_IMPORTS, (
+            f"core.py imports `{name}` -- {FORBIDDEN_IMPORTS[name]}.\n"
+            "Move whatever needs it into runner.py. The core has to stay "
+            "importable on a machine with no screen, no Rhino, and no files."
         )
 
 
-def test_grid_total_area_is_correct():
-    """the grid's area is nx * ny * spacing^2"""
-    mesh = grid_mesh(3, 4, spacing=2.0)
-    total = sum(mesh.face_area(f) for f in mesh.faces())
-    assert approx(total, 3 * 4 * 4.0)
+def test_core_does_not_print_or_open_files():
+    """core.py contains no print() or open() calls"""
+    tree = ast.parse(CORE.read_text())
+    called = {
+        node.func.id
+        for node in ast.walk(tree)
+        if isinstance(node, ast.Call) and isinstance(node.func, ast.Name)
+    }
+    for banned, why in (("print", "returning a value"), ("open", "the runner")):
+        assert banned not in called, (
+            f"core.py calls {banned}(). A pure function communicates by "
+            f"{why}, not by reaching out of itself."
+        )
 
 
-def test_grid_rejects_nonsense_input():
-    """a grid needs at least one face in each direction"""
-    with pytest.raises(ValueError):
-        grid_mesh(0, 3)
-    with pytest.raises(ValueError):
-        grid_mesh(2, -1)
+def test_runner_does_not_reimplement_the_geometry():
+    """runner.py calls the core rather than building boxes itself"""
+    tree = ast.parse(RUNNER.read_text())
+    used = {node.id for node in ast.walk(tree) if isinstance(node, ast.Name)}
+    attrs = {node.attr for node in ast.walk(tree) if isinstance(node, ast.Attribute)}
+    assert "Box" not in used and "Frame" not in used, (
+        "runner.py builds geometry directly. Geometry logic lives in core.py; "
+        "the runner's job is to call it and save the result."
+    )
+    assert "stacked_wall" in (used | attrs), (
+        "runner.py never calls core.stacked_wall(). The runner is supposed to "
+        "be a thin layer over the core, not a parallel implementation."
+    )
 
 
-# --- 2. mesh_stats ----------------------------------------------------------
+# --- 4. the artifact --------------------------------------------------------
 
-def test_mesh_stats_reports_the_counts():
-    """mesh_stats() reports vertices, edges and faces"""
-    stats = mesh_stats(grid_mesh(2, 3))
-    assert stats["vertices"] == 12
-    assert stats["faces"] == 6
-    assert stats["edges"] == 17
-
-
-def test_mesh_stats_euler_is_consistent():
-    """the reported euler equals V - E + F"""
-    stats = mesh_stats(grid_mesh(3, 3))
-    assert stats["euler"] == stats["vertices"] - stats["edges"] + stats["faces"]
+def test_build_artifact_writes_a_file(tmp_path):
+    """build_artifact() creates the file it was asked for"""
+    path = tmp_path / "out" / "wall.json"
+    build_artifact(path, n_courses=6)
+    assert path.exists(), (
+        "No file was written. Did you create the parent folder? "
+        "mkdir(parents=True, exist_ok=True)."
+    )
 
 
-def test_mesh_stats_counts_boundary_vertices():
-    """a 2x2 grid has 8 DISTINCT boundary vertices and one in the middle"""
-    # If you got 9, you used len(mesh.vertices_on_boundary()). That method
-    # returns the boundary as a closed cycle -- the first vertex appears again
-    # at the end. Reading the docstring of a library function you are about to
-    # trust is not optional; this is what it costs when you skip it.
-    stats = mesh_stats(grid_mesh(2, 2))
-    assert stats["vertices"] == 9
-    assert stats["boundary"] == 8
+def test_build_artifact_returns_the_geometry(tmp_path):
+    """build_artifact() also returns the boxes it built"""
+    boxes = build_artifact(tmp_path / "wall.json", n_courses=6)
+    assert len(boxes) == 6
+    assert all(isinstance(b, cg.Box) for b in boxes)
 
 
-def test_mesh_stats_reports_area():
-    """mesh_stats() totals the face areas"""
-    assert approx(mesh_stats(grid_mesh(2, 2, spacing=3.0))["area"], 4 * 9.0)
+def test_artifact_round_trips_as_real_compas_objects(tmp_path):
+    """the saved artifact loads back as Boxes, not as plain dictionaries"""
+    # This is what compas.json_dump buys you over the plain json module, and
+    # it is why the adapter in Week 14 can be four lines long.
+    path = tmp_path / "wall.json"
+    build_artifact(path, n_courses=5, course_height=0.3)
+    loaded = compas.json_load(path)
+    assert len(loaded) == 5
+    assert all(isinstance(b, cg.Box) for b in loaded), (
+        "The artifact did not come back as Box objects. Use compas.json_dump, "
+        "not json.dumps."
+    )
+    assert approx(max(c.z for b in loaded for c in b.points), 1.5)
 
 
-# --- 3. colour_by_height ----------------------------------------------------
-
-def test_colour_sets_an_attribute_on_every_vertex():
-    """every vertex ends up with a "color" attribute"""
-    mesh = deform_by_wave(grid_mesh(3, 3), amplitude=1.0)
-    colour_by_height(mesh)
-    for key in mesh.vertices():
-        assert mesh.vertex_attribute(key, "color") is not None
-
-
-def test_colour_extremes_match_the_endpoints():
-    """the lowest vertex gets `low` and the highest gets `high`"""
-    mesh = deform_by_wave(grid_mesh(4, 1), amplitude=2.0)
-    colour_by_height(mesh, low=(0, 0, 255), high=(255, 0, 0))
-    heights = {k: mesh.vertex_coordinates(k)[2] for k in mesh.vertices()}
-    lowest = min(heights, key=heights.get)
-    highest = max(heights, key=heights.get)
-    assert tuple(mesh.vertex_attribute(lowest, "color")) == (0, 0, 255)
-    assert tuple(mesh.vertex_attribute(highest, "color")) == (255, 0, 0)
-
-
-def test_colour_handles_a_completely_flat_mesh():
-    """a flat mesh does not crash with a division by zero"""
-    # Every z is identical, so the range is 0. Dividing by it is the obvious
-    # implementation and the wrong one. The spec says: everyone gets `low`.
-    mesh = grid_mesh(2, 2)
-    colour_by_height(mesh, low=(1, 2, 3), high=(9, 9, 9))
-    for key in mesh.vertices():
-        assert tuple(mesh.vertex_attribute(key, "color")) == (1, 2, 3)
-
-
-def test_colour_returns_the_same_mesh():
-    """colour_by_height() modifies in place and returns the same object"""
-    mesh = grid_mesh(2, 2)
-    assert colour_by_height(mesh) is mesh
-
-
-# --- 4. deform_by_wave ------------------------------------------------------
-
-def test_deform_moves_vertices_by_the_wave():
-    """each vertex moves by amplitude * sin(2*pi*x / wavelength)"""
-    mesh = grid_mesh(4, 1, spacing=1.0)
-    before = {k: mesh.vertex_coordinates(k) for k in mesh.vertices()}
-    deform_by_wave(mesh, amplitude=2.0, wavelength=4.0)
-    for key, (x, y, z) in before.items():
-        expected = z + 2.0 * math.sin(2 * math.pi * x / 4.0)
-        assert approx(mesh.vertex_coordinates(key)[2], expected)
-
-
-def test_deform_leaves_x_and_y_alone():
-    """only z changes"""
-    mesh = grid_mesh(3, 3)
-    before = {k: mesh.vertex_coordinates(k)[:2] for k in mesh.vertices()}
-    deform_by_wave(mesh, amplitude=1.0)
-    for key, (x, y) in before.items():
-        assert approx(mesh.vertex_coordinates(key)[0], x)
-        assert approx(mesh.vertex_coordinates(key)[1], y)
-
-
-def test_deform_does_not_change_the_topology():
-    """same vertices, same edges, same faces -- only coordinates move"""
-    # This is the whole reason a mesh is a mesh. You just moved every point in
-    # the model and did not have to rebuild a single face.
-    mesh = grid_mesh(4, 4)
-    before = mesh_stats(mesh)
-    faces_before = {f: tuple(mesh.face_vertices(f)) for f in mesh.faces()}
-    deform_by_wave(mesh, amplitude=3.0)
-    after = mesh_stats(mesh)
-    for key in ("vertices", "edges", "faces", "euler", "boundary"):
-        assert before[key] == after[key], f"deforming changed {key}"
-    assert {f: tuple(mesh.face_vertices(f)) for f in mesh.faces()} == faces_before
-
-
-def test_deform_returns_the_same_mesh():
-    """deform_by_wave() modifies in place and returns the same object"""
-    mesh = grid_mesh(2, 2)
-    assert deform_by_wave(mesh) is mesh
+def test_artifact_passes_parameters_through(tmp_path):
+    """extra keyword arguments reach the core"""
+    boxes = build_artifact(tmp_path / "wall.json", n_courses=3, length=4.0)
+    assert all(approx(b.xsize, 4.0) for b in boxes), (
+        "length=4.0 never reached the core. Forward **kwargs through."
+    )

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="360" viewBox="0 0 900 360" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<text x="260.0" y="20.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">the tree a BFS from the entry leaves behind</text>
+<line x1="54.5" y1="119.3" x2="249.2" y2="270.7" stroke="#adb5bd" stroke-width="2" stroke-linecap="round" opacity="1.0" stroke-dasharray="6,5"/>
+<line x1="259.6" y1="247.4" x2="320.1" y2="111.1" stroke="#1c7ed6" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<polygon points="320.1,111.1 320.5,121.0 312.5,117.5" fill="#1c7ed6" stroke="#1c7ed6" stroke-width="1.5" stroke-linejoin="round" fill-opacity="1.0"/>
+<line x1="465.5" y1="247.4" x2="465.5" y2="111.1" stroke="#1c7ed6" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<polygon points="465.5,111.1 469.9,120.1 461.2,120.1" fill="#1c7ed6" stroke="#1c7ed6" stroke-width="1.5" stroke-linejoin="round" fill-opacity="1.0"/>
+<line x1="54.5" y1="290.6" x2="54.5" y2="154.3" stroke="#1c7ed6" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<polygon points="54.5,154.3 58.8,163.3 50.1,163.3" fill="#1c7ed6" stroke="#1c7ed6" stroke-width="1.5" stroke-linejoin="round" fill-opacity="1.0"/>
+<line x1="275.1" y1="270.7" x2="426.6" y2="270.7" stroke="#1c7ed6" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<polygon points="426.6,270.7 417.6,275.1 417.6,266.4" fill="#1c7ed6" stroke="#1c7ed6" stroke-width="1.5" stroke-linejoin="round" fill-opacity="1.0"/>
+<line x1="77.8" y1="308.8" x2="214.1" y2="278.5" stroke="#1c7ed6" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<polygon points="214.1,278.5 206.3,284.7 204.4,276.2" fill="#1c7ed6" stroke="#1c7ed6" stroke-width="1.5" stroke-linejoin="round" fill-opacity="1.0"/>
+<line x1="72.6" y1="114.1" x2="178.6" y2="83.8" stroke="#1c7ed6" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<polygon points="178.6,83.8 171.2,90.4 168.8,82.1" fill="#1c7ed6" stroke="#1c7ed6" stroke-width="1.5" stroke-linejoin="round" fill-opacity="1.0"/>
+<rect x="32.0" y="303.0" width="45.0" height="22.0" rx="5" fill="white" stroke="#212529" stroke-width="1.5"/>
+<text x="54.5" y="318.3" font-size="12" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">entry</text>
+<rect x="223.2" y="259.7" width="52.0" height="22.0" rx="5" fill="white" stroke="#1c7ed6" stroke-width="1.5"/>
+<text x="249.2" y="275.0" font-size="12" fill="#1c7ed6" text-anchor="middle" font-weight="bold" xml:space="preserve">living</text>
+<rect x="436.0" y="259.7" width="59.0" height="22.0" rx="5" fill="white" stroke="#1c7ed6" stroke-width="1.5"/>
+<text x="465.5" y="275.0" font-size="12" fill="#1c7ed6" text-anchor="middle" font-weight="bold" xml:space="preserve">kitchen</text>
+<rect x="35.5" y="108.3" width="38.0" height="22.0" rx="5" fill="white" stroke="#1c7ed6" stroke-width="1.5"/>
+<text x="54.5" y="123.6" font-size="12" fill="#1c7ed6" text-anchor="middle" font-weight="bold" xml:space="preserve">hall</text>
+<rect x="186.9" y="65.0" width="38.0" height="22.0" rx="5" fill="white" stroke="#1c7ed6" stroke-width="1.5"/>
+<text x="205.9" y="80.3" font-size="12" fill="#1c7ed6" text-anchor="middle" font-weight="bold" xml:space="preserve">bed1</text>
+<rect x="316.7" y="65.0" width="38.0" height="22.0" rx="5" fill="white" stroke="#1c7ed6" stroke-width="1.5"/>
+<text x="335.7" y="80.3" font-size="12" fill="#1c7ed6" text-anchor="middle" font-weight="bold" xml:space="preserve">bath</text>
+<rect x="446.5" y="65.0" width="38.0" height="22.0" rx="5" fill="white" stroke="#1c7ed6" stroke-width="1.5"/>
+<text x="465.5" y="80.3" font-size="12" fill="#1c7ed6" text-anchor="middle" font-weight="bold" xml:space="preserve">bed2</text>
+<text x="560.0" y="60.0" font-size="13" fill="#212529" text-anchor="start" font-weight="bold" xml:space="preserve">parent = {</text>
+<text x="560.0" y="81.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">  "entry": None,</text>
+<text x="560.0" y="102.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">  "hall": "entry",</text>
+<text x="560.0" y="123.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">  "living": "entry",</text>
+<text x="560.0" y="144.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">  "bed1": "hall",</text>
+<text x="560.0" y="165.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">  "bath": "living",</text>
+<text x="560.0" y="186.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">  "kitchen": "living",</text>
+<text x="560.0" y="207.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">  "bed2": "kitchen",</text>
+<text x="560.0" y="228.0" font-size="13" fill="#212529" text-anchor="start" font-weight="bold" xml:space="preserve">}</text>
+<text x="560.0" y="249.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve"></text>
+<text x="560.0" y="270.0" font-size="13" fill="#1c7ed6" text-anchor="start" font-weight="bold" xml:space="preserve">7 nodes, 6 tree edges (n - 1)</text>
+<text x="560.0" y="291.0" font-size="13" fill="#adb5bd" text-anchor="start" font-weight="bold" xml:space="preserve">1 dashed edge closes the loop</text>
+<text x="560.0" y="312.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve"></text>
+<text x="560.0" y="333.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">route to bed1: follow parents back</text>
+<text x="560.0" y="354.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">bed1 -&gt; hall -&gt; entry, then reverse</text>
+</svg>

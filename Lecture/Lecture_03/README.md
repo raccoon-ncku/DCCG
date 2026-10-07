@@ -171,8 +171,8 @@ Useful ones this semester:
 | ------ | --- |
 | `math` | `pi`, `sqrt`, `sin`, `cos`, `radians`, `floor`, `ceil` |
 | `random` | `random()`, `randint()`, `choice()`, `shuffle()`, `seed()` |
-| `pathlib` | file paths (Week 04) |
-| `json` | reading/writing data (Week 04) |
+| `pathlib` | file paths (Week 09) |
+| `json` | reading/writing data (Week 09) |
 
 📄 `Examples/5_modules.py`, `5.3_math.py`, `5.4_import.py`
 
@@ -253,7 +253,7 @@ print(x)          # NameError -- x does not exist out here
 
 A function can *read* names from outside, but relying on that makes it
 impossible to test in isolation. **Pass what you need in as an argument.**
-This habit is what makes the Week 06 architecture possible.
+This habit is what makes the Week 09 architecture possible.
 
 📄 `Examples/6.3.1`, `6.3.2_function_variable_scope_*.py`
 
@@ -371,9 +371,6 @@ uv run check.py 03
 Checkpoint 4 (`primes_below`) is the one people find hardest. It is a real
 algorithm rather than a syntax drill, and it is worth the struggle — if you can
 write it and explain it, you can read most of what an assistant hands you.
-There is optional extra practice on the same ground in
-[0_prime_numbers](/Assignment/0_prime_numbers/README.md), retired as a graded
-assignment but kept because the write-up is good.
 
 ## Exercise
 

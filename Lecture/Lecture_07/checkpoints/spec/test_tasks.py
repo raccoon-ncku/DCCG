@@ -2,7 +2,7 @@
 #  READ ONLY  ·  this file is the SPEC, not the answers.
 #
 #  Your work goes in  ../answers.py  (or ../answers_core.py + ../answers_runner.py
-#  in Week 06). That file is auto-created from the shipped starter on first run
+#  in Week 09). That file is auto-created from the shipped starter on first run
 #  and is gitignored, so `git pull` never conflicts with it. Read the
 #  assertions below to understand what each checkpoint is checking; do not
 #  change them.
@@ -213,7 +213,7 @@ def test_wall_rejects_nonsense():
 
 def test_tasks_file_stays_pure():
     """tasks.py imports no viewer, files or Rhino -- classes live in the core too"""
-    tree = ast.parse((HERE / "tasks.py").read_text())
+    tree = ast.parse((HERE.parent / "answers.py").read_text())   # what you edit
     names = set()
     for node in ast.walk(tree):
         if isinstance(node, ast.Import):

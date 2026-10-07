@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="400" viewBox="0 0 900 400" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<text x="225.0" y="20.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">integration: how few doors to everywhere</text>
+<polygon points="22.0,340.3 123.5,340.3 123.5,238.8 22.0,238.8" fill="#3171da" stroke="white" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="123.5,340.3 225.0,340.3 225.0,238.8 123.5,238.8" fill="#4d5fe0" stroke="white" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="225.0,340.3 292.7,340.3 292.7,238.8 225.0,238.8" fill="#5a56e3" stroke="white" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="292.7,340.3 360.3,340.3 360.3,238.8 292.7,238.8" fill="#3171da" stroke="white" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="360.3,340.3 428.0,340.3 428.0,289.6 360.3,289.6" fill="#1c7ed6" stroke="white" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="360.3,289.6 428.0,289.6 428.0,238.8 360.3,238.8" fill="#2c74d9" stroke="white" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="22.0,238.8 157.3,238.8 157.3,205.0 22.0,205.0" fill="#5a56e3" stroke="white" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="157.3,238.8 292.7,238.8 292.7,205.0 157.3,205.0" fill="#e8590c" stroke="white" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="292.7,238.8 428.0,238.8 428.0,205.0 292.7,205.0" fill="#5a56e3" stroke="white" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="22.0,205.0 123.5,205.0 123.5,69.7 22.0,69.7" fill="#376ddc" stroke="white" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="123.5,205.0 225.0,205.0 225.0,69.7 123.5,69.7" fill="#5a56e3" stroke="white" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="225.0,205.0 326.5,205.0 326.5,69.7 225.0,69.7" fill="#5a56e3" stroke="white" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="326.5,205.0 428.0,205.0 428.0,69.7 326.5,69.7" fill="#376ddc" stroke="white" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<circle cx="123.5" cy="289.6" r="3.5" fill="white" stroke="#212529" stroke-width="1.5"/>
+<circle cx="72.8" cy="238.8" r="3.5" fill="white" stroke="#212529" stroke-width="1.5"/>
+<circle cx="191.2" cy="238.8" r="3.5" fill="white" stroke="#212529" stroke-width="1.5"/>
+<circle cx="258.8" cy="238.8" r="3.5" fill="white" stroke="#212529" stroke-width="1.5"/>
+<circle cx="292.7" cy="289.6" r="3.5" fill="white" stroke="#212529" stroke-width="1.5"/>
+<circle cx="360.3" cy="315.0" r="3.5" fill="white" stroke="#212529" stroke-width="1.5"/>
+<circle cx="394.2" cy="238.8" r="3.5" fill="white" stroke="#212529" stroke-width="1.5"/>
+<circle cx="157.3" cy="221.9" r="3.5" fill="white" stroke="#212529" stroke-width="1.5"/>
+<circle cx="292.7" cy="221.9" r="3.5" fill="white" stroke="#212529" stroke-width="1.5"/>
+<circle cx="72.8" cy="205.0" r="3.5" fill="white" stroke="#212529" stroke-width="1.5"/>
+<circle cx="123.5" cy="137.3" r="3.5" fill="white" stroke="#212529" stroke-width="1.5"/>
+<circle cx="191.2" cy="205.0" r="3.5" fill="white" stroke="#212529" stroke-width="1.5"/>
+<circle cx="225.0" cy="137.3" r="3.5" fill="white" stroke="#212529" stroke-width="1.5"/>
+<circle cx="258.8" cy="205.0" r="3.5" fill="white" stroke="#212529" stroke-width="1.5"/>
+<circle cx="326.5" cy="137.3" r="3.5" fill="white" stroke="#212529" stroke-width="1.5"/>
+<circle cx="377.2" cy="205.0" r="3.5" fill="white" stroke="#212529" stroke-width="1.5"/>
+<text x="72.8" y="289.6" font-size="11" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">lobby</text>
+<text x="72.8" y="303.6" font-size="10" fill="white" text-anchor="middle" font-weight="normal" xml:space="preserve">2.87</text>
+<text x="174.2" y="289.6" font-size="11" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">cafe</text>
+<text x="174.2" y="303.6" font-size="10" fill="white" text-anchor="middle" font-weight="normal" xml:space="preserve">4.12</text>
+<text x="258.8" y="289.6" font-size="11" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">shop</text>
+<text x="258.8" y="303.6" font-size="10" fill="white" text-anchor="middle" font-weight="normal" xml:space="preserve">4.71</text>
+<text x="326.5" y="289.6" font-size="11" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">office</text>
+<text x="326.5" y="303.6" font-size="10" fill="white" text-anchor="middle" font-weight="normal" xml:space="preserve">2.87</text>
+<text x="394.2" y="315.0" font-size="11" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">wc</text>
+<text x="394.2" y="329.0" font-size="10" fill="white" text-anchor="middle" font-weight="normal" xml:space="preserve">1.94</text>
+<text x="394.2" y="264.2" font-size="11" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">stair</text>
+<text x="394.2" y="278.2" font-size="10" fill="white" text-anchor="middle" font-weight="normal" xml:space="preserve">2.64</text>
+<text x="89.7" y="221.9" font-size="11" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">corr_w</text>
+<text x="89.7" y="235.9" font-size="10" fill="white" text-anchor="middle" font-weight="normal" xml:space="preserve">4.71</text>
+<text x="225.0" y="221.9" font-size="11" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">corr_m</text>
+<text x="225.0" y="235.9" font-size="10" fill="white" text-anchor="middle" font-weight="normal" xml:space="preserve">9.43</text>
+<text x="360.3" y="221.9" font-size="11" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">corr_e</text>
+<text x="360.3" y="235.9" font-size="10" fill="white" text-anchor="middle" font-weight="normal" xml:space="preserve">4.71</text>
+<text x="72.8" y="137.3" font-size="11" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">gallery1</text>
+<text x="72.8" y="151.3" font-size="10" fill="white" text-anchor="middle" font-weight="normal" xml:space="preserve">3.14</text>
+<text x="174.2" y="137.3" font-size="11" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">gallery2</text>
+<text x="174.2" y="151.3" font-size="10" fill="white" text-anchor="middle" font-weight="normal" xml:space="preserve">4.71</text>
+<text x="275.8" y="137.3" font-size="11" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">gallery3</text>
+<text x="275.8" y="151.3" font-size="10" fill="white" text-anchor="middle" font-weight="normal" xml:space="preserve">4.71</text>
+<text x="377.2" y="137.3" font-size="11" fill="white" text-anchor="middle" font-weight="bold" xml:space="preserve">gallery4</text>
+<text x="377.2" y="151.3" font-size="10" fill="white" text-anchor="middle" font-weight="normal" xml:space="preserve">3.14</text>
+<text x="225.0" y="392.0" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">orange: integrated (where people pass)   blue: segregated (deep, private)</text>
+<text x="675.0" y="20.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">escape distance and critical doors</text>
+<polygon points="472.0,340.3 573.5,340.3 573.5,238.8 472.0,238.8" fill="#f1f3f5" stroke="white" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<text x="522.8" y="293.6" font-size="11" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">0.0 m</text>
+<polygon points="573.5,340.3 675.0,340.3 675.0,238.8 573.5,238.8" fill="#f1f3f5" stroke="white" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<text x="624.2" y="293.6" font-size="11" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">6.0 m</text>
+<polygon points="675.0,340.3 742.7,340.3 742.7,238.8 675.0,238.8" fill="#f1f3f5" stroke="white" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<text x="708.8" y="293.6" font-size="11" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">16.6 m</text>
+<polygon points="742.7,340.3 810.3,340.3 810.3,238.8 742.7,238.8" fill="#f1f3f5" stroke="white" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<text x="776.5" y="293.6" font-size="11" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">20.6 m</text>
+<polygon points="810.3,340.3 878.0,340.3 878.0,289.6 810.3,289.6" fill="#ffe3e3" stroke="#e03131" stroke-width="3" stroke-linejoin="round" fill-opacity="1.0"/>
+<text x="844.2" y="319.0" font-size="11" fill="#e03131" text-anchor="middle" font-weight="bold" xml:space="preserve">25.1 m</text>
+<polygon points="810.3,289.6 878.0,289.6 878.0,238.8 810.3,238.8" fill="#f1f3f5" stroke="white" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<text x="844.2" y="268.2" font-size="11" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">0.0 m</text>
+<polygon points="472.0,238.8 607.3,238.8 607.3,205.0 472.0,205.0" fill="#f1f3f5" stroke="white" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<text x="539.7" y="225.9" font-size="11" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">4.4 m</text>
+<polygon points="607.3,238.8 742.7,238.8 742.7,205.0 607.3,205.0" fill="#f1f3f5" stroke="white" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<text x="675.0" y="225.9" font-size="11" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">11.4 m</text>
+<polygon points="742.7,238.8 878.0,238.8 878.0,205.0 742.7,205.0" fill="#f1f3f5" stroke="white" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<text x="810.3" y="225.9" font-size="11" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">3.7 m</text>
+<polygon points="472.0,205.0 573.5,205.0 573.5,69.7 472.0,69.7" fill="#f1f3f5" stroke="white" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<text x="522.8" y="141.3" font-size="11" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">9.8 m</text>
+<polygon points="573.5,205.0 675.0,205.0 675.0,69.7 573.5,69.7" fill="#f1f3f5" stroke="white" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<text x="624.2" y="141.3" font-size="11" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">15.8 m</text>
+<polygon points="675.0,205.0 776.5,205.0 776.5,69.7 675.0,69.7" fill="#f1f3f5" stroke="white" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<text x="725.8" y="141.3" font-size="11" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">15.2 m</text>
+<polygon points="776.5,205.0 878.0,205.0 878.0,69.7 776.5,69.7" fill="#f1f3f5" stroke="white" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<text x="827.2" y="141.3" font-size="11" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">9.2 m</text>
+<text x="522.8" y="309.6" font-size="10" fill="#2f9e44" text-anchor="middle" font-weight="bold" xml:space="preserve">EXIT</text>
+<text x="844.2" y="284.2" font-size="10" fill="#2f9e44" text-anchor="middle" font-weight="bold" xml:space="preserve">EXIT</text>
+<circle cx="573.5" cy="289.6" r="3.5" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="522.8" cy="238.8" r="3.5" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="641.2" cy="238.8" r="3.5" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="708.8" cy="238.8" r="6" fill="#e03131" stroke="white" stroke-width="1.5"/>
+<circle cx="742.7" cy="289.6" r="6" fill="#e03131" stroke="white" stroke-width="1.5"/>
+<circle cx="810.3" cy="315.0" r="6" fill="#e03131" stroke="white" stroke-width="1.5"/>
+<circle cx="844.2" cy="238.8" r="6" fill="#e03131" stroke="white" stroke-width="1.5"/>
+<circle cx="607.3" cy="221.9" r="3.5" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="742.7" cy="221.9" r="3.5" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="522.8" cy="205.0" r="3.5" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="573.5" cy="137.3" r="3.5" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="641.2" cy="205.0" r="3.5" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="675.0" cy="137.3" r="3.5" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="708.8" cy="205.0" r="3.5" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="776.5" cy="137.3" r="3.5" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<circle cx="827.2" cy="205.0" r="3.5" fill="#adb5bd" stroke="white" stroke-width="1.5"/>
+<text x="675.0" y="392.0" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">red room: over 25 m to the nearest exit   red dot: a door whose loss cuts rooms off</text>
+</svg>

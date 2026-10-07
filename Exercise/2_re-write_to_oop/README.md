@@ -19,6 +19,6 @@ Then extend the walker's rules — steering probabilities, radius based on heigh
 or on the previous sphere, a colour scheme. The header comment in the file lists
 several directions to try.
 
-Aim for a `Walker` whose geometry logic is pure enough to belong in a Week 06
+Aim for a `Walker` whose geometry logic is pure enough to belong in a Week 09
 core: it should be able to *produce* a list of spheres without knowing whether a
 viewer exists.

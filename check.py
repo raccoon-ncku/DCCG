@@ -32,18 +32,18 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent.resolve()
 
-# (week, lecture folder, title). The folder numbers are historical and do not
-# match the week numbers -- the course schedule in README.md is the authority.
+# (week, lecture folder, title). Week N = Lecture_N; the course schedule in
+# README.md is the authority on what each week teaches.
 COURSE = [
     ("01", "Lecture_01", "Toolchain: uv, Zed, git, and an AI assistant"),
     ("02", "Lecture_02", "Python I: values, types, lists, functions"),
     ("03", "Lecture_03", "Python II: control flow, modules, functions"),
-    ("04", "Lecture_04", "Python III: dictionaries, files, JSON + AI literacy"),
-    ("05", "Lecture_05", "COMPAS core: primitives and transformations"),
-    ("06", "Lecture_06", "Software engineering I: the dual-mode architecture"),
+    ("04", "Lecture_04", "Python III + COMPAS core: dicts, tuples, primitives, transformations"),
+    ("05", "Lecture_05", "Mesh: a real geometric data structure"),
+    ("06", "Lecture_06", "Graphs: nodes, edges, traversal, shortest paths"),
     ("07", "Lecture_07", "Object-oriented programming  (self-paced week)"),
     ("08", "Lecture_08", "Recursion and self-similar geometry  (self-paced week)"),
-    ("09", "Lecture_09", "Mesh: a real geometric data structure"),
+    ("09", "Lecture_09", "Software engineering I: the dual-mode architecture"),
 ]
 
 # ----------------------------------------------------------------------------

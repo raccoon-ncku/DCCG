@@ -5,106 +5,181 @@
 # `uv run check.py NN` will regenerate it from this starter.
 
 """
-Week 05 checkpoints — COMPAS primitives and transformations.
+Week 05 checkpoints — the Mesh data structure.
 
 Edit answers.py (copied from this starter). Run from the repository root:
 
     uv run check.py 05
 
-Every function here is PURE: it takes numbers or geometry in and returns
-geometry out. No printing, no viewer, no files. That is not a stylistic
-preference -- it is what makes these testable at all, and it is the subject of
-next week.
+Every function here is PURE geometry logic: a mesh (or numbers) in, a mesh or
+a plain Python value out. No viewer, no files, no print. The figures in the
+README show what each of these queries does -- keep them open beside you.
 """
 
 import math
 
-import compas.geometry as cg
+from compas.datastructures import Mesh
 
 
-def box_on_ground(x, y, size):
-    """Return a cube of edge length `size` SITTING ON the XY plane at (x, y).
+def grid_mesh(nx, ny, spacing=1.0):
+    """Build a flat rectangular grid mesh in the XY plane, from scratch.
 
-    "Sitting on" means its lowest face is exactly at z = 0, and its centre is
-    directly above (x, y).
+    - `nx` and `ny` are the number of FACES along x and y
+    - so there are (nx+1) * (ny+1) vertices
+    - vertex (i, j) sits at (i*spacing, j*spacing, 0)
+    - every face is a quad, wound counter-clockwise seen from +Z, so all the
+      normals point up
 
-    box_on_ground(0, 0, 2)  ->  a 2x2x2 cube spanning z from 0 to 2
+    grid_mesh(2, 3) -> a mesh with 12 vertices and 6 faces
 
-    Returns
-    -------
-    compas.geometry.Box
-
-    Hint: a COMPAS Box is CENTRED on its frame, so Box(2,2,2) at the origin
-    spans z from -1 to +1. Read the warning in README section 3, then work out
-    how high the frame has to be.
-    """
-    raise NotImplementedError("box_on_ground")
-
-
-def move(shape, dx, dy, dz):
-    """Return a COPY of `shape` moved by (dx, dy, dz).
-
-    The original must NOT be modified -- the caller still needs it.
+    Parameters
+    ----------
+    nx, ny : int   -- at least 1 each; otherwise raise ValueError
+    spacing : float
 
     Returns
     -------
-    the same type of shape that was passed in
+    compas.datastructures.Mesh
 
-    Hint: build a Translation, then use the method that returns a new object
-    rather than the one that edits in place. README section 1, the `-ed` rule.
+    Hints
+    -----
+    - Do NOT use Mesh.from_meshgrid. The point is to work out the vertex keys
+      yourself -- that is the part that transfers to every other mesh you build.
+    - Keep a dictionary mapping (i, j) -> vertex key as you add vertices, then
+      look up the four corners of each face. Much easier than doing the
+      index arithmetic in your head.
+    - Counter-clockwise from above means, for the face whose lower-left corner
+      is (i, j):  (i,j) -> (i+1,j) -> (i+1,j+1) -> (i,j+1)
+    - Neighbouring faces must SHARE vertices, not each add their own. If they
+      do not, the mesh looks perfect and its Euler characteristic is wrong.
     """
-    raise NotImplementedError("move")
+    raise NotImplementedError("grid_mesh")
 
 
-def rotate_point_about_z(point, degrees):
-    """Return a new Point, rotated about the world Z axis through the origin.
+def mesh_stats(mesh):
+    """Return a summary dictionary describing a mesh.
 
-    rotate_point_about_z(Point(1, 0, 0), 90)  ->  Point(0, 1, 0)
+    Keys, exactly these:
+        "vertices"  : int   -- number of vertices
+        "edges"     : int   -- number of edges
+        "faces"     : int   -- number of faces
+        "euler"     : int   -- V - E + F
+        "boundary"  : int   -- number of DISTINCT vertices on the boundary
+        "area"      : float -- total area of all faces
 
-    `degrees` is in DEGREES, because that is what a human designing a facade
-    thinks in. COMPAS is not. Converting at the boundary of your function --
-    so the inside is consistently radians -- is the habit to build.
+    A summary like this is the cheapest possible regression test: one call
+    tells you whether a change to your generator altered the topology.
 
     Returns
     -------
-    compas.geometry.Point
+    dict
+
+    Watch out
+    ---------
+    `mesh.vertices_on_boundary()` returns the boundary as an ordered CYCLE,
+    with the first vertex repeated at the end -- so `len()` of it is one more
+    than the number of distinct vertices. Count with
+
+        sum(mesh.is_vertex_on_boundary(k) for k in mesh.vertices())
+
+    or take `len(set(...))`. This is a genuine trap in a real library, and it
+    is exactly the kind of thing that "looks right" until something counts it.
     """
-    raise NotImplementedError("rotate_point_about_z")
+    raise NotImplementedError("mesh_stats")
 
 
-def grid_of_boxes(nx, ny, spacing, size):
-    """Return a list of cubes arranged in an nx by ny grid on the ground.
+def colour_by_height(mesh, low=(0, 0, 255), high=(255, 0, 0)):
+    """Give every vertex a "color" attribute interpolated by its height.
 
-    - `nx` columns along x, `ny` rows along y
-    - centres `spacing` apart
-    - the first box is centred over (0, 0); the last over
-      ((nx-1)*spacing, (ny-1)*spacing)
-    - every box has edge length `size` and sits ON the ground (z >= 0)
-    - ordered with x changing fastest: (0,0), (1,0), (2,0), (0,1), ...
+    - the LOWEST vertex in the mesh gets exactly `low`
+    - the HIGHEST gets exactly `high`
+    - everything between is linearly interpolated on z
+    - if the mesh is completely flat (all z equal), every vertex gets `low`
+      -- there is no gradient to compute, and dividing by the zero range would
+      crash
+
+    Each colour is a tuple/list of three ints, 0-255.
+
+    The mesh is modified IN PLACE (that is what a mesh is for) and also
+    returned, so callers can chain.
 
     Returns
     -------
-    list[compas.geometry.Box] -- nx * ny of them
+    compas.datastructures.Mesh -- the same object
 
-    Hint: reuse box_on_ground(). Reusing your own tested function instead of
-    repeating its logic is the cheapest quality win available to you.
+    Hint: mesh.vertex_attribute(key, "color", value) sets it.
     """
-    raise NotImplementedError("grid_of_boxes")
+    raise NotImplementedError("colour_by_height")
 
 
-def flatten_to_xy(points):
-    """Return a new list of Points with z set to 0 -- a projection onto the ground.
+def deform_by_wave(mesh, amplitude=1.0, wavelength=4.0):
+    """Push every vertex up or down by a sine wave along x, IN PLACE.
 
-    The input list and the Points inside it must NOT be modified.
+    New z for a vertex = its old z + amplitude * sin(2*pi*x / wavelength)
 
-    flatten_to_xy([Point(1, 2, 9)])  ->  [Point(1, 2, 0)]
+    The topology must be completely untouched: same vertex keys, same faces,
+    same edges. Only the coordinates change. Demonstrating that to yourself is
+    the point of this checkpoint.
 
     Returns
     -------
-    list[compas.geometry.Point]
+    compas.datastructures.Mesh -- the same object
 
-    Hint: make new Points rather than editing the ones you were given. If you
-    write `p.z = 0` you have just silently changed the caller's data -- the
-    Week 04 mutation bug, now with geometry.
+    Hint: mesh.vertex_attribute(key, "z", new_value) moves a vertex. You do not
+    need to touch a single face.
     """
-    raise NotImplementedError("flatten_to_xy")
+    raise NotImplementedError("deform_by_wave")
+
+
+def tag_supports(mesh):
+    """Mark every BOUNDARY vertex as a support, and every other vertex as not.
+
+    - every vertex gets a boolean attribute "is_support"
+    - True on the boundary, False everywhere else -- set it on EVERY vertex,
+      not only the True ones, so that nobody downstream has to guess what a
+      missing attribute means
+    - return the support keys as a sorted list
+
+    grid_mesh(2, 2)  ->  [0, 1, 2, 3, 5, 6, 7, 8]   (all but the middle one)
+
+    This is the pattern behind every structural or fabrication model you will
+    build: the geometry says WHERE, the attributes say WHAT IT IS.
+
+    Returns
+    -------
+    list[int] -- sorted vertex keys
+
+    Hints
+    -----
+    - mesh.is_vertex_on_boundary(key) answers the question for one vertex
+    - mesh.vertices_where(is_support=True) reads the attribute back --
+      try it once you have set it; it is a query on DATA, not on geometry
+    """
+    raise NotImplementedError("tag_supports")
+
+
+def vertex_ring(mesh, key, k):
+    """Return the set of vertices at most `k` edges away from `key`.
+
+    - k = 0  ->  {key}
+    - k = 1  ->  key plus its direct neighbours
+    - k = 2  ->  ... plus THEIR neighbours, and so on
+    - k < 0  ->  raise ValueError
+
+    On a 4x4 grid, the middle vertex has 5 vertices within one edge, 13 within
+    two. Count them on the "neighbours" figure in the README to check.
+
+    Returns
+    -------
+    set[int]
+
+    Hints
+    -----
+    - mesh.vertex_neighbors(v) gives the vertices one edge away from v
+    - grow the set one ring at a time: keep a "frontier" of the vertices you
+      reached in the last step, and only expand those. Expanding everything
+      every time also works, and is quietly much slower.
+    - This is a breadth-first search. You will meet it by name next week, on
+      graphs -- a mesh's vertices and edges ARE a graph.
+    """
+    raise NotImplementedError("vertex_ring")

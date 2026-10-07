@@ -23,7 +23,7 @@ A workable routine:
      functions but never classes."
    - ✅ "Why does my `__repr__` not show when I print a list of these?"
    - ❌ "Write me a Vector2D class." *(You will pass the checkpoint and learn
-     nothing, and Week 11 will be much harder.)*
+     nothing, and Week 13 will be much harder.)*
 4. The checkpoints are your marker. Nobody is watching; the only person you
    can cheat is the one who has to build a final project in December.
 5. Stuck for real? Open an issue on the course repo, or email me — I read mail
@@ -201,13 +201,17 @@ the parent.
 
 📄 `class_examples/8.4.1_inheritance.py`
 
-## 6. Classes and the Week 06 architecture
+## 6. Classes that stay pure
 
 A class can be pure. `Wall` in checkpoint 4 holds parameters, validates them,
 derives values, and produces geometry on request — and imports no viewer, no
-files, no Rhino. It belongs in the **core** layer exactly as the function did.
+files, no Rhino. Like every checkpoint function since Week 04, it takes data in
+and gives geometry back, and nothing else.
 
-Objects do not change the architecture. They organise what is inside a layer.
+In Week 09 that habit gets a name and a structure: the **core** layer of the
+course's architecture, kept apart from the code that saves files or opens
+viewers. A class like `Wall` belongs in the core exactly as a function would.
+Objects do not change the architecture; they organise what is inside a layer.
 
 ## 7. Optional: agent-based models
 

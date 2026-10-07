@@ -1,6 +1,6 @@
-# Exercise — Project a box to the XY plane  (Week 05 companion)
+# Exercise — Project a box to the XY plane  (Week 04 companion)
 
-> Open-ended practice alongside the [Week 05](/Lecture/Lecture_05/README.md)
+> Open-ended practice alongside the [Week 04](/Lecture/Lecture_04/README.md)
 > checkpoints. `uv run your_script.py`.
 
 - Create a box and transform it to some location off the ground.
@@ -10,7 +10,7 @@
 
 ![projection](projection.png)
 
-The checkpoint `flatten_to_xy` in Week 05 is the pure, testable core of this —
+The checkpoint `flatten_to_xy` in Week 04 is the pure, testable core of this —
 do that first, then use it here and add the visualisation on top. That split
-(tested core, thin drawing layer) is exactly the Week 06 architecture in
+(tested core, thin drawing layer) is exactly the Week 09 architecture in
 miniature.

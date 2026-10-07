@@ -182,11 +182,6 @@ number of branches is still wrong**, and only one of those two facts is visible.
 
 📝 [Branching tree](/Exercise/Lecture_08/README.md)
 
-## Assignment
-
-📝 [A3 — Recursion](/Assignment/4_recursion/README.md) is this week's
-assignment and is due Week 09. Checkpoint 4 is a working skeleton for it.
-
 ## Self-test
 
 1. What are the two things every recursive function must have?

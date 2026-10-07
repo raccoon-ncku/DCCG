@@ -28,6 +28,6 @@ That last one is the jump from a fractal to a *design*: look at
 move applied to a Sierpinski triangle.
 
 Keep the segment-generating part pure (return a list of segments; draw
-separately) so it could drop into a Week 06 core and be tested the way
+separately) so it could drop into a Week 09 core and be tested the way
 `tree_segments` is. A tree that looks right but has the wrong branch count is
 still wrong — and only the count is checkable.
