@@ -7,7 +7,7 @@ import pathlib
 
 # pathlib is an object-oriented filesystem paths module
 # which is available for Python > 3.4
-filepath = pathlib.Path(__file__).parent / "data" / "Bunny.ply"
+filepath = pathlib.Path(__file__).parents[1] / "data" / "bunny.ply"
 
 mesh = cd.Mesh.from_ply(filepath)
 # mesh = cd.Mesh.from_stl(filepath)

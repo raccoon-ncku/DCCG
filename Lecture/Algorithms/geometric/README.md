@@ -291,8 +291,8 @@ graph = interior_straight_skeleton(footprint)     # a COMPAS Graph (Week 06!)
 | `straight_skeleton_2` | skeletons and offsets of polygons | roofs, setbacks, inset paths |
 | `triangulation` | constrained / conforming Delaunay | meshing a plan with holes |
 
-Worked scripts: `Lecture_05/mesh_examples/554_mesh_booleans.py`,
-`mesh_examples_advanced/551_trimesh_remeshing.py`, `556_compas_cgal_slicer.py`;
+Worked scripts in [`Lecture_05/mesh_cgal/`](/Lecture/Lecture_05/mesh_cgal/):
+`01_remesh.py`, `03_delaunay_with_holes.py`, `04_booleans.py`, `07_slice_for_printing.py`;
 for points, [`Classic_Algorithms/convex_hull/`](/Lecture/Classic_Algorithms/convex_hull/).
 
 ---

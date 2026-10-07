@@ -1,6 +1,6 @@
 from compas.geometry import Box, Polyhedron
 from compas.geometry import Translation
-from compas_cgal.subdivision import catmull_clark
+from compas_cgal.subdivision import mesh_subdivide_catmull_clark as catmull_clark
 from compas_viewer import Viewer
 
 

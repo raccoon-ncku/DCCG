@@ -1,6 +1,6 @@
 import compas.geometry as cg
 from compas.datastructures import Mesh
-import compas_cgal.meshing
+from compas_cgal.meshing import trimesh_remesh
 from compas.datastructures import (
     mesh_conway_ambo,
     mesh_conway_bevel,
@@ -20,12 +20,12 @@ from compas_viewer import Viewer
 
 
 # Mesh
-sphere = cg.Sphere(cg.Point(1, 1, 1), 1)
+sphere = cg.Sphere(1, cg.Frame((1, 1, 1)))
 sphere = Mesh.from_shape(sphere, u=30, v=30)
 sphere.quads_to_triangles()
 
 s = sphere.to_vertices_and_faces()
-s = compas_cgal.meshing.remesh(s, 0.3, 10)
+s = trimesh_remesh(s, 0.3, 10)
 mesh = Mesh.from_vertices_and_faces(*s)
 
 

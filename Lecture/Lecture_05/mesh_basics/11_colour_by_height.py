@@ -6,7 +6,7 @@ from compas.colors import Color
 from compas_viewer import Viewer
 import pathlib
 from random import random
-filepath = pathlib.Path(__file__).parent / "data" / "Bunny.ply"
+filepath = pathlib.Path(__file__).parents[1] / "data" / "bunny.ply"
 
 mesh = cd.Mesh.from_ply(filepath)
 R = cg.Rotation.from_axis_and_angle(cg.Vector(1, 0, 0), math.radians(90))

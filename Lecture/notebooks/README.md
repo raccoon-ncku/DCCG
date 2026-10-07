@@ -149,7 +149,7 @@ not hundreds of shapes: notebook 07's tower does this, because hundreds of
 boxes render slowly and one of them was drawn at the origin by mistake.
 
 The older COMPAS-core notebooks (Week 04 `compas_ipynb/`, the Week 06 brick
-stacks, Week 05 `mesh_pavilion.ipynb`) use compas_notebook directly, and now
+stacks, Week 05 `volcano_pavilion.ipynb`) use compas_notebook directly, and now
 run with the same `uv run jupyter lab`.
 
 ---

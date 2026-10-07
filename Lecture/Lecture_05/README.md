@@ -14,6 +14,13 @@ A **mesh** is the data structure for that, and where Week 04's dictionaries do
 real work: every vertex, edge and face carries a dictionary of your data. Next
 week: **graphs**, a mesh with the faces taken away.
 
+| Folder | What is in it | Run |
+| ------ | ------------- | --- |
+| [`mesh_basics/`](mesh_basics/) | one small script per idea, numbered in the order of this page (📄 links below) | `uv run Lecture/Lecture_05/mesh_basics/02_build_from_scratch.py` |
+| [`mesh_cgal/`](mesh_cgal/) | optional: remeshing, Delaunay, booleans, slicing with `compas_cgal` | same, not examined |
+| [`mesh_applications/`](mesh_applications/) | §12: form finding, truss analysis, scan to mesh, cloth | same, not examined |
+| [`data/`](data/) | `bunny.ply`, `benchy.stl`, shared by the scripts | |
+
 ---
 
 ## 1. Why a mesh is not a list of triangles
@@ -90,8 +97,8 @@ Mesh.from_obj("model.obj")                      # from a file (also .ply, .stl, 
 > checkpoint 1) number them **x-fastest**. Keys are labels, not positions:
 > never compute a location from a key.
 
-📄 `mesh_examples/501_mesh.py`, `502_mesh_from_scratch.py`, `503_mesh_constructor.py`,
-`504_mesh_from_file.py`
+📄 [`mesh_basics/`](mesh_basics/) `01_load_and_view.py`, `02_build_from_scratch.py`,
+`03_constructors.py`, `04_read_from_file.py`
 
 ## 3. Face order defines the normal
 
@@ -112,7 +119,7 @@ mesh.flip_cycles()       # reverse every face: the whole mesh turns inside out
 mesh.unify_cycles()      # make all faces consistent with each other
 ```
 
-📄 `mesh_examples/510_mesh_face_normal.py`, `511_mesh_face_normal_pattern.py`
+📄 `mesh_basics/05_face_normals.py`, `06_normal_spikes_on_boundary.py`
 
 ## 4. Under the hood: halfedges
 
@@ -174,7 +181,7 @@ mesh.edge_vector((u, v))
 mesh.edge_line((u, v))      # a compas Line
 ```
 
-📄 `mesh_examples/506_access_mesh_v_f_e.py`
+📄 `mesh_basics/07_loop_vertices_faces_edges.py`
 
 ## 6. Topology: asking about neighbours
 
@@ -211,8 +218,8 @@ mesh.faces_on_boundary()
 Boundaries are where designs meet the world: supports, edge beams, where a shell
 lands. Checkpoint 5 tags them.
 
-📄 `mesh_examples/507_mesh_topology.py`, `509_mesh_info_vertices_on_boundary.py`,
-`mesh_examples_advanced/508_mesh_info_vertex_degree.py`
+📄 `mesh_basics/08_face_neighbours.py`, `09_boundary_vertices.py`,
+`10_vertex_degree_labels.py`
 
 ### Loops and strips
 
@@ -273,7 +280,7 @@ mesh.vertices_where(z=(0.0, 1.5))                # a (min, max) range works too
 `vertices_where` makes a mesh a small database: tag elements with what they
 *are* (support, seam, glass) and query by meaning, not position.
 
-📄 `mesh_examples/506-1_mesh_color.py`, `506-2_mesh_color_II.py`
+📄 `mesh_basics/11_colour_by_height.py`, `12_colour_by_normal.py`
 
 ## 8. Euler's formula: a free correctness check
 
@@ -345,9 +352,9 @@ become structural nodes. More operations:
 
 | | |
 | --- | --- |
-| `mesh_examples/562_mesh_subdivision_scheme.py` | every subdivision scheme side by side |
-| `mesh_examples/557_conway_1.py` … `559_conway_3.py` | Conway operators: dual, kis, ambo, truncate … |
-| `mesh_examples/554_mesh_booleans.py` | union / difference / intersection (CGAL) |
+| `mesh_basics/13_subdivision_schemes.py` | every subdivision scheme side by side |
+| `mesh_basics/14_conway_operators.py` … `16_conway_chained.py` | Conway operators: dual, kis, ambo, truncate … |
+| `mesh_basics/17_boolean_union.py` | union of two boxes (CGAL); all three booleans in `mesh_cgal/04_booleans.py` |
 
 ## 10. Saving
 
@@ -364,7 +371,7 @@ mesh.to_stl("mesh.stl")        # for 3D printing
 COMPAS JSON keeps attributes; OBJ and STL drop them (export, not save,
 formats).
 
-📄 `mesh_examples/505_mesh_to_file.py`
+📄 `mesh_basics/18_write_to_file.py` (writes to the git-ignored `Lecture_05/output/`)
 
 ## 11. Seeing it
 
@@ -417,8 +424,8 @@ The design levers are attributes: supports and per-edge `q`. Change `q` on the
 boundary and the free edges arch more or less. Same topology, different shell.
 
 📄 [`mesh_applications/form_finding.py`](mesh_applications/form_finding.py) ·
-also `mesh_relaxation.py` (the same idea solved by repeated averaging) and
-`mesh_pavilion.ipynb`
+also `relaxation_live.py` (the same idea by repeated averaging, animated) and
+`volcano_pavilion.ipynb`
 
 ### Structural analysis: a mesh is a truss
 
@@ -495,9 +502,9 @@ steps instead of one solve.
   operations written from scratch and tested (smoothing, curvature, geodesics,
   subdivision, planarity, contouring, Delaunay/Voronoi), then simulation,
   optimization and learning.
-- `mesh_examples_advanced/`: remeshing, Delaunay, Catmull-Clark by hand, and
-  `556_compas_cgal_slicer.py` for fabrication.
-- `mesh_applications/mesh_relaxation.py` and `mesh_pavilion.ipynb`: worked
+- [`mesh_cgal/`](mesh_cgal/): remeshing, Delaunay (with holes), booleans,
+  CGAL Catmull–Clark, and `07_slice_for_printing.py` for fabrication.
+- `mesh_applications/relaxation_live.py` and `volcano_pavilion.ipynb`: worked
   form-finding examples, good project starters.
 - [compas.dev › Meshes](https://compas.dev/compas/latest/userguide/basics.datastructures.meshes.html):
   the same API, more on loops, strips and filtering.

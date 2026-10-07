@@ -6,11 +6,11 @@
 >
 > They use the viewer — run locally with `uv run your_script.py`. Example
 > starting points are in
-> [`Lecture_05/mesh_examples/`](/Lecture/Lecture_05/README.md).
+> [`Lecture_05/mesh_basics/`](/Lecture/Lecture_05/mesh_basics/).
 
 ## 1. Colour a mesh by normal direction
 
-Load a mesh (the Stanford bunny in `Lecture_05/mesh_examples/data/` is a good
+Load a mesh (the Stanford bunny in `Lecture_05/data/` is a good
 one), iterate over its vertices, and colour each by its normal direction using
 `mesh.vertex_normal(key)`.
 

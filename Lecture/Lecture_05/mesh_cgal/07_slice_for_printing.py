@@ -11,7 +11,7 @@ from compas_viewer import Viewer
 from compas_cgal.slicer import slice_mesh
 
 import pathlib
-FILE = pathlib.Path(__file__).parent / "data" / '3DBenchy.stl'
+FILE = pathlib.Path(__file__).parents[1] / "data" / "benchy.stl"
 
 
 # Get benchy and construct a mesh
