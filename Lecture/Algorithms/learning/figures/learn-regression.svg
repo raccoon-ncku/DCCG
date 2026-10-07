@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="400" viewBox="0 0 900 400" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<text x="215.0" y="20.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">60 noisy 'simulations' vs the fitted law</text>
+<line x1="90.0" y1="320.0" x2="340.0" y2="70.0" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" opacity="1.0" stroke-dasharray="5,4"/>
+<circle cx="267.9" cy="140.7" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="232.8" cy="175.6" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="188.9" cy="220.4" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="123.4" cy="285.7" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="300.6" cy="109.1" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="274.8" cy="137.2" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="288.2" cy="121.9" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="235.3" cy="175.7" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="259.5" cy="152.7" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="339.4" cy="70.0" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="268.2" cy="142.5" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="92.0" cy="320.0" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="289.9" cy="121.5" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="101.2" cy="308.7" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="269.9" cy="139.4" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="185.0" cy="223.2" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="274.0" cy="135.8" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="207.5" cy="200.8" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="169.9" cy="237.9" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="231.0" cy="177.2" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="113.2" cy="300.9" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="164.6" cy="243.8" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="260.0" cy="149.3" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="236.0" cy="173.2" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="264.1" cy="145.3" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="200.6" cy="208.8" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="279.9" cy="129.3" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="262.5" cy="147.7" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="310.5" cy="102.4" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="240.7" cy="169.3" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="231.3" cy="179.8" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="185.2" cy="223.1" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="230.0" cy="180.8" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="239.6" cy="170.1" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="206.0" cy="205.2" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="171.4" cy="239.4" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="278.1" cy="131.9" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="250.8" cy="161.2" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="260.8" cy="148.4" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="189.5" cy="220.7" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="251.6" cy="160.2" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="238.7" cy="175.2" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="227.9" cy="181.2" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="178.9" cy="231.6" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="247.1" cy="163.8" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="283.9" cy="126.2" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="195.3" cy="212.1" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="222.8" cy="187.1" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="210.9" cy="199.4" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="261.7" cy="150.4" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="266.2" cy="141.0" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="252.7" cy="156.1" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="267.3" cy="140.7" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="207.4" cy="203.0" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="190.3" cy="218.3" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="170.0" cy="239.7" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="198.0" cy="211.0" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="331.2" cy="78.9" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="162.7" cy="249.7" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="196.4" cy="212.4" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<text x="215.0" y="330.0" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">predicted deflection (log)  →</text>
+<text x="215.0" y="352.0" font-size="14" fill="#1c7ed6" text-anchor="middle" font-weight="bold" xml:space="preserve">fitted: deflection ∝ L^3.98 · h^-3.00</text>
+<text x="215.0" y="372.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">true law: L^4 · h^-3 (Euler–Bernoulli), never shown to the fit</text>
+<rect x="520" y="50" width="340" height="270" fill="white" stroke="#adb5bd"/>
+<text x="690.0" y="38.0" font-size="14" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">more flexible ≠ better</text>
+<text x="690.0" y="350.0" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">polynomial degree</text>
+<text x="512.0" y="46.0" font-size="11" fill="#212529" text-anchor="end" font-weight="normal" xml:space="preserve">RMSE</text>
+<text x="516.0" y="314.0" font-size="10" fill="#adb5bd" text-anchor="end" font-weight="normal" xml:space="preserve">3.3e-07</text>
+<text x="516.0" y="251.5" font-size="10" fill="#adb5bd" text-anchor="end" font-weight="normal" xml:space="preserve">2.53e-05</text>
+<text x="516.0" y="189.0" font-size="10" fill="#adb5bd" text-anchor="end" font-weight="normal" xml:space="preserve">0.00195</text>
+<text x="516.0" y="126.5" font-size="10" fill="#adb5bd" text-anchor="end" font-weight="normal" xml:space="preserve">0.149</text>
+<text x="516.0" y="64.0" font-size="10" fill="#adb5bd" text-anchor="end" font-weight="normal" xml:space="preserve">11.5</text>
+<text x="530.0" y="334.0" font-size="10" fill="#adb5bd" text-anchor="middle" font-weight="normal" xml:space="preserve">1</text>
+<text x="610.0" y="334.0" font-size="10" fill="#adb5bd" text-anchor="middle" font-weight="normal" xml:space="preserve">4</text>
+<text x="690.0" y="334.0" font-size="10" fill="#adb5bd" text-anchor="middle" font-weight="normal" xml:space="preserve">6</text>
+<text x="770.0" y="334.0" font-size="10" fill="#adb5bd" text-anchor="middle" font-weight="normal" xml:space="preserve">9</text>
+<text x="850.0" y="334.0" font-size="10" fill="#adb5bd" text-anchor="middle" font-weight="normal" xml:space="preserve">12</text>
+<polyline points="530.0,130.2 559.1,136.8 588.2,137.8 617.3,138.6 646.4,138.9 675.5,139.8 704.5,148.9 733.6,149.0 762.7,150.4 791.8,152.4 820.9,154.7 850.0,292.8" fill="none" stroke="#e8590c" stroke-width="2.5"/>
+<text x="850.0" y="68.0" font-size="11" fill="#e8590c" text-anchor="end" font-weight="bold" xml:space="preserve">train error</text>
+<polyline points="530.0,125.8 559.1,128.1 588.2,128.2 617.3,127.9 646.4,126.9 675.5,126.3 704.5,130.6 733.6,130.1 762.7,129.5 791.8,126.1 820.9,118.2 850.0,77.2" fill="none" stroke="#1c7ed6" stroke-width="2.5"/>
+<text x="850.0" y="84.0" font-size="11" fill="#1c7ed6" text-anchor="end" font-weight="bold" xml:space="preserve">test error</text>
+<text x="690.0" y="390.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">training error keeps falling; test error climbs once the curve fits noise</text>
+</svg>

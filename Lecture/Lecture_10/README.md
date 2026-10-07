@@ -1,4 +1,4 @@
-# Week 15 (Lecture 10) — AI models as design ingredients
+# AI models as design ingredients (optional, Week 15)
 
 > Optional, and the heaviest material in the course to install. The point is
 > not to make you an ML engineer — it is to see how a trained model becomes one
@@ -47,11 +47,12 @@ filenames.
 > ⚠️ These models are large (gigabytes) and download on first run. Use a fast,
 > unlimited connection, and expect the first run to be slow.
 
-### Traditional ML (legacy)
+### Classic machine learning
 
-`clustering/` (K-Means) and `regression/` (linear regression) apply classic
-machine learning to design data — lighter to run, and often more appropriate
-than a giant model when your problem is small.
+Clustering and regression, written from scratch on design data, are in the
+Week 12 [learning tutorials](/Lecture/Algorithms/learning/README.md). They are
+lighter to run, and often more appropriate than a giant model when the problem
+is small.
 
 ## 3. Setup
 
@@ -90,5 +91,5 @@ matches), and keep the model itself behind that boundary. The heavy,
 non-deterministic part stays in one place; the rest of your tool stays testable.
 
 Be honest in your reflection about what the model got right and wrong — the same
-"verify, don't trust" rule from Week 11 applies to a diffusion model exactly as
+"verify, don't trust" rule from Week 13 applies to a diffusion model exactly as
 it does to a coding agent.
