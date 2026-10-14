@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="440" viewBox="0 0 640 440" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<text x="320.0" y="20.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">metres to the nearest exit (limit 25 m)</text>
+<polygon points="48.5,416.0 184.2,416.0 184.2,280.2 48.5,280.2" fill="#1c7ed6" stroke="#212529" stroke-width="2" stroke-linejoin="round" fill-opacity="0.6"/>
+<polygon points="184.2,416.0 320.0,416.0 320.0,280.2 184.2,280.2" fill="#3071da" stroke="#212529" stroke-width="2" stroke-linejoin="round" fill-opacity="0.6"/>
+<polygon points="320.0,416.0 410.5,416.0 410.5,280.2 320.0,280.2" fill="#545ae2" stroke="#212529" stroke-width="2" stroke-linejoin="round" fill-opacity="0.6"/>
+<polygon points="410.5,416.0 501.0,416.0 501.0,280.2 410.5,280.2" fill="#6151e5" stroke="#212529" stroke-width="2" stroke-linejoin="round" fill-opacity="0.6"/>
+<polygon points="501.0,416.0 591.5,416.0 591.5,348.1 501.0,348.1" fill="#ffc9c9" stroke="#212529" stroke-width="2" stroke-linejoin="round" fill-opacity="0.6"/>
+<polygon points="501.0,348.1 591.5,348.1 591.5,280.2 501.0,280.2" fill="#1c7ed6" stroke="#212529" stroke-width="2" stroke-linejoin="round" fill-opacity="0.6"/>
+<polygon points="48.5,280.2 229.5,280.2 229.5,235.0 48.5,235.0" fill="#2b74d9" stroke="#212529" stroke-width="2" stroke-linejoin="round" fill-opacity="0.6"/>
+<polygon points="229.5,280.2 410.5,280.2 410.5,235.0 229.5,235.0" fill="#4265de" stroke="#212529" stroke-width="2" stroke-linejoin="round" fill-opacity="0.6"/>
+<polygon points="410.5,280.2 591.5,280.2 591.5,235.0 410.5,235.0" fill="#2976d9" stroke="#212529" stroke-width="2" stroke-linejoin="round" fill-opacity="0.6"/>
+<polygon points="48.5,235.0 184.2,235.0 184.2,54.0 48.5,54.0" fill="#3d69dd" stroke="#212529" stroke-width="2" stroke-linejoin="round" fill-opacity="0.6"/>
+<polygon points="184.2,235.0 320.0,235.0 320.0,54.0 184.2,54.0" fill="#515ce1" stroke="#212529" stroke-width="2" stroke-linejoin="round" fill-opacity="0.6"/>
+<polygon points="320.0,235.0 455.8,235.0 455.8,54.0 320.0,54.0" fill="#4f5de1" stroke="#212529" stroke-width="2" stroke-linejoin="round" fill-opacity="0.6"/>
+<polygon points="455.8,235.0 591.5,235.0 591.5,54.0 455.8,54.0" fill="#3b6add" stroke="#212529" stroke-width="2" stroke-linejoin="round" fill-opacity="0.6"/>
+<text x="116.4" y="340.1" font-size="12" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">lobby</text>
+<text x="116.4" y="366.1" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">0.0 m</text>
+<text x="252.1" y="340.1" font-size="12" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">cafe</text>
+<text x="252.1" y="366.1" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">6.0 m</text>
+<text x="365.2" y="340.1" font-size="12" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">shop</text>
+<text x="365.2" y="366.1" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">16.6 m</text>
+<text x="455.8" y="340.1" font-size="12" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">office</text>
+<text x="455.8" y="366.1" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">20.6 m</text>
+<text x="546.2" y="374.1" font-size="12" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">wc</text>
+<text x="546.2" y="400.1" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">25.1 m</text>
+<text x="546.2" y="306.2" font-size="12" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">stair</text>
+<text x="546.2" y="332.2" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">0.0 m</text>
+<text x="139.0" y="249.6" font-size="12" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">corr_w  4.4 m</text>
+<text x="320.0" y="249.6" font-size="12" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">corr_m  11.4 m</text>
+<text x="501.0" y="249.6" font-size="12" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">corr_e  3.7 m</text>
+<text x="116.4" y="136.5" font-size="12" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">gallery1</text>
+<text x="116.4" y="162.5" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">9.8 m</text>
+<text x="252.1" y="136.5" font-size="12" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">gallery2</text>
+<text x="252.1" y="162.5" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">15.8 m</text>
+<text x="387.9" y="136.5" font-size="12" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">gallery3</text>
+<text x="387.9" y="162.5" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">15.2 m</text>
+<text x="523.6" y="136.5" font-size="12" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">gallery4</text>
+<text x="523.6" y="162.5" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">9.2 m</text>
+</svg>

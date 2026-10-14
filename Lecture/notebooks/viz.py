@@ -1,11 +1,11 @@
 """
 Small drawing helpers for the DCCG notebooks -- inline SVG, no matplotlib.
 
-    from viz import draw_mesh, draw_graph, draw_points, chart, row
+    from viz import draw_mesh, draw_graph, draw_plan, draw_points, chart, row
 
 Every function returns a Figure. In Jupyter or VS Code, a Figure that is the
-last line of a cell draws itself. Anywhere else (a plain terminal, or a Zed
-REPL that does not render SVG), call fig.save("name.svg") and open the file.
+last line of a cell draws itself. Anywhere else (a plain terminal), call
+fig.save("name.svg") and open the file.
 
 This is a copy of the SVG writer behind the lecture figures
 (Lecture/Lecture_05/figures/make_figures.py), plus a few one-call helpers.
@@ -52,7 +52,7 @@ class Figure:
             f'<rect width="100%" height="100%" fill="white"/>\n{body}\n</svg>\n'
         )
 
-    # Jupyter, VS Code and (where supported) Zed call this to draw the figure inline
+    # Jupyter and VS Code call this to draw the figure inline
     def _repr_svg_(self):
         return self.svg()
 
@@ -245,6 +245,39 @@ def draw_graph(graph, title=None, node_labels=True, node_colors=None, edge_color
     return fig
 
 
+def draw_plan(rooms, title=None, fills=None, graph=None, edge_colors=None, notes=None, size=(640, 440)):
+    """Draw a floor plan: rooms {name: (xmin, ymin, xmax, ymax)} as rectangles.
+
+    fills: {name: '#rrggbb'}; notes: {name: text} written under the room name;
+    graph: a COMPAS Graph drawn on top (nodes as dots, edge_colors as in draw_graph).
+    """
+    fig = Figure(*size)
+    corners = [(x, y, 0) for x0, y0, x1, y1 in rooms.values() for x, y in ((x0, y0), (x1, y1))]
+    p = Panel(fig, 0, 0, size[0], size[1], corners, title=title, pad=24)
+    for name, (x0, y0, x1, y1) in rooms.items():
+        p.polygon([(x0, y0, 0), (x1, y0, 0), (x1, y1, 0), (x0, y1, 0)], (fills or {}).get(name, LIGHT), INK, 2,
+                  0.6 if fills and name in fills else 1.0)
+    if graph is not None:
+        for u, v in graph.edges():
+            colour = (edge_colors or {}).get((u, v)) or (edge_colors or {}).get((v, u)) or BLUE
+            via = graph.edge_attribute((u, v), "door")
+            stops = [graph.node_coordinates(u)] + ([via] if via else []) + [graph.node_coordinates(v)]
+            for a, b in zip(stops, stops[1:]):
+                p.line(a, b, colour, 4 if colour != BLUE else 2)
+        for n in graph.nodes():
+            p.dot(graph.node_coordinates(n), 4, BLUE)
+    for name, (x0, y0, x1, y1) in rooms.items():
+        centre = ((x0 + x1) / 2, (y0 + y1) / 2, 0)
+        note = (notes or {}).get(name)
+        if note and (y1 - y0) * p.s < 60:               # a low room: name and note on one line
+            p.label(centre, f"{name}  {note}", 12, INK, 0, -8, "middle", "bold")
+            continue
+        p.label(centre, name, 12, INK, 0, -8, "middle", "bold")
+        if note:
+            p.label(centre, note, 11, INK, 0, 18)
+    return fig
+
+
 def draw_points(points, title=None, colors=None, polygons=(), polygon_fills=None, lines=(),
                 labels=False, size=(520, 380), bounds=None):
     """Draw 2D points, optional polygons (lists of points) and lines ((a, b) pairs)."""
@@ -335,8 +368,8 @@ def view3d(*items, width=900, height=460, top=False):
     Each item is a COMPAS geometry or datastructure, or (item, {options}) where
     options are the scene options of that object (facecolor, show_edges ...).
     Drag to orbit, scroll to zoom. Needs compas_notebook and a Jupyter front end
-    (JupyterLab in the browser, or VS Code). Outside Jupyter -- a script, the
-    tests, or Zed, which cannot show widgets -- it prints one line instead.
+    (JupyterLab in the browser, or VS Code). Outside Jupyter (a plain script)
+    it prints one line instead.
     """
     if not _in_jupyter_kernel():
         print(f"[3D view of {len(items)} object(s): open this notebook in JupyterLab or VS Code to see it]")

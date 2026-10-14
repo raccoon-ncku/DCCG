@@ -1,8 +1,5 @@
 # Week 02 — Python I: values, types, lists, functions
 
-> Self-contained. Read this page, run the examples next to it, then do the
-> checkpoints. `uv run check.py 01` tells you when you are done.
-
 ## Why we start by *reading*
 
 You are learning Python in a year when a machine can produce it faster than

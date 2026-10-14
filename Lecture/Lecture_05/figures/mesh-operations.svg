@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<text x="112.5" y="20.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">the grid</text>
+<polygon points="26.0,236.5 83.7,236.5 83.7,178.8 26.0,178.8" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="83.7,236.5 141.3,236.5 141.3,178.8 83.7,178.8" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="141.3,236.5 199.0,236.5 199.0,178.8 141.3,178.8" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="26.0,178.8 83.7,178.8 83.7,121.2 26.0,121.2" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="83.7,178.8 141.3,178.8 141.3,121.2 83.7,121.2" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="141.3,178.8 199.0,178.8 199.0,121.2 141.3,121.2" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="26.0,121.2 83.7,121.2 83.7,63.5 26.0,63.5" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="83.7,121.2 141.3,121.2 141.3,63.5 83.7,63.5" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="141.3,121.2 199.0,121.2 199.0,63.5 141.3,63.5" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<circle cx="26.0" cy="236.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="83.7" cy="236.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="141.3" cy="236.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="199.0" cy="236.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="26.0" cy="178.8" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="83.7" cy="178.8" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="141.3" cy="178.8" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="199.0" cy="178.8" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="26.0" cy="121.2" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="83.7" cy="121.2" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="141.3" cy="121.2" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="199.0" cy="121.2" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="26.0" cy="63.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="83.7" cy="63.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="141.3" cy="63.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="199.0" cy="63.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<text x="112.0" y="284.0" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">V=16 E=24 F=9  euler=1</text>
+<text x="337.5" y="20.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">quads_to_triangles()</text>
+<polygon points="308.7,236.5 308.7,178.8 251.0,178.8" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="251.0,178.8 251.0,236.5 308.7,236.5" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="366.3,236.5 366.3,178.8 308.7,178.8" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="308.7,178.8 308.7,236.5 366.3,236.5" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="424.0,236.5 424.0,178.8 366.3,178.8" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="366.3,178.8 366.3,236.5 424.0,236.5" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="308.7,178.8 308.7,121.2 251.0,121.2" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="251.0,121.2 251.0,178.8 308.7,178.8" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="366.3,178.8 366.3,121.2 308.7,121.2" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="308.7,121.2 308.7,178.8 366.3,178.8" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="424.0,178.8 424.0,121.2 366.3,121.2" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="366.3,121.2 366.3,178.8 424.0,178.8" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="308.7,121.2 308.7,63.5 251.0,63.5" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="251.0,63.5 251.0,121.2 308.7,121.2" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="366.3,121.2 366.3,63.5 308.7,63.5" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="308.7,63.5 308.7,121.2 366.3,121.2" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="424.0,121.2 424.0,63.5 366.3,63.5" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="366.3,63.5 366.3,121.2 424.0,121.2" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<circle cx="251.0" cy="236.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="308.7" cy="236.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="366.3" cy="236.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="424.0" cy="236.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="251.0" cy="178.8" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="308.7" cy="178.8" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="366.3" cy="178.8" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="424.0" cy="178.8" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="251.0" cy="121.2" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="308.7" cy="121.2" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="366.3" cy="121.2" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="424.0" cy="121.2" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="251.0" cy="63.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="308.7" cy="63.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="366.3" cy="63.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="424.0" cy="63.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<text x="337.0" y="284.0" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">V=16 E=33 F=18  euler=1</text>
+<text x="562.5" y="20.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">delete_face(4)</text>
+<polygon points="476.0,236.5 533.7,236.5 533.7,178.8 476.0,178.8" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="533.7,236.5 591.3,236.5 591.3,178.8 533.7,178.8" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="591.3,236.5 649.0,236.5 649.0,178.8 591.3,178.8" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="476.0,178.8 533.7,178.8 533.7,121.2 476.0,121.2" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="591.3,178.8 649.0,178.8 649.0,121.2 591.3,121.2" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="476.0,121.2 533.7,121.2 533.7,63.5 476.0,63.5" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="533.7,121.2 591.3,121.2 591.3,63.5 533.7,63.5" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="591.3,121.2 649.0,121.2 649.0,63.5 591.3,63.5" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="533.7,178.8 591.3,178.8 591.3,121.2 533.7,121.2" fill="white" stroke="#e03131" stroke-width="2" stroke-linejoin="round" fill-opacity="1.0"/>
+<circle cx="476.0" cy="236.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="533.7" cy="236.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="591.3" cy="236.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="649.0" cy="236.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="476.0" cy="178.8" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="533.7" cy="178.8" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="591.3" cy="178.8" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="649.0" cy="178.8" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="476.0" cy="121.2" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="533.7" cy="121.2" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="591.3" cy="121.2" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="649.0" cy="121.2" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="476.0" cy="63.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="533.7" cy="63.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="591.3" cy="63.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="649.0" cy="63.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<text x="562.0" y="284.0" font-size="11" fill="#e03131" text-anchor="middle" font-weight="normal" xml:space="preserve">V=16 E=24 F=8  euler=0</text>
+<text x="787.5" y="20.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">insert_vertex(4)</text>
+<polygon points="701.0,236.5 758.7,236.5 758.7,178.8 701.0,178.8" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="758.7,236.5 816.3,236.5 816.3,178.8 758.7,178.8" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="816.3,236.5 874.0,236.5 874.0,178.8 816.3,178.8" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="701.0,178.8 758.7,178.8 758.7,121.2 701.0,121.2" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="816.3,178.8 874.0,178.8 874.0,121.2 816.3,121.2" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="701.0,121.2 758.7,121.2 758.7,63.5 701.0,63.5" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="758.7,121.2 816.3,121.2 816.3,63.5 758.7,63.5" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="816.3,121.2 874.0,121.2 874.0,63.5 816.3,63.5" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="758.7,178.8 816.3,178.8 787.5,150.0" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="816.3,178.8 816.3,121.2 787.5,150.0" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="816.3,121.2 758.7,121.2 787.5,150.0" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<polygon points="758.7,121.2 758.7,178.8 787.5,150.0" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2" stroke-linejoin="round" fill-opacity="1.0"/>
+<circle cx="701.0" cy="236.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="758.7" cy="236.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="816.3" cy="236.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="874.0" cy="236.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="701.0" cy="178.8" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="758.7" cy="178.8" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="816.3" cy="178.8" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="874.0" cy="178.8" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="701.0" cy="121.2" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="758.7" cy="121.2" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="816.3" cy="121.2" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="874.0" cy="121.2" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="701.0" cy="63.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="758.7" cy="63.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="816.3" cy="63.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="874.0" cy="63.5" r="3" fill="#212529" stroke="white" stroke-width="1.5"/>
+<circle cx="787.5" cy="150.0" r="5" fill="#e8590c" stroke="white" stroke-width="1.5"/>
+<text x="787.0" y="284.0" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">V=17 E=28 F=12  euler=1</text>
+</svg>

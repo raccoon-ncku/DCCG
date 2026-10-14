@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="330" viewBox="0 0 880 330" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<g transform="translate(0,0)">
+<text x="240.0" y="20.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">side: x across, z up</text>
+<line x1="72.0" y1="306.0" x2="408.0" y2="306.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="72.0" y1="138.0" x2="408.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="72.0" y1="306.0" x2="72.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="240.0" y1="306.0" x2="240.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="408.0" y1="306.0" x2="408.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="72.0" y1="194.0" x2="128.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="408.0" y1="194.0" x2="352.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="72.0" y1="306.0" x2="408.0" y2="306.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="72.0" y1="138.0" x2="408.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="72.0" y1="306.0" x2="72.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="240.0" y1="306.0" x2="240.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="408.0" y1="306.0" x2="408.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="72.0" y1="194.0" x2="128.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="408.0" y1="194.0" x2="352.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="72.0" y1="138.0" x2="72.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="72.0" y1="138.0" x2="72.0" y2="54.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="72.0" y1="138.0" x2="72.0" y2="54.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="240.0" y1="138.0" x2="240.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="240.0" y1="138.0" x2="240.0" y2="54.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="240.0" y1="138.0" x2="240.0" y2="54.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="408.0" y1="138.0" x2="408.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="408.0" y1="138.0" x2="408.0" y2="54.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="408.0" y1="138.0" x2="408.0" y2="54.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="72.0" y1="54.0" x2="408.0" y2="54.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+</g>
+<g transform="translate(480,0)">
+<text x="200.0" y="20.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">gable: y across, z up</text>
+<line x1="74.0" y1="306.0" x2="74.0" y2="306.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="74.0" y1="138.0" x2="74.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="74.0" y1="306.0" x2="74.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="74.0" y1="306.0" x2="74.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="74.0" y1="306.0" x2="74.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="74.0" y1="194.0" x2="74.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="74.0" y1="194.0" x2="74.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="326.0" y1="306.0" x2="326.0" y2="306.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="326.0" y1="138.0" x2="326.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="326.0" y1="306.0" x2="326.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="326.0" y1="306.0" x2="326.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="326.0" y1="306.0" x2="326.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="326.0" y1="194.0" x2="326.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="326.0" y1="194.0" x2="326.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="74.0" y1="138.0" x2="326.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="74.0" y1="138.0" x2="200.0" y2="54.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="326.0" y1="138.0" x2="200.0" y2="54.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="74.0" y1="138.0" x2="326.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="74.0" y1="138.0" x2="200.0" y2="54.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="326.0" y1="138.0" x2="200.0" y2="54.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="74.0" y1="138.0" x2="326.0" y2="138.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="74.0" y1="138.0" x2="200.0" y2="54.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="326.0" y1="138.0" x2="200.0" y2="54.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+<line x1="200.0" y1="54.0" x2="200.0" y2="54.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" opacity="1.0"/>
+</g>
+</svg>

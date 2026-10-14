@@ -22,7 +22,11 @@ learned from.
    and is part of the record. That's the point.
 2. **Nothing else is off-limits to you** — you edit `Lecture/…/checkpoints/tasks.py`
    as normal. This folder is just where your *own* stuff lives.
-3. **For truly private files** that should never leave your laptop
+3. **Except `MyWork/notebooks/`**: copies of the course notebooks made with
+   `copy_to_mywork.py` stay on your laptop (it is in `.gitignore`). They can
+   be made again from the lecture at any time. If you want to keep one in
+   your record, move it to another folder in `MyWork/`.
+4. **For truly private files** that should never leave your laptop
    (half-baked ideas, private diary, sensitive data), use a folder named
    `Notes/` at the repo root — it's in `.gitignore`, so git will not track
    it. But then it also doesn't get pushed and doesn't survive a re-clone.

@@ -1,8 +1,5 @@
 # Week 03 — Python II: control flow, modules, functions
 
-> Self-contained. Read, run the examples, do the checkpoints:
-> `uv run check.py 03`.
-
 Last week your code ran top to bottom, once. This week it makes **decisions**
 and **repeats** — which is where the interesting bugs start, and where reading
 code carefully starts to pay.

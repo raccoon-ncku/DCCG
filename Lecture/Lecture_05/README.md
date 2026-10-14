@@ -1,7 +1,5 @@
 # Week 05 — Mesh: a real geometric data structure
 
-> Self-contained. `uv run check.py 05` when you are ready.
->
 > Every figure is drawn from a real COMPAS mesh by
 > [`figures/make_figures.py`](figures/make_figures.py): the numbers in the
 > pictures are the numbers the code gives you.
@@ -425,7 +423,8 @@ boundary and the free edges arch more or less. Same topology, different shell.
 
 📄 [`mesh_applications/form_finding.py`](mesh_applications/form_finding.py) ·
 also `relaxation_live.py` (the same idea by repeated averaging, animated) and
-`volcano_pavilion.ipynb`
+the notebooks [`07_form_finding`](notebooks/07_form_finding.ipynb)
+and [`11_volcano_pavilion`](notebooks/11_volcano_pavilion.ipynb)
 
 ### Structural analysis: a mesh is a truss
 
@@ -452,7 +451,8 @@ load; the stiffness matrix is singular. `np.linalg.solve` would still return
 ~10¹⁵ m displacements that look like a result, so `analyse_truss` **raises**
 instead. A solver that cannot fail loudly is not a verification tool.
 
-📄 [`mesh_applications/structural_analysis.py`](mesh_applications/structural_analysis.py)
+📄 [`mesh_applications/structural_analysis.py`](mesh_applications/structural_analysis.py) ·
+from one bar upwards in [`notebooks/08_mesh_as_truss.ipynb`](notebooks/08_mesh_as_truss.ipynb)
 
 ### From a LiDAR scan to a mesh, and back to the design
 
@@ -473,6 +473,7 @@ drawing. The script runs on a simulated scan, so the answer is checkable:
 glance.
 
 📄 [`mesh_applications/scan_to_mesh.py`](mesh_applications/scan_to_mesh.py) ·
+step by step in [`notebooks/09_scan_to_mesh.ipynb`](notebooks/09_scan_to_mesh.ipynb) ·
 for full 3D scans, `compas_cgal.reconstruction` has outlier removal, normal
 estimation and Poisson surface reconstruction.
 
@@ -490,22 +491,52 @@ simulation is just an animation. Damp it heavily and run to rest, and it is
 **dynamic relaxation**: the same equilibrium as form finding, by many small
 steps instead of one solve.
 
-📄 [`mesh_applications/cloth_simulation.py`](mesh_applications/cloth_simulation.py)
+📄 [`mesh_applications/cloth_simulation.py`](mesh_applications/cloth_simulation.py) ·
+step by step in [`notebooks/10_cloth_simulation.ipynb`](notebooks/10_cloth_simulation.ipynb)
 
 ---
 
+## Step by step: the notebooks
+
+Eleven notebooks in [`notebooks/`](notebooks/) take this page one call at a
+time. They show the figures above at the step each one explains, then draw
+the same thing from *your* data. To run them:
+
+```bash
+uv run Lecture/notebooks/copy_to_mywork.py 05
+uv run jupyter lab MyWork/notebooks
+```
+
+([more](/Lecture/notebooks/README.md#how-to-run-them))
+
+| | Notebook | Goes with |
+| - | -------- | --------- |
+| 01 | [a mesh from scratch](notebooks/01_mesh_from_scratch.ipynb) | §1–3, §8 |
+| 02 | [walking a mesh](notebooks/02_walking_a_mesh.ipynb) | §4–6 |
+| 03 | [data on a mesh](notebooks/03_data_on_a_mesh.ipynb) | §5, §7, §10 |
+| 04 | [changing a mesh](notebooks/04_changing_a_mesh.ipynb) | §9 |
+| 05 | [a canopy: panels, bars, a schedule](notebooks/05_canopy_panels.ipynb) | §7, applied |
+| 06 | [from a surface to a structure](notebooks/06_surface_to_structure.ipynb) | §9, applied |
+| 07 | [form finding](notebooks/07_form_finding.ipynb) | §12 |
+| 08 | [a mesh is a truss](notebooks/08_mesh_as_truss.ipynb) | §12 |
+| 09 | [from a scan to a mesh](notebooks/09_scan_to_mesh.ipynb) | §12 |
+| 10 | [a cloth that falls](notebooks/10_cloth_simulation.ipynb) | §12 |
+| 11 | [a volcano pavilion](notebooks/11_volcano_pavilion.ipynb) | a worked design |
+
+01–04 are the fundamentals, in order. 05–11 are applications, from gentle to
+advanced, and **not examined**.
+
 ## Going further (not examined)
 
-- **[Notebooks 01–02](/Lecture/notebooks/README.md)**: a mesh step by step;
-  form finding one matrix at a time.
 - **[Algorithms section](/Lecture/Algorithms/README.md)** (W10–12): this week's
   operations written from scratch and tested (smoothing, curvature, geodesics,
   subdivision, planarity, contouring, Delaunay/Voronoi), then simulation,
   optimization and learning.
 - [`mesh_cgal/`](mesh_cgal/): remeshing, Delaunay (with holes), booleans,
   CGAL Catmull–Clark, and `07_slice_for_printing.py` for fabrication.
-- `mesh_applications/relaxation_live.py` and `volcano_pavilion.ipynb`: worked
-  form-finding examples, good project starters.
+- `mesh_applications/relaxation_live.py` and the
+  [volcano pavilion notebook](notebooks/11_volcano_pavilion.ipynb):
+  worked form-finding examples, good project starters.
 - [compas.dev › Meshes](https://compas.dev/compas/latest/userguide/basics.datastructures.meshes.html):
   the same API, more on loops, strips and filtering.
 

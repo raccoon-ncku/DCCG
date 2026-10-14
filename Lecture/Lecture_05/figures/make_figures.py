@@ -1,5 +1,5 @@
 """
-Draw every figure in the Week 05 README -- from real COMPAS meshes.
+Draw every figure in the Week 05 README and notebooks -- from real COMPAS meshes.
 
     uv run Lecture/Lecture_05/figures/make_figures.py
 
@@ -730,6 +730,187 @@ def fig_app_cloth():
     fig.save("app-cloth.svg")
 
 
+# ----------------------------------------------------------------------------
+# figures for the notebooks in ../notebooks (the README does not use these)
+# ----------------------------------------------------------------------------
+def _offset_arrow(panel, a, b, colour, off=0.1, width=2.2, shorten=0.22):
+    """An arrow from a to b, pushed to its left: the side its face is on."""
+    d = [b[0] - a[0], b[1] - a[1], 0]
+    L = math.hypot(d[0], d[1])
+    n = [-d[1] / L, d[0] / L, 0]
+    A = [a[i] + n[i] * off for i in range(3)]
+    B = [b[i] + n[i] * off for i in range(3)]
+    panel.arrow(lerp(A, B, shorten), lerp(A, B, 1 - shorten), colour, width)
+    return lerp(A, B, 0.5), n
+
+
+def fig_walk():
+    mesh = grid(2, 2)
+    fig = Figure(900, 420)
+
+    p = Panel(fig, 0, 0, 450, 400, all_points(mesh), pad=60, title="round a face: face_halfedges(0)")
+    draw_faces(p, mesh, fill="white", stroke=GREY, width=1)
+    draw_faces(p, mesh, faces=[0], stroke=GREY, width=1)
+    for step, (u, v) in enumerate(mesh.face_halfedges(0), 1):
+        mid, n = _offset_arrow(p, xyz(mesh, u), xyz(mesh, v), BLUE)
+        p.label([mid[i] + n[i] * 0.13 for i in range(3)], step, 13, BLUE, 0, 5, weight="bold")
+    p.fkey(mesh.face_centroid(0), 0)
+    for v in mesh.vertices():
+        p.key(xyz(mesh, v), v)
+    first = mesh.face_halfedges(0)[0]
+    fig.add(_text(225, 392, f"halfedge_after({first}) = {mesh.halfedge_after(first)}: "
+                  "keep asking and you are back where you started", 12, INK))
+
+    centre = 4
+    p = Panel(fig, 450, 0, 450, 400, all_points(mesh), pad=60,
+              title=f"round a vertex: vertex_neighbors({centre}, ordered=True)")
+    draw_faces(p, mesh, fill="white", stroke=GREY, width=1)
+    ring = mesh.vertex_neighbors(centre, ordered=True)
+    faces = mesh.vertex_faces(centre, ordered=True)
+    for f in faces:
+        p.polygon([xyz(mesh, v) for v in mesh.face_vertices(f)], "#fff4e6", GREY, 1)
+    for step, nbr in enumerate(ring, 1):
+        a, b = xyz(mesh, centre), xyz(mesh, nbr)
+        p.arrow(lerp(a, b, 0.14), lerp(a, b, 0.84), ORANGE, 2.4)
+        p.label(lerp(a, b, 0.5), step, 13, ORANGE, 12, -8, weight="bold")
+    for v in mesh.vertices():
+        p.key(xyz(mesh, v), v, ORANGE if v == centre else INK)
+    for f in faces:
+        p.fkey(mesh.face_centroid(f), f, ORANGE)
+    fig.add(_text(675, 392, f"neighbours in order {ring}; faces in order {faces}", 12, INK))
+    fig.save("mesh-walk.svg")
+
+
+def fig_measure():
+    mesh = wave(grid(6, 4, 0.5), amplitude=0.7, wavelength=3.0)
+    pts = all_points(mesh)
+    fig = Figure(900, 360)
+
+    p = Panel(fig, 0, 0, 450, 340, pts, view="iso", pad=44, title="where it is, which way it faces")
+    paint(p, [([xyz(mesh, v) for v in mesh.face_vertices(f)], FACE, BLUE, 1) for f in mesh.faces()])
+    for f in sorted(mesh.faces(), key=lambda f: depth([mesh.face_centroid(f)])):
+        c, n = mesh.face_centroid(f), mesh.face_normal(f)
+        p.arrow(c, [c[i] + 0.32 * n[i] for i in range(3)], ORANGE, 1.6, head=5)
+        p.dot(c, 2.5, ORANGE)
+    fig.add(_text(225, 348, "dot: face_centroid(f)    arrow: face_normal(f)", 12, INK))
+
+    p = Panel(fig, 450, 0, 450, 340, pts, view="iso", pad=44, title="how big it is")
+    areas = {f: mesh.face_area(f) for f in mesh.faces()}
+    lo, hi = min(areas.values()), max(areas.values())
+    paint(p, [([xyz(mesh, v) for v in mesh.face_vertices(f)], ramp((areas[f] - lo) / (hi - lo)), "white", 1)
+              for f in mesh.faces()])
+    fig.add(_text(675, 348, f"face_area(f): {lo:.3f} to {hi:.3f} m2 -- the plan squares are all 0.250 m2", 12, INK))
+    fig.save("mesh-measure.svg")
+
+
+def fig_operations():
+    def counts(m):
+        return f"V={m.number_of_vertices()} E={m.number_of_edges()} F={m.number_of_faces()}  euler={m.euler()}"
+
+    base = grid(3, 3)
+    tri = base.copy()
+    tri.quads_to_triangles()
+    hole = base.copy()
+    hole.delete_face(4)
+    fan = base.copy()
+    new = fan.insert_vertex(4)
+    cases = [("the grid", base, []), ("quads_to_triangles()", tri, []),
+             ("delete_face(4)", hole, []), ("insert_vertex(4)", fan, [new])]
+    fig = Figure(900, 300)
+    for i, (title, mesh, marked) in enumerate(cases):
+        p = Panel(fig, i * 225, 0, 225, 270, all_points(base), pad=26, title=title)
+        draw_faces(p, mesh, stroke=BLUE, width=1.2)
+        if title.startswith("delete"):
+            p.polygon([xyz(base, v) for v in base.face_vertices(4)], "white", RED, 2)
+        for v in mesh.vertices():
+            p.dot(xyz(mesh, v), 5 if v in marked else 3, ORANGE if v in marked else INK)
+        colour = RED if mesh.euler() != base.euler() else INK
+        fig.add(_text(i * 225 + 112, 284, counts(mesh), 11, colour))
+    fig.save("mesh-operations.svg")
+
+
+def _canopy():
+    """The canopy of notebook 05: 12 m x 8 m, an arch that is taller on one side."""
+    mesh = Mesh()
+    key = {}
+    for j in range(7):
+        for i in range(9):
+            x, y = i * 1.5, j * 8 / 6
+            key[i, j] = mesh.add_vertex(x=x, y=y, z=3.0 + (1.2 + 0.08 * (y - 4)) * math.sin(math.pi * x / 12))
+    for j in range(6):
+        for i in range(8):
+            mesh.add_face([key[i, j], key[i + 1, j], key[i + 1, j + 1], key[i, j + 1]])
+    return mesh
+
+
+def _warp(mesh, f):
+    """Distance between the two diagonals of a quad face."""
+    from compas.geometry import Line, distance_line_line
+    a, b, c, d = [xyz(mesh, v) for v in mesh.face_vertices(f)]
+    return distance_line_line(Line(a, c), Line(b, d))
+
+
+def fig_app_canopy():
+    canopy = _canopy()
+    fig = Figure(900, 380)
+
+    # one quad, its warp exaggerated so that it can be seen
+    quad = [[0, 0, 0], [2, 0, 0.75], [2, 2, 0], [0, 2, 0.75]]
+    p = Panel(fig, 0, 0, 300, 340, quad + [[0, 0, -0.2]], view="iso", pad=46, title="a quad is not always flat")
+    p.polygon(quad, FACE, BLUE, 1.5, 0.7)
+    p.line(quad[0], quad[2], BLUE, 2.5)
+    p.line(quad[1], quad[3], ORANGE, 2.5)
+    m1, m2 = lerp(quad[0], quad[2], 0.5), lerp(quad[1], quad[3], 0.5)
+    p.line(m1, m2, RED, 3)
+    p.dot(m1, 4, BLUE)
+    p.dot(m2, 4, ORANGE)
+    p.label(m2, "warp", 13, RED, 14, 22, "start", "bold")
+    for corner in quad:
+        p.dot(corner, 4)
+    fig.add(_text(150, 352, "the two diagonals miss each other;", 12, INK))
+    fig.add(_text(150, 370, "the gap is what flat glass cannot follow", 12, INK))
+
+    pts = all_points(canopy)
+    warps = {f: _warp(canopy, f) for f in canopy.faces()}
+    top = max(warps.values())
+    p = Panel(fig, 300, 0, 300, 340, pts, view="iso", pad=24, title="warp of every panel")
+    paint(p, [([xyz(canopy, v) for v in canopy.face_vertices(f)], ramp(warps[f] / top), "white", 1)
+              for f in canopy.faces()])
+    fig.add(_text(450, 352, f"{min(warps.values()) * 1000:.0f} to {top * 1000:.0f} mm:", 12, INK))
+    fig.add(_text(450, 370, "least at the crown, most at the two ends", 12, INK))
+
+    slope = {f: math.degrees(math.acos(min(1.0, abs(canopy.face_normal(f)[2])))) for f in canopy.faces()}
+    lo, hi = min(slope.values()), max(slope.values())
+    p = Panel(fig, 600, 0, 300, 340, pts, view="iso", pad=24, title="slope of every panel")
+    paint(p, [([xyz(canopy, v) for v in canopy.face_vertices(f)], ramp((slope[f] - lo) / (hi - lo)), "white", 1)
+              for f in canopy.faces()])
+    fig.add(_text(750, 352, f"{lo:.0f} to {hi:.0f} degrees, read from face_normal:", 12, INK))
+    fig.add(_text(750, 370, "blue panels are where rain is slow to leave", 12, INK))
+    fig.save("app-canopy.svg")
+
+
+def fig_app_patterns():
+    cage = Mesh.from_meshgrid(dx=12, nx=3, dy=12, ny=3)
+    for v in cage.vertices():
+        cage.vertex_attribute(v, "z", 0.0 if cage.is_vertex_on_boundary(v) else 4.0)
+    quads = cage.subdivided(k=2, scheme="catmullclark")
+    triangles = quads.copy()
+    triangles.quads_to_triangles()
+    dual = triangles.dual()
+    pts = all_points(quads)
+    fig = Figure(900, 380)
+    for i, (title, mesh, colour) in enumerate([("quads", quads, BLUE), ("triangles", triangles, GREEN),
+                                               ("dual of the triangles", dual, ORANGE)]):
+        p = Panel(fig, i * 300, 0, 300, 330, pts, view="iso", pad=20, title=title)
+        paint(p, [([xyz(mesh, v) for v in mesh.face_vertices(f)], "white", colour, 1.1) for f in mesh.faces()])
+        metres = sum(mesh.edge_length(e) for e in mesh.edges())
+        busiest = max(mesh.vertex_degree(v) for v in mesh.vertices())
+        fig.add(_text(i * 300 + 150, 346, f"{mesh.number_of_vertices()} nodes, {mesh.number_of_edges()} bars, "
+                      f"{metres:.0f} m", 12, INK))
+        fig.add(_text(i * 300 + 150, 366, f"up to {busiest} bars in one node", 12, colour, weight="bold"))
+    fig.save("app-patterns.svg")
+
+
 if __name__ == "__main__":
     fig_soup_vs_mesh()
     fig_anatomy()
@@ -747,3 +928,8 @@ if __name__ == "__main__":
     fig_app_structure()
     fig_app_scan()
     fig_app_cloth()
+    fig_walk()
+    fig_measure()
+    fig_operations()
+    fig_app_canopy()
+    fig_app_patterns()

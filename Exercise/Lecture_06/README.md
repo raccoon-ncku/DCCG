@@ -53,8 +53,8 @@ BTLx machining counts change. Which beam has the highest degree in
 ## 3. An assembly sequence from a contact graph
 
 Build a small brick wall (or a stack of any boxes) as a graph: one node per
-brick, one edge per contact, as in README §8 and
-[`compas_ipynb/3_brickwall.py`](/Lecture/Lecture_06/compas_ipynb/3_brickwall.py).
+brick, one edge per contact, as in README §8 and the notebook
+[`04_bricks_and_mortar`](/Lecture/Lecture_06/notebooks/04_bricks_and_mortar.ipynb).
 
 A brick can only be placed once everything it rests on is already there.
 Starting from the bricks on the ground, find an order to place every brick in.

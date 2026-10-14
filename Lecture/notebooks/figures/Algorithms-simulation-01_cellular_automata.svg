@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="300" viewBox="0 0 520 300" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<text x="260.0" y="22.0" font-size="14" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">population per floor</text>
+<rect x="60" y="40" width="430" height="220" fill="white" stroke="#adb5bd"/>
+<polyline points="60.0,260.0 81.5,252.7 103.0,245.3 124.5,230.7 146.0,238.0 167.5,230.7 189.0,208.7 210.5,216.0 232.0,164.7 253.5,216.0 275.0,216.0 296.5,223.3 318.0,201.3 339.5,179.3 361.0,157.3 382.5,157.3 404.0,128.0 425.5,113.3 447.0,40.0 468.5,113.3 490.0,62.0" fill="none" stroke="#1c7ed6" stroke-width="2.5"/>
+<text x="484.0" y="56.0" font-size="11" fill="#1c7ed6" text-anchor="end" font-weight="bold" xml:space="preserve">live cells</text>
+<text x="54.0" y="50.0" font-size="10" fill="#adb5bd" text-anchor="end" font-weight="normal" xml:space="preserve">35</text>
+<text x="54.0" y="260.0" font-size="10" fill="#adb5bd" text-anchor="end" font-weight="normal" xml:space="preserve">5</text>
+<text x="275.0" y="282.0" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">generation</text>
+</svg>

@@ -1,7 +1,5 @@
 # Week 04 — Dictionaries, tuples, and COMPAS core
 
-> Self-contained. `uv run check.py 04` when you are ready.
-
 Two halves this week.
 
 **First**, the last pieces of core Python you need before geometry:
@@ -334,11 +332,11 @@ centre of the course's architecture.
 
 ## 8. Also here (optional)
 
-- `compas_ipynb/` has the same COMPAS-core material as Jupyter notebooks, with
-  interactive 3D (frames, transformations) through compas_notebook. Not
-  required. Open them in your browser with
-  `uv run jupyter lab Lecture/Lecture_04/compas_ipynb` (copy one into `MyWork/`
-  first if you want to edit it); see the [notebooks README](/Lecture/notebooks/README.md).
+- [`notebooks/`](notebooks/) has the same COMPAS-core material as Jupyter
+  notebooks, with interactive 3D (frames, transformations). Not required. To
+  run them: `uv run Lecture/notebooks/copy_to_mywork.py 04`, then
+  `uv run jupyter lab MyWork/notebooks`
+  ([more](/Lecture/notebooks/README.md#how-to-run-them)).
 - `algorithm_basic_examples/binary_search.py` is an algorithm worth reading for
   its own sake, and a good target for "explain every line" practice.
 - File handling (`pathlib`, `with open`, plain `json`) is in

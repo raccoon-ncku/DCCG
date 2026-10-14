@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="300" viewBox="0 0 520 300" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<text x="260.0" y="22.0" font-size="14" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">mean radius over 30 rounds</text>
+<rect x="60" y="40" width="430" height="220" fill="white" stroke="#adb5bd"/>
+<polyline points="60.0,51.0 103.0,76.3 146.0,99.8 189.0,122.5 232.0,144.3 275.0,165.4 318.0,185.7 361.0,205.2 404.0,224.1 447.0,242.4 490.0,260.0" fill="none" stroke="#1c7ed6" stroke-width="2.5"/>
+<text x="484.0" y="56.0" font-size="11" fill="#1c7ed6" text-anchor="end" font-weight="bold" xml:space="preserve">Laplacian</text>
+<polyline points="60.0,51.0 103.0,50.6 146.0,49.5 189.0,48.3 232.0,47.2 275.0,46.0 318.0,44.8 361.0,43.6 404.0,42.4 447.0,41.2 490.0,40.0" fill="none" stroke="#e8590c" stroke-width="2.5"/>
+<text x="484.0" y="72.0" font-size="11" fill="#e8590c" text-anchor="end" font-weight="bold" xml:space="preserve">Taubin</text>
+<text x="54.0" y="50.0" font-size="10" fill="#adb5bd" text-anchor="end" font-weight="normal" xml:space="preserve">1.01</text>
+<text x="54.0" y="260.0" font-size="10" fill="#adb5bd" text-anchor="end" font-weight="normal" xml:space="preserve">0.761</text>
+<text x="275.0" y="282.0" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">rounds (×3)</text>
+</svg>

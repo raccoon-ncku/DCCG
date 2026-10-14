@@ -123,8 +123,8 @@ difference between a pattern and a design.
 Segments at depth `d`: `2**d - 1`. The growth is why depth 20 is not a good
 idea — that is about a million segments.
 
-📄 `recusion_examples/1_turtle_triangle.py`,
-`recusion_examples/heightmap_subdivision.ipynb`
+📄 `recusion_examples/1_turtle_triangle.py` · notebook:
+[`notebooks/01_recursion_heightmap.ipynb`](notebooks/01_recursion_heightmap.ipynb)
 
 ## 4. Recursion and purity
 
@@ -154,9 +154,10 @@ Slightly more thinking, and it stays in the core layer where it belongs.
 
 ## 5. Optional: classic algorithms
 
-`bin_packing/` and `convex_hull/` are notebooks on two classic computational
-geometry problems — fitting parts onto a sheet, and finding the outline of a
-point cloud. **Not examined**, and no checkpoint depends on them, but both are
+Notebooks 02–07 in [`notebooks/`](notebooks/)
+cover two classic computational geometry problems — finding the outline of a
+point cloud (convex hull, 2D and 3D) and fitting parts onto a sheet (bin
+packing). **Not examined**, and no checkpoint depends on them, but both are
 excellent final-project material with real fabrication uses.
 
 ---

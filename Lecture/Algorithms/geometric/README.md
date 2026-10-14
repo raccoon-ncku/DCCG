@@ -228,7 +228,7 @@ billion tests for 1,000 points. *How* you compute decides whether you can.
 
 📄 [`tutorials/convex_hull.py`](tutorials/convex_hull.py) · tests: every point left of every edge;
 counter-clockwise and convex; agrees with `compas.geometry.convex_hull_xy`; collinear points → `ValueError`.
-Also: the notebook in [`/Lecture/Classic_Algorithms/convex_hull/`](/Lecture/Classic_Algorithms/convex_hull/).
+Also: the Graham scan step by step in [`Lecture_08/notebooks/02_convex_hull_2d.ipynb`](/Lecture/Lecture_08/notebooks/02_convex_hull_2d.ipynb).
 
 ## 9. Nearest neighbours: the cost of the obvious
 
@@ -293,7 +293,7 @@ graph = interior_straight_skeleton(footprint)     # a COMPAS Graph (Week 06!)
 
 Worked scripts in [`Lecture_05/mesh_cgal/`](/Lecture/Lecture_05/mesh_cgal/):
 `01_remesh.py`, `03_delaunay_with_holes.py`, `04_booleans.py`, `07_slice_for_printing.py`;
-for points, [`Classic_Algorithms/convex_hull/`](/Lecture/Classic_Algorithms/convex_hull/).
+for points, the convex hull notebooks in [`Lecture_08/notebooks/`](/Lecture/Lecture_08/notebooks/).
 
 ---
 

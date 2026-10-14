@@ -63,28 +63,23 @@ done, so a `FAIL` just means keep going, not a penalty. In **Week 10** you learn
 to write these specs yourself, and the checker stops being magic. Full
 explanation: [Week 01 §5](/Lecture/Lecture_01/README.md#5-how-checkpoints-work).
 
-## Notebooks (Week 05 onward)
+## Notebooks (Week 04 onward)
 
-Step-by-step notebooks for meshes, graphs and the algorithms live in
-[`Lecture/notebooks/`](Lecture/notebooks/README.md). `uv sync` already
-installed the kernel. Do this **once per clone**, so notebook outputs never end
-up in your commits:
+Notebooks live with their week, in a `notebooks/` folder beside that week's
+README. Once per clone:
 
 ```bash
-uv run nbstripout --install
+uv run nbstripout --install                         # keeps notebook outputs out of your commits
 ```
 
-Then copy a notebook into `MyWork/` before editing it
-(`uv run Lecture/notebooks/copy_to_mywork.py 01`), and open it in your browser
-with a small local server:
+Then, for a week's notebooks:
 
 ```bash
-uv run jupyter lab MyWork/notebooks
+uv run Lecture/notebooks/copy_to_mywork.py 05      # copy them into MyWork/
+uv run jupyter lab MyWork/notebooks                 # open them in your browser
 ```
 
-That is the recommended route: it shows everything, including the interactive
-3D views (compas_notebook). VS Code and Zed work too, with limits; see the
-notebooks README.
+Details and the map of every notebook: [`Lecture/notebooks/README.md`](Lecture/notebooks/README.md#how-to-run-them).
 
 ## The one conda environment left
 

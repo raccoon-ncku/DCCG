@@ -1,7 +1,7 @@
 # Week 06 — Graphs: connections without surfaces
 
-> Self-contained. `uv run check.py 06` when you are ready. Every figure is
-> drawn from a real COMPAS graph by [`figures/make_figures.py`](figures/make_figures.py).
+> Every figure is drawn from a real COMPAS graph by
+> [`figures/make_figures.py`](figures/make_figures.py).
 
 Take a mesh and throw away its faces: what is left, points plus which points
 are connected, is a **graph**, probably the most widely used data structure in
@@ -19,7 +19,7 @@ No surfaces, faces or normals: *only* connections, which is why it fits so many
 problems.
 
 > **`Graph` or `Network`?** Same class. `Network` is the old name, still used in
-> `graph_examples/` and `compas_ipynb/`. Write `Graph` in new code.
+> `graph_examples/`. Write `Graph` in new code.
 
 ---
 
@@ -312,9 +312,11 @@ Bricks are nodes; joints are edges tagged *bed* (course to course) or *head*
 with no coordinate comparisons. Store geometry as node/edge attributes and one
 `compas.json_dump` saves the whole assembly.
 
-📄 `compas_ipynb/1_basic_stack.ipynb` → `2_stack_with_graph.ipynb` (mortar as an
-edge attribute) → `3_brickwall.py` → `4_brickwall_from_file.py` →
-`5_brickwall_dfs.py` (a DFS to the ground); lighter: `graph_examples/4.2_brickwall.py`.
+📄 notebooks [`04_bricks_and_mortar`](notebooks/04_bricks_and_mortar.ipynb)
+(two bricks, then a pier: bricks as nodes, mortar as an edge attribute) →
+[`05_brick_wall_assembly`](notebooks/05_brick_wall_assembly.ipynb)
+(a wall with a window: a DFS to the ground and the load cone, building
+sequence, load path, what falls without the lintel, saving to JSON).
 
 ## 9. Saving and converting
 
@@ -368,7 +370,8 @@ call them. **Not examined**, but each is a possible final project.
   doors are single points of failure, one of them the only door to the
   **fire stair**.
 
-📄 [`graph_applications/plan_analysis.py`](graph_applications/plan_analysis.py)
+📄 [`graph_applications/plan_analysis.py`](graph_applications/plan_analysis.py) ·
+step by step in [`notebooks/02_floor_plan.ipynb`](notebooks/02_floor_plan.ipynb)
 
 ### A town: which streets carry the traffic?
 
@@ -427,18 +430,23 @@ uv run --extra timber Lecture/Lecture_06/graph_applications/timber_frame.py
 ```
 
 📄 [`graph_applications/timber_frame.py`](graph_applications/timber_frame.py) ·
+step by step in notebooks 07–09 of [`notebooks/`](notebooks/) ·
 then the compas_timber [tutorials](https://gramaziokohler.github.io/compas_timber/latest/) (in Grasshopper).
 
 ---
 
 ## Going further (not examined)
 
-- **[Notebooks 03–04](/Lecture/notebooks/README.md)**: BFS one queue step at a
-  time; the two graphs of §3, step by step.
+- **[This week's notebooks](notebooks/)** ([what is in each](/Lecture/notebooks/README.md#week-06--graphs)),
+  from simple to complex. 01–06: BFS one queue step at a time; reading a floor
+  plan (depth, escape distance, critical doors); the two graphs of §3; bricks
+  and mortar; a brick wall as a graph (sequence, load path); a town's streets
+  and its bridges. 07–09 (need the `timber` extra): two beams and a joint; the
+  stud wall of §11 stage by stage; a 3D frame with a cut list and an erection
+  sequence.
 - `graph_examples/301–305`: networkx on real data (random geometric graph,
-  cholera map, NYC subway, a social network). They need `matplotlib`/`pandas`/
-  `geopandas`, which are not installed; use a separate environment, never
-  `uv add` here.
+  cholera map, NYC subway, a social network). They need `pandas`/`geopandas`,
+  which are not installed; use a separate environment, never `uv add` here.
 - Geodesics and Voronoi return in [W10](/Lecture/Algorithms/geometric/README.md);
   W11 simulations lean on neighbour search.
 - [compas.dev › Graphs](https://compas.dev/compas/latest/userguide/basics.datastructures.graphs.html),

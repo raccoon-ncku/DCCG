@@ -1,126 +1,166 @@
-# Notebooks: mesh, graph and algorithms, step by step
+# Notebooks
 
-The lectures explain; the tutorials are finished code. These notebooks sit in
-between: they **unpack one idea at a time**, print every intermediate result,
-and draw the data at each step, so you watch a mesh, a graph or an algorithm
-being built rather than reading the result.
+A notebook sits between a lecture and its scripts: it **unpacks one idea at a
+time**, prints every intermediate result and draws the data at each step, so
+you watch a mesh, a graph or a timber frame being built instead of reading
+the result.
 
-| # | Notebook | Companion to | What you watch happen |
-| - | -------- | ------------ | --------------------- |
-| 01 | [mesh from scratch](01_mesh_from_scratch.ipynb) | [W05](../Lecture_05/README.md) | keys, faces, halfedges, neighbours, the boundary trap, attributes, Euler catching a bug |
-| 02 | [form finding](02_mesh_form_finding.ipynb) | [W05 §12](../Lecture_05/README.md#12-mesh-in-architecture-four-applications) | the force density method, one matrix at a time |
-| 03 | [graph and BFS](03_graph_bfs_and_paths.ipynb) | [W06](../Lecture_06/README.md) | breadth-first search narrated step by step; the BFS tree; two `shortest_path`s disagreeing |
-| 04 | [two graphs of one frame](04_graph_two_graphs.ipynb) | [W06 §3](../Lecture_06/README.md#3-a-mesh-is-a-graph) | joints found from centrelines; element graph vs bar graph |
-| 05 | [curvature and smoothing](05_alg_curvature_smoothing.ipynb) | [W10](../Algorithms/geometric/README.md) | one angle defect by hand; Gauss–Bonnet; Laplacian shrinking vs Taubin |
-| 06 | [Delaunay → Voronoi → Lloyd](06_alg_voronoi_lloyd.ipynb) | [W10](../Algorithms/geometric/README.md) | the empty circle; cells from circumcentres; Lloyd round by round |
-| 07 | [cellular automata](07_sim_cellular_automata.ipynb) | [W11](../Algorithms/simulation/README.md) | neighbour counts as an array; the rule; a glider; a tower |
-| 08 | [simulated annealing](08_opt_annealing.ipynb) | [W12](../Algorithms/optimization/README.md) | one move; the acceptance rule; why one run is an anecdote |
-| 09 | [k-means by hand](09_learn_kmeans.ipynb) | [W12](../Algorithms/learning/README.md) | assign / update, round by round; families per tolerance |
+**The notebooks live with their week**, in a `notebooks/` folder beside that
+week's README, examples and figures. This page is the map, and this folder
+holds only what they share: the drawing helper [`viz.py`](viz.py), the copy
+script and the tests.
 
-Each notebook exists **twice**, with identical content:
+| Week | Folder | What is in it |
+| ---- | ------ | ------------- |
+| 04 | [`Lecture_04/notebooks/`](../Lecture_04/notebooks/) | COMPAS core: frames, transformations, local coordinates |
+| 05 | [`Lecture_05/notebooks/`](../Lecture_05/notebooks/) | the mesh: four notebooks of fundamentals, then seven applications |
+| 06 | [`Lecture_06/notebooks/`](../Lecture_06/notebooks/) | graphs and search; plans, frames, walls, streets; compas_timber |
+| 08 | [`Lecture_08/notebooks/`](../Lecture_08/notebooks/) | recursion, convex hulls, bin packing |
+| 10–12 | [`Algorithms/*/notebooks/`](../Algorithms/README.md) | geometry processing, simulation, search, learning |
 
-- `NN_name.ipynb`: the notebook, for **Jupyter** and **VS Code**
-- `NN_name.py`: the same cells as a plain script (`# %%` starts a cell), for
-  **Zed**, which runs cells in `.py` files but does not open `.ipynb`
+A notebook is one file, the `.ipynb`. Inside a folder the numbers run **from
+simple to complex**: start at 01.
 
-The `.py` is the source and the `.ipynb` is generated from it (see
-*For the instructor* below).
+How to open and run them: [below](#how-to-run-them).
+
+## Week 05 · the mesh
+
+[Lecture](../Lecture_05/README.md) · the pictures are the lecture's own
+figures, drawn from real meshes by
+[`Lecture_05/figures/make_figures.py`](../Lecture_05/figures/make_figures.py),
+and the notebooks show them at the step they explain.
+
+**Fundamentals: do these four in order.**
+
+| Preview | # | Notebook | What you watch happen |
+| :-----: | - | -------- | --------------------- |
+| <a href="../Lecture_05/notebooks/01_mesh_from_scratch.ipynb"><img src="../Lecture_05/figures/mesh-soup-vs-mesh.svg" width="240" alt=""></a> | 01 | [a mesh from scratch](../Lecture_05/notebooks/01_mesh_from_scratch.ipynb) | why a list of polygons is not enough; vertices as keys; a face as a cycle; winding and the normal; a grid from a dictionary; constructors; Euler catching a broken mesh, and `weld` repairing it |
+| <a href="../Lecture_05/notebooks/02_walking_a_mesh.ipynb"><img src="../Lecture_05/figures/mesh-walk.svg" width="240" alt=""></a> | 02 | [walking a mesh](../Lecture_05/notebooks/02_walking_a_mesh.ipynb) | the halfedge table; round a face; across an edge; round a vertex; degree; the boundary and its trap; loops and strips; rings |
+| <a href="../Lecture_05/notebooks/03_data_on_a_mesh.ipynb"><img src="../Lecture_05/figures/mesh-measure.svg" width="240" alt=""></a> | 03 | [data on a mesh](../Lecture_05/notebooks/03_data_on_a_mesh.ipynb) | areas, normals, lengths computed on demand; moving a vertex; attributes with defaults; bulk reads and queries; data to colour; edge data; what JSON keeps and OBJ loses |
+| <a href="../Lecture_05/notebooks/04_changing_a_mesh.ipynb"><img src="../Lecture_05/figures/mesh-operations.svg" width="240" alt=""></a> | 04 | [changing a mesh](../Lecture_05/notebooks/04_changing_a_mesh.ipynb) | in place or a new mesh; triangulate; open and close a hole; insert, split, collapse; subdivision schemes compared; the dual; join and weld, with Euler after every edit |
+
+**Applications: from simple to advanced.**
+
+| Preview | # | Notebook | What you watch happen |
+| :-----: | - | -------- | --------------------- |
+| <a href="../Lecture_05/notebooks/05_canopy_panels.ipynb"><img src="../Lecture_05/figures/app-canopy.svg" width="240" alt=""></a> | 05 | [a canopy: panels, bars, a schedule](../Lecture_05/notebooks/05_canopy_panels.ipynb) | glass area, a cutting list by tolerance, which panels warp, where rain ponds, attributes as a schedule |
+| <a href="../Lecture_05/notebooks/06_surface_to_structure.ipynb"><img src="../Lecture_05/figures/app-patterns.svg" width="240" alt=""></a> | 06 | [from a surface to a structure](../Lecture_05/notebooks/06_surface_to_structure.ipynb) | a cage and subdivision; quads, triangles and the dual on one shell, and what each costs; thickening into a solid |
+| <a href="../Lecture_05/notebooks/07_form_finding.ipynb"><img src="../Lecture_05/figures/app-form-finding.svg" width="240" alt=""></a> | 07 | [form finding](../Lecture_05/notebooks/07_form_finding.ipynb) | the force density method, one matrix at a time |
+| <a href="../Lecture_05/notebooks/08_mesh_as_truss.ipynb"><img src="../Lecture_05/figures/app-structure.svg" width="240" alt=""></a> | 08 | [a mesh is a truss](../Lecture_05/notebooks/08_mesh_as_truss.ipynb) | one bar, a tripod, then any mesh; hanging net, vault and a pyramid that is a mechanism |
+| <a href="../Lecture_05/notebooks/09_scan_to_mesh.ipynb"><img src="../Lecture_05/figures/app-scan.svg" width="240" alt=""></a> | 09 | [from a scan to a mesh](../Lecture_05/notebooks/09_scan_to_mesh.ipynb) | outliers by neighbours; Delaunay; trimming with Euler as the judge; smoothing that helps and then harms; deviation from the design, in square metres |
+| <a href="../Lecture_05/notebooks/10_cloth_simulation.ipynb"><img src="../Lecture_05/figures/app-cloth.svg" width="240" alt=""></a> | 10 | [a cloth that falls](../Lecture_05/notebooks/10_cloth_simulation.ipynb) | one particle, one thread, a mesh of threads; a sphere to land on; measuring the stretch; a canopy hung from four corners |
+| *3D only* | 11 | [a volcano pavilion](../Lecture_05/notebooks/11_volcano_pavilion.ipynb) | a worked design with compas_cgal: Delaunay with holes, lifting, relaxation, remeshing |
+
+## Week 06 · graphs
+
+[Lecture](../Lecture_06/README.md)
+
+| Preview | # | Notebook | What you watch happen |
+| :-----: | - | -------- | --------------------- |
+| <a href="../Lecture_06/notebooks/01_bfs_and_paths.ipynb"><img src="figures/Lecture_06-01_bfs_and_paths.svg" width="240" alt=""></a> | 01 | [graph and BFS](../Lecture_06/notebooks/01_bfs_and_paths.ipynb) | breadth-first search narrated step by step; the BFS tree; two `shortest_path`s disagreeing |
+| <a href="../Lecture_06/notebooks/02_floor_plan.ipynb"><img src="figures/Lecture_06-02_floor_plan.svg" width="240" alt=""></a> | 02 | [reading a floor plan](../Lecture_06/notebooks/02_floor_plan.ipynb) | rooms to graph; depth and the justified graph; integration; escape distance with Dijkstra; critical doors; one new door, measured |
+| <a href="../Lecture_06/notebooks/03_two_graphs_of_one_frame.ipynb"><img src="figures/Lecture_06-03_two_graphs_of_one_frame.svg" width="240" alt=""></a> | 03 | [two graphs of one frame](../Lecture_06/notebooks/03_two_graphs_of_one_frame.ipynb) | joints found from centrelines; element graph vs bar graph |
+| <a href="../Lecture_06/notebooks/04_bricks_and_mortar.ipynb"><img src="figures/Lecture_06-04_bricks_and_mortar.svg" width="240" alt=""></a> | 04 | [bricks and mortar](../Lecture_06/notebooks/04_bricks_and_mortar.ipynb) | a brick as a node, a mortar joint (found by a mesh boolean) as an edge; a six-brick pier whose graph finds itself; quantities as loops |
+| <a href="../Lecture_06/notebooks/05_brick_wall_assembly.ipynb"><img src="figures/Lecture_06-05_brick_wall_assembly.svg" width="240" alt=""></a> | 05 | [a brick wall is a graph](../Lecture_06/notebooks/05_brick_wall_assembly.ipynb) | *rests on* as a directed edge; a DFS to the ground and the load cone; a building sequence (Kahn); the load path round a window; what falls without the lintel; the wall as JSON |
+| <a href="../Lecture_06/notebooks/06_street_network.ipynb"><img src="figures/Lecture_06-06_street_network.svg" width="240" alt=""></a> | 06 | [a town is a graph](../Lecture_06/notebooks/06_street_network.ipynb) | the `to_networkx()` one-way trap; betweenness counted by hand; closing a bridge; where to put a third |
+
+**compas_timber** (the `timber` extra: start Jupyter with
+`uv run --extra timber jupyter lab`). Everything runs without Rhino; the
+notebooks say where that stops (lap joints, cut geometry).
+
+| Preview | # | Notebook | What you watch happen |
+| :-----: | - | -------- | --------------------- |
+| *3D only* | 07 | [two beams and a joint](../Lecture_06/notebooks/07_timber_beams_and_joints.ipynb) | a beam and its blank; L, T and X; the model graph; butt vs miter vs tenon; the T joint's order; BTLx read back |
+| <a href="../Lecture_06/notebooks/08_timber_stud_wall.ipynb"><img src="figures/Lecture_06-08_timber_stud_wall.svg" width="240" alt=""></a> | 08 | [a stud wall](../Lecture_06/notebooks/08_timber_stud_wall.ipynb) | centrelines → roles → beams → topology → a rule → joints → BTLx; four design variants in one table |
+| <a href="../Lecture_06/notebooks/09_timber_frame_to_site.ipynb"><img src="figures/Lecture_06-09_timber_frame_to_site.svg" width="240" alt=""></a> | 09 | [a frame, from design to site](../Lecture_06/notebooks/09_timber_frame_to_site.ipynb) | a 3D shed: crowded nodes, a rule of precedence that halves the cut list, weights, an erection sequence by BFS |
+
+## Week 04 · COMPAS core
+
+[Lecture](../Lecture_04/README.md) · all four draw in the interactive 3D viewer.
+
+| # | Notebook | What it covers |
+| - | -------- | -------------- |
+| 01 | [notebook basics](../Lecture_04/notebooks/01_notebook_basics.ipynb) | cells, and a point in the 3D viewer |
+| 02 | [frames](../Lecture_04/notebooks/02_frames.ipynb) | a frame as a coordinate system; geometry built on a frame |
+| 03 | [transformations](../Lecture_04/notebooks/03_transformations.ipynb) | translation, rotation, scale as 4 × 4 matrices, and their order |
+| 04 | [local frames](../Lecture_04/notebooks/04_local_frames.ipynb) | placing timber on a ring of frames; local ↔ world |
+
+## Week 08 · recursion and classic algorithms
+
+[Lecture](../Lecture_08/README.md) · these plot random data with matplotlib,
+different on every run, so there is no fixed preview.
+
+| # | Notebook | What you watch happen |
+| - | -------- | --------------------- |
+| 01 | [recursion: heightmap subdivision](../Lecture_08/notebooks/01_recursion_heightmap.ipynb) | a quadtree that refines where the terrain bends |
+| 02 | [convex hull in 2D](../Lecture_08/notebooks/02_convex_hull_2d.ipynb) | Graham scan, step by step |
+| 03 | [convex hull in 3D](../Lecture_08/notebooks/03_convex_hull_3d.ipynb) | Quickhull through scipy, then COMPAS |
+| 04 | [convex hull, COMPAS only](../Lecture_08/notebooks/04_convex_hull_compas_only.ipynb) | the Graham scan again, without matplotlib |
+| 05 | [bin packing: shelves](../Lecture_08/notebooks/05_bin_packing_2d_shelf.ipynb) | the shelf heuristic, snapshot by snapshot |
+| 06 | [bin packing: guillotine](../Lecture_08/notebooks/06_bin_packing_2d_guillotine.ipynb) | free rectangles and splits |
+| 07 | [bin packing in 3D](../Lecture_08/notebooks/07_bin_packing_3d.ipynb) | layers of boxes |
+
+## Weeks 10–12 · algorithms
+
+[Section README](../Algorithms/README.md) · each notebook sits beside the
+tested `tutorials/` module it unpacks.
+
+| Preview | Part | Notebook | What you watch happen |
+| :-----: | ---- | -------- | --------------------- |
+| <a href="../Algorithms/geometric/notebooks/01_curvature_smoothing.ipynb"><img src="figures/Algorithms-geometric-01_curvature_smoothing.svg" width="240" alt=""></a> | [W10 geometric](../Algorithms/geometric/README.md) | [curvature and smoothing](../Algorithms/geometric/notebooks/01_curvature_smoothing.ipynb) | one angle defect by hand; Gauss–Bonnet; Laplacian shrinking vs Taubin |
+| <a href="../Algorithms/geometric/notebooks/02_voronoi_lloyd.ipynb"><img src="figures/Algorithms-geometric-02_voronoi_lloyd.svg" width="240" alt=""></a> | W10 geometric | [Delaunay → Voronoi → Lloyd](../Algorithms/geometric/notebooks/02_voronoi_lloyd.ipynb) | the empty circle; cells from circumcentres; Lloyd round by round |
+| <a href="../Algorithms/simulation/notebooks/01_cellular_automata.ipynb"><img src="figures/Algorithms-simulation-01_cellular_automata.svg" width="240" alt=""></a> | [W11 simulation](../Algorithms/simulation/README.md) | [cellular automata](../Algorithms/simulation/notebooks/01_cellular_automata.ipynb) | neighbour counts as an array; the rule; a glider; a tower |
+| <a href="../Algorithms/optimization/notebooks/01_simulated_annealing.ipynb"><img src="figures/Algorithms-optimization-01_simulated_annealing.svg" width="240" alt=""></a> | [W12 optimization](../Algorithms/optimization/README.md) | [simulated annealing](../Algorithms/optimization/notebooks/01_simulated_annealing.ipynb) | one move; the acceptance rule; why one run is an anecdote |
+| <a href="../Algorithms/learning/notebooks/01_kmeans.ipynb"><img src="figures/Algorithms-learning-01_kmeans.svg" width="240" alt=""></a> | [W12 learning](../Algorithms/learning/README.md) | [k-means by hand](../Algorithms/learning/notebooks/01_kmeans.ipynb) | assign / update, round by round; families per tolerance |
 
 ---
 
-## First, make your own copy
+## How to run them
 
-The files in this folder are updated by the instructor every week. **Do not
-edit them in place**, or `git pull upstream main` will hit merge conflicts.
-Copy the ones you want into `MyWork/`, which is yours
-([MyWork/README.md](../../MyWork/README.md)):
+**Once per clone**, so notebook outputs never end up in your commits:
 
 ```bash
-uv run Lecture/notebooks/copy_to_mywork.py 03      # one notebook (both files)
-uv run Lecture/notebooks/copy_to_mywork.py all     # all of them
+uv run nbstripout --install
 ```
 
-The copies in `MyWork/notebooks/` still find the shared drawing helper
-(`viz.py`), so they run exactly like the originals. It never overwrites a copy
-you already have.
-
----
-
-## Running them
-
-`uv sync` installed everything: the kernel (`ipykernel`), **JupyterLab**, and
-**compas_notebook** for 3D views (the project's `dev` group). Nothing else to
-install.
-
-### In your browser, with a small local server (recommended)
+**Each time:**
 
 ```bash
-uv run jupyter lab Lecture/notebooks
+uv run Lecture/notebooks/copy_to_mywork.py 05      # copy Week 05's notebooks into MyWork/
+uv run jupyter lab MyWork/notebooks                 # opens them in your browser
 ```
 
-This starts a **Jupyter server on your own laptop** and opens it in your
-browser (`http://localhost:8888/lab?token=…`). Every figure works here: the
-SVG diagrams and the interactive 3D views. Some things worth knowing:
+Open a notebook and run the cells from the top, one at a time, with
+`Shift` + `Enter`. When you are done, stop the server with `Ctrl` + `C` in the
+terminal.
 
-- **It is local.** The server listens only on your machine (`localhost`),
-  behind a one-time token in that URL. Nobody else can reach it, and nothing is
-  uploaded anywhere.
-- **The terminal is the server.** Keep it open while you work. Stop it with
-  `Ctrl` + `C` (it asks to confirm; press `y` or `Ctrl` + `C` again). Closing
-  the browser tab does *not* stop it.
-- **Open a different folder** by changing the last argument, e.g.
-  `uv run jupyter lab MyWork/notebooks` for your copies.
-- **First time only**, JupyterLab asks *"Would you like to get notified about
-  official Jupyter news?"*. Answer either way. If it ever asks you to
-  *Select Kernel*, choose *Python 3 (ipykernel)*.
-- **It reopens the tabs you had last time.** Add `?reset` to the URL for a
-  clean window.
-- **Run cells** with `Shift` + `Enter`, or *Run ▸ Run All Cells*.
-- **It autosaves.** Saved outputs are not a problem in your `MyWork/` copies,
-  because nbstripout keeps them out of commits (below).
+Good to know:
 
-This is exactly what the course tested: every notebook here, and the 3D
-views, run in JupyterLab served this way.
-
-### VS Code
-
-1. Install the **Python** and **Jupyter** extensions (Microsoft).
-2. Open the `.ipynb`.
-3. *Select Kernel* (top right) ▸ *Python Environments* ▸ the one in this
-   project's **`.venv`**. Not your system Python: it does not have COMPAS.
-4. Run cells with `Shift` + `Enter`. SVG figures appear under the cells.
-5. **3D views** are Jupyter *widgets*. VS Code loads the widget's JavaScript
-   (three.js) from the internet the first time and may ask permission. If a 3D
-   cell stays blank, allow it, or set `"jupyter.widgetScriptSources":
-   ["jsdelivr.com", "unpkg.com"]` in VS Code's settings. If it still will not
-   show, use the browser route above, which always works.
-
-### Zed
-
-Zed runs **`.py` files cell by cell** with its built-in REPL (Jupyter
-kernels). It does not open `.ipynb`, and it cannot show widgets.
-
-1. Open the **`.py`** twin, e.g. `MyWork/notebooks/03_graph_bfs_and_paths.py`.
-2. Make sure Zed uses the project's `.venv` (it detects it when you open the
-   repo folder; otherwise choose it in the kernel picker).
-3. Put the cursor in a cell and run it with `repl: run`, `Ctrl` + `Shift` +
-   `Enter` by default on macOS.
-4. Text output appears inline. **3D cells print one line** telling you to use
-   JupyterLab, because Zed has no widget support. **SVG figures**: if one does
-   not render inline (support varies between Zed versions), end the cell with
-   `fig.save("step.svg")` and open the file.
-
-Zed is fine for stepping through the logic. For the pictures, use the browser.
+- **Work on the copies in `MyWork/notebooks/`**, not the originals: those are
+  updated by the instructor, and editing them causes merge conflicts on
+  `git pull upstream main`. Copy one notebook with `05/02`, everything with
+  `all`. A copy brings its pictures with it. It is never overwritten, unless
+  you add `--force` (do that to pick up the instructor's updates; your edits
+  in that copy are lost). The copies are not committed: `MyWork/notebooks/`
+  is in `.gitignore`.
+- **The compas_timber notebooks** (Week 06, 07–09) need
+  `uv run --extra timber jupyter lab MyWork/notebooks`.
+- **VS Code** works too: open the `.ipynb` and choose this project's `.venv`
+  as the kernel. If a 3D view stays blank there, use the browser. Zed does not
+  open notebooks.
 
 ---
 
-## Two kinds of figure
+## Three kinds of figure
 
-| | **3D views** (`view3d`, compas_notebook) | **Diagrams** (`draw_mesh`, `draw_graph`, `chart` …, SVG) |
-| --- | --- | --- |
-| what | interactive three.js: orbit, zoom | flat drawings with **labels**: vertex keys, face keys, queue steps, charts |
-| best for | the geometry itself: a shell, frames, a tower, a shape changing | the *structure*: which key is where, what a step did, a number over time |
-| works in | JupyterLab (verified), VS Code (needs widget scripts) | everywhere: JupyterLab, VS Code, saved files |
+| | **Drawn figures** (in the text) | **Diagrams** (`draw_mesh`, `draw_graph`, `chart` …, SVG) | **3D views** (`view3d`, compas_notebook) |
+| --- | --- | --- | --- |
+| what | designed explanations with labels and captions, made in advance by a week's `figures/make_figures.py` from real data | flat drawings of *your* data, made when you run a cell | interactive three.js: orbit, zoom |
+| best for | the idea: what a halfedge is, what warp means | the result: which key is where, what a step did, a number over time | the geometry itself: a shell, a frame, a shape changing |
+| you see it | as soon as the notebook opens, and on GitHub | after running the cell | after running the cell, in JupyterLab (verified) or VS Code (needs widget scripts) |
+
+The Week 05 notebooks use all three. A drawn figure explains a step before
+you run it; the cell's own diagram then shows the same thing on your data.
 
 `compas_viewer`, the desktop viewer used in the lecture scripts, opens its own
 window and **does not render inside a notebook**. **compas_notebook** is the
@@ -145,56 +185,42 @@ Meshes take `facecolor` (one colour or `{face: colour}`), `show_edges`,
 `edgecolor`. Shapes such as `Box` take `color`, not compas_viewer's
 `surfacecolor`, which compas_notebook silently ignores (found the hard way:
 every box came out black). For hundreds of small pieces, build **one** mesh,
-not hundreds of shapes: notebook 07's tower does this, because hundreds of
-boxes render slowly and one of them was drawn at the origin by mistake.
+not hundreds of shapes: the cellular-automata tower (Week 11) and the brick
+wall (Week 06, notebook 05) do this, because hundreds of boxes
+render slowly and one of them was drawn at the origin by mistake.
 
-The older COMPAS-core notebooks (Week 04 `compas_ipynb/`, the Week 06 brick
-stacks, Week 05 `volcano_pavilion.ipynb`) use compas_notebook directly, and now
-run with the same `uv run jupyter lab`.
-
----
-
-## Notebooks and git
-
-A notebook file stores your code **and** every output you produced: numbers,
-images, execution counts. Committed as-is, every run is a huge, unreadable
-diff, and two people running the same notebook conflict. Three things keep this
-repository clean.
-
-**1. Install the output stripper, once per clone:**
-
-```bash
-uv run nbstripout --install
-```
-
-It registers a git *filter* in this clone. From then on, outputs are removed
-**when you commit**, never from the file on your screen, so you keep seeing
-your results. After you run a notebook, `git status` may still list it as
-modified (git noticed the file was saved), but `git diff` shows nothing and
-`git add` finds nothing to commit. Only real code changes get committed.
-
-**2. Work in `MyWork/`, not here** (see above). Your copies, your history, no
-conflicts with the instructor's updates.
-
-**3. Prefer the `.py` for anything you want to diff or review.** It is plain
-Python: `git diff` on it reads like any other code. That is also why it is the
-source of truth here.
-
-If you did edit a file in this folder by accident, put it back with
-`git restore Lecture/notebooks/<file>`.
+The older notebooks (Week 04, and the volcano pavilion in Week 05) use
+compas_notebook's `Viewer` directly, and the Week 08 ones plot with matplotlib. They run with the same
+`uv run jupyter lab`.
 
 ---
 
 ## For the instructor
 
 ```bash
-uv run --with jupytext Lecture/notebooks/make_notebooks.py           # rebuild every .ipynb from its .py
-uv run --with jupytext Lecture/notebooks/make_notebooks.py --check   # are they in sync?
-uv run python -m pytest Lecture/notebooks -q                         # the guards below
+uv run python -m pytest Lecture/notebooks -q                    # compas_timber notebooks are skipped
+uv run --extra timber python -m pytest Lecture/notebooks -q     # everything
 ```
 
-Edit the `.py`, never the `.ipynb`. The generated notebooks have no outputs,
-no execution counts and stable cell ids, so rebuilding an unchanged source
-produces an identical file. [`test_notebooks.py`](test_notebooks.py) fails if
-an `.ipynb` has outputs, if its code differs from its `.py` (someone edited the
-generated file), or if any notebook no longer runs top to bottom.
+Edit the `.ipynb` directly, in JupyterLab. [`test_notebooks.py`](test_notebooks.py)
+collects every `Lecture/Lecture_NN/notebooks/*.ipynb` and
+`Lecture/Algorithms/*/notebooks/*.ipynb` and fails if one has outputs or
+execution counts in it, if a picture its text points at is missing, if a
+notebook sits outside a `notebooks/` folder, or if one no longer runs top to
+bottom in a kernel.
+
+To add a notebook: save it as `NN_name.ipynb` in its week's `notebooks/`
+folder, give it the setup cell of its neighbours if it draws with `viz.py`,
+and add a row to this page.
+
+**Pictures.** A *drawn figure* belongs to the week: add a function to that
+week's `figures/make_figures.py` and show it in a markdown cell with
+`![what it shows](../figures/name.svg)`. The *previews* on this page for
+Week 06 and the algorithms are instead the notebooks' own output, saved by
+[`figures/make_figures.py`](figures/make_figures.py) (add a line to `PICK`:
+the notebook, and a few words from the title of the figure to show):
+
+```bash
+uv run Lecture/Lecture_05/figures/make_figures.py                  # Week 05's drawn figures
+uv run --extra timber Lecture/notebooks/figures/make_figures.py    # previews from notebook output
+```

@@ -23,11 +23,12 @@ used as free, exact checks.
 
 ## Step by step: the notebooks
 
-Notebooks 05–09 in [`Lecture/notebooks/`](/Lecture/notebooks/README.md) unpack
-one algorithm per part (curvature and smoothing, Delaunay → Voronoi → Lloyd,
-cellular automata, simulated annealing, k-means), printing every intermediate
-result and drawing each step, then calling the tested tutorial module to
-confirm.
+Each part has a `notebooks/` folder beside its `tutorials/`
+([the map](/Lecture/notebooks/README.md#weeks-1012--algorithms)). They
+unpack one algorithm per part (curvature and smoothing, Delaunay → Voronoi →
+Lloyd, cellular automata, simulated annealing, k-means), printing every
+intermediate result and drawing each step, then calling the tested tutorial
+module to confirm.
 
 ## How every tutorial is built
 
@@ -63,7 +64,7 @@ pymoo and the diffusion models are optional extras, each in its own folder.
 | [`Lecture_05/mesh_applications/`](/Lecture/Lecture_05/README.md#12-mesh-in-architecture-four-applications) | form finding, truss analysis, scan-to-mesh, cloth: algorithms applied to meshes |
 | [`Lecture_06/graph_applications/`](/Lecture/Lecture_06/README.md#11-graphs-in-architecture-three-applications) | space syntax, egress, street betweenness, timber frames: algorithms applied to graphs |
 | [`Lecture_07/abm_examples/`](/Lecture/Lecture_07/abm_examples/) | ants and drones: agent-based models as objects |
-| [`Classic_Algorithms/`](/Lecture/Classic_Algorithms/) | the convex hull as a notebook |
+| [`Lecture_08/notebooks/`](/Lecture/Lecture_08/notebooks/) | Week 08's notebooks: convex hull (2D, 3D), bin packing, recursive subdivision |
 | [`Lecture_10/`](/Lecture/Lecture_10/README.md) | optional: trained models (diffusion, CLIP) as design ingredients |
 
 ## For the final project

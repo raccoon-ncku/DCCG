@@ -1,68 +1,68 @@
-"""Keep the notebook collection honest and git-friendly.
+"""Keep the notebooks runnable and git-friendly.
 
     uv run python -m pytest Lecture/notebooks -q
+    uv run --extra timber python -m pytest Lecture/notebooks -q     # the timber ones too
 
-1. every NN_*.py source has its generated .ipynb, and the other way round
-2. no committed .ipynb carries outputs or execution counts (git-friendly)
-3. every .ipynb's code is exactly its .py's code: nobody edited the generated
-   file by hand (edit the .py, then run make_notebooks.py)
-4. every notebook runs top to bottom without an error
+The notebooks live with their week: Lecture/Lecture_NN/notebooks/ and
+Lecture/Algorithms/<part>/notebooks/. This folder holds what they share.
 
-No jupytext needed: the percent format is simple enough to read directly.
+1. no committed notebook carries outputs or execution counts
+2. every picture a notebook's text points at exists
+3. every notebook runs top to bottom, in a real kernel, from its own folder
+
+The compas_timber notebooks need the `timber` extra and are skipped without
+it. Nothing is written back: the run happens in memory.
 """
 
+import importlib.util
 import json
-import subprocess
-import sys
+import re
 from pathlib import Path
 
+import nbformat
 import pytest
+from nbclient import NotebookClient
 
 HERE = Path(__file__).parent
-SOURCES = sorted(HERE.glob("[0-9][0-9]_*.py"))
-NOTEBOOKS = sorted(HERE.glob("[0-9][0-9]_*.ipynb"))
+LECTURE = HERE.parent
+NOTEBOOKS = sorted(LECTURE.glob("Lecture_*/notebooks/*.ipynb")) + sorted(LECTURE.glob("Algorithms/*/notebooks/*.ipynb"))
+IMAGE = re.compile(r"!\[[^\]]*\]\(([^)\s]+)\)")
 
 
-def code_cells_from_percent(path):
-    cells, kind, lines = [], None, []
-    for line in path.read_text().splitlines():
-        if line.startswith("# %%"):
-            if kind == "code":
-                cells.append("\n".join(lines).strip())
-            kind = "markdown" if "[markdown]" in line else "code"
-            lines = []
-        else:
-            lines.append(line)
-    if kind == "code":
-        cells.append("\n".join(lines).strip())
-    return cells
+def name(path):
+    return f"{path.parent.parent.name}/{path.name}"
 
 
-def test_every_source_has_a_notebook():
-    assert [p.stem for p in SOURCES] == [p.stem for p in NOTEBOOKS]
-    assert len(SOURCES) >= 9
+def test_notebooks_live_with_their_week():
+    strays = [p for p in LECTURE.rglob("*.ipynb")
+              if p not in NOTEBOOKS and ".ipynb_checkpoints" not in p.parts]
+    assert not strays, f"notebooks outside a notebooks/ folder: {strays}"
+    assert len(NOTEBOOKS) >= 30
 
 
-@pytest.mark.parametrize("path", NOTEBOOKS, ids=lambda p: p.name)
+@pytest.mark.parametrize("path", NOTEBOOKS, ids=name)
 def test_notebook_has_no_outputs(path):
     nb = json.loads(path.read_text())
     for cell in nb["cells"]:
         if cell["cell_type"] == "code":
-            assert cell.get("outputs") == [], f"{path.name}: outputs committed (run `uv run nbstripout {path}`)"
+            assert cell.get("outputs") == [], f"{name(path)}: outputs committed (run `uv run nbstripout --install` once)"
             assert cell.get("execution_count") is None
 
 
-@pytest.mark.parametrize("path", NOTEBOOKS, ids=lambda p: p.name)
-def test_notebook_matches_its_source(path):
+@pytest.mark.parametrize("path", NOTEBOOKS, ids=name)
+def test_notebook_pictures_exist(path):
     nb = json.loads(path.read_text())
-    in_notebook = ["".join(c["source"]).strip() for c in nb["cells"] if c["cell_type"] == "code"]
-    assert in_notebook == code_cells_from_percent(path.with_suffix(".py")), (
-        f"{path.name} differs from its .py: edit the .py, then "
-        "`uv run --with jupytext Lecture/notebooks/make_notebooks.py`"
-    )
+    for cell in nb["cells"]:
+        if cell["cell_type"] == "markdown":
+            for link in IMAGE.findall("".join(cell["source"])):
+                if not link.startswith("http"):
+                    assert (path.parent / link).exists(), f"{name(path)}: missing picture {link}"
 
 
-@pytest.mark.parametrize("path", SOURCES, ids=lambda p: p.name)
+@pytest.mark.parametrize("path", NOTEBOOKS, ids=name)
 def test_notebook_runs(path):
-    result = subprocess.run([sys.executable, path.name], cwd=HERE, capture_output=True, text=True, timeout=300)
-    assert result.returncode == 0, result.stderr[-2000:]
+    if "timber" in path.name and importlib.util.find_spec("compas_timber") is None:
+        pytest.skip("needs the timber extra: uv run --extra timber ...")
+    nb = nbformat.read(path, as_version=4)
+    NotebookClient(nb, timeout=300, kernel_name="python3",
+                   resources={"metadata": {"path": str(path.parent)}}).execute()
