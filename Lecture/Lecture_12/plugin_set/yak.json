@@ -1,0 +1,7 @@
+{
+    "authors": ["RACCOON Lab, NCKU Architecture"],
+    "description": "DCCG course example: a running-bond wall, a staircase and a grid mesh, from a tested COMPAS core.",
+    "url": "https://github.com/raccoon-ncku/DCCG",
+    "keywords": ["dccg", "compas", "example"],
+    "icon": "icon.png"
+}

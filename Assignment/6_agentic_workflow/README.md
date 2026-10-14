@@ -1,6 +1,6 @@
 # Lab: You Are the Planner and the Reviewer
 
-A required, **ungraded** milestone (Weeks 13→15) — a dry run of the exact loop
+A required, **ungraded** milestone (Weeks 15→17) — a dry run of the exact loop
 your final project will live in. You do **not** write the geometry code
 yourself. You direct the coder/reviewer workflow from Lecture 11 to produce a
 small COMPAS artifact, and the work that matters is the part that stays human:

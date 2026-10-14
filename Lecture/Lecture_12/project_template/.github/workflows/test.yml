@@ -1,0 +1,17 @@
+# Every push and pull request: run the spec. Nothing merges red.
+#
+# Python 3.9 on purpose: it is the Python inside Rhino 8, so it is the one the
+# core has to work on.
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv run --python 3.9 pytest -q

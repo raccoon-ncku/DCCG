@@ -1,0 +1,35 @@
+# Build, verify and package the Grasshopper components with ghuser-builder.
+# The same image and the same command as scripts/ghuser on your laptop.
+#
+# Every push: build + verify (a broken component fails here, not in Rhino).
+# A tag v1.2.3: also attach the .yak and the .ghuser files to a GitHub Release.
+name: build-ghuser
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/raccoon-ncku/ghuser-builder:1.0.0
+    env:
+      GHUSER_YAK_NAME: my-tool
+      GHUSER_YAK_INCLUDE: "src/my_tool:lib/my_tool"      # the core travels inside the .yak
+    steps:
+      - uses: actions/checkout@v4
+      - run: ghuser-build components dist                 # the version comes from the tag
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ghuser
+          path: dist
+      - if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.yak
+            dist/ghuser/*.ghuser

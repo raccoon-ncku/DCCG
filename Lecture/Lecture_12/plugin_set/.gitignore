@@ -1,5 +1,9 @@
+dist/
+dist-dev/
 build/
 *.ghuser
+*.yak
 *.egg-info/
 __pycache__/
 .pytest_cache/
+.venv/

@@ -1,0 +1,47 @@
+# CD -- build, verify and package the Grasshopper components with ghuser-builder.
+#
+# The same image and the same command as scripts/ghuser on your laptop, so
+# there is nothing that can differ between the two. It needs:
+#
+#   - NO Windows: the image runs Grasshopper's own file library (GH_IO.dll)
+#     on Mono, on a plain Linux runner;
+#   - NO Rhino, and no graphical machine.
+#
+# ghuser-build does three things: componentize each folder in components/,
+# read every .ghuser back and check it against the source (a mismatch fails
+# the build, and nothing ships), then package the components together with the
+# core library as one .yak.
+#
+# Every push builds and verifies. A version tag (`git tag v0.1.0 && git push
+# --tags`) also publishes, so that a release is a deliberate act; the tag is
+# the version written into the package and into every component.
+name: build-ghuser
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/raccoon-ncku/ghuser-builder:1.0.0
+    env:
+      GHUSER_YAK_NAME: compas-studio
+      GHUSER_YAK_INCLUDE: "src/compas_studio:lib/compas_studio"    # the core travels inside the .yak
+    steps:
+      - uses: actions/checkout@v4
+      - run: ghuser-build components dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: compas-studio
+          path: dist
+      - if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.yak
+            dist/ghuser/*.ghuser

@@ -1,0 +1,20 @@
+{
+    "name": "Column Grid",
+    "nickname": "ColGrid",
+    "category": "My Tool",
+    "subcategory": "Structure",
+    "description": "Column positions on a grid of bays. Pure core, tested outside Rhino.",
+    "exposure": 2,
+    "ghpython": {
+        "isAdvancedMode": true,
+        "iconDisplay": 0,
+        "inputParameters": [
+            {"name": "nx", "description": "Bays along x", "typeHintID": "int", "scriptParamAccess": 0},
+            {"name": "ny", "description": "Bays along y", "typeHintID": "int", "scriptParamAccess": 0},
+            {"name": "bay", "description": "Bay size (m)", "typeHintID": "float", "optional": true, "scriptParamAccess": 0}
+        ],
+        "outputParameters": [
+            {"name": "points", "description": "Column positions, as Rhino points"}
+        ]
+    }
+}

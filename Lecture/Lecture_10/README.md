@@ -91,5 +91,5 @@ matches), and keep the model itself behind that boundary. The heavy,
 non-deterministic part stays in one place; the rest of your tool stays testable.
 
 Be honest in your reflection about what the model got right and wrong — the same
-"verify, don't trust" rule from Week 13 applies to a diffusion model exactly as
+"verify, don't trust" rule of this course applies to a diffusion model exactly as
 it does to a coding agent.

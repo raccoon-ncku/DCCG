@@ -1,0 +1,7 @@
+{
+    "authors": ["Your Name"],
+    "description": "One sentence: what this tool makes, and for whom.",
+    "url": "https://github.com/your-name/my_tool",
+    "keywords": ["dccg", "compas"],
+    "icon": "icon.png"
+}

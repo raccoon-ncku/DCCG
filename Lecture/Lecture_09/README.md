@@ -53,7 +53,7 @@ boilerplate, format conversion, a first draft, explaining unfamiliar code — an
 weakest where a mistake is silent: numeric detail, units, edge cases, and
 anything that depends on facts about your project it cannot see.
 
-In Week 13 you will build the loop that drives one of these, from scratch, and
+In Week 15 you will build the loop that drives one of these, from scratch, and
 this description becomes a piece of code you can read.
 
 ### Asking well
@@ -270,7 +270,7 @@ It works. It also has no future, for five separate reasons:
    of what it produced. "Did my change break anything?" is unanswerable.
 4. **An agent cannot work on it.** No return value, no result to inspect — a
    coding agent is blind to whether it succeeded. (This becomes concrete in
-   Week 13.)
+   Week 15.)
 5. **It cannot run anywhere but your laptop.** No CI, no server, no headless
    machine.
 
@@ -393,7 +393,7 @@ git push -u origin feature/wall-bond
 
 Then open a **pull request** on GitHub. Even working alone, this is worth it:
 the PR page is where you re-read your own diff before it becomes permanent,
-and from Week 14 it is where CI reports whether your tests passed.
+and from Week 13 it is where CI reports whether your tests passed.
 
 **Writing a commit message.** Say *why*, not *what* — the diff already shows
 what.

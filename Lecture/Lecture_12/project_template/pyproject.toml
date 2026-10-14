@@ -1,0 +1,21 @@
+[project]
+name = "my_tool"
+version = "0.1.0"
+description = "One sentence: what this tool makes, and for whom."
+readme = "README.md"
+requires-python = ">=3.9"            # Rhino 8 runs CPython 3.9: the core must too
+dependencies = ["compas>=2.0"]
+
+# Tools for developing, never shipped to users.
+[dependency-groups]
+dev = ["pytest>=8.0"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/my_tool"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

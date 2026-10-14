@@ -21,8 +21,9 @@ Use AI freely to write it — that is the point of the course — but you own ev
 line, and "professional / reproducible / maintainable" is exactly the standard
 that separates directing an agent from blindly following one.
 
-The recommended route is the **Grasshopper plugin set** built with the COMPAS
-componentizer pipeline from Week 14 (worked example:
+The recommended route is the **Grasshopper plugin set**, scaffolded from the
+[project template](/Lecture/Lecture_12/project_template/README.md) in Week 13
+and built with the ghuser-builder pipeline from Week 14 (worked example:
 [`Lecture/Lecture_12/plugin_set/`](/Lecture/Lecture_12/plugin_set/README.md)). A
 Rhino `.rhp` plugin or a standalone CLI/library with a loader script are also
 fine — the `.ghuser` set is just the most reusable and the one the lectures
@@ -91,6 +92,7 @@ submitted it, you own it.
 | ---- | --------- |
 | W10 · 2026.11.11 | Brief released — start thinking |
 | W12 · 2026.11.25 | **Proposal + in-class pitch** (2 min): what it does, who'd use it, what the core function signature looks like |
+| W13 · 2026.12.02 | **Repo scaffolded** — your own repository, from the template; tests green in CI; first pull request reviewed by your partner |
 | W14 · 2026.12.09 | **Iteration 1 review** — core + tests running headless |
 | W16 · 2026.12.23 | **Iteration 2 review** — adapter working in Rhino/GH |
 | W17 · 2026.12.30 | **Feature freeze** — no new features; docs, tests, packaging only |

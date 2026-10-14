@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Build the Grasshopper components on this machine, in the same image CI uses.
+# Run from this folder (plugin_set/):
+#
+#   scripts/ghuser                 # components/ -> dist/ghuser/*.ghuser + dist/*.yak
+#   GHUSER_VERSION=1.2.3 scripts/ghuser
+#
+# It is one `docker run`: this folder mounted at /work, and ghuser-build doing
+# componentize -> verify -> package. Needs Docker (Docker Desktop, OrbStack or
+# colima). Any ghuser-build option passes through.
+# From ghuser-builder's templates/local/ghuser.
+set -euo pipefail
+IMAGE="${GHUSER_BUILDER_IMAGE:-git.rccn.dev:5050/libs/ghuser-builder:1.0.0}"
+exec docker run --rm \
+  -v "$PWD:/work" -w /work \
+  -u "$(id -u):$(id -g)" -e HOME=/tmp \
+  -e GHUSER_VERSION -e GHUSER_PREFIX \
+  -e GHUSER_YAK_NAME="${GHUSER_YAK_NAME:-compas-studio}" \
+  -e GHUSER_YAK_INCLUDE="${GHUSER_YAK_INCLUDE:-src/compas_studio:lib/compas_studio}" \
+  "$IMAGE" ghuser-build "$@" "${GHUSER_COMPONENTS:-components}" "${GHUSER_OUT:-dist}"
