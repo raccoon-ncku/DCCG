@@ -11,19 +11,14 @@
 > | [D — Shipping with ghuser-builder](#part-d--shipping-grasshopper-components-with-ghuser-builder-week-14) | 14 | how does it reach someone else's Grasshopper? |
 > | [E — Working with AI](#part-e--working-with-ai-week-15) | 15 | which of these steps can a machine take, and which can it not? |
 >
-> AI comes **last** on purpose. An assistant can write the middle of this
-> pipeline. It can only be trusted to once the two ends exist: a test that
-> says what correct means, and a reviewer who can tell good from passing.
-> Build the pipeline first, then hand part of it over.
->
-> These skills mattered before AI. They matter *more* now, not less: when you
-> did not type the code, verification and review are all you have.
+> AI comes last on purpose: an assistant can write the middle of this pipeline,
+> and can only be trusted to once the two ends exist, a test that says what
+> correct means and a reviewer who can tell good from passing.
 
 Two folders go with this lecture:
 
-- [`plugin_set/`](plugin_set/README.md): the **worked example**. A real
-  Grasshopper plugin set (`compas_studio`) developed, tested and shipped
-  entirely outside Rhino. Read Parts A, B and D with it open.
+- [`plugin_set/`](plugin_set/README.md): the **worked example**, a plugin set
+  developed, tested and shipped outside Rhino. Read Parts A, B and D with it open.
 - [`project_template/`](project_template/README.md): the **empty version** of
   the same shape, for you to copy in Part C.
 
@@ -43,14 +38,12 @@ Two folders go with this lecture:
 
 ```bash
 uv run pytest Lecture/Lecture_12/plugin_set/tests -q      # the plugin-set specs
-uv run pytest Lecture/Lecture_12/test_staircase.py -v     # a single file, verbose
+uv run pytest Lecture/Lecture_12/test_wall.py -v          # a single file, verbose
 ```
 
 [`plugin_set/src/compas_studio/staircase.py`](plugin_set/src/compas_studio/staircase.py)
-is a **pure function**: numbers in, geometry out. No viewer, no file IO, no
-Rhino. That separation — the habit from Week 09 — is exactly what makes it
-testable, and what will let the same code become a Grasshopper component in
-Part D without changing a line.
+is a **pure function**: numbers in, geometry out. That separation (Week 09) makes
+it testable, and lets the same code become a Grasshopper component in Part D.
 
 The craft of testing geometry, all visible in
 [`plugin_set/tests/`](plugin_set/tests/):
@@ -69,20 +62,14 @@ The craft of testing geometry, all visible in
 ## 2. Tests are an executable spec
 
 Read [`plugin_set/tests/test_wall.py`](plugin_set/tests/test_wall.py) as a
-**specification** for a running-bond wall: precise, complete, machine-checkable.
-Compare it with a brief written in prose: no ambiguity about units, counts,
-offsets, or tolerances survives translation into a test.
-
-This is the planner's real skill, and the through-line of the whole course:
-**a brief you can turn into a test is a finished brief; if you cannot write the
-test, you have not finished planning.** It is the same claim the Week 01–09
-checkpoints made — the `spec/test_tasks.py` one folder down from each
-`tasks.py` was this, with training wheels. Now you write them.
+specification for a running-bond wall: units, counts, offsets and tolerances are
+all pinned down in a way a prose brief never manages. **A brief you can turn into
+a test is a finished brief.** The `spec/test_tasks.py` of each checkpoint was this
+all along. Now you write them.
 
 ## 3. The test process
 
-A test file is not something you write at the end, to prove you finished. It
-is a loop you live in, and it has three beats:
+A test file is a loop you live in, not something you write at the end:
 
 ```
    RED               GREEN              REFACTOR
@@ -98,7 +85,7 @@ that fails          code to pass it       tests stay green
 3. **Refactor.** Now the tests are a safety net: rename, simplify, delete.
    If they stay green, you changed the code and not its behaviour.
 
-Where it runs, from fastest to most public:
+Where it runs:
 
 | When | Command | Catches |
 | --- | --- | --- |
@@ -117,9 +104,8 @@ The line with `>` is what was claimed. The line with `E` is what happened.
 Decide which of the two is wrong, the code or the claim, before you change
 either. Changing the test until it passes is not testing.
 
-A bug found later goes the same way round: first write the test that would
-have caught it (red), then fix it (green). The bug cannot come back
-unnoticed, and the spec is now one sentence more precise.
+A bug found later goes the same way: first the test that would have caught it
+(red), then the fix (green).
 
 ---
 
@@ -143,11 +129,8 @@ Open two files side by side:
 - [`plugin_set/src/compas_studio/wall.py`](plugin_set/src/compas_studio/wall.py)
   — the reviewed version. Same behaviour, same passing tests, 20 readable lines.
 
-**The tests cannot tell these apart. A reviewer can.** That gap — everything
-that is true of good code but invisible to a test — is what human review is for,
-and it does not go away because an AI wrote the code. In this course's final
-reviews, "the AI wrote it" is not a defence: if you submitted it, you reviewed
-it, and you own it.
+**The tests cannot tell these apart. A reviewer can.** "The AI wrote it" is not a
+defence: if you submitted it, you reviewed it, and you own it.
 
 ### A review checklist
 
@@ -166,8 +149,7 @@ Whether the author is a classmate or an agent, review the same way:
 
 ## 5. Where review actually happens: git and pull requests
 
-Review is a *workflow*, not a feeling, and git is where the workflow lives. The
-discipline, even working alone:
+Even working alone:
 
 ```bash
 git switch -c feature/canopy-component      # never work on main
@@ -186,21 +168,15 @@ Then open a **pull request** on GitHub. The PR is the unit of review:
   changed;
 - nothing reaches `main` until tests pass and a human approves.
 
-The loop is *propose → CI checks → a person reads the diff → merge or send
-back*. It is the same loop whether the author is a classmate, you last
-month, or (Part E) an agent. Write commit messages that say **why**,
-not what — the diff already shows what:
+The loop is the same whether the author is a classmate, you last month, or an
+agent. Write commit messages that say **why**; the diff already shows what:
 
 ```
 bad:   "update"   "fixed stuff"   "changes to wall.py"
 good:  "wall: place only full bricks; half-bricks were sticking past length"
 ```
 
----
-
 ### The review process, as steps
-
-Reviewing is a skill with a procedure, like testing:
 
 1. **Author:** one change per pull request, small enough to read in ten
    minutes. Say in the description *what* it is for and *how you checked it*.
@@ -222,38 +198,14 @@ real change each, opened as a pull request, reviewed by the other.
 
 # Part C — Scaffolding a project (Week 13)
 
-Until now your code lived in the course repo, one script per exercise. A
-project is different in one way that matters: **other things have to find
-your code.** pytest has to import it. CI has to install it. A Grasshopper
-component has to call it. A reviewer has to know where to look. A *scaffold*
-is the folder structure that makes all four possible, set up once, before
-there is much code to move.
+The walkthrough (scaffold, spec, dev, test, on `StudWall`) is
+[Week 09 Part C](/Lecture/Lecture_09/README.md#part-c--a-project-that-can-hold-components).
+This part is the reference.
 
-## 6. The shape
+## 6. From nothing
 
-```
-my_tool/
-├── pyproject.toml            what this is, and what it needs
-├── src/my_tool/              1. CORE      pure Python + COMPAS, no Rhino
-├── tests/                    2. SPEC      pytest
-├── components/Mt_*/          3. ADAPTERS  one folder per Grasshopper component
-├── scripts/ghuser            4. BUILD     Part D
-└── .github/workflows/        5. PIPELINE  test on every push; build, and release on a tag
-```
-
-It is the Week 09 architecture (core → artifact → adapter), given
-addresses. [`plugin_set/`](plugin_set/README.md) is this shape with four
-components in it; [`project_template/`](project_template/README.md) is this
-shape with one, waiting to be renamed.
-
-Why `src/`? With the package one level down, the only way to import
-`my_tool` is to have **installed** it. So your tests run against the same
-thing a user will get, not against whatever happens to be in the current
-folder. That is the "works on my laptop" bug, removed by a folder name.
-
-## 7. Scaffold it, two ways
-
-**From nothing**, to see that there is no magic in it:
+The [template](project_template/README.md) is this, plus a first test, a first
+component and two CI workflows. Do it once by hand to see there is no magic in it:
 
 ```bash
 uv init --lib my_tool            # pyproject.toml + src/my_tool/__init__.py
@@ -264,108 +216,36 @@ mkdir tests components
 git init && git add -A && git commit -m "scaffold: empty project"
 ```
 
-Five commands, and you have an installable Python package with a locked
-environment and a history. Open `pyproject.toml` and read it: every line is
-something you just said.
-
-**From the template**, which is the same thing plus the parts that take
-longer to type (a first test, a first component, the two CI workflows):
-
-```bash
-cp -R Lecture/Lecture_12/project_template ~/code/canopy_kit
-cd ~/code/canopy_kit
-# rename the four things listed in its README, then:
-uv sync
-uv run pytest                    # 9 passed: the scaffold works before you have written anything
-git init && git add -A && git commit -m "scaffold: from the DCCG template"
-```
-
-Start your final project this way, **outside the course repo**, as a
-repository of its own.
-
-## 8. What each file is for
+## 7. What each file is for
 
 | File | It answers | You touch it when |
 | --- | --- | --- |
 | `pyproject.toml` | what is this, which Python, which libraries | you add a dependency (`uv add`, never by hand) |
 | `uv.lock` | *exactly* which versions, on every machine | never by hand. Commit it |
-| `src/my_tool/__init__.py` | what does this package offer | you add a public function |
+| `src/my_tool/__init__.py` | what does this package offer | you add a public function or class |
 | `src/my_tool/*.py` | the logic | most of the time |
 | `tests/test_*.py` | what does correct mean | **before** you touch `src/` (Part A §3) |
 | `components/*/code.py` | how does Grasshopper call it | you add a component |
 | `components/*/metadata.json` | its name, inputs and outputs in Grasshopper | the same moment |
 | `.github/workflows/test.yml` | run the tests on every push | once |
 | `.github/workflows/build-ghuser.yml` | build the components; release on a tag | once (Part D) |
-| `.gitignore` | what must not be committed (`.venv/`, `dist/`) | rarely |
-| `README.md` | what it is, how to run it, how to install it | when any of those change |
-
-**Python 3.9.** The template says `requires-python = ">=3.9"` and its CI
-runs the tests on 3.9, although your laptop has 3.13. Rhino 8 runs CPython
-3.9, so that is where your core will finally execute. Test on the Python
-you ship to.
-
-## 9. The first hour of a project
-
-In this order. Each step is checked by the one after it.
-
-1. **Scaffold** (§7) and make the first commit while everything is empty and
-   green.
-2. **Push** to a new GitHub repository. Watch the `tests` workflow run. You
-   now have CI before you have code, which is the cheap moment to get it.
-3. **One test** for the smallest true thing about your design (Part A).
-   See it fail.
-4. **One function** in `src/` that makes it pass.
-5. **Branch, pull request, review** (Part B), even alone. The habit is
-   easier to keep than to start.
-6. **One component** that calls that function, and a build (Part D).
-
-By the end of that hour nothing impressive exists. But every later hour
-lands in a place that is already tested, reviewed, built and versioned,
-and that is what makes the later hours fast.
 
 ---
 
 # Part D — Shipping Grasshopper components with ghuser-builder (Week 14)
 
-Now the question the whole course has pointed at: **how does pure Python
-geometry become something a colleague installs in Grasshopper, without you
-ever pasting code into a component by hand?**
+**How does pure Python geometry become something a colleague installs in
+Grasshopper, without you ever pasting code into a component by hand?**
 
-## 10. The layered workflow, productised
+## 8. Grasshopper without `rhinoscriptsyntax`
 
-```
-┌──────────────────────────────────────────────────────────────┐
-│ 1. CORE      src/compas_studio/*.py — pure Python + COMPAS   │  tested by pytest,
-│              numbers in, geometry out, no Rhino              │  developed outside Rhino
-├──────────────────────────────────────────────────────────────┤
-│ 2. SPEC      tests/*.py — the executable brief                │  the CI gate
-├──────────────────────────────────────────────────────────────┤
-│ 3. ADAPTER   components/Cs_*/code.py — find the core, call,   │  thin, boring,
-│              convert to Rhino geometry. No logic here.        │  no tests needed
-├──────────────────────────────────────────────────────────────┤
-│ 4. PACKAGE   compas-studio-1.2.3-rh8_0-any.yak — components   │  built and verified by
-│              + the core, one file, installed from Rhino       │  ghuser-builder, no Rhino
-└──────────────────────────────────────────────────────────────┘
-```
-
-The principle in one line, unchanged since Week 09: **keep the intelligence
-out of the host application.** Develop and verify headlessly; let Rhino only
-receive results.
-
-## 11. Grasshopper without `rhinoscriptsyntax`
-
-The usual way to write a GH component — type Python into a GHPython node,
-reaching for `rhinoscriptsyntax` — produces code that only runs inside a live
-Rhino document: untestable, unversionable, invisible to CI and to agents.
-
-We refuse that. COMPAS geometry is **plain Python objects** — a `Box` is a `Box`
-with or without Rhino — so the core in `src/compas_studio/` runs and is tested
-on any machine. Grep it: no `rhinoscriptsyntax`, no `import Rhino`. The
-Grasshopper component becomes an adapter: a fixed header that finds the core,
-then a few lines that import one core function and convert its output with
+Code typed into a GHPython node, reaching for `rhinoscriptsyntax`, only runs inside
+a live Rhino document: it cannot be tested, versioned, or seen by CI or an agent.
+COMPAS geometry is plain Python objects, so the core in `src/compas_studio/` runs
+and is tested anywhere, and the component shrinks to an adapter: a fixed header
+that finds the core, then a few lines that call it and convert with
 `compas_rhino.conversions`. See
-[`components/Cs_RunningBondWall/code.py`](plugin_set/components/Cs_RunningBondWall/code.py):
-there is no geometry logic in it to get wrong.
+[`Cs_StudWall/code.py`](plugin_set/components/Cs_StudWall/code.py).
 
 Each component is a folder of three files:
 
@@ -375,12 +255,11 @@ Each component is a folder of three files:
 | `metadata.json` | name, category, and the input/output parameters (names must match `code.py`) |
 | `icon.png` | a 24×24 icon for the Grasshopper ribbon |
 
-## 12. ghuser-builder: build, verify, package
+## 9. ghuser-builder: build, verify, package
 
 You do **not need Rhino to build components**, nor Windows.
 [**ghuser-builder**](https://git.rccn.dev/libs/ghuser-builder) is the lab's
-tool for it: one Docker image with a single command, `ghuser-build`, that
-does three things to a `components/` folder.
+tool for it: one Docker image with one command, `ghuser-build`.
 
 ```
 components/                         ghuser-build                    dist/
@@ -391,31 +270,25 @@ components/                         ghuser-build                    dist/
 ```
 
 1. **Componentize.** The [COMPAS componentizer](https://github.com/compas-dev/compas-actions.ghpython_components)
-   (Gramazio Kohler Research) turns each folder into a `.ghuser` file using
-   `GH_IO.dll`, the library Grasshopper itself saves files with. In the
-   image that library runs on Mono, on Linux.
-2. **Verify.** The image does not trust its own output. It opens every
-   `.ghuser` again and checks the name, the parameters and the embedded code
-   against your source. A mismatch fails the build, and nothing ships. This
-   is Part A's idea applied to a build: an artifact is evidence only after
-   something has read it back.
-3. **Package.** The `.ghuser` files, plus your core library, go into one
-   **`.yak`**: Rhino's package format, the thing its Package Manager
-   installs, updates and rolls back.
+   turns each folder into a `.ghuser` with `GH_IO.dll`, the library Grasshopper
+   itself saves files with, on Mono, on Linux.
+2. **Verify.** It opens every `.ghuser` again and checks the name, parameters and
+   embedded code against your source. A mismatch fails the build. An artifact is
+   evidence only after something has read it back. It does **not** compare
+   `RunScript` with `metadata.json`; `tests/test_components.py` does that.
+3. **Package.** The `.ghuser` files and your core go into one **`.yak`**, the file
+   Rhino's Package Manager installs, updates and rolls back.
 
-Three ideas from earlier weeks, now doing real work:
+Three things that follow:
 
-- **One build everywhere.** Your laptop and CI run the same image and the
-  same command. There is no "it built on my machine".
-- **Pinned tools.** The image tag fixes the Grasshopper file library and the
-  componentizer version. A `.ghuser` written by a newer `GH_IO` than your
-  user's Rhino is the classic *component will not load* bug, so upgrading is
-  a decision, like bumping `uv.lock` (Week 09).
-- **The version is the tag.** `git tag v1.2.3` is the only place the version
-  is written. `ghuser-build` puts it into the package name and into every
-  component (it replaces `{{version}}` in `code.py`).
+- **One build everywhere.** Your laptop and CI run the same image and command.
+- **Pinned tools.** The image tag fixes the Grasshopper file library. A `.ghuser`
+  written by a newer `GH_IO` than your user's Rhino will not load, so upgrading is
+  a decision, like bumping `uv.lock`.
+- **The version is the tag.** `git tag v1.2.3` is the only place it is written.
+  `ghuser-build` puts it in the package name and replaces `{{version}}` in `code.py`.
 
-## 13. Run it
+## 10. Run it
 
 **On your laptop** (needs Docker Desktop, OrbStack or colima):
 
@@ -425,10 +298,9 @@ scripts/ghuser                       # components/ -> dist/
 ls dist dist/ghuser
 ```
 
-[`scripts/ghuser`](plugin_set/scripts/ghuser) is six lines: `docker run`,
-with this folder mounted, calling `ghuser-build components dist`. Read it.
-If it says *no components directory*, Docker cannot see the folder: keep the
-project somewhere under your home directory, which Docker shares by default.
+[`scripts/ghuser`](plugin_set/scripts/ghuser) is one `docker run`, with this folder
+mounted, calling `ghuser-build components dist`. If it says *no components
+directory*, Docker cannot see the folder: keep the project under your home directory.
 
 **In CI.** [`build-ghuser.yml`](plugin_set/.github/workflows/build-ghuser.yml)
 runs the same image as the job's container and the same command, on every push.
@@ -442,77 +314,54 @@ git push --tags        # CI builds, verifies, and attaches the .yak to a GitHub 
 ```
 
 **On a Mac with Rhino 8, while developing** (no Docker): ghuser-builder's
-`local/ghuser_dev.py` builds with Rhino's own libraries and can point each
-component straight at your working copy of `src/`, so you edit the core and
-recompute in Grasshopper without reinstalling. Development only: releases
-always come from CI. See the ghuser-builder README.
+`local/ghuser_dev.py` points each component at your working copy of `src/`, so you
+edit the core and recompute in Grasshopper. Development only; see its README.
 
-## 14. How the core gets into Rhino
+## 11. How the core gets into Rhino
 
-A `.ghuser` contains the adapter's code and nothing else. The adapter says
-`from compas_studio import running_bond_wall`, and **Rhino has to find
-`compas_studio` somewhere.** ghuser-builder documents five ways (its
-*deploy scenarios*). Two matter for you:
+A `.ghuser` holds only the adapter, so **Rhino has to find your core somewhere.**
+ghuser-builder documents five ways. Two matter for you:
 
 | | How the core travels | Users do | Use it when |
 | --- | --- | --- | --- |
 | **Vendored** (scenario D) | *inside* the `.yak`, in `lib/` | install one file | your core is pure Python: **the default in this course** |
 | **Published** (scenario B) | on pypi.org; the adapter says `# r: my_core=={{version}}` | install the `.yak`; Rhino pip-installs the core on first run | the project is open source and others build on the library |
 
-Vendoring is why every adapter in the plugin set starts with the same dozen
-lines: they find `packages/<rhino>/compas-studio/<version>/lib` and put it on
-Python's path, so each component loads the core **of its own package
-version**. It is boilerplate, it is identical in every component, and it is
-the price of "install one file, configure nothing". Public libraries such as
-COMPAS still come from a `# r: compas` line, which Rhino resolves itself.
+Vendoring is why every adapter starts with the same dozen lines: they find
+`packages/<rhino>/compas-studio/<version>/lib` and put it on Python's path, so each
+component loads the core of its own version. Public libraries such as COMPAS still
+come from a `# r: compas` line, which Rhino resolves itself.
 
-Two limits worth knowing before you rely on it: the core must be pure Python
-(nothing compiled), and after updating a package you **restart Rhino**,
-because Python keeps the old module loaded.
+Two limits: the core must be pure Python, and after updating a package you
+**restart Rhino**, because Python keeps the old module loaded.
 
-## 15. Installing, and what a version means
+## 12. Installing, and what a version means
 
-A colleague drags the `.yak` onto a Rhino 8 window, or finds it in the
-Package Manager if you published it. Components appear in the Grasshopper
-ribbon under your `category`. A new release shows up as an update; the old
-one can be reinstalled.
+A colleague drags the `.yak` onto a Rhino 8 window, and the components appear in
+the Grasshopper ribbon under your `category`.
 
-> ⚠️ **A placed component forgets where it came from.** Once on a canvas it
-> is a plain script component; a later release does **not** update instances
-> already sitting in old `.gh` files. Version deliberately, and say what
-> changed. (A real limit of the format, worth knowing before you depend on it.)
+> ⚠️ **A placed component forgets where it came from.** A later release does
+> **not** update instances already sitting in old `.gh` files. Version
+> deliberately, and say what changed.
 
 > ⚠️ **Status.** ghuser-builder's own README has a table of what has and has
 > not been checked on a real Rhino. Read it before a deadline depends on it,
-> and load your first `.yak` in Rhino in Week 14, not in Week 17.
+> and load your first `.yak` in Rhino early, not in Week 17.
 
-## 16. The lighter path: JSON artifact + adapter
+## 13. The lighter path: JSON artifact + adapter
 
-The full plugin pipeline is worth it for something you will reuse and share. For
-a one-off — verify a design headlessly, then look at it once in Rhino — the
-artifact route is enough: dump a `compas` JSON file and load it
-with [`rhino_load.py`](rhino_load.py) inside Rhino 8's ScriptEditor (`# r: compas`
-installs COMPAS into Rhino's Python automatically). Same principle, less
-ceremony: intelligence stays outside; Rhino receives a verified artifact.
-
-Also worth knowing (outlook): a Grasshopper Python component can `import
-compas_studio` and call the core **live** with sliders as inputs — same tested
-core, no artifact in between; and `rhinomcp` exposes the live Rhino document to
-an agent as tools (Part E), powerful for sketching but with no tests, no
-artifact, no gate — prefer the pipeline for anything you need to trust.
-
----
+For a one-off, the artifact route is enough: dump a COMPAS JSON file and load it
+with [`rhino_load.py`](rhino_load.py) in Rhino 8's ScriptEditor (`# r: compas`
+installs COMPAS into Rhino's Python). `rhinomcp` also exposes the live document to
+an agent as tools, which is good for sketching, but has no tests, no artifact and
+no gate.
 
 ---
 
 # Part E — Working with AI (Week 15)
 
-You have used an assistant all term. This part is about something narrower
-and more useful: **handing it a stage of the pipeline**, now that the
-pipeline exists. Read it with [Lecture 11](/Lecture/Lecture_11/README.md),
-where you build an agent from scratch.
-
-Everything in Parts A–D is what makes that safe:
+This part is about **handing an assistant one stage of the pipeline**. Read it with
+[Lecture 11](/Lecture/Lecture_11/README.md), where you build an agent from scratch.
 
 | You built | So an assistant can be given | And cannot get past |
 | --- | --- | --- |
@@ -521,29 +370,21 @@ Everything in Parts A–D is what makes that safe:
 | a scaffold (C) | one small pure module in `src/` | the folder structure: it has nowhere to hide logic |
 | a verified build (D) | nothing: it runs by itself | the verifier |
 
-## 17. pytest as the reviewer that cannot be fooled
+## 14. pytest as the reviewer that cannot be fooled
 
 ```bash
 uv run Lecture/Lecture_12/tdd_agent.py
 uv run Lecture/Lecture_11/view.py Lecture/Lecture_12/output/wall.json
 ```
 
-[`tdd_agent.py`](tdd_agent.py) replaces Lecture 11's reviewer-LLM with pytest:
-the coder agent writes `wall.py`, the harness runs the tests, and failures go
-back verbatim until green. An LLM reviewer can be wrong, or argued into
-approving; a test suite cannot. This is the single most important upgrade to the
-Lecture 11 loop.
+[`tdd_agent.py`](tdd_agent.py) replaces Lecture 11's reviewer-LLM with pytest: the
+coder agent writes `wall.py`, the harness runs the tests, and failures go back
+verbatim until green. An LLM reviewer can be argued into approving; a test suite
+cannot. The raw `wall.py` it produces is the file you reviewed in Part B §4: it
+passes, and it is not good. **Both gates, always: the automatic one for correct,
+the human one for good.**
 
-The raw `wall.py` this produces is the file you reviewed in Part B §4: it
-passes, and it is not good. Tests bound what an agent can get wrong. They do
-not make its output worth keeping. **Both gates, always: the automatic one
-for correct, the human one for good.**
-
-## 18. The agentic development loop, understood not followed
-
-Everything above assembles into one loop. It is the loop a tool like Claude
-Code runs — and the reason to build it by hand across this course is so that
-when you use such a tool you are **directing** it, not obeying it.
+## 15. The agentic development loop
 
 Adding a new component to the plugin set:
 
@@ -556,21 +397,12 @@ Adding a new component to the plugin set:
 6. SHIP     tag → ghuser-builder builds and verifies   ← automated
 ```
 
-Notice where the human sits: at the **ends** (what to build, whether it is good,
-what to ship) and out of the **middle** (typing the geometry, running the tests,
-packaging the file). That division is the entire point. The failure mode this
-course is built to prevent is the opposite one — a person in the *middle*,
-pasting whatever the chatbot produced, understanding none of the stages, unable
-to tell a passing-but-bad result from a good one or a green CI run from a
-correct design.
+The human sits at the **ends** (what to build, whether it is good, what to ship)
+and out of the **middle** (typing, running tests, packaging). The failure this
+course is built to prevent is the opposite: a person in the middle, pasting what
+the chatbot produced, unable to tell passing-but-bad from good.
 
-You can run every stage of this loop by hand now. That is what lets you hand
-the middle to a machine without handing over your judgment.
-
-## 19. Working with an assistant, day to day
-
-The loop above is the formal version. The habits that carry it into ordinary
-use of Claude Code, Copilot or Cursor on your project:
+## 16. Working with an assistant, day to day
 
 - **Give it the test, not the wish.** "Make `tests/test_canopy.py` pass
   without changing the tests" is a task with an end. "Write a canopy
@@ -590,30 +422,14 @@ use of Claude Code, Copilot or Cursor on your project:
 
 ---
 
-## Continuous integration recap
-
-Because the core is pure and tested, a robot runs your tests on every commit and
-builds, verifies and packages your components on every push, and publishes them on every release. You did not configure a magic service;
-you wrote two small YAML files (`test.yml`, `build-ghuser.yml`) that do exactly what you
-would do by hand, on someone else's computer, every time — which is all CI/CD
-ever is.
-
 ## Things to try
 
 1. Add a fourth component end to end (a column grid, a vault). How many rounds
    did the agent need to pass your tests? Which failures were the model's, and
    which were your spec's?
 2. Sabotage `plugin_set/src/compas_studio/wall.py` (offset odd courses by a full
-   module) and watch which test catches it. A spec is only as good as what it
-   catches.
-3. Open a pull request against your own plugin set and read your own diff as if a
-   stranger wrote it. What would you send back?
+   module). Which test catches it?
+3. Compare `wall.py` with `plugin_set/src/compas_studio/wall.py`. List five things
+   a review catches and a test does not.
 4. Break the adapter/metadata agreement: rename an input in `code.py` but not in
    `metadata.json`. Run `scripts/ghuser`, then `uv run pytest`. Which one stops it?
-5. Compare `wall.py` and `plugin_set/src/compas_studio/wall.py` line by line.
-   Everything different between them is something review catches and tests do
-   not. List five of those things.
-6. Scaffold a project from nothing with `uv init --lib` and from the template.
-   Diff the two `pyproject.toml` files. What did the template add, and why?
-7. Review a classmate's pull request **without running it**, then run it.
-   What did running show that reading did not?

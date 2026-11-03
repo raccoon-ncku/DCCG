@@ -18,41 +18,22 @@
 
 ## A1. What an LLM actually is
 
-You have been using an assistant since Week 01, and you just spent two
-self-paced weeks working mostly with it. Here is what it is doing, and it is
-less than most people assume.
+**A language model predicts plausible continuations of text.** It is not executing
+your code, checking your units, or reasoning about your wall. Three consequences:
 
-**A language model predicts plausible continuations of text.** Give it your
-code and your question, and it produces what tends to follow text like that.
-That is the whole mechanism. It is not executing your code, not checking your
-units, not reasoning about your wall.
+1. **It is a function, not a colleague.** It has no memory of yesterday, and in a
+   conversation it sees only what is on screen. If a constraint matters, it has to
+   be in the prompt.
+2. **Fluency is not correctness.** Tidy names and a well-formed docstring are
+   properties of the writing, not evidence about the code.
+3. **It fails silently and plausibly**, in the same confident voice it uses when
+   right, including inventing methods that do not exist.
 
-Three consequences that matter this week:
-
-1. **It is a function, not a colleague.** Same input, same distribution of
-   outputs. It has no memory of yesterday, and within one conversation it only
-   sees what is on screen. If a constraint matters, it has to be in the prompt.
-2. **Fluency is not correctness.** Confident prose, tidy variable names and a
-   well-formed docstring are properties of the *writing*. They are not evidence
-   about the code. This is the single most expensive misunderstanding available
-   to you this semester.
-3. **It fails silently and plausibly.** A human who does not know says so. A
-   model produces its best guess in the same confident voice it uses when
-   right — including inventing methods that do not exist and citing papers that
-   were never written.
-
-It follows that it is strongest where a mistake is cheap and obvious —
-boilerplate, format conversion, a first draft, explaining unfamiliar code — and
-weakest where a mistake is silent: numeric detail, units, edge cases, and
-anything that depends on facts about your project it cannot see.
-
-In Week 15 you will build the loop that drives one of these, from scratch, and
-this description becomes a piece of code you can read.
+So it is strongest where a mistake is cheap and obvious (boilerplate, format
+conversion, a first draft, explaining code) and weakest where a mistake is silent
+(numeric detail, units, edge cases, anything about your project it cannot see).
 
 ### Asking well
-
-The quality of what comes back tracks the specificity of the request more than
-anything else you control.
 
 | Instead of | Ask |
 | ---------- | --- |
@@ -61,34 +42,13 @@ anything else you control.
 | "is this good?" | "What happens for an empty list? For one item? For a negative area?" |
 | "explain dictionaries" | "Explain line by line what `counts[word] = counts.get(word, 0) + 1` does." |
 
-Four habits worth building now:
-
-- **State the signature you want** — name, parameters, what comes back. You
-  design the interface; let it fill the body.
-- **Paste the real error**, complete, as text.
-- **Ask one thing.** Four requests in a prompt get four mediocre answers.
-- **Ask it to explain rather than produce** when you are trying to learn.
-  Accepted-but-not-understood code is a debt, and Week 13 is when it comes due.
-
-> If you cannot describe what you want precisely enough for a model to build
-> it, you have not finished thinking about the problem. That difficulty is
-> information. In Week 10 this becomes a formal idea: a brief you can turn into
-> a test is a finished brief.
-
-The general, non-course version of this — including where *not* to reach for an
-assistant — is on the lab wiki:
+State the signature you want, paste the real error as text, ask one thing at a
+time, and ask it to explain when you are trying to learn. More on the wiki:
 [AI Assistants](https://kb.rccn.dev/computation/ai-assistants).
 
 ### Reviewing code you did not write
 
-You now know enough Python to review it, and that is the job. It is also
-exactly what the debrief asks you to do with a classmate's Week 07–08 code.
-
-Most of the time a model lands it. When it misses, it misses in ways that look
-fine — which is why review is a procedure and not a feeling.
-
-**The five places to look first** — nearly every bug you will meet this
-semester is one of these:
+**Five places to look first:**
 
 1. **Off-by-one.** `range(1, n)` vs `range(n)`; slice `stop` is excluded.
 2. **Mutable default arguments.** `def f(items=[])` — Week 03's trap. Extremely
@@ -110,8 +70,7 @@ semester is one of these:
 4. **Run it on an example where you already know the answer.** Not one it
    suggested — one you chose.
 
-> "It ran without an error" is not evidence that it is correct. Silent wrong
-> answers are the expensive kind. This is also why Week 10 exists.
+> "It ran without an error" is not evidence that it is correct.
 
 ## A2. Files
 
@@ -131,9 +90,8 @@ file.suffix        # '.json'
 folder.mkdir(parents=True, exist_ok=True)   # create it, no error if present
 ```
 
-Never build paths by gluing strings with `"/"` or `"\\"` — that breaks between
-Windows and macOS, and it is the reason half of all "works on my machine"
-problems exist.
+Never build paths by gluing strings with `"/"` or `"\\"`: that breaks between
+Windows and macOS.
 
 **Where does a relative path point?** To your *current working directory* — the
 folder your terminal is in, not the folder the script is in. To get a path
@@ -167,7 +125,6 @@ with open(path) as f:
 ```
 
 `with` closes the file for you, **even if an error happens inside the block.**
-That is the whole reason it exists.
 
 Modes: `"r"` read (default), `"w"` write — **erases the file first** — `"a"`
 append.
@@ -176,9 +133,8 @@ append.
 
 ## A3. JSON
 
-JSON is a text format for structured data. Nearly every tool reads it, which
-is why it is how your geometry will travel between your code, the viewer, git,
-and Rhino.
+JSON is a text format for structured data, and it is how your geometry travels
+between your code, git and Rhino.
 
 ```python
 import json
@@ -190,8 +146,7 @@ Path("wall.json").write_text(json.dumps(data, indent=2))   # write
 loaded = json.loads(Path("wall.json").read_text())          # read back
 ```
 
-`indent=2` makes the file human-readable *and* diffable in git — so a reviewer
-can see what changed between two versions of your design. Always use it.
+`indent=2` makes the file readable and diffable in git. Always use it.
 
 What JSON can hold: `dict`, `list`, `str`, `int`, `float`, `bool`, `None`.
 What it cannot: tuples (they come back as lists), sets, and your own classes.
@@ -202,15 +157,8 @@ What it cannot: tuples (they come back as lists), sets, and your own classes.
 
 ## A4. Handling errors on purpose
 
-Week 03 covered *reading* a traceback — bottom line first — and the errors you
-meet most. Dictionaries and files add two more to that list:
-
-| Error | Usually means |
-| ----- | ------------- |
-| `KeyError` | that dictionary key does not exist — use `.get()` if absence is normal |
-| `FileNotFoundError` | the path is wrong, or relative to a different folder than you think |
-
-This week is the other half: failure you **expect**, and choose to handle.
+Week 03 covered reading a traceback. This is the other half: failure you
+**expect**, and choose to handle.
 
 ```python
 try:
@@ -219,17 +167,11 @@ except ValueError:
     print("That was not a number.")
 ```
 
-Catch only what you can actually handle, and name it. A bare `except:` swallows
-everything — including the typo you have not found yet — and turns a loud,
-findable bug into a silent, permanent one.
-
-The distinction is worth stating plainly, because it is a design decision you
-will make repeatedly in every core you write from now on:
+Catch only what you can handle, and name it. A bare `except:` swallows everything,
+including the typo you have not found yet.
 
 - A missing key that means **your program is broken** should crash. Let it.
 - A missing key that is **a normal situation** deserves `.get()` or a `try`.
-
-Silencing the first kind is how a wall with eleven courses gets built.
 
 📄 `../python_examples/try_statement.py`
 
@@ -254,21 +196,11 @@ for i in range(12):
 viewer.show()
 ```
 
-It works. It also has no future, for five separate reasons:
-
-1. **You cannot test it.** The interesting logic — the heights, the spacing —
-   is welded to a window. To check the geometry you must look at it.
-2. **You cannot reuse it.** Want this wall inside Grasshopper? Rewrite it.
-3. **You cannot version it meaningfully.** Git stores the code, but no record
-   of what it produced. "Did my change break anything?" is unanswerable.
-4. **An agent cannot work on it.** No return value, no result to inspect — a
-   coding agent is blind to whether it succeeded. (This becomes concrete in
-   Week 15.)
-5. **It cannot run anywhere but your laptop.** No CI, no server, no headless
-   machine.
-
-Every one of those follows from a single mistake: **the geometry logic and the
-program's contact with the outside world are tangled together.**
+It works, but the logic is welded to a window. You cannot test it without looking
+at it, reuse it in Grasshopper, see what it produced in git, let an agent check its
+own work, or run it anywhere without a screen. All of that follows from one mistake:
+**the geometry logic and the program's contact with the outside world are tangled
+together.**
 
 ## 2. The fix: three layers
 
@@ -281,7 +213,7 @@ program's contact with the outside world are tangled together.**
 │ 2. ARTIFACT  COMPAS JSON. The verified result, produced    │  committed to git
 │              headlessly. Previewable without Rhino.        │  reviewable in a diff
 ├────────────────────────────────────────────────────────────┤
-│ 3. ADAPTER   a thin script for Rhino 8 / Grasshopper that  │  boring on purpose
+│ 3. ADAPTER   a thin script for Rhino 8 / Grasshopper that  │  thin on purpose
 │              loads the artifact (or calls the core) and    │  contains NO logic
 │              converts. Deleting it changes nothing.        │
 └────────────────────────────────────────────────────────────┘
@@ -300,11 +232,9 @@ Lecture/Lecture_09/checkpoints/
     └── test_tasks.py    # the checkpoint spec (READ ONLY)
 ```
 
-The **artifact** — `output/wall.json` — is created the first time you run
-`build_artifact`; commit it. The **adapter** — a two-line Rhino script that
-loads that artifact — is what you write in Week 14, not this week; the
-worked example lives at [`Lecture_12/rhino_load.py`](/Lecture/Lecture_12/rhino_load.py)
-for anyone who wants to see it early.
+The **artifact**, `output/wall.json`, is created the first time you run
+`build_artifact`; commit it. Part C turns the **adapter** into a Grasshopper
+component; the simplest one is [`rhino_load.py`](/Lecture/Lecture_12/rhino_load.py).
 
 **The one-sentence rule: keep the intelligence out of the host application.**
 Rhino and Grasshopper only ever *receive* results.
@@ -343,9 +273,6 @@ def make_wall(n_courses, spacing=0.3):
             for i in range(n_courses)]
 ```
 
-The second version can be tested, reused in Grasshopper, called by an agent,
-and run on a server. Same geometry. The difference is entirely structural.
-
 > **Randomness and time are impurities too.** `random.random()` and
 > `datetime.now()` make a function give different answers on different runs,
 > which makes it untestable. Pass a `seed` in as an argument (Week 03) and
@@ -360,22 +287,13 @@ compas.json_dump(boxes, "output/wall.json")   # write
 boxes = compas.json_load("output/wall.json")  # read back, as real Boxes
 ```
 
-Why bother, when you could just re-run the script?
-
-- It is **evidence**. It is what you actually produced, not what you hoped.
-- It is **reviewable**. A diff shows the geometry changed even when the code
-  change looked harmless.
-- It is **portable**. Rhino, Grasshopper, a classmate, and CI all read the same
-  file. No shared environment needed.
-- It is the **hand-off point** between the part that must be correct (core) and
-  the part that must be convenient (viewer, Rhino).
-
-Commit your artifacts. They are small, and they are the record of your work.
+Why not just re-run the script? The artifact is **evidence** of what you produced,
+**reviewable** in a diff even when the code change looked harmless, and **portable**:
+Rhino, a classmate and CI all read the same file. Commit it.
 
 ## 5. Git, at working strength
 
-You have been committing. Now use it as a safety net so you can be reckless
-inside a branch and safe on `main`.
+Use a branch, so you can be reckless there and safe on `main`:
 
 ```bash
 git switch -c feature/wall-bond     # start a branch
@@ -384,9 +302,8 @@ git add -A && git commit -m "wall: alternate course offset"
 git push -u origin feature/wall-bond
 ```
 
-Then open a **pull request** on GitHub. Even working alone, this is worth it:
-the PR page is where you re-read your own diff before it becomes permanent,
-and from Week 13 it is where CI reports whether your tests passed.
+Then open a **pull request** on GitHub. Even alone it is worth it: it is where you
+re-read your own diff, and where CI reports whether the tests passed.
 
 **Writing a commit message.** Say *why*, not *what* — the diff already shows
 what.
@@ -411,9 +328,7 @@ git log --oneline -10   # recent history
 ## 6. Environments, and why the lockfile matters
 
 `uv.lock` records the exact version of every package, including the ones your
-packages depend on. `uv sync` reproduces that set precisely. This is what makes
-"works on my machine" a solvable problem instead of a joke: your machine, mine,
-and GitHub's CI runner all get byte-identical dependencies.
+packages depend on. `uv sync` reproduces that set, on your machine, mine and CI's.
 
 ```bash
 uv sync           # match the lockfile exactly
@@ -616,8 +531,7 @@ colima, a folder you have just added can take a minute to appear.
 uv run check.py 09
 ```
 
-This week you edit **two** files, because the whole point is that they are
-separate:
+This week you edit **two** files, because they are separate:
 
 | File | May contain | May NOT contain |
 | ---- | ----------- | --------------- |
@@ -634,11 +548,9 @@ separate:
 | 3 | `core` stays pure — checked by reading your file, not by running it |
 | 4 | `runner.build_artifact(path, ...)` — core → JSON, round-tripped |
 
-Checkpoint 3 is unusual and worth understanding: it **parses your `core.py`
-and inspects its import statements.** You cannot satisfy it by being careful at
-runtime; the forbidden import must not be in the file at all. Architecture
-rules are much more useful when something enforces them — otherwise they decay
-into good intentions within about two weeks.
+Checkpoint 3 **parses your `core.py` and inspects its imports.** The forbidden
+import must not be in the file at all. An architecture rule that something enforces
+lasts longer than a good intention.
 
 ## Self-test
 

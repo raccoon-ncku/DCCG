@@ -11,10 +11,7 @@ you implement in `checkpoints/tasks.py` (the file you edit), and a matching
 spec at `checkpoints/spec/test_tasks.py` (READ ONLY) that decides whether
 your implementation is right.
 
-The spec is written with `pytest`. You are not expected to understand it yet
--- in Week 10 you will write these yourself, and at that point this runner
-stops being magic and becomes something you built. Until then, treat it as an
-automatic teaching assistant that is available at 3am and never gets bored.
+The spec is written with `pytest`. In Week 10 you learn to write these yourself.
 
 Three possible states for a checkpoint:
 
@@ -22,7 +19,7 @@ Three possible states for a checkpoint:
     FAIL   you implemented it, but it does not behave as specified
     PASS   correct
 
-A FAIL is not a bad grade. It is information -- and it is the whole point.
+A FAIL is not a bad grade. It is information.
 """
 
 from __future__ import annotations

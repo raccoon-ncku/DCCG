@@ -1,8 +1,6 @@
 # Setup
 
-Everything you need to run this repository. For the guided, first-time
-walkthrough with screenshots and the AI-assistant setup, follow
-[Week 01](/Lecture/Lecture_01/README.md); this page is the quick reference.
+The quick reference. The first-time walkthrough is [Week 01](/Lecture/Lecture_01/README.md).
 
 ## Toolchain
 
@@ -12,10 +10,9 @@ walkthrough with screenshots and the AI-assistant setup, follow
 | Editor | [Zed](https://zed.dev) (VS Code works too) |
 | Version control | git + GitHub |
 | Geometry | COMPAS 2.x |
-| 3D (from Week 14, optional) | Rhino 8 / Grasshopper |
+| Grasshopper components | Rhino 8, and Docker to build them |
 
-We use `uv` and Zed this year. If you find an older tutorial that says
-`conda install compas`, ignore it.
+If an older tutorial says `conda install compas`, ignore it.
 
 ## First run
 
@@ -26,8 +23,7 @@ uv sync            # build the environment from uv.lock — do this once, first
 uv run check.py    # confirm it works: your progress across every week
 ```
 
-You never activate the environment. Prefix commands with `uv run` instead — it
-can never pick the wrong Python by accident.
+You never activate the environment. Prefix commands with `uv run`.
 
 | Command | Does |
 | ------- | ---- |
@@ -36,11 +32,7 @@ can never pick the wrong Python by accident.
 | `uv run check.py` | your checkpoint progress (see below) |
 | `uv add <package>` | add a dependency (commit `pyproject.toml` **and** `uv.lock`) |
 
-## How the course works: checkpoints
-
-Weeks 01–09 are checkpoint-driven. Each week's folder holds a self-contained
-tutorial, commented examples, and **checkpoints** — small, precisely specified
-tasks with an automatic checker.
+## Checkpoints
 
 ```bash
 uv run check.py        # overview across every week
@@ -48,20 +40,9 @@ uv run check.py 05     # work on Week 05, with hints
 uv run check.py 05 -v  # ... and full failure output
 ```
 
-On first `check.py NN` for a week, the runner copies the shipped starter
-`tasks.py` to a gitignored `answers.py`. **You edit `answers.py`**; the
-starter stays clean so `git pull upstream main` never conflicts with your
-work. The spec at `checkpoints/spec/test_tasks.py` (one folder down, marked
-READ ONLY) is the *specification*, and you are meant to read it. Three
-states: `TODO` (not attempted), `FAIL` (attempted, doesn't match the spec),
-`PASS`. Delete `answers.py` at any time to reset from the current starter.
-
-Checkpoints aren't scored, but completing them is **required** — a gate you must
-clear on the way to the final project, which is the whole grade (see the
-[main README](README.md#grading)). `uv run check.py` turns them green and you're
-done, so a `FAIL` just means keep going, not a penalty. In **Week 10** you learn
-to write these specs yourself, and the checker stops being magic. Full
-explanation: [Week 01 §5](/Lecture/Lecture_01/README.md#5-how-checkpoints-work).
+You edit the gitignored `answers.py`, which is copied from the `tasks.py` starter on
+first run. The spec is `checkpoints/spec/test_tasks.py`: read it. Delete `answers.py`
+to reset. Not scored, but required: [Week 01 §5](/Lecture/Lecture_01/README.md#5-how-checkpoints-work).
 
 ## Notebooks (Week 04 onward)
 
@@ -83,24 +64,18 @@ Details and the map of every notebook: [`Lecture/notebooks/README.md`](Lecture/n
 
 ## The one conda environment left
 
-`environment_neural.yml` is only for the optional Week 15 diffusion / CLIP
-examples (`Lecture_10`), whose GPU packages are easier to install through conda.
-Nothing else needs conda. Never mix it with `uv` in the same project: that is
-the most common cause of "it works for you but not for me".
+`environment_neural.yml` is only for the optional Week 15 diffusion / CLIP examples
+(`Lecture_10`). Never mix it with `uv` in the same project.
 
-## Rhino (optional until Week 14)
+## Rhino and Docker
 
-The course runs entirely without Rhino; the JSON artifact is the primary output
-from Week 09 on. When you do want it, install Rhino 8 and authenticate against
-the class licence server — details in
-[Week 01 §4](/Lecture/Lecture_01/README.md#4-rhino-optional-this-week).
+Install Rhino 8 and authenticate against the class licence server:
+[Week 01 §4](/Lecture/Lecture_01/README.md#4-rhino-optional-this-week). Building
+components needs Docker: [Week 09 Part C5](/Lecture/Lecture_09/README.md#c5-next-the-adapter-and-the-build).
 
 ## Git for this course
 
-You **read from** the instructor's repo (updates every week) and **write to** a
-fork of your own. Two remotes, one clone. This becomes the backbone of the
-course: your commits *are* the record of what you did, your fork *is* your
-final-project submission at the end.
+You **read from** the instructor's repo and **write to** a fork of your own.
 
 **Week 01** is local-only: clone from the instructor's URL, commit A0 locally.
 Nothing to push yet.
@@ -123,23 +98,15 @@ git commit -m "Week 03: notes + checkpoint 4 attempt"
 git push                                  # publish to your fork
 ```
 
-**Your own work goes in [`MyWork/`](MyWork/README.md)** — a top-level folder
-reserved for you. The instructor never adds, edits, or deletes files there, so
-`git pull` never conflicts with it. Put practice, notes, sketches, and scratch
-here. For files you want kept strictly on your laptop and *not* committed, use
-`Notes/` instead — it's gitignored.
+**Your work goes in [`MyWork/`](MyWork/README.md).** The instructor never touches it, so
+`git pull` never conflicts with it. Anything that must stay on your laptop goes in
+`Notes/`, which is gitignored.
 
-**`git pull` never conflicts with your checkpoint work.** You edit
-`checkpoints/answers.py`, which is gitignored; the instructor only ever
-touches `checkpoints/tasks.py` (the read-only starter). When a pull brings
-in a new checkpoint stub, delete your `answers.py` and re-run to pick it up
-(or copy the new function's `raise NotImplementedError` line in by hand).
+When a pull brings a new checkpoint stub, delete your `answers.py` and re-run, or copy
+the new function in by hand.
 
-**When something goes wrong** — merge conflict, rejected push, "I committed to
-the wrong branch", accidental `.env` push — see the failure catalogue in
-[rccn wiki ▸ Git for coursework](https://kb.rccn.dev/computation/development-environment/version-control/coursework-git#what-can-go-wrong).
-It is ten failure modes with the three-line recovery for each. Read once now,
-come back to it in Week 04.
+**When something goes wrong:** the failure catalogue is on the
+[wiki](https://kb.rccn.dev/computation/development-environment/version-control/coursework-git#what-can-go-wrong).
 
 ---
 

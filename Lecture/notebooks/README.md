@@ -1,14 +1,9 @@
 # Notebooks
 
-A notebook sits between a lecture and its scripts: it **unpacks one idea at a
-time**, prints every intermediate result and draws the data at each step, so
-you watch a mesh, a graph or a timber frame being built instead of reading
-the result.
-
-**The notebooks live with their week**, in a `notebooks/` folder beside that
-week's README, examples and figures. This page is the map, and this folder
-holds only what they share: the drawing helper [`viz.py`](viz.py), the copy
-script and the tests.
+A notebook **unpacks one idea at a time**, printing every intermediate result and drawing
+the data at each step. **They live with their week**, in a `notebooks/` folder beside that
+week's README. This page is the map, and this folder holds what they share: the drawing
+helper [`viz.py`](viz.py), the copy script and the tests.
 
 | Week | Folder | What is in it |
 | ---- | ------ | ------------- |
@@ -18,10 +13,8 @@ script and the tests.
 | 08 | [`Lecture_08/notebooks/`](../Lecture_08/notebooks/) | recursion, convex hulls, bin packing |
 | 10–12 | [`Algorithms/*/notebooks/`](../Algorithms/README.md) | geometry processing, simulation, search, learning |
 
-A notebook is one file, the `.ipynb`. Inside a folder the numbers run **from
-simple to complex**: start at 01.
-
-How to open and run them: [below](#how-to-run-them).
+Inside a folder the numbers run **from simple to complex**. How to open them:
+[below](#how-to-run-them).
 
 ## Week 05 · the mesh
 
@@ -160,14 +153,9 @@ Good to know:
 | best for | the idea: what a halfedge is, what warp means | the result: which key is where, what a step did, a number over time | the geometry itself: a shell, a frame, a shape changing |
 | you see it | as soon as the notebook opens, and on GitHub | after running the cell | after running the cell, in JupyterLab (verified) or VS Code (needs widget scripts) |
 
-The Week 05 notebooks use all three. A drawn figure explains a step before
-you run it; the cell's own diagram then shows the same thing on your data.
-
-`compas_viewer`, the desktop viewer used in the lecture scripts, opens its own
-window and **does not render inside a notebook**. **compas_notebook** is the
-COMPAS project's notebook viewer: the same `scene.add(...)` idea, drawn with
-three.js in the page. `view3d()` in [`viz.py`](viz.py) wraps it with two
-fixes that matter in class:
+`compas_viewer` opens its own window and **does not render inside a notebook**.
+**compas_notebook** draws with three.js in the page. `view3d()` in [`viz.py`](viz.py) wraps
+it with two fixes:
 
 - **Framing.** compas_notebook always looks at the origin from (0, −10, 5),
   with a far plane at 1000, so anything large or far from the origin starts
@@ -194,18 +182,9 @@ view_timber(model, stages={"sill_s": 0, "post_s0": 1})    # a slider that builds
 explore_graph(model)                                      # pick a beam, see what it touches
 ```
 
-Options are compas_notebook's, and they are **not** always compas_viewer's.
-Meshes take `facecolor` (one colour or `{face: colour}`), `show_edges`,
-`edgecolor`. Shapes such as `Box` take `color`, not compas_viewer's
-`surfacecolor`, which compas_notebook silently ignores (found the hard way:
-every box came out black). For hundreds of small pieces, build **one** mesh,
-not hundreds of shapes: the cellular-automata tower (Week 11) and the brick
-wall (Week 06, notebook 05) do this, because hundreds of boxes
-render slowly and one of them was drawn at the origin by mistake.
-
-The older notebooks (Week 04, and the volcano pavilion in Week 05) use
-compas_notebook's `Viewer` directly, and the Week 08 ones plot with matplotlib. They run with the same
-`uv run jupyter lab`.
+Options are compas_notebook's, and not always compas_viewer's. Meshes take `facecolor`,
+`show_edges`, `edgecolor`. Shapes such as `Box` take `color`; `surfacecolor` is silently
+ignored. For hundreds of small pieces, build **one** mesh, not hundreds of shapes.
 
 ---
 

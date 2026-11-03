@@ -14,7 +14,7 @@ Path("result.txt").write_text("hello, one-liner\n")
 # --- 2. `with open(...)` — the everyday form -----------------------------
 
 # `with` closes the file for you, even if an error happens inside the block.
-# That is the whole reason it exists. Use it for anything larger than a line.
+# Use it for anything larger than a line.
 sample_text = (
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit,\n"
     "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n"

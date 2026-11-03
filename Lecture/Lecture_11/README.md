@@ -1,10 +1,6 @@
 # Lecture 11: Agentic Workflows
 
-> **Week 15 — working with AI.** The last lecture of the course, on purpose.
-> By now you have tests that say what correct means (Week 10), a review habit
-> and a scaffolded project (Week 13), and a build that verifies itself
-> (Week 14). An assistant is safe to work with *inside* that. One session,
-> three blocks:
+> **Week 15 — working with AI.** One session, three blocks:
 >
 > 1. **Build the loop** (§1–3): the agent harness from scratch, on the
 >    course model. *What an assistant actually is.*
@@ -18,19 +14,12 @@
 > The [agentic lab](/Assignment/6_agentic_workflow/README.md) opens this week
 > and is due in Week 17. §4–6 below are reading for the lab.
 
-Until now, *you* wrote every line of code. In this lecture we flip the roles:
-a language model writes the code, and you move up one level — you become the
-**planner** and the **reviewer**. This is how modern software teams
-increasingly work with tools like Claude Code, Cursor, and Copilot Agents.
+Here a language model writes the code, and you become the **planner** and the
+**reviewer**. Building one of these tools from scratch shows you what it is, so you can
+direct it with judgment.
 
-The goal is not to automate you away. It is to understand, by building one
-from scratch, what these tools actually are — so you can direct them with
-judgment instead of using them as magic.
-
-> We deliberately use our course node's small model (`gemma-4-26b-4bit`,
-> unlimited usage). It fails often, visibly, and instructively. Watching a
-> small model fail teaches you more about agents than watching a frontier
-> model succeed.
+> We use the course node's small model (`gemma-4-26b-4bit`, unlimited) on purpose: it
+> fails often and visibly.
 
 ## 1. Concepts
 
@@ -54,9 +43,8 @@ while not done:
         done
 ```
 
-Every agent framework (CrewAI, LangGraph, Claude Code) is this loop with more
-engineering around it. In this lecture you will read and modify the loop
-itself — about 40 lines of Python.
+Every agent framework is this loop with more engineering around it. Here it is about 40
+lines of Python.
 
 ### Multi-agent = multiple system prompts
 A "coder agent" and a "reviewer agent" are the same model with different
@@ -140,10 +128,8 @@ before anything touches disk or shell:
 uv run 05_mini_harness.py
 uv run 05_mini_harness.py "your own coding task, in plain English"
 ```
-This is not a metaphor for how Claude Code, Cursor, or Copilot Agents work —
-it *is* how they work, minus a decade of engineering (context compaction,
-richer sandboxing, parallel tool calls, IDE integration, a much stronger
-model). Read the "Safety note" inside the file before using `--auto`.
+Claude Code, Cursor and Copilot Agents work this way, with a stronger model and much
+more engineering. Read the "Safety note" inside the file before using `--auto`.
 
 ## 4. Safety note
 
@@ -160,27 +146,14 @@ tools.
 2. In `03`, add a `remove_box(index)` tool. What else must change?
 3. In `04`, make the reviewer stricter (e.g., demand a docstring and
    parametric variables). Does the loop still converge in 5 rounds?
-4. Break it on purpose: ask for geometry the cheat-sheet API cannot express.
-   Where does the failure show up — coder, harness, or reviewer?
-5. In `05`, deny a `bash` call and give the model a comment explaining why.
-   Does it find another way, or does it repeat the same call verbatim?
-6. In `05`, add a `grep`-style search tool. Does the model start using
-   `read_file` less and search more, the way you would?
-7. Compare `04` and `05`: one gates a whole script once, the other gates
-   every disk/shell action individually. What does each buy you, and what
-   does each cost in friction?
+4. In `05`, deny a `bash` call and give the model a comment explaining why. Does it
+   find another way, or repeat the same call?
+5. Compare `04` and `05`: one gates a whole script once, the other every disk and shell
+   action. What does each buy you, and what does each cost in friction?
 
 ## 6. Outlook
 
-- **In your pipeline**: the reviewer agent you met here can be wrong.
-  [Lecture 12, Part E](/Lecture/Lecture_12/README.md#part-e--working-with-ai-week-15)
-  replaces it with something that can't be argued with, the test suite you
-  already have.
-- **Frameworks**: what we hand-rolled here, packaged: CrewAI, LangGraph,
-  the OpenAI Agents SDK. Same loop, more features.
-- **MCP (Model Context Protocol)**: a standard for exposing tools to agents —
-  e.g. driving Rhino directly from an agent (`rhinomcp`).
-- **Agentic coding tools**: Claude Code, Cursor, Copilot Agents — a harness
-  like `05`, with the file system, terminal, and git as tools, and a much
-  stronger model. Your job when using them is the one you practiced today: plan,
-  gate, review.
+[Lecture 12, Part E](/Lecture/Lecture_12/README.md#part-e--working-with-ai-week-15) replaces
+the reviewer agent with something that cannot be argued with: your test suite. MCP (Model
+Context Protocol) is a standard for exposing tools to agents, for example driving Rhino
+with `rhinomcp`.

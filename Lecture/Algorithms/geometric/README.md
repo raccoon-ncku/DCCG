@@ -27,7 +27,7 @@ this week's other half) at full strength. Figures are drawn by the same code
 | 1 | [Smoothing](#1-smoothing-laplacian-and-taubin) | `vertex_neighbors`, fixed vertices | size before/after; fixed vertices do not move |
 | 2 | [Curvature](#2-curvature-the-angle-defect) | `vertex_faces`, face angles, `euler()` | **Gauss–Bonnet**: Σ defects = 2π·χ |
 | 3 | [Geodesic distance](#3-geodesic-distance-on-the-surface-not-through-the-air) | Dijkstra (W06) on mesh edges | never shorter than a straight line |
-| 4 | [Subdivision](#4-subdivision-catmull-clark-by-hand) | faces, edges, halfedges → a new topology | V′ = V + E + F; χ unchanged; matches COMPAS |
+| 4 | [Subdivision](#4-subdivision-catmullclark-by-hand) | faces, edges, halfedges → a new topology | V′ = V + E + F; χ unchanged; matches COMPAS |
 | 5 | [Planar panels](#5-planar-panels) | per-face best-fit planes, averaging | flatness drops 10×; fixed vertices stay |
 | 6 | [Contouring](#6-contouring-slicing-a-mesh-with-planes) | triangles, **edge keys** to chain segments | every point at height *h*; closed loops close |
 | 7 | [Delaunay & Voronoi](#7-delaunay-and-its-dual-voronoi) | `vertex_faces(ordered=True)`, the dual | **empty circle**; cell corners nearest their site |

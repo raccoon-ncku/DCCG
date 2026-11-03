@@ -5,54 +5,36 @@
 **Write a Python-based Grasshopper plugin, with the help of AI — and make it
 professional, reproducible, and maintainable.**
 
-That is the whole assignment. Pick a piece of parametric geometry worth turning
-into a reusable component (a wall bond, a stair, a packing tool, a facade
-pattern — anything with real logic), and build it the way this course has taught:
+Pick a piece of parametric geometry worth turning into a reusable component (a wall
+bond, a stair, a packing tool, a facade pattern, anything with real logic):
 
-- **Professional** — a pure COMPAS core with no Rhino imports, plus a thin
-  Grasshopper adapter. Not a script that draws one nice picture; a *tool*
-  someone else could install and use.
-- **Reproducible** — it runs headlessly (no Rhino needed) and produces the same
-  verified result every time, with tests that prove it and CI that runs them.
-- **Maintainable** — clear structure, readable code you can explain, and a build
-  pipeline so a new version is one command, not a manual export.
+- **Professional:** a pure COMPAS core with no Rhino imports, plus a thin Grasshopper
+  adapter. A *tool* someone else could install, not a script that draws one picture.
+- **Reproducible:** it runs without Rhino and produces the same verified result every
+  time, with tests that prove it and CI that runs them.
+- **Maintainable:** clear structure, code you can explain, and a build pipeline so a
+  new version is one command.
 
-Use AI freely to write it — that is the point of the course — but you own every
-line, and "professional / reproducible / maintainable" is exactly the standard
-that separates directing an agent from blindly following one.
-
-The recommended route is the **Grasshopper plugin set**, scaffolded from the
-[project template](/Lecture/Lecture_12/project_template/README.md) in Week 13
-and built with the ghuser-builder pipeline from Week 14 (worked example:
-[`Lecture/Lecture_12/plugin_set/`](/Lecture/Lecture_12/plugin_set/README.md)). A
-Rhino `.rhp` plugin or a standalone CLI/library with a loader script are also
-fine — the `.ghuser` set is just the most reusable and the one the lectures
-build toward.
+Scaffold it from the [project template](/Lecture/Lecture_12/project_template/README.md)
+and build it with ghuser-builder (worked example:
+[`plugin_set/`](/Lecture/Lecture_12/plugin_set/README.md)). A Rhino `.rhp` plugin or a
+standalone library with a loader script are also fine.
 
 ## Required architecture
 
-This is the non-negotiable part, and it is what the whole semester built toward:
-
 ```
 your-project/
-├── core/                  # 1. CORE — pure Python + COMPAS
-│   └── <your_module>.py   #    numbers in, geometry out
-│                          #    NO viewer, NO file IO, NO `import rhino*`
-├── tests/                 # pytest — the executable spec for your core
-│   └── test_<module>.py
-├── run.py                 # headless runner: core → output/*.json
-├── output/
-│   └── <artifact>.json    # 2. ARTIFACT — committed, reviewable
-├── adapters/
-│   ├── rhino_load.py      # 3. ADAPTER — runs in Rhino 8 ScriptEditor
-│   └── gh_component.py    #    and/or a Grasshopper Python component
+├── src/<your_package>/    # 1. CORE: pure Python + COMPAS, no viewer, no file IO, no Rhino
+├── tests/                 #    pytest: the executable spec for your core
+├── output/<artifact>.json # 2. ARTIFACT: committed, reviewable
+├── components/<Name>/     # 3. ADAPTERS: code.py + metadata.json + icon.png
+├── scripts/ghuser         #    the build
 ├── README.md              # what it does, how to install, how to run both ways
-└── requirements / pyproject
+└── pyproject.toml
 ```
 
-The test for whether you got this right: **delete `adapters/` and your project
-must still work.** Uninstall Rhino and your tests must still pass. If importing
-your core requires Rhino, the architecture is wrong.
+The test: **delete `components/` and your project must still work.** Uninstall Rhino
+and your tests must still pass.
 
 ## Requirements
 
@@ -75,16 +57,8 @@ larger groups are expected to produce proportionally more.
 
 ## AI usage
 
-Use AI assistants freely — that is the point of this course. The three course
-rules apply, and they are enforced at the presentation:
-
-1. **You must be able to explain every line.** You will be asked to, live.
-2. **Disclose** — keep meaningful prompts in comments or a `log.md`.
-3. **Verify, don't trust** — "it looked right in the viewer" is not evidence.
-   Your tests are.
-
-"The AI wrote it" is not a defence for code you cannot explain. If you
-submitted it, you own it.
+The [course rules](/README.md#ai-usage) apply, and they are enforced at the
+presentation: explain every line, disclose in a `log.md`, verify rather than trust.
 
 ## Milestones
 
@@ -109,23 +83,18 @@ submitted it, you own it.
 
 ## Assessment
 
-**This project is your entire grade (100%).** The only other requirement is
-completing the Weeks 01–09 checkpoints — a gate, not a scored component
-([grading](/README.md#grading)). There is no point breakdown within the project;
-it is judged as a whole against these criteria:
+**This project is your entire grade (100%).** The only other requirement is the Weeks
+01–09 checkpoints, a gate and not a score ([grading](/README.md#grading)). It is judged
+as a whole:
 
-- **Runs headless** — a pure core plus a committed artifact, no Rhino required.
-- **Runs inside Rhino 8 / Grasshopper** — through a thin adapter that adds no
-  design logic.
-- **Verifiably correct** — meaningful tests, ideally running in CI.
-- **Well-built** — clear structure, sane names, honest documentation.
-- **Presented well** — a live demo that shows both modes working.
+- **Runs headless:** a pure core plus a committed artifact, no Rhino required.
+- **Runs inside Rhino 8 / Grasshopper:** through a thin adapter with no design logic.
+- **Verifiably correct:** meaningful tests, ideally running in CI.
+- **Well-built:** clear structure, sane names, honest documentation.
+- **Presented well:** a live demo that shows both modes working.
 
-These are not a checklist to tick — they describe what a good project shows. A
-modest tool that is genuinely well-built, tested, and runs in both modes beats
-an ambitious one that only works on the author's laptop with Rhino open. And
-**process is worth more than the artifact** — the same rule as the agentic lab,
-applied to the whole project.
+A modest tool that is well-built, tested and runs in both modes beats an ambitious one
+that only works on its author's laptop. **Process is worth more than the artifact.**
 
 ## Deadline and submission
 
@@ -144,5 +113,4 @@ applied to the whole project.
 - A semantic image search over a reference library (see [Lecture 10](/Lecture/Lecture_10/README.md))
 - An L-system / recursive growth system with fabrication-aware output
 
-Good projects usually come from a real annoyance you have had in Rhino — a
-thing you did by hand fifty times and wished were a button.
+Good projects usually start from something you did by hand fifty times in Rhino.

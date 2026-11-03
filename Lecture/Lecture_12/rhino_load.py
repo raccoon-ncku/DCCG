@@ -1,18 +1,10 @@
 #! python 3
 # r: compas
 """
-The Rhino ADAPTER: the only file in this workflow that touches Rhino.
+The Rhino ADAPTER: run this INSIDE Rhino 8 (ScriptEditor, open this file, F5).
 
-Run this INSIDE Rhino 8 (command: ScriptEditor, open this file, F5).
-The two magic comments above tell Rhino's script editor to use CPython 3
-and to pip-install `compas` into Rhino's Python automatically.
-
-All the intelligence lives outside Rhino: the core module (wall.py,
-staircase.py) is pure COMPAS, developed and TESTED headlessly -- by you,
-by an agent, by CI. What crosses the boundary into Rhino is only a
-verified geometry artifact (a compas JSON file). This file just loads
-and converts it. Keep adapters this boring on purpose: boring code that
-cannot fail needs no tests.
+The two comments above tell Rhino to use CPython 3 and to install `compas`.
+It only loads a verified JSON artifact and converts it:
 
     core (pure python + tests)  ->  artifact (.json)  ->  adapter (this file)
 """

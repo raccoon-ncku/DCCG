@@ -2,24 +2,16 @@
 
 ![banner](./Assets/imgs/dccg_banner.png)
 
-The intersection of computational design and digital fabrication has changed how
-we design, analyze, and construct our built environment. Computational geometry
-is at the core of that — from initial form-finding to actual construction — and
-this course explores the algorithms, data structures, geometric operations, and
-design-to-fabrication workflows that let you create high-performance designs,
-intricate geometries, and lightweight parts with minimal material.
+Computational geometry runs from form-finding to construction. This course covers
+the algorithms, data structures and design-to-fabrication workflows behind it.
 
-The newer shift the course takes seriously: **we embrace agentic development —
-building software with AI coding assistants — but we insist on using them
-professionally.** A model can write most of the code now; the scarce skill has
-moved from *typing* it to *specifying, reading, verifying, and owning* it. So
-alongside geometry, you learn the software engineering that keeps AI-written code
-honest: tests, review, version control, and reproducible pipelines. Every week
-the same question returns: *how do you know this is right?*
+We build software with AI coding assistants, and we insist on doing it professionally.
+A model can write most of the code now, so the skills that count are **specifying,
+reading, verifying and owning it**: tests, review, version control and reproducible
+pipelines. Every week the same question returns: *how do you know this is right?*
 
-**By January you build** a small, tested Python + COMPAS design tool that runs
-with or without Rhino — the same core logic usable headlessly, in CI, and inside
-Rhino 8 / Grasshopper through a thin adapter.
+**By January you build** a small, tested Python + COMPAS design tool: the same core
+logic running headlessly, in CI, and inside Grasshopper through a thin adapter.
 
 * E7-125 / E735400 / ARCH3045 · **WED 13:10–15:00** · Computer lab (5102)
 * First session **2026.09.09** · Office hour Wed 15:10–17:00 · ccyen @ gs.ncku.edu.tw
@@ -31,8 +23,7 @@ Rhino 8 / Grasshopper through a thin adapter.
 🎬[Slide Streaming](https://slide-stream.rccn.dev/) — the slides, live during class.
 📑[Decks](https://slides.rccn.dev/courses/DCCG/) — to read again afterwards.
 
-The slides are the room; this repo is the course. If you only do one, read the
-week's lecture — it is searchable, runnable, and available at 3am.
+If you only do one, read the week's lecture.
 
 ### Part I — Literacy: read, run, debug (W01–W04)
 
@@ -83,32 +74,21 @@ Test and review first, then a project to hold them, then shipping, and **AI last
 
 **The final project is your grade — 100%.**
 
-The one thing you must do to get there is complete the **Weeks 01–09
-checkpoints**. They aren't scored — `uv run check.py` turns them green and you're
-done — but they are a required completion gate: they are how you actually become
-able to build the project. So the course really has just two things, checkpoints
-and the final.
+You must also complete the **Weeks 01–09 checkpoints**. They are not scored, but they
+are a required gate: `uv run check.py` turns them green.
 
-The project's criteria are in its
-[brief](/Assignment/5_Final_Project/README.md#assessment) — the theme throughout
-is **process is worth more than the artifact.** Everything else is optional
-preparation: the [A0 setup](/Assignment/0_copilot/README.md), the
-[agentic-workflow lab](/Assignment/6_agentic_workflow/README.md) (a dry run of
-the project loop), and the weekly exercises.
+The project's criteria are in its [brief](/Assignment/5_Final_Project/README.md#assessment):
+**process is worth more than the artifact.** Everything else is preparation: the
+[A0 setup](/Assignment/0_copilot/README.md), the
+[agentic-workflow lab](/Assignment/6_agentic_workflow/README.md), the weekly exercises.
 
 ## AI usage
 
-A course should state its AI policy plainly and say *why* it holds ([MIT Ad Hoc
-Committee on AI Use in Teaching, Learning, and Research Training](https://aihub.mit.edu),
-Aug 2026 — report in [`Reference/`](/Reference/AI-Committee-Final-Report.pdf)).
-In that report's terms, this course is **Required use**: you are *expected* to
-build with AI assistants, including on the final project — with two deliberately
-**AI-free** carve-outs.
-
-**Why required, not merely allowed.** A model can write most of this code now,
-so the skill being taught — and assessed — is not typing it but *specifying,
-reading, verifying, and owning* it. Forbidding AI would train the wrong thing;
-using it carelessly would teach nothing. Three rules keep it honest:
+This course is **Required use**, in the terms of the [MIT Ad Hoc Committee on AI Use in
+Teaching, Learning, and Research Training](https://aihub.mit.edu) (Aug 2026, report in
+[`Reference/`](/Reference/AI-Committee-Final-Report.pdf)): you are expected to build with
+AI assistants, including on the final project, because the skill being assessed is
+specifying, reading, verifying and owning code. Three rules:
 
 1. **Explain every line you submit.** "The AI wrote it" is not an answer — and
    at the final demo you will be asked to, live.
@@ -119,6 +99,5 @@ using it carelessly would teach nothing. Three rules keep it honest:
    artifact are evidence; "it looked right in the viewer" is not. You own every
    line you submit, including anything the AI got wrong.
 
-**The AI-free parts.** In the agentic lab, the brief, log, and reflection are
-written **by you, not an LLM** — that reflection *is* the learning. And the
-final **live demo is an oral defense**: no assistant, just you and your code.
+**The AI-free parts.** In the agentic lab, the brief, log and reflection are written
+**by you, not an LLM**. The final **live demo is an oral defense**: just you and your code.

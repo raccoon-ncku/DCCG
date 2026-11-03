@@ -1,14 +1,6 @@
-# Week 08 — Recursion and self-similar geometry  🚫 *no class this week*
+# Week 08 — Recursion and self-similar geometry
 
-> **2026.10.28 — still at the conference.** Same arrangement as last week:
-> read, run, check yourself, push by Sunday. Week 09 opens with a debrief of
-> both weeks.
-
-If Week 07 went smoothly, this one is shorter. If Week 07 was a struggle,
-finish it first — nothing here depends on classes, so you lose nothing by
-doing them in the other order.
-
----
+> Self-paced on 2026.10.28. Nothing here depends on classes.
 
 ## 1. The idea
 
@@ -74,9 +66,7 @@ or self-similar**:
 - a fractal — the definition is literally recursive
 - a folder containing folders; a nested list; a graph traversal
 
-For a flat sequence, a `for` loop is simpler and faster. Recursion is not a
-badge of sophistication; using it where a loop would do is a cost, not a
-flourish.
+For a flat sequence, a `for` loop is simpler and faster.
 
 > **Recursion over structure.** The most useful pattern is not `f(n-1)` but
 > recursing into a nested *shape*:
@@ -108,10 +98,8 @@ mid = cg.Point(*[(a[i] + b[i]) / 2 for i in range(3)])
 📄 `recusion_examples/3-0_sierpinski_compas_preparation.py`,
 `3-1_sierpinski_compas.py`, `3-2_sierpinski_compas_conditional.py`
 
-`3-2` is worth reading closely: it stops recursing **conditionally** — some
-branches go deeper than others. That single change turns a mechanical fractal
-into something that can respond to a site, a load, or an attractor. It is the
-difference between a pattern and a design.
+`3-2` stops recursing **conditionally**, so some branches go deeper than others.
+That one change lets a fractal respond to a site, a load, or an attractor.
 
 ### Branching trees
 
@@ -175,9 +163,7 @@ uv run check.py 08
 | 3 | `sierpinski(a, b, c, depth)` | self-similar geometry, `3**depth` |
 | 4 | `tree_segments(length, angle, depth)` | branching, and staying pure |
 
-Checkpoint 4's tests count segments and check lengths rather than looking at a
-picture. Get used to that: **a fractal that looks right and has the wrong
-number of branches is still wrong**, and only one of those two facts is visible.
+Checkpoint 4's tests count segments and check lengths rather than look at a picture.
 
 ## Exercise
 
@@ -190,11 +176,3 @@ number of branches is still wrong**, and only one of those two facts is visible.
 3. Why does moving `print(n)` above or below the recursive call reverse the output?
 4. How many triangles does Sierpinski depth 5 produce? How many segments does a binary tree of depth 12?
 5. Why is appending to a list defined outside the function a bug rather than a style choice?
-
-## Before Sunday
-
-```bash
-uv run check.py 08
-git add -A && git commit -m "Week 08: recursion checkpoints"
-git push
-```

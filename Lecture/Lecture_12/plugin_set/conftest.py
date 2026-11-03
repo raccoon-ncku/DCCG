@@ -1,11 +1,4 @@
-"""
-Make `src/` importable when running the tests locally, so `uv run pytest`
-works straight from this folder without a separate install step.
-
-In CI (see .github/workflows/test.yml) we instead do the real thing --
-`pip install -e .` -- because that is how the package will actually be
-installed by anyone who uses it. This file is only a local convenience.
-"""
+"""Make `src/` importable for the tests when running from the course repo."""
 
 import sys
 from pathlib import Path

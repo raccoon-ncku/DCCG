@@ -1,11 +1,8 @@
 # Algorithms (Weeks 10–12)
 
-Part IV of the course in one place: the algorithms *behind* the tools. Weeks
-05–06 gave you the data structures (mesh, graph); Week 09 gave you the
-architecture (pure core → artifact → adapter). This section fills the core with
-real algorithms, three families of them, each written from scratch in plain
-Python and numpy so that the library version, or the one an AI writes for you,
-is something you can **read and check** rather than trust.
+The algorithms behind the tools, in three families, each written from scratch in plain
+Python and numpy so that the library version, or the one an AI writes for you, is something
+you can **read and check**.
 
 | Week | Part | Tutorials | Run |
 | --- | --- | --- | --- |
@@ -24,11 +21,8 @@ used as free, exact checks.
 ## Step by step: the notebooks
 
 Each part has a `notebooks/` folder beside its `tutorials/`
-([the map](/Lecture/notebooks/README.md#weeks-1012--algorithms)). They
-unpack one algorithm per part (curvature and smoothing, Delaunay → Voronoi →
-Lloyd, cellular automata, simulated annealing, k-means), printing every
-intermediate result and drawing each step, then calling the tested tutorial
-module to confirm.
+([the map](/Lecture/notebooks/README.md#weeks-1012--algorithms)) that unpacks one algorithm
+step by step, then calls the tested module to confirm.
 
 ## How every tutorial is built
 
@@ -42,9 +36,7 @@ Each part is a folder with the same four things:
 └── figures/          make_figures.py + the SVGs it writes, drawn BY CALLING tutorials/
 ```
 
-Nothing is hand-drawn: every number on every figure is computed by the code you
-are reading. And nothing needs more than the course environment. scikit-learn,
-pymoo and the diffusion models are optional extras, each in its own folder.
+Every number on every figure is computed by the code you are reading.
 
 ## Three questions that run through the section
 
@@ -69,8 +61,6 @@ pymoo and the diffusion models are optional extras, each in its own folder.
 
 ## For the final project
 
-Most strong projects are one algorithm from this section, wrapped in the Week 09
-architecture: a pure core that runs it, tests in this style, an artifact, and a
-Grasshopper component built with the Week 14 pipeline. Pick the algorithm whose
-*question* you care about (even spacing, least material, fewest panel types,
+Most strong projects are one algorithm from here in the Week 09 architecture. Pick the
+algorithm whose *question* you care about (even spacing, least material, fewest panel types,
 what grows), not the one with the best screenshot.

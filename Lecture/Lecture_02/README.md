@@ -2,16 +2,9 @@
 
 ## Why we start by *reading*
 
-You are learning Python in a year when a machine can produce it faster than
-you can type. That does not make this week optional — it makes it different.
-The purpose is no longer to memorise syntax so you can produce it. It is to be
-able to **look at a screen of code and say what it does, and whether it is
-right.**
-
-So for every example below: predict the output *before* you run it. If your
-prediction is wrong, that gap is the actual lesson. This is exactly the skill
-you will need in Week 13, when the code on your screen was written by
-something that does not know what it is doing.
+A machine can now produce Python faster than you can type it, so the skill to build is
+**looking at a screen of code and saying what it does, and whether it is right.** For every
+example below, predict the output *before* you run it. If you are wrong, that gap is the lesson.
 
 ---
 

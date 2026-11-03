@@ -1,22 +1,17 @@
 # Troubleshooting
 
-The handful of problems that account for almost every "it doesn't work" in this
-course. For setup and commands, see [SETUP.md](SETUP.md).
+For setup and commands, see [SETUP.md](SETUP.md).
 
 ### `ModuleNotFoundError: No module named 'compas'`
 
-You ran `python foo.py` instead of `uv run foo.py`. This is the single most
-common error in the course. Always `uv run`.
+You ran `python foo.py` instead of `uv run foo.py`.
 
 ### `uv: command not found`
 
-Your terminal hasn't picked up the new PATH. Close it and open a new one. If it
-persists, the `uv` installer printed a line to add to your shell profile — add
-it.
+Close the terminal and open a new one. If it persists, the `uv` installer printed a
+line to add to your shell profile.
 
 ### The environment is broken in some way you can't name
-
-Rebuild it. This is fast and is not a defeat:
 
 ```bash
 rm -rf .venv && uv sync
@@ -24,40 +19,34 @@ rm -rf .venv && uv sync
 
 ### A viewer window crashes or refuses to open
 
-A graphics-driver problem, not a Python one. Every checkpoint in this course can
-be completed headlessly, and from Week 09 the JSON artifact is the primary
-output anyway. Write a headless runner that saves `output/*.json` and preview it
-separately.
+A graphics-driver problem, not a Python one. Every checkpoint can be done without a
+viewer: write `output/*.json` and preview it separately.
+
+### A 3D view in a notebook stays blank
+
+Open the notebook in JupyterLab in a browser (`uv run jupyter lab`). The compas_timber
+notebooks need `uv run --extra timber jupyter lab`.
+
+### `scripts/ghuser` says "no components directory", or misses a new component
+
+Docker cannot see the folder: keep the project under your home directory. On colima, a
+folder you have just added can take a minute to appear; check the `(N components)` line.
 
 ### A checkpoint says `PASS` on code you don't understand
 
-That's not success. In Weeks 13–14 your job becomes reviewing exactly this kind
-of code, and code you can't explain will cost you there. Try it yourself, then
-ask the AI, then diff the two and work out who was right.
+That is not success. Try it yourself, ask the AI, then diff the two.
 
 ### Git said something scary
 
-Not scary — solvable. Every common failure mode has a named recovery:
+- **Merge conflict on `git pull`:** the instructor changed a file you also changed.
+- **`git push` rejected as non-fast-forward:** pull first, then push.
+- **Authentication failed:** you need a personal access token or an SSH key.
+- **Committed a `.env` or an API key:** rotate the secret first, then remove the file.
+- **Committed to the wrong branch:** `cherry-pick`, then reset.
 
-- **Merge conflict on `git pull`** — the instructor changed a file you also
-  changed. Not a bug; a moment where git needs your decision.
-- **`git push` rejected as non-fast-forward** — your fork moved ahead of your
-  clone. Pull first, then push.
-- **Authentication failed** — GitHub removed password login; you need a
-  personal access token or an SSH key.
-- **Accidentally committed a `.env` or an API key** — rotate the secret first,
-  then remove the file from tracking.
-- **"I committed to the wrong branch"** — `cherry-pick`, then reset.
-
-Full list with the three-line recovery for each is on the wiki:
-[rccn wiki ▸ Git for coursework ▸ What can go wrong](https://kb.rccn.dev/computation/development-environment/version-control/coursework-git#what-can-go-wrong).
-It is worth reading once now, before you need it.
-
-For the fork-based workflow itself (why `upstream` and `origin` are separate,
-where `MyWork/` fits), see [SETUP.md ▸ Git for this course](SETUP.md#git-for-this-course).
+The three-line recovery for each is on the
+[wiki](https://kb.rccn.dev/computation/development-environment/version-control/coursework-git#what-can-go-wrong).
 
 ### Still stuck
 
-Open an issue on the course repo with the **exact** command you ran and the
-**complete** error output. "It doesn't work" is unanswerable; a traceback is
-usually self-answering, and pasting one is how you learn to read them.
+Open an issue with the **exact** command and the **complete** error output.

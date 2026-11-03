@@ -1,21 +1,7 @@
-"""
-Grasshopper ADAPTER for compas_studio.running_bond_wall.
-
-This file is the whole point of the course, in miniature. Look how little it
-does: it finds the core, takes the Grasshopper inputs, calls ONE function from
-the tested core, converts the result to Rhino geometry, and returns it. There
-is no geometry logic here to get wrong -- that logic lives in
-compas_studio.wall, where pytest has already checked it (headlessly, with no
-Rhino in sight).
+"""Grasshopper ADAPTER for compas_studio.running_bond_wall. Thin on purpose.
 
 The block down to the dashed line is the same in every component: it finds
-this package's own copy of the core, which ships inside the .yak (in lib/).
-ghuser-build fills in {{version}}, so a component always loads the core of
-its own release.
-
-ghuser-builder turns this folder into Cs_RunningBondWall.ghuser on Linux, with
-Rhino installed nowhere. Keep adapters this thin: an adapter you can read in
-ten seconds is an adapter you do not need to test.
+this package's own copy of the core (shipped inside the .yak, in lib/).
 """
 # r: compas
 

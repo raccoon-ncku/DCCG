@@ -1,15 +1,9 @@
 # Lab: You Are the Planner and the Reviewer
 
-A required, **ungraded** milestone (Weeks 15→17) — a dry run of the exact loop
-your final project will live in. You do **not** write the geometry code
-yourself. You direct the coder/reviewer workflow from Lecture 11 to produce a
-small COMPAS artifact, and the work that matters is the part that stays human:
-the brief, the reviews, and the judgment.
-
-It is not scored. It is checked for completion on GitHub, and it is where you
-make your beginner mistakes at steering an agent *before* they cost you on the
-project. Take it as seriously as if it were graded — because the skill it builds
-is graded, later, in the project.
+A required, **ungraded** milestone (Weeks 15→17), checked for completion on GitHub.
+You do **not** write the geometry code. You direct the coder/reviewer workflow from
+Lecture 11 to produce a small COMPAS artifact: the brief, the reviews and the judgment
+are yours.
 
 ## Task
 
@@ -52,37 +46,20 @@ What would you need to trust this workflow on a real project?
 
 ## What good looks like
 
-This is unscored, but here is what a strong submission shows — and what the
-final project will actually reward:
-
-- a **precise, testable brief** (counts, dimensions, units, arrangement rules);
-- **sharp reviews** — real `# REVIEW:` comments and at least one logged
-  rejection, not rubber-stamping;
-- an **honest, insightful log + reflection**;
-- a result — worth the least of all.
-
-Note the inversion: the artifact matters least. A failed structure with an
-excellent log and sharp reviews teaches you far more than a pretty result you
-waved through without reading — and it is exactly that judgment the project
-grades.
+A precise, testable brief; sharp reviews, with real `# REVIEW:` comments and at least
+one logged rejection; an honest log and reflection. The result itself counts least: a
+failed structure with an excellent log teaches more than a pretty one you waved through.
 
 ## Going further (optional, and directly useful for the project)
 
-Apply Lecture 12 and upgrade from prose brief to executable spec — every step
-here is something your final project will need anyway:
-
-- **Spec, not prose.** Write your brief as a pytest file (like
-  `Lecture_12/test_wall.py`) and drive `tdd_agent.py` with it instead of
-  `04_coder_reviewer.py`. The spec replaces `brief.md`.
-- **Ship it.** Load your verified artifact into Rhino 8 with
-  `Lecture_12/rhino_load.py`, **or** wrap your core as a Grasshopper component
-  and build a `.ghuser` with the COMPAS componentizer pipeline (see
-  [`Lecture_12/plugin_set/`](/Lecture/Lecture_12/plugin_set/README.md)).
+- **Spec, not prose.** Write your brief as a pytest file (like `Lecture_12/test_wall.py`)
+  and drive `tdd_agent.py` with it instead of `04_coder_reviewer.py`.
+- **Ship it.** Load your artifact into Rhino 8 with `Lecture_12/rhino_load.py`, or wrap
+  your core as a component ([`plugin_set/`](/Lecture/Lecture_12/plugin_set/README.md)).
 
 ## Rules
 
 - The model writes the geometry code; you may only edit it to add `# REVIEW:`
   comments. If the loop cannot converge, say so in the reflection — that is a
   valid (and interesting) outcome.
-- Everything else (brief, log, reflection) must be written by you, not by an
-  LLM. This is precisely the part of the workflow that stays human.
+- Everything else (brief, log, reflection) must be written by you, not by an LLM.
