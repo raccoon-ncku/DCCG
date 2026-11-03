@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="330" viewBox="0 0 760 330" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<text x="190.0" y="24.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">stored in __init__</text>
+<text x="190.0" y="44.0" font-size="12" fill="#495057" text-anchor="middle" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">self.length = math.dist(...)</text>
+<rect x="100.0" y="90.0" width="16.0" height="210.0" rx="1" fill="#e8d5b5" stroke="#212529" stroke-width="1.5"/>
+<line x1="90.0" y1="132.0" x2="126.0" y2="132.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="4 3"/>
+<text x="132.0" y="136.0" font-size="11" fill="#868e96" text-anchor="start" font-weight="normal" xml:space="preserve">the old end</text>
+<text x="132.0" y="94.0" font-size="12" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">end moved to z = 3000</text>
+<text x="190.0" y="260.0" font-size="13" fill="#212529" text-anchor="start" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">.length</text>
+<text x="190.0" y="286.0" font-size="22" fill="#e03131" text-anchor="start" font-weight="bold" xml:space="preserve">2400.0</text>
+<text x="570.0" y="24.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">derived with @property</text>
+<text x="570.0" y="44.0" font-size="12" fill="#495057" text-anchor="middle" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">return math.dist(...)</text>
+<rect x="480.0" y="90.0" width="16.0" height="210.0" rx="1" fill="#e8d5b5" stroke="#212529" stroke-width="1.5"/>
+<line x1="470.0" y1="132.0" x2="506.0" y2="132.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="4 3"/>
+<text x="512.0" y="136.0" font-size="11" fill="#868e96" text-anchor="start" font-weight="normal" xml:space="preserve">the old end</text>
+<text x="512.0" y="94.0" font-size="12" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">end moved to z = 3000</text>
+<text x="570.0" y="260.0" font-size="13" fill="#212529" text-anchor="start" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">.length</text>
+<text x="570.0" y="286.0" font-size="22" fill="#2f9e44" text-anchor="start" font-weight="bold" xml:space="preserve">3000.0</text>
+</svg>

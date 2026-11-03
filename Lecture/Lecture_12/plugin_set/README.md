@@ -2,9 +2,9 @@
 
 This is the reference example for the Software Engineering weeks (10, 13, 14, 15):
 a small but **complete** Grasshopper plugin set that is developed, tested, and
-deployed *entirely outside Rhino*. Three components — a running-bond wall, a
-staircase, a grid mesh — the same cores you built earlier in the course, now
-packaged the way a studio would actually ship them.
+deployed *entirely outside Rhino*. Four components: a running-bond wall, a
+staircase, a grid mesh and a stud wall. The first three cores are functions; the
+stud wall is a class ([Week 07](/Lecture/Lecture_07/README.md)).
 
 Read it as the answer to a question the whole semester has been building toward:
 **how does pure Python geometry become a plugin someone else can install — and
@@ -18,15 +18,19 @@ plugin_set/
 ├── src/compas_studio/        1. CORE — pure Python + COMPAS, no Rhino
 │   ├── wall.py               │   running_bond_wall()
 │   ├── staircase.py          │   straight_staircase()
-│   └── grid.py               │   grid_mesh()
+│   ├── grid.py               │   grid_mesh()
+│   └── stud_wall.py          │   class StudWall
 ├── tests/                    2. SPEC — pytest, runs headless in CI
 │   ├── test_wall.py
 │   ├── test_staircase.py
-│   └── test_grid.py
+│   ├── test_grid.py
+│   ├── test_stud_wall.py
+│   └── test_components.py    │   every code.py and metadata.json agree
 ├── components/               3. ADAPTERS — one folder per GH component
 │   ├── Cs_RunningBondWall/   │   code.py + metadata.json + icon.png
 │   ├── Cs_Staircase/         │   each code.py finds the core, then calls it
-│   └── Cs_GridMesh/
+│   ├── Cs_GridMesh/
+│   └── Cs_StudWall/
 ├── yak.json + icon.png       the package's description in Rhino's Package Manager
 ├── scripts/ghuser            4. BUILD — components/ -> dist/, with ghuser-builder
 └── .github/workflows/        5. PIPELINE
@@ -35,8 +39,7 @@ plugin_set/
 ```
 
 It is the same shape as the [project template](../project_template/README.md)
-you scaffold your own project from (Lecture 12, Part C), with three
-components instead of one.
+you scaffold your own project from, with four components instead of one.
 
 Four layers, one rule holding them apart: **the core knows nothing about
 Rhino, and Rhino only ever receives results.** Grep the whole `src/` tree for
@@ -68,10 +71,10 @@ From the repo root:
 uv run pytest Lecture/Lecture_12/plugin_set/tests -q
 ```
 
-15 property tests — counts, monotonic ascent, nothing floating, no brick past
-the wall's end, correct Euler characteristic, and every function rejecting
-nonsense input. No pictures asserted; if the invariants hold, the geometry is
-right. This is exactly the `test.yml` job, which a Linux CI runner executes on
+32 tests: counts, monotonic ascent, nothing floating, no brick past the wall's
+end, correct Euler characteristic, every core rejecting nonsense, and every
+adapter agreeing with its metadata. No pictures asserted; if the invariants
+hold, the geometry is right. This is exactly the `test.yml` job, which a Linux CI runner executes on
 every push (on Python 3.9, the Python inside Rhino 8).
 
 ## Build the components (the deploy stage)
@@ -141,9 +144,9 @@ Grasshopper. Development only; releases come from CI.
 | `metadata.json` | name, category, inputs, outputs, types | you |
 | `icon.png` | a 24×24 icon for the GH ribbon | you (any image) |
 
-The input and output names in `code.py`'s `RunScript(self, ...)` must match the
-parameters declared in `metadata.json`, by name and count. That is the one
-place the two files have to agree.
+The input names in `code.py`'s `RunScript(self, ...)` must match the parameters
+declared in `metadata.json`, by name and order.
+[`tests/test_components.py`](tests/test_components.py) checks that; the build does not.
 
 ## How you extend it — and where the agent comes in
 

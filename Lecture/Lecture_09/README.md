@@ -1,23 +1,16 @@
-# Week 09 — Debrief, then Software Engineering I: the dual-mode architecture
+# Week 09 — The timber graph, classes, and a project that can hold components
 
-> In person again. We open with a **debrief and peer code review** of Weeks 07
-> and 08. Bring your checkpoints, working or not. A stuck checkpoint you can
-> describe precisely is more useful to the class than a green one you rushed.
+> **Today, in this order:**
 >
-> ⭐ **Then the hinge of the course.** Everything before it was learning
-> Python and geometry. Everything after it (the tests, the agent work, the
-> final project) assumes the structure you build today.
+> 1. The timber model as a graph: notebook
+>    [`10_timber_model_graph`](/Lecture/Lecture_06/notebooks/10_timber_model_graph.ipynb)
+>    (`uv run --extra timber jupyter lab`).
+> 2. Classes: [Week 07](/Lecture/Lecture_07/README.md).
+> 3. A project that can hold components: [Part C](#part-c--a-project-that-can-hold-components) below.
 >
-> `uv run check.py 09`
-
-This lecture has two parts.
-
-- **Part A — reading code, and files.** What an AI assistant actually is, how
-  to review the code it (or a classmate) gives you, and how data gets in and
-  out of your program through files and JSON. The debrief uses the first half;
-  Part B depends on the second.
-- **Part B — the dual-mode architecture.** Core → artifact → adapter: the
-  structure every project in this course has from now on.
+> Parts A and B are the ground Part C stands on. Read them this week if you
+> have not: reading code and JSON (A), core → artifact → adapter (B). Then
+> `uv run check.py 09`.
 
 ---
 
@@ -431,6 +424,192 @@ uv add numpy      # add a dependency -- and commit BOTH changed files
 
 ---
 
+# Part C — A project that can hold components
+
+From next week you write Grasshopper components in Python, and later package
+them as a plugin. A loose script cannot do that, because other things now have
+to find your code: pytest, the component, the build, a reviewer. This part sets
+up the place they find it, and the four steps you repeat for every component.
+
+The running example is `StudWall` from [Week 07 §9](/Lecture/Lecture_07/README.md#9-a-component-is-a-class).
+The finished version is in the
+[plugin set](/Lecture/Lecture_12/plugin_set/README.md): its
+[core](/Lecture/Lecture_12/plugin_set/src/compas_studio/stud_wall.py),
+[spec](/Lecture/Lecture_12/plugin_set/tests/test_stud_wall.py) and
+[adapter](/Lecture/Lecture_12/plugin_set/components/Cs_StudWall/code.py).
+
+## C1. Scaffold
+
+![The folders of a project: core, spec, adapters, build, pipeline](figures/se-scaffold.svg)
+
+The architecture of Part B, given addresses. Copy the
+[template](/Lecture/Lecture_12/project_template/README.md) **out** of the course
+repo, because a project is a repository of its own:
+
+```bash
+cp -R Lecture/Lecture_12/project_template ~/code/stud_kit
+cd ~/code/stud_kit
+uv sync
+uv run pytest            # 9 passed: it works before you have written anything
+git init && git add -A && git commit -m "scaffold: from the DCCG template"
+```
+
+Its README lists the four things to rename. Two choices in it are deliberate:
+
+- **`src/`**: with the package one level down, you can only import it once it is
+  installed, so tests run against what a user gets and not against whatever is
+  in the current folder.
+- **`requires-python = ">=3.9"`**: Rhino 8 runs Python 3.9, so that is where your
+  core ends up, whatever your laptop has.
+
+## C2. Spec
+
+Start from a brief someone could say out loud:
+
+> *A stud wall: two plates, a stud every `spacing`, studs at both ends. It
+> refuses nonsense.*
+
+Then write each sentence as a test, before the code, in `tests/test_stud_wall.py`:
+
+```python
+import pytest
+from my_tool import StudWall
+
+
+def test_a_stud_closes_both_ends():
+    xs = StudWall(3.0, 2.4, spacing=0.7).stud_positions
+    assert xs[0] == pytest.approx(0.0)
+    assert xs[-1] == pytest.approx(3.0)
+
+
+def test_no_bay_is_wider_than_the_spacing():
+    xs = StudWall(3.0, 2.4, spacing=0.7).stud_positions
+    assert all(b - a <= 0.7 + 1e-9 for a, b in zip(xs, xs[1:]))
+
+
+def test_an_exact_fit_adds_no_extra_stud():
+    assert StudWall(3.6, 2.4, spacing=0.6).n_studs == 7
+
+
+@pytest.mark.parametrize("length, height, spacing", [(0, 2.4, 0.6), (3, 0, 0.6), (3, 2.4, 0), (-1, 2.4, 0.6)])
+def test_rejects_nonsense_input(length, height, spacing):
+    with pytest.raises(ValueError):
+        StudWall(length, height, spacing)
+```
+
+The brief never said what happens when 3.0 m does not divide by 0.7 m. Writing
+the test forced that decision: a stud still closes the end, and the last bay is
+shorter. **If you cannot write the test, you have not finished the brief.**
+
+## C3. Dev
+
+![Brief to spec, then the loop of red, green, refactor, and commit](figures/se-loop.svg)
+
+Run the tests before there is any code. This is what happened, in order:
+
+**Red.** There is no such class yet.
+
+```text
+E   ImportError: cannot import name 'StudWall' from 'my_tool'
+```
+
+**Green, for now.** Write the smallest class in `src/my_tool/stud_wall.py`, and
+export it from `src/my_tool/__init__.py`:
+
+```python
+class StudWall:
+    def __init__(self, length, height, spacing=0.6):
+        self.length = length
+        self.height = height
+        self.spacing = spacing
+
+    @property
+    def stud_positions(self):
+        full_bays = int(self.length / self.spacing)
+        return [i * self.spacing for i in range(full_bays + 1)]
+
+    @property
+    def n_studs(self):
+        return len(self.stud_positions)
+```
+
+**Red again**: no stud closes the far end.
+
+```text
+>       assert xs[-1] == pytest.approx(3.0)
+E       assert 2.8 == 3.0 ± 3.0e-06
+```
+
+Add one with `if xs[-1] < self.length: xs.append(self.length)`. **Red again**,
+and this one nobody would see in a viewer:
+
+```text
+>       assert StudWall(3.6, 2.4, spacing=0.6).n_studs == 7
+E       assert 8 == 7
+```
+
+`6 * 0.6` is `3.5999999999999996`, so the wall looked unfinished and got a second
+stud on top of the last one. Compare with a tolerance (Week 02). Then the
+`ValueError` of Week 07 §5 turns the last test green, and the whole file passes.
+
+**Refactor** now, with the tests as a safety net: rename, simplify, delete. Read
+a failure before you touch the code. `>` is what was claimed and `E` is what
+happened. Decide which of them is wrong; changing a test until it passes is not
+testing.
+
+## C4. Test
+
+| When | Command | Catches |
+| ---- | ------- | ------- |
+| after every change | `uv run pytest` | the mistake you made a minute ago |
+| before you commit | `uv run --python 3.9 pytest` | anything that does not run in Rhino's Python |
+| on every push | the same, by `.github/workflows/test.yml` | "it works on my laptop" |
+
+Good tests here share four habits: they check **properties, not pictures**
+(counts, spans, connectivity); they use `pytest.approx`, never `==` on floats;
+they test the **failure path**; and each one reads as a sentence of the brief.
+Week 10 goes deeper.
+
+The template also ships
+[`tests/test_components.py`](/Lecture/Lecture_12/project_template/tests/test_components.py),
+which checks that every component's `RunScript` and `metadata.json` name the same
+inputs. The build does not compare them, so without this test a renamed input
+stays hidden until you are in Grasshopper.
+
+## C5. Next: the adapter and the build
+
+Next week each core class gets a component. Copy
+`components/Mt_ColumnGrid/` to a new folder, then change three things:
+
+| File | Change |
+| ---- | ------ |
+| `code.py` | the class name (same as the folder), the import, the body of `RunScript` |
+| `metadata.json` | the name, the inputs and outputs |
+| `icon.png` | any 24 × 24 image |
+
+Keep the block at the top of `code.py` as it is: it finds your core inside the
+installed package. Later, you build all of them into a plugin:
+
+![Components and core go into the ghuser-build Docker image; out come .ghuser files and a .yak that Rhino installs](figures/se-build.svg)
+
+```bash
+scripts/ghuser           # components/ -> dist/ghuser/*.ghuser + dist/*.yak
+```
+
+Drag the `.yak` onto Rhino 8 and the components appear in the Grasshopper ribbon.
+Full detail: [Lecture 12 Part D](/Lecture/Lecture_12/README.md#part-d--shipping-grasshopper-components-with-ghuser-builder-week-14).
+
+**Before next week**, install Docker ([Docker Desktop](https://www.docker.com/products/docker-desktop/),
+OrbStack or colima) and keep your project under your home folder, which Docker
+shares by default. Read the line that says `(N components)` when you build: on
+colima, a folder you have just added can take a minute to appear.
+
+> **TBC before next week:** where to get the builder image. `scripts/ghuser` uses
+> `git.rccn.dev:5050/libs/ghuser-builder:1.0.0`. To use another image, run
+> `GHUSER_BUILDER_IMAGE=<name> scripts/ghuser`.
+
+---
+
 ## Checkpoints
 
 ```bash
@@ -474,3 +653,6 @@ into good intentions within about two weeks.
 8. What does `uv.lock` give you that `pyproject.toml` alone does not?
 9. Someone hands you a project. What is the fastest check that its layering is
    real rather than aspirational?
+10. Why does `src/my_tool/` make it harder to fool yourself than `my_tool/`?
+11. Your first test fails with `ImportError`. Is that a bad start?
+12. You rename an input in `code.py` and forget `metadata.json`. Which step catches it: the tests, the build, or Rhino?

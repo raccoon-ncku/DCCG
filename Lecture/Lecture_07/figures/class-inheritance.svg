@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="430" viewBox="0 0 860 430" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<rect x="290.0" y="15.0" width="280.0" height="74.0" rx="5" fill="#f3f0ff" stroke="#7048e8" stroke-width="1.5"/>
+<text x="300.0" y="35.0" font-size="13" fill="#7048e8" text-anchor="start" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">class Joint</text>
+<line x1="290.0" y1="44.0" x2="570.0" y2="44.0" stroke="#7048e8" stroke-width="1" stroke-linecap="round"/>
+<text x="300.0" y="62.0" font-size="12" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">blank(beam)</text>
+<text x="300.0" y="81.0" font-size="12" fill="#e03131" text-anchor="start" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">allowance(beam)  # each child answers</text>
+<line x1="430.0" y1="89.0" x2="430.0" y2="118.0" stroke="#7048e8" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="215.0" y1="118.0" x2="645.0" y2="118.0" stroke="#7048e8" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="215.0" y1="118.0" x2="215.0" y2="130.0" stroke="#7048e8" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="60.0" y="130.0" width="310.0" height="55.0" rx="5" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.5"/>
+<text x="70.0" y="150.0" font-size="13" fill="#1c7ed6" text-anchor="start" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">class ButtJoint(Joint)</text>
+<line x1="60.0" y1="159.0" x2="370.0" y2="159.0" stroke="#1c7ed6" stroke-width="1" stroke-linecap="round"/>
+<text x="70.0" y="177.0" font-size="12" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">post stops, plate runs on</text>
+<polygon points="65.0,370.0 65.0,275.0 115.0,275.0 115.0,370.0" fill="#a5d8ff" stroke="#1c7ed6" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="65.0,225.0 390.0,225.0 390.0,275.0 65.0,275.0" fill="#ffd8a8" stroke="#e8590c" stroke-width="1.5" stroke-linejoin="round"/>
+<line x1="90.0" y1="250.0" x2="90.0" y2="378.0" stroke="#212529" stroke-width="1" stroke-linecap="round" stroke-dasharray="6 3"/>
+<line x1="90.0" y1="250.0" x2="398.0" y2="250.0" stroke="#212529" stroke-width="1" stroke-linecap="round" stroke-dasharray="6 3"/>
+<text x="121.0" y="364.0" font-size="12" fill="#1c7ed6" text-anchor="start" font-weight="bold" xml:space="preserve">post</text>
+<text x="354.0" y="217.0" font-size="12" fill="#e8590c" text-anchor="start" font-weight="bold" xml:space="preserve">plate</text>
+<text x="135.0" y="325.0" font-size="12" fill="#1c7ed6" text-anchor="start" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">joint.blank(post)  -&gt; 2350</text>
+<text x="135.0" y="345.0" font-size="12" fill="#e8590c" text-anchor="start" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">joint.blank(plate) -&gt; 3650</text>
+<line x1="645.0" y1="118.0" x2="645.0" y2="130.0" stroke="#7048e8" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="490.0" y="130.0" width="310.0" height="55.0" rx="5" fill="#fff4e6" stroke="#e8590c" stroke-width="1.5"/>
+<text x="500.0" y="150.0" font-size="13" fill="#e8590c" text-anchor="start" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">class MiterJoint(Joint)</text>
+<line x1="490.0" y1="159.0" x2="800.0" y2="159.0" stroke="#e8590c" stroke-width="1" stroke-linecap="round"/>
+<text x="500.0" y="177.0" font-size="12" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">both reach the outer corner</text>
+<polygon points="495.0,370.0 495.0,225.0 545.0,275.0 545.0,370.0" fill="#a5d8ff" stroke="#1c7ed6" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="495.0,225.0 820.0,225.0 820.0,275.0 545.0,275.0" fill="#ffd8a8" stroke="#e8590c" stroke-width="1.5" stroke-linejoin="round"/>
+<line x1="520.0" y1="250.0" x2="520.0" y2="378.0" stroke="#212529" stroke-width="1" stroke-linecap="round" stroke-dasharray="6 3"/>
+<line x1="520.0" y1="250.0" x2="828.0" y2="250.0" stroke="#212529" stroke-width="1" stroke-linecap="round" stroke-dasharray="6 3"/>
+<text x="551.0" y="364.0" font-size="12" fill="#1c7ed6" text-anchor="start" font-weight="bold" xml:space="preserve">post</text>
+<text x="784.0" y="217.0" font-size="12" fill="#e8590c" text-anchor="start" font-weight="bold" xml:space="preserve">plate</text>
+<text x="565.0" y="325.0" font-size="12" fill="#1c7ed6" text-anchor="start" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">joint.blank(post)  -&gt; 2450</text>
+<text x="565.0" y="345.0" font-size="12" fill="#e8590c" text-anchor="start" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">joint.blank(plate) -&gt; 3650</text>
+<text x="430.0" y="415.0" font-size="13" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">the same call on either object. the dashed lines are the centrelines, 2400 and 3600 long.</text>
+</svg>

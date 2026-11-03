@@ -18,6 +18,7 @@ the intelligence is in this package; the components are boring on purpose.
 from .wall import running_bond_wall
 from .staircase import straight_staircase
 from .grid import grid_mesh
+from .stud_wall import StudWall
 
-__all__ = ["running_bond_wall", "straight_staircase", "grid_mesh"]
+__all__ = ["running_bond_wall", "straight_staircase", "grid_mesh", "StudWall"]
 __version__ = "0.1.0"

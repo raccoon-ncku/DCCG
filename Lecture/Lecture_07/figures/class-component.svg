@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="400" viewBox="0 0 900 400" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<text x="195.0" y="24.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">on the canvas</text>
+<rect x="120.0" y="40.0" width="150.0" height="110.0" rx="8" fill="#ced4da" stroke="#212529" stroke-width="2"/>
+<text x="195.0" y="100.0" font-size="14" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">Stud Wall</text>
+<circle cx="120.0" cy="67.5" r="5" fill="white" stroke="#212529" stroke-width="1.5"/>
+<text x="110.0" y="71.5" font-size="12" fill="#1c7ed6" text-anchor="end" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">length</text>
+<circle cx="120.0" cy="95.0" r="5" fill="white" stroke="#212529" stroke-width="1.5"/>
+<text x="110.0" y="99.0" font-size="12" fill="#1c7ed6" text-anchor="end" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">height</text>
+<circle cx="120.0" cy="122.5" r="5" fill="white" stroke="#212529" stroke-width="1.5"/>
+<text x="110.0" y="126.5" font-size="12" fill="#1c7ed6" text-anchor="end" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">spacing</text>
+<circle cx="270.0" cy="76.7" r="5" fill="white" stroke="#212529" stroke-width="1.5"/>
+<text x="280.0" y="80.7" font-size="12" fill="#2f9e44" text-anchor="start" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">lines</text>
+<circle cx="270.0" cy="113.3" r="5" fill="white" stroke="#212529" stroke-width="1.5"/>
+<text x="280.0" y="117.3" font-size="12" fill="#2f9e44" text-anchor="start" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">n_studs</text>
+<text x="650.0" y="24.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">in code.py</text>
+<rect x="430.0" y="40.0" width="440.0" height="112.0" rx="5" fill="#f8f9fa" stroke="#7048e8" stroke-width="1.5"/>
+<text x="440.0" y="60.0" font-size="13" fill="#7048e8" text-anchor="start" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">class Cs_StudWall(component):</text>
+<line x1="430.0" y1="69.0" x2="870.0" y2="69.0" stroke="#7048e8" stroke-width="1" stroke-linecap="round"/>
+<text x="440.0" y="87.0" font-size="12" fill="#1c7ed6" text-anchor="start" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">    def RunScript(self, length, height, spacing):</text>
+<text x="440.0" y="106.0" font-size="12" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">        wall = StudWall(length, height, spacing)</text>
+<text x="440.0" y="125.0" font-size="12" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">        lines = [line_to_rhino(l) for l in ...]</text>
+<text x="440.0" y="144.0" font-size="12" fill="#2f9e44" text-anchor="start" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">        return lines, wall.n_studs</text>
+<text x="650.0" y="170.0" font-size="12" fill="#495057" text-anchor="middle" font-weight="normal" xml:space="preserve">the names on the ports are the names of the parameters</text>
+<text x="650.0" y="186.0" font-size="12" fill="#495057" text-anchor="middle" font-weight="normal" xml:space="preserve">metadata.json lists them too: the two must agree</text>
+<text x="450.0" y="222.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">who calls whom</text>
+<rect x="22.0" y="240.0" width="130.0" height="60.0" rx="5" fill="#f1f3f5" stroke="#212529" stroke-width="1.5"/>
+<text x="87.0" y="266.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">you move a slider</text>
+<line x1="153.0" y1="270.0" x2="169.0" y2="270.0" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+<polygon points="169.0,270.0 161.8,273.5 161.8,266.5" fill="#212529" stroke="#212529" stroke-width="1.5" stroke-linejoin="round"/>
+<rect x="170.0" y="240.0" width="130.0" height="60.0" rx="5" fill="#f3f0ff" stroke="#7048e8" stroke-width="1.5"/>
+<text x="235.0" y="266.0" font-size="12" fill="#7048e8" text-anchor="middle" font-weight="normal" xml:space="preserve">Grasshopper calls</text>
+<text x="235.0" y="282.0" font-size="12" fill="#7048e8" text-anchor="middle" font-weight="normal" xml:space="preserve">RunScript</text>
+<line x1="301.0" y1="270.0" x2="317.0" y2="270.0" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+<polygon points="317.0,270.0 309.8,273.5 309.8,266.5" fill="#212529" stroke="#212529" stroke-width="1.5" stroke-linejoin="round"/>
+<rect x="318.0" y="240.0" width="130.0" height="60.0" rx="5" fill="#f3f0ff" stroke="#7048e8" stroke-width="1.5"/>
+<text x="383.0" y="266.0" font-size="12" fill="#7048e8" text-anchor="middle" font-weight="normal" xml:space="preserve">the adapter calls</text>
+<text x="383.0" y="282.0" font-size="12" fill="#7048e8" text-anchor="middle" font-weight="normal" xml:space="preserve">the core</text>
+<line x1="449.0" y1="270.0" x2="465.0" y2="270.0" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+<polygon points="465.0,270.0 457.8,273.5 457.8,266.5" fill="#212529" stroke="#212529" stroke-width="1.5" stroke-linejoin="round"/>
+<rect x="466.0" y="240.0" width="130.0" height="60.0" rx="5" fill="#ebfbee" stroke="#2f9e44" stroke-width="1.5"/>
+<text x="531.0" y="266.0" font-size="12" fill="#2f9e44" text-anchor="middle" font-weight="normal" xml:space="preserve">StudWall computes</text>
+<text x="531.0" y="282.0" font-size="12" fill="#2f9e44" text-anchor="middle" font-weight="normal" xml:space="preserve">COMPAS lines</text>
+<line x1="597.0" y1="270.0" x2="613.0" y2="270.0" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+<polygon points="613.0,270.0 605.8,273.5 605.8,266.5" fill="#212529" stroke="#212529" stroke-width="1.5" stroke-linejoin="round"/>
+<rect x="614.0" y="240.0" width="130.0" height="60.0" rx="5" fill="#f3f0ff" stroke="#7048e8" stroke-width="1.5"/>
+<text x="679.0" y="266.0" font-size="12" fill="#7048e8" text-anchor="middle" font-weight="normal" xml:space="preserve">the adapter converts</text>
+<text x="679.0" y="282.0" font-size="12" fill="#7048e8" text-anchor="middle" font-weight="normal" xml:space="preserve">to Rhino lines</text>
+<line x1="745.0" y1="270.0" x2="761.0" y2="270.0" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+<polygon points="761.0,270.0 753.8,273.5 753.8,266.5" fill="#212529" stroke="#212529" stroke-width="1.5" stroke-linejoin="round"/>
+<rect x="762.0" y="240.0" width="130.0" height="60.0" rx="5" fill="#f1f3f5" stroke="#212529" stroke-width="1.5"/>
+<text x="827.0" y="266.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">values appear on</text>
+<text x="827.0" y="282.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">the output ports</text>
+<text x="450.0" y="330.0" font-size="13" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">you never write Cs_StudWall() or call RunScript yourself: the framework calls you.</text>
+<rect x="22.0" y="345.0" width="856.0" height="44.0" rx="5" fill="#ebfbee" stroke="#2f9e44" stroke-width="1.5"/>
+<text x="450.0" y="364.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">only the green box has logic, and it is the only part pytest can reach. it knows nothing of Grasshopper.</text>
+<text x="450.0" y="381.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">the adapter is a component (inheritance) and has a StudWall (composition).</text>
+</svg>

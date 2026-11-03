@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="250" viewBox="0 0 900 250" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<rect x="20.0" y="30.0" width="200.0" height="60.0" rx="6" fill="#f3f0ff" stroke="#7048e8" stroke-width="1.5"/>
+<text x="120.0" y="55.0" font-size="13" fill="#7048e8" text-anchor="middle" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">components/Mt_*/</text>
+<text x="120.0" y="75.0" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">code.py, metadata.json, icon</text>
+<rect x="20.0" y="110.0" width="200.0" height="60.0" rx="6" fill="#ebfbee" stroke="#2f9e44" stroke-width="1.5"/>
+<text x="120.0" y="135.0" font-size="13" fill="#2f9e44" text-anchor="middle" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">src/my_tool/</text>
+<text x="120.0" y="155.0" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">the core</text>
+<rect x="270.0" y="20.0" width="280.0" height="160.0" rx="6" fill="#fff4e6" stroke="#e8590c" stroke-width="1.5"/>
+<text x="410.0" y="44.0" font-size="13" fill="#e8590c" text-anchor="middle" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">scripts/ghuser</text>
+<text x="410.0" y="62.0" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">docker run ... ghuser-build</text>
+<text x="288.0" y="92.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">1. componentize: folder to .ghuser</text>
+<text x="288.0" y="118.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">2. verify: read every file back</text>
+<text x="288.0" y="144.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">3. package: components + core</text>
+<line x1="222.0" y1="60.0" x2="268.0" y2="80.0" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+<polygon points="268.0,80.0 260.0,80.3 262.8,73.9" fill="#212529" stroke="#212529"/>
+<line x1="222.0" y1="140.0" x2="268.0" y2="120.0" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+<polygon points="268.0,120.0 262.8,126.1 260.0,119.7" fill="#212529" stroke="#212529"/>
+<rect x="600.0" y="20.0" width="150.0" height="74.0" rx="6" fill="white" stroke="#212529" stroke-width="1.5"/>
+<text x="675.0" y="46.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">dist/ghuser/</text>
+<text x="675.0" y="66.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">Mt_*.ghuser</text>
+<rect x="600.0" y="106.0" width="150.0" height="74.0" rx="6" fill="white" stroke="#212529" stroke-width="1.5"/>
+<text x="675.0" y="132.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">dist/</text>
+<text x="675.0" y="152.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">my-tool-*.yak</text>
+<line x1="552.0" y1="70.0" x2="598.0" y2="58.0" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+<polygon points="598.0,58.0 591.9,63.2 590.2,56.5" fill="#212529" stroke="#212529"/>
+<line x1="552.0" y1="130.0" x2="598.0" y2="142.0" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+<polygon points="598.0,142.0 590.2,143.5 591.9,136.8" fill="#212529" stroke="#212529"/>
+<rect x="790.0" y="106.0" width="90.0" height="74.0" rx="6" fill="#f1f3f5" stroke="#868e96" stroke-width="1.5"/>
+<text x="835.0" y="138.0" font-size="13" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">Rhino 8</text>
+<text x="835.0" y="156.0" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">drag it in</text>
+<line x1="752.0" y1="143.0" x2="788.0" y2="143.0" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+<polygon points="788.0,143.0 780.8,146.5 780.8,139.5" fill="#212529" stroke="#212529"/>
+<text x="385.0" y="214.0" font-size="13" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">no Rhino and no Windows up to here: the same image runs on a laptop and in CI</text>
+</svg>

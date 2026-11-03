@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="340" viewBox="0 0 880 340" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<rect x="20.0" y="30.0" width="190.0" height="74.0" rx="6" fill="#f1f3f5" stroke="#868e96" stroke-width="1.5"/>
+<text x="115.0" y="54.0" font-size="14" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">the brief</text>
+<text x="115.0" y="74.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">a sentence a person</text>
+<text x="115.0" y="90.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">could say</text>
+<line x1="212.0" y1="67.0" x2="258.0" y2="67.0" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+<polygon points="258.0,67.0 250.8,70.5 250.8,63.5" fill="#212529" stroke="#212529"/>
+<rect x="260.0" y="30.0" width="240.0" height="74.0" rx="6" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.5"/>
+<text x="380.0" y="54.0" font-size="14" fill="#1c7ed6" text-anchor="middle" font-weight="bold" xml:space="preserve">the spec</text>
+<text x="380.0" y="74.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">tests/test_stud_wall.py</text>
+<text x="380.0" y="90.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">the same sentence, checkable</text>
+<line x1="300.0" y1="106.0" x2="180.0" y2="148.0" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+<polygon points="180.0,148.0 185.6,142.3 187.9,148.9" fill="#212529" stroke="#212529"/>
+<rect x="10.0" y="150.0" width="220.0" height="88.0" rx="6" fill="#fff5f5" stroke="#e03131" stroke-width="1.5"/>
+<text x="120.0" y="174.0" font-size="14" fill="#e03131" text-anchor="middle" font-weight="bold" xml:space="preserve">RED</text>
+<text x="120.0" y="196.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">write one test, watch it fail</text>
+<text x="120.0" y="214.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">E  assert 2.8 == 3.0</text>
+<rect x="270.0" y="150.0" width="220.0" height="88.0" rx="6" fill="#ebfbee" stroke="#2f9e44" stroke-width="1.5"/>
+<text x="380.0" y="174.0" font-size="14" fill="#2f9e44" text-anchor="middle" font-weight="bold" xml:space="preserve">GREEN</text>
+<text x="380.0" y="196.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">the least code that passes</text>
+<text x="380.0" y="214.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">and no more</text>
+<rect x="530.0" y="150.0" width="220.0" height="88.0" rx="6" fill="#f3f0ff" stroke="#7048e8" stroke-width="1.5"/>
+<text x="640.0" y="174.0" font-size="14" fill="#7048e8" text-anchor="middle" font-weight="bold" xml:space="preserve">REFACTOR</text>
+<text x="640.0" y="196.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">tidy, rename, delete</text>
+<text x="640.0" y="214.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">tests stay green</text>
+<line x1="232.0" y1="194.0" x2="268.0" y2="194.0" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+<polygon points="268.0,194.0 260.8,197.5 260.8,190.5" fill="#212529" stroke="#212529"/>
+<line x1="492.0" y1="194.0" x2="528.0" y2="194.0" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+<polygon points="528.0,194.0 520.8,197.5 520.8,190.5" fill="#212529" stroke="#212529"/>
+<path d="M 640 240 C 640 292, 120 292, 120 248" fill="none" stroke="#212529" stroke-width="1.5"/>
+<line x1="120.0" y1="256.0" x2="120.0" y2="241.0" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+<polygon points="120.0,241.0 123.5,248.2 116.5,248.2" fill="#212529" stroke="#212529"/>
+<text x="380.0" y="300.0" font-size="12" fill="#868e96" text-anchor="middle" font-weight="normal" xml:space="preserve">next sentence of the brief</text>
+<line x1="752.0" y1="194.0" x2="800.0" y2="194.0" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+<polygon points="800.0,194.0 792.8,197.5 792.8,190.5" fill="#212529" stroke="#212529"/>
+<text x="808.0" y="190.0" font-size="12" fill="#212529" text-anchor="start" font-weight="bold" xml:space="preserve">commit</text>
+<text x="440.0" y="326.0" font-size="13" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">uv run pytest after every change. uv run --python 3.9 pytest before you commit.</text>
+</svg>

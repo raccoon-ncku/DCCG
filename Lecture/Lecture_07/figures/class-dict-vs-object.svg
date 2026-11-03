@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<text x="225.0" y="24.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">a dictionary, and functions somewhere else</text>
+<rect x="30.0" y="45.0" width="230.0" height="131.0" rx="5" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.5"/>
+<text x="40.0" y="65.0" font-size="13" fill="#1c7ed6" text-anchor="start" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">post  (a dict)</text>
+<line x1="30.0" y1="74.0" x2="260.0" y2="74.0" stroke="#1c7ed6" stroke-width="1" stroke-linecap="round"/>
+<text x="40.0" y="92.0" font-size="12" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">"start":  (0, 0, 0)</text>
+<text x="40.0" y="111.0" font-size="12" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">"end":    (0, 0, 3000)</text>
+<text x="40.0" y="130.0" font-size="12" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">"width":  100</text>
+<text x="40.0" y="149.0" font-size="12" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">"height": 100</text>
+<text x="40.0" y="168.0" font-size="12" fill="#e03131" text-anchor="start" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">"length": 2400.0   stale!</text>
+<rect x="310.0" y="60.0" width="130.0" height="32.0" rx="5" fill="#f1f3f5" stroke="#adb5bd" stroke-width="1.5"/>
+<text x="375.0" y="81.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">volume(beam)</text>
+<line x1="310.0" y1="76.0" x2="262.0" y2="110.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="4 3"/>
+<rect x="310.0" y="112.0" width="130.0" height="32.0" rx="5" fill="#f1f3f5" stroke="#adb5bd" stroke-width="1.5"/>
+<text x="375.0" y="133.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">cut_list(beams)</text>
+<line x1="310.0" y1="128.0" x2="262.0" y2="116.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="4 3"/>
+<rect x="310.0" y="164.0" width="130.0" height="32.0" rx="5" fill="#f1f3f5" stroke="#adb5bd" stroke-width="1.5"/>
+<text x="375.0" y="185.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">to_boxes(beam)</text>
+<line x1="310.0" y1="180.0" x2="262.0" y2="122.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="4 3"/>
+<rect x="310.0" y="216.0" width="130.0" height="32.0" rx="5" fill="#f1f3f5" stroke="#adb5bd" stroke-width="1.5"/>
+<text x="375.0" y="237.0" font-size="12" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">check(beam)</text>
+<line x1="310.0" y1="232.0" x2="262.0" y2="128.0" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="4 3"/>
+<text x="225.0" y="280.0" font-size="12" fill="#495057" text-anchor="middle" font-weight="normal" xml:space="preserve">which functions go with this? which keys must it have?</text>
+<text x="675.0" y="24.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">an object: the data and what it can do</text>
+<rect x="520.0" y="45.0" width="310.0" height="188.0" rx="5" fill="#ebfbee" stroke="#2f9e44" stroke-width="1.5"/>
+<text x="530.0" y="65.0" font-size="13" fill="#2f9e44" text-anchor="start" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">post  (a Beam)</text>
+<line x1="520.0" y1="74.0" x2="830.0" y2="74.0" stroke="#2f9e44" stroke-width="1" stroke-linecap="round"/>
+<text x="530.0" y="92.0" font-size="12" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">name   = 'post'</text>
+<text x="530.0" y="111.0" font-size="12" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">start  = (0, 0, 0)</text>
+<text x="530.0" y="130.0" font-size="12" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">end    = (0, 0, 2400)</text>
+<text x="530.0" y="149.0" font-size="12" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">width  = 120</text>
+<text x="530.0" y="168.0" font-size="12" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">height = 100</text>
+<text x="530.0" y="187.0" font-size="12" fill="#2f9e44" text-anchor="start" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">length()    computed when asked</text>
+<text x="530.0" y="206.0" font-size="12" fill="#2f9e44" text-anchor="start" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">volume()    uses its own values</text>
+<text x="530.0" y="225.0" font-size="12" fill="#2f9e44" text-anchor="start" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">__repr__()  says what it is</text>
+<text x="675.0" y="280.0" font-size="12" fill="#495057" text-anchor="middle" font-weight="normal" xml:space="preserve">one definition says what a beam has and what it can do</text>
+</svg>

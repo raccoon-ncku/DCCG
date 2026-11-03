@@ -1,0 +1,21 @@
+{
+    "name": "Stud Wall",
+    "nickname": "StudWall",
+    "category": "COMPAS Studio",
+    "subcategory": "Timber",
+    "description": "Centrelines of a stud wall from its length, height and spacing. Pure COMPAS core, tested outside Rhino.",
+    "exposure": 2,
+    "ghpython": {
+        "isAdvancedMode": true,
+        "iconDisplay": 0,
+        "inputParameters": [
+            {"name": "length", "description": "Wall length along x (m)", "typeHintID": "float", "scriptParamAccess": 0},
+            {"name": "height", "description": "Wall height along z (m)", "typeHintID": "float", "scriptParamAccess": 0},
+            {"name": "spacing", "description": "Distance between studs (m)", "typeHintID": "float", "optional": true, "scriptParamAccess": 0}
+        ],
+        "outputParameters": [
+            {"name": "lines", "description": "Member centrelines, as Rhino lines"},
+            {"name": "n_studs", "description": "How many studs"}
+        ]
+    }
+}

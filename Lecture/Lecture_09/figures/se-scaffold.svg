@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="336" viewBox="0 0 860 336" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<text x="20.0" y="28.0" font-size="15" fill="#212529" text-anchor="start" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">my_tool/</text>
+<rect x="20.0" y="44.0" width="820.0" height="38.0" rx="6" fill="#f8f9fa" stroke="#868e96" stroke-width="1.5"/>
+<text x="34.0" y="68.0" font-size="13" fill="#868e96" text-anchor="start" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">pyproject.toml</text>
+<text x="230.0" y="68.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">what this is, which Python, which libraries</text>
+<rect x="20.0" y="90.0" width="820.0" height="38.0" rx="6" fill="#ebfbee" stroke="#2f9e44" stroke-width="1.5"/>
+<text x="34.0" y="114.0" font-size="13" fill="#2f9e44" text-anchor="start" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">src/my_tool/</text>
+<text x="230.0" y="114.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">CORE: your classes and functions. Pure Python + COMPAS, no Rhino</text>
+<rect x="20.0" y="136.0" width="820.0" height="38.0" rx="6" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.5"/>
+<text x="34.0" y="160.0" font-size="13" fill="#1c7ed6" text-anchor="start" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">tests/</text>
+<text x="230.0" y="160.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">SPEC: what correct means. Runs anywhere, in seconds</text>
+<rect x="20.0" y="182.0" width="820.0" height="38.0" rx="6" fill="#f3f0ff" stroke="#7048e8" stroke-width="1.5"/>
+<text x="34.0" y="206.0" font-size="13" fill="#7048e8" text-anchor="start" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">components/Mt_*/</text>
+<text x="230.0" y="206.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">ADAPTERS: find the core, call it, convert. No logic</text>
+<rect x="20.0" y="228.0" width="820.0" height="38.0" rx="6" fill="#fff4e6" stroke="#e8590c" stroke-width="1.5"/>
+<text x="34.0" y="252.0" font-size="13" fill="#e8590c" text-anchor="start" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">scripts/ghuser</text>
+<text x="230.0" y="252.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">BUILD: components/ to dist/, in Docker, no Rhino needed</text>
+<rect x="20.0" y="274.0" width="820.0" height="38.0" rx="6" fill="#f8f9fa" stroke="#868e96" stroke-width="1.5"/>
+<text x="34.0" y="298.0" font-size="13" fill="#868e96" text-anchor="start" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">.github/workflows/</text>
+<text x="230.0" y="298.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">PIPELINE: the tests and the build, on every push</text>
+</svg>

@@ -242,7 +242,7 @@ my_tool/
 ```
 
 It is the Week 09 architecture (core → artifact → adapter), given
-addresses. [`plugin_set/`](plugin_set/README.md) is this shape with three
+addresses. [`plugin_set/`](plugin_set/README.md) is this shape with four
 components in it; [`project_template/`](project_template/README.md) is this
 shape with one, waiting to be renamed.
 
@@ -276,7 +276,7 @@ cp -R Lecture/Lecture_12/project_template ~/code/canopy_kit
 cd ~/code/canopy_kit
 # rename the four things listed in its README, then:
 uv sync
-uv run pytest                    # 8 passed: the scaffold works before you have written anything
+uv run pytest                    # 9 passed: the scaffold works before you have written anything
 git init && git add -A && git commit -m "scaffold: from the DCCG template"
 ```
 
@@ -431,10 +431,10 @@ If it says *no components directory*, Docker cannot see the folder: keep the
 project somewhere under your home directory, which Docker shares by default.
 
 **In CI.** [`build-ghuser.yml`](plugin_set/.github/workflows/build-ghuser.yml)
-runs the same image as the job's container and the same command. Every push
-builds and verifies, so a component whose `code.py` and `metadata.json`
-disagree fails within a minute of the commit, not in front of a user. A
-**tag** also publishes:
+runs the same image as the job's container and the same command, on every push.
+The verifier compares each `.ghuser` with its source. It does not compare
+`RunScript` with `metadata.json`: `tests/test_components.py` does that. A **tag**
+also publishes:
 
 ```bash
 git tag v0.1.0
@@ -609,7 +609,7 @@ ever is.
 3. Open a pull request against your own plugin set and read your own diff as if a
    stranger wrote it. What would you send back?
 4. Break the adapter/metadata agreement: rename an input in `code.py` but not in
-   `metadata.json`, and run `scripts/ghuser`. Which of the three steps stops it?
+   `metadata.json`. Run `scripts/ghuser`, then `uv run pytest`. Which one stops it?
 5. Compare `wall.py` and `plugin_set/src/compas_studio/wall.py` line by line.
    Everything different between them is something review catches and tests do
    not. List five of those things.
