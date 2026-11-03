@@ -430,7 +430,7 @@ uv run --extra timber Lecture/Lecture_06/graph_applications/timber_frame.py
 ```
 
 📄 [`graph_applications/timber_frame.py`](graph_applications/timber_frame.py) ·
-step by step in notebooks 07–09 of [`notebooks/`](notebooks/) ·
+step by step in notebooks 07–10 of [`notebooks/`](notebooks/) ·
 then the compas_timber [tutorials](https://gramaziokohler.github.io/compas_timber/latest/) (in Grasshopper).
 
 ---
@@ -441,9 +441,9 @@ then the compas_timber [tutorials](https://gramaziokohler.github.io/compas_timbe
   from simple to complex. 01–06: BFS one queue step at a time; reading a floor
   plan (depth, escape distance, critical doors); the two graphs of §3; bricks
   and mortar; a brick wall as a graph (sequence, load path); a town's streets
-  and its bridges. 07–09 (need the `timber` extra): two beams and a joint; the
+  and its bridges. 07–10 (need the `timber` extra): two beams and a joint; the
   stud wall of §11 stage by stage; a 3D frame with a cut list and an erection
-  sequence.
+  sequence; the model's graph itself, in 3D.
 - `graph_examples/301–305`: networkx on real data (random geometric graph,
   cholera map, NYC subway, a social network). They need `pandas`/`geopandas`,
   which are not installed; use a separate environment, never `uv add` here.

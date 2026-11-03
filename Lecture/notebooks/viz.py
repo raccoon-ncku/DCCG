@@ -390,8 +390,211 @@ def view3d(*items, width=900, height=460, top=False):
     config.view.camera.target = centre
     config.view.camera.position = ([centre[0], centre[1], centre[2] + 3 * size] if top else
                                    [centre[0] + 0.9 * size, centre[1] - 1.5 * size, centre[2] + 1.1 * size])
+    # the defaults (near 0.1, far 1000, a 20-unit grid) assume metres: a model in mm renders blank
+    config.view.camera.near = size / 1000
+    config.view.camera.far = size * 100
+    config.view.show_grid = config.view.show_axes = size < 100
     viewer = Viewer(config=config)
     for obj, options in pairs:
         viewer.scene.add(obj, **options)
     viewer.show()
+    return None
+
+
+# ----------------------------------------------------------------------------
+# 3D for compas_timber: shaded beams, with the model graph inside them
+# ----------------------------------------------------------------------------
+TIMBER = "#d8b98a"
+GHOST = "#ced4da"
+
+
+def _beam_mesh(beam, color, opacity):
+    """A pythreejs solid and its outline for one beam's blank."""
+    import numpy as np
+    import pythreejs as three
+
+    vertices, faces = beam.blank.to_vertices_and_faces()
+    corners = np.array(vertices, dtype=np.float32)
+    triangles, outline = [], []
+    for face in faces:
+        triangles += [face[0], face[1], face[2], face[0], face[2], face[3]]
+        for a, b in zip(face, face[1:] + face[:1]):
+            outline += [corners[a], corners[b]]
+    solid = three.BufferGeometry(attributes={
+        "position": three.BufferAttribute(corners, normalized=False),
+        "index": three.BufferAttribute(np.array(triangles, dtype=np.uint32), normalized=False),
+    })
+    material = three.MeshPhongMaterial(color=color, flatShading=True, shininess=0, side="DoubleSide",
+                                       transparent=opacity < 1, opacity=opacity, depthWrite=opacity == 1)
+    lines = three.BufferGeometry(attributes={
+        "position": three.BufferAttribute(np.array(outline, dtype=np.float32), normalized=False)})
+    edge = three.LineBasicMaterial(color="#495057", transparent=opacity < 1, opacity=min(1.0, opacity + 0.25))
+    return three.Mesh(solid, material), three.LineSegments(lines, edge)
+
+
+def _tube(a, b, radius, color):
+    """A thin cylinder from a to b: WebGL lines are always one pixel wide, too thin to read."""
+    import numpy as np
+    import pythreejs as three
+
+    a, b = np.array(a, dtype=float), np.array(b, dtype=float)
+    axis = b - a
+    y = axis / np.linalg.norm(axis)                     # a three.js cylinder runs along its local y
+    x = np.cross(y, [0.0, 0.0, 1.0] if abs(y[2]) < 0.9 else [1.0, 0.0, 0.0])
+    x /= np.linalg.norm(x)
+    z = np.cross(x, y)
+    tube = three.Mesh(three.CylinderBufferGeometry(radius, radius, float(np.linalg.norm(axis)), 8),
+                      three.MeshBasicMaterial(color=color))
+    tube.matrix = [float(v) for v in (*x, 0, *y, 0, *z, 0, *((a + b) / 2), 1)]     # column by column
+    tube.matrixAutoUpdate = False
+    return tube
+
+
+def _ball(point, radius, color):
+    import pythreejs as three
+
+    return three.Mesh(three.SphereBufferGeometry(radius, 18, 14), three.MeshBasicMaterial(color=color),
+                      position=tuple(float(v) for v in point))
+
+
+def _label(point, text):
+    """Text that faces the camera and keeps its size on screen."""
+    import pythreejs as three
+
+    texture = three.TextTexture(string=text, size=64, color=INK, squareTexture=False)
+    material = three.SpriteMaterial(map=texture, sizeAttenuation=False, transparent=True, depthTest=False)
+    sprite = three.Sprite(material=material, position=tuple(float(v) for v in point))
+    sprite.scale = (0.0095 * len(text), 0.024, 1)
+    return sprite
+
+
+def _timber_stage(beams, colors, opacity, width, height):
+    """A lit scene framed on the beams. Returns (scene, renderer, size, {name: [solid, outline]})."""
+    import numpy as np
+    import pythreejs as three
+
+    pts = [p for beam in beams for p in beam.blank.to_vertices_and_faces()[0]]
+    lo = [min(p[i] for p in pts) for i in range(3)]
+    hi = [max(p[i] for p in pts) for i in range(3)]
+    centre = [float(a + b) / 2 for a, b in zip(lo, hi)]
+    size = max(b - a for a, b in zip(lo, hi))
+
+    scene = three.Scene(background="#f8f9fa")
+    scene.add(three.AmbientLight(color="#ffffff", intensity=0.62))
+
+    # a ground grid to read size by: one metre if the model is in mm
+    cell = 1000 if size > 100 else 1
+    xs = [math.floor(lo[0] / cell) * cell - cell + i * cell for i in range(int((hi[0] - lo[0]) / cell) + 4)]
+    ys = [math.floor(lo[1] / cell) * cell - cell + j * cell for j in range(int((hi[1] - lo[1]) / cell) + 4)]
+    grid = [[[x, ys[0], lo[2]], [x, ys[-1], lo[2]]] for x in xs] + [[[xs[0], y, lo[2]], [xs[-1], y, lo[2]]] for y in ys]
+    scene.add(three.LineSegments(
+        three.BufferGeometry(attributes={"position": three.BufferAttribute(np.array(grid, dtype=np.float32).reshape(-1, 3), normalized=False)}),
+        three.LineBasicMaterial(color="#dee2e6")))
+
+    objects = {}
+    for beam in beams:
+        solid, outline = _beam_mesh(beam, colors.get(beam.name, TIMBER), opacity)
+        scene.add(solid)
+        scene.add(outline)
+        objects[beam.name] = [solid, outline]
+
+    camera = three.PerspectiveCamera(fov=35, aspect=width / height, near=size / 500, far=size * 50, up=[0, 0, 1],
+                                     position=[centre[0] + 1.25 * size, centre[1] - 1.85 * size, centre[2] + 0.95 * size])
+    for direction, intensity in (([1, -2, 3], 0.45), ([-2, 1, 1], 0.2)):
+        scene.add(three.DirectionalLight(color="#ffffff", intensity=intensity, position=direction))
+    controls = three.OrbitControls(controlling=camera, target=centre)
+    camera.lookAt(centre)
+    renderer = three.Renderer(scene=scene, camera=camera, controls=[controls], width=width, height=height, antialias=True)
+    return scene, renderer, size, objects
+
+
+def view_timber(model, colors=None, opacity=1.0, graph=False, edges=None, edge_colors=None, through_joints=False,
+                node_colors=None, node_sizes=None, labels=(), stages=None, width=900, height=520):
+    """Show a compas_timber model in 3D, optionally with its graph inside it. Beams are named by beam.name.
+
+        view_timber(model)                                       # the frame
+        view_timber(model, colors={"ridge": "#e8590c"})          # {beam name: colour}
+        view_timber(model, graph=True, opacity=0.2)              # a node per beam, an edge per joint
+        view_timber(model, graph=True, through_joints=True)      # edges bent through where the beams meet
+        view_timber(model, edges=[("post_s0", "tie_0")])         # only these edges
+        view_timber(model, stages={"sill_s": 0, "post_s0": 1})   # a slider that builds it stage by stage
+
+    Drag to orbit, scroll to zoom, right-drag to pan. Outside Jupyter it prints one line instead.
+    """
+    beams = list(model.beams)
+    if not _in_jupyter_kernel():
+        print(f"[3D view of {len(beams)} beams: open this notebook in JupyterLab to see it]")
+        return None
+    import ipywidgets as widgets
+    from IPython.display import display
+
+    scene, renderer, size, objects = _timber_stage(beams, colors or {}, opacity, width, height)
+
+    middle = {}
+    for beam in beams:
+        p = beam.centerline.point_at(0.5)
+        middle[beam.name] = [p.x, p.y, p.z]
+
+    if graph or edges:
+        name_of = {beam.graphnode: beam.name for beam in beams}
+        pairs = edges or [(name_of[u], name_of[v]) for u, v in model.graph.edges()]
+        where = {frozenset(e.name for e in c.elements): list(c.location) for c in model.joint_candidates}
+        radius = size / 340
+        for a, b in pairs:
+            colour = (edge_colors or {}).get((a, b)) or (edge_colors or {}).get((b, a)) or "#868e96"
+            joint = where.get(frozenset((a, b))) if through_joints else None
+            stops = [middle[a], joint, middle[b]] if joint else [middle[a], middle[b]]
+            for p, q in zip(stops, stops[1:]):
+                if math.dist(p, q) > 1e-6:          # a joint can sit exactly at a beam's middle
+                    scene.add(_tube(p, q, radius, colour))
+        for name in {n for pair in pairs for n in pair}:
+            scene.add(_ball(middle[name], radius * (node_sizes or {}).get(name, 4), (node_colors or {}).get(name, INK)))
+    for name in labels:
+        scene.add(_label(middle[name], name))
+
+    if stages is None:
+        display(renderer)
+        return None
+
+    last = max(stages.values())
+    slider = widgets.IntSlider(value=last, min=0, max=last, description="stage")
+    note = widgets.Label()
+
+    def show_up_to(change):
+        up = [name for name in objects if stages.get(name, last) <= change["new"]]
+        for name, parts in objects.items():
+            for part in parts:
+                part.visible = name in up
+        note.value = f"{len(up)} of {len(objects)} beams up"
+
+    slider.observe(show_up_to, names="value")
+    show_up_to({"new": last})
+    display(widgets.VBox([renderer, widgets.HBox([slider, note])]))
+    return None
+
+
+def explore_graph(model, width=900, height=520):
+    """Pick a beam from the list: it turns orange, and the beams it is joined to turn blue."""
+    beams = {beam.name: beam for beam in model.beams}
+    if not _in_jupyter_kernel():
+        print(f"[3D explorer of {len(beams)} beams: open this notebook in JupyterLab to use it]")
+        return None
+    import ipywidgets as widgets
+    from IPython.display import display
+
+    _, renderer, _, objects = _timber_stage(list(beams.values()), {}, 1.0, width, height)
+    name_of = {beam.graphnode: name for name, beam in beams.items()}
+    choice = widgets.Dropdown(options=sorted(beams), description="beam")
+    note = widgets.Label()
+
+    def pick(change):
+        chosen = change["new"]
+        around = {name_of[n] for n in model.graph.neighbors(beams[chosen].graphnode)}
+        for name, (solid, _outline) in objects.items():
+            solid.material.color = ORANGE if name == chosen else BLUE if name in around else GHOST
+        note.value = f"degree {len(around)}: {', '.join(sorted(around))}"
+
+    choice.observe(pick, names="value")
+    pick({"new": choice.value})
+    display(widgets.VBox([widgets.HBox([choice, note]), renderer]))
     return None

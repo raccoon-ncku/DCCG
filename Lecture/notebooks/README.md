@@ -73,6 +73,7 @@ notebooks say where that stops (lap joints, cut geometry).
 | *3D only* | 07 | [two beams and a joint](../Lecture_06/notebooks/07_timber_beams_and_joints.ipynb) | a beam and its blank; L, T and X; the model graph; butt vs miter vs tenon; the T joint's order; BTLx read back |
 | <a href="../Lecture_06/notebooks/08_timber_stud_wall.ipynb"><img src="figures/Lecture_06-08_timber_stud_wall.svg" width="240" alt=""></a> | 08 | [a stud wall](../Lecture_06/notebooks/08_timber_stud_wall.ipynb) | centrelines → roles → beams → topology → a rule → joints → BTLx; four design variants in one table |
 | <a href="../Lecture_06/notebooks/09_timber_frame_to_site.ipynb"><img src="figures/Lecture_06-09_timber_frame_to_site.svg" width="240" alt=""></a> | 09 | [a frame, from design to site](../Lecture_06/notebooks/09_timber_frame_to_site.ipynb) | a 3D shed: crowded nodes, a rule of precedence that halves the cut list, weights, an erection sequence by BFS |
+| *3D only* | 10 | [inside the timber model: the graph](../Lecture_06/notebooks/10_timber_model_graph.ipynb) | what a node and an edge hold; the graph drawn inside the frame; crowded nodes as cliques; pick a beam, see what it touches; a route to the ground; stages on a slider; real triangles vs graph triangles; joints on edges, and the direction trap; the graph through JSON |
 
 ## Week 04 · COMPAS core
 
@@ -143,7 +144,7 @@ Good to know:
   you add `--force` (do that to pick up the instructor's updates; your edits
   in that copy are lost). The copies are not committed: `MyWork/notebooks/`
   is in `.gitignore`.
-- **The compas_timber notebooks** (Week 06, 07–09) need
+- **The compas_timber notebooks** (Week 06, 07–10) need
   `uv run --extra timber jupyter lab MyWork/notebooks`.
 - **VS Code** works too: open the `.ipynb` and choose this project's `.venv`
   as the kernel. If a 3D view stays blank there, use the browser. Zed does not
@@ -169,8 +170,9 @@ three.js in the page. `view3d()` in [`viz.py`](viz.py) wraps it with two
 fixes that matter in class:
 
 - **Framing.** compas_notebook always looks at the origin from (0, −10, 5),
-  so anything large or far from the origin starts off-screen. `view3d` aims the
-  camera at the bounding box of what you pass.
+  with a far plane at 1000, so anything large or far from the origin starts
+  off-screen, and a model in millimetres renders blank. `view3d` aims the
+  camera at the bounding box of what you pass and scales the clipping planes.
 - **Isolation.** compas_notebook's `Config` shares one view setting between all
   viewers by default; `view3d` gives each viewer its own.
 
@@ -178,6 +180,18 @@ fixes that matter in class:
 view3d(mesh)                                              # just look
 view3d((mesh, {"facecolor": colours, "show_edges": True}),  # with options
        frame, (graph, {"nodesize": 0.2}))
+```
+
+**compas_timber models** have their own helper, `view_timber(model)`, because
+they are in millimetres and benefit from shading. It draws straight with
+pythreejs (what compas_notebook is built on): shaded beams, a one-metre grid,
+and optionally the model graph inside them.
+
+```python
+view_timber(model, colors={"ridge": "#e8590c"})           # {beam name: colour}
+view_timber(model, graph=True, opacity=0.2)               # a node per beam, an edge per joint
+view_timber(model, stages={"sill_s": 0, "post_s0": 1})    # a slider that builds it stage by stage
+explore_graph(model)                                      # pick a beam, see what it touches
 ```
 
 Options are compas_notebook's, and they are **not** always compas_viewer's.
