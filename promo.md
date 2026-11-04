@@ -15,7 +15,6 @@ By January you don't just "use" computational design — you ship a tested desig
 
 No prior coding experience required.
 
-🎬 Live slides during class: https://slide-stream.rccn.dev/
 📍 E7-125 · ARCH3045 · Wed 13:10–15:00
 
 #ComputationalDesign #Grasshopper #Python #AI #Architecture #ParametricDesign #DigitalFabrication #NCKU
