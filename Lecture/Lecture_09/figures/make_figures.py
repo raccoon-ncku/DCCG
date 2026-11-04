@@ -1,5 +1,5 @@
 """
-Draw the Part C figures of the Week 09 README.
+Draw the Part D figures of the Week 09 README.
 
     uv run Lecture/Lecture_09/figures/make_figures.py
 
@@ -12,7 +12,7 @@ import math
 from pathlib import Path
 
 HERE = Path(__file__).parent
-TEMPLATE = HERE.parents[1] / "Lecture_12" / "project_template"
+TEMPLATE = HERE.parent / "project_template"
 
 INK = "#212529"
 GREY = "#868e96"

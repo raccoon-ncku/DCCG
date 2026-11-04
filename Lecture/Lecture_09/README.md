@@ -2,21 +2,77 @@
 
 > **Today, in this order:**
 >
-> 1. The timber model as a graph: notebook
->    [`10_timber_model_graph`](/Lecture/Lecture_06/notebooks/10_timber_model_graph.ipynb)
+> 1. The timber model as a graph: [Part A](#part-a--the-timber-model), then notebook
+>    [`04_timber_model_graph`](notebooks/04_timber_model_graph.ipynb)
 >    (`uv run --extra timber jupyter lab`).
 > 2. Classes: [Week 07](/Lecture/Lecture_07/README.md).
-> 3. A project that can hold components: [Part C](#part-c--a-project-that-can-hold-components) below.
+> 3. A project that can hold components: [Part D](#part-d--a-project-that-can-hold-components) below.
 >
-> Parts A and B are the ground Part C stands on. Read them this week if you
-> have not: reading code and JSON (A), core → artifact → adapter (B). Then
+> Parts B and C are the ground Part D stands on. Read them this week if you
+> have not: reading code and JSON (B), core → artifact → adapter (C). Then
 > `uv run check.py 09`.
 
 ---
 
-# Part A — Reading code, and files
+# Part A — The timber model
 
-## A1. What an LLM actually is
+Two earlier weeks meet here. A beam is an object ([Week 07](/Lecture/Lecture_07/README.md)),
+and the model is a graph of them ([Week 06](/Lecture/Lecture_06/README.md)).
+
+![A stud wall with a window and a brace, joints coloured L, T and X; the same model drawn as a graph](figures/app-timber.svg)
+
+[compas_timber](https://gramaziokohler.github.io/compas_timber/latest/)
+(Gramazio Kohler Research, ETH Zürich) keeps a timber model as a **graph**:
+beams are nodes, joints are edges.
+
+```python
+from compas_timber.elements import Beam
+from compas_timber.model import TimberModel
+
+model = TimberModel(tolerance=Tolerance(unit="MM", absolute=1e-3))   # design in mm
+for name, line in stud_wall().items():
+    model.add_element(Beam.from_centerline(line, 60, 120, z_vector=[0, 1, 0]))
+
+model.connect_adjacent_beams()     # find every pair of beams that touch ...
+model.joint_candidates             # ... and HOW: L (ends meet), T (end on middle), X (cross)
+```
+
+How beams meet is topology; a rule (a dict) turns it into joints:
+
+```python
+JOINT_RULE = {JointTopology.TOPO_L: LButtJoint, JointTopology.TOPO_T: TButtJoint}
+```
+
+`process_joinery()` makes machining features and `BTLxWriter` writes **BTLx**
+for CNC machines: 14 beams, 26 joints, 33 cuts (counted by parsing the file).
+Checked on compas_timber 2.2.0:
+
+| Headless (your uv environment) | Needs Rhino / Grasshopper |
+| ------------------------------ | ------------------------- |
+| beams, the model graph, joint detection (L/T/X) | lap, notch and dovetail joints (e.g. the brace crossing a stud, red in the figure) |
+| butt, miter, tenon-mortise, French-ridge joints | the cut 3D geometry of a beam (`beam.geometry`) |
+| BTLx fabrication files, COMPAS JSON | |
+
+The right column needs Rhino's solid kernel: the architecture of Part C in a real
+tool (logic in Python, geometry kernel in the host). The script reports the X
+crossing instead of crashing. It is an **optional extra**:
+
+```bash
+uv sync --extra timber
+uv run --extra timber Lecture/Lecture_09/applications/timber_frame.py
+```
+
+📄 [`applications/timber_frame.py`](applications/timber_frame.py) ·
+step by step in [`notebooks/`](notebooks/README.md) ·
+then the compas_timber [tutorials](https://gramaziokohler.github.io/compas_timber/latest/) (in Grasshopper).
+
+📝 [A timber frame of your own](/Exercise/Lecture_09/README.md)
+
+---
+
+# Part B — Reading code, and files
+
+## B1. What an LLM actually is
 
 **A language model predicts plausible continuations of text.** It is not executing
 your code, checking your units, or reasoning about your wall. Three consequences:
@@ -72,7 +128,7 @@ time, and ask it to explain when you are trying to learn. More on the wiki:
 
 > "It ran without an error" is not evidence that it is correct.
 
-## A2. Files
+## B2. Files
 
 ### Paths — use `pathlib`, always
 
@@ -102,7 +158,7 @@ HERE = Path(__file__).parent
 data = HERE / "data" / "input.json"
 ```
 
-📄 `../python_examples/7.2.1_path.py` … `7.3_pathlib.py`
+📄 `examples/01_path.py` … `05_pathlib.py`
 
 ### Reading and writing
 
@@ -129,9 +185,9 @@ with open(path) as f:
 Modes: `"r"` read (default), `"w"` write — **erases the file first** — `"a"`
 append.
 
-📄 `../python_examples/7.1.1_write_file.py`, `7.1.2_with_statement.py`, `7.1.3_read_file.py`
+📄 `examples/06_write_file.py`, `07_with_statement.py`, `08_read_file.py`
 
-## A3. JSON
+## B3. JSON
 
 JSON is a text format for structured data, and it is how your geometry travels
 between your code, git and Rhino.
@@ -153,9 +209,9 @@ What it cannot: tuples (they come back as lists), sets, and your own classes.
 
 > COMPAS has its own JSON layer — `compas.json_dump` / `compas.json_load` —
 > which *can* store geometry objects, meshes and graphs. You met it in Week 04
-> and used it on meshes and graphs in Weeks 05–06. Part B is built on it.
+> and used it on meshes and graphs in Weeks 05–06. Part C is built on it.
 
-## A4. Handling errors on purpose
+## B4. Handling errors on purpose
 
 Week 03 covered reading a traceback. This is the other half: failure you
 **expect**, and choose to handle.
@@ -173,12 +229,12 @@ including the typo you have not found yet.
 - A missing key that means **your program is broken** should crash. Let it.
 - A missing key that is **a normal situation** deserves `.get()` or a `try`.
 
-📄 `../python_examples/try_statement.py`
+📄 `examples/09_try_statement.py`
 
 
 ---
 
-# Part B — The dual-mode architecture
+# Part C — The dual-mode architecture
 
 ## 1. The problem
 
@@ -233,8 +289,8 @@ Lecture/Lecture_09/checkpoints/
 ```
 
 The **artifact**, `output/wall.json`, is created the first time you run
-`build_artifact`; commit it. Part C turns the **adapter** into a Grasshopper
-component; the simplest one is [`rhino_load.py`](/Lecture/Lecture_12/rhino_load.py).
+`build_artifact`; commit it. Part D turns the **adapter** into a Grasshopper
+component; the simplest one is [`rhino_load.py`](/Lecture/Lecture_09/examples/rhino_load.py).
 
 **The one-sentence rule: keep the intelligence out of the host application.**
 Rhino and Grasshopper only ever *receive* results.
@@ -339,7 +395,7 @@ uv add numpy      # add a dependency -- and commit BOTH changed files
 
 ---
 
-# Part C — A project that can hold components
+# Part D — A project that can hold components
 
 From next week you write Grasshopper components in Python, and later package
 them as a plugin. A loose script cannot do that, because other things now have
@@ -348,21 +404,21 @@ up the place they find it, and the four steps you repeat for every component.
 
 The running example is `StudWall` from [Week 07 §9](/Lecture/Lecture_07/README.md#9-a-component-is-a-class).
 The finished version is in the
-[plugin set](/Lecture/Lecture_12/plugin_set/README.md): its
-[core](/Lecture/Lecture_12/plugin_set/src/compas_studio/stud_wall.py),
-[spec](/Lecture/Lecture_12/plugin_set/tests/test_stud_wall.py) and
-[adapter](/Lecture/Lecture_12/plugin_set/components/Cs_StudWall/code.py).
+[plugin set](/Lecture/Lecture_14/plugin_set/README.md): its
+[core](/Lecture/Lecture_14/plugin_set/src/compas_studio/stud_wall.py),
+[spec](/Lecture/Lecture_14/plugin_set/tests/test_stud_wall.py) and
+[adapter](/Lecture/Lecture_14/plugin_set/components/Cs_StudWall/code.py).
 
-## C1. Scaffold
+## D1. Scaffold
 
 ![The folders of a project: core, spec, adapters, build, pipeline](figures/se-scaffold.svg)
 
-The architecture of Part B, given addresses. Copy the
-[template](/Lecture/Lecture_12/project_template/README.md) **out** of the course
+The architecture of Part C, given addresses. Copy the
+[template](/Lecture/Lecture_09/project_template/README.md) **out** of the course
 repo, because a project is a repository of its own:
 
 ```bash
-cp -R Lecture/Lecture_12/project_template ~/code/stud_kit
+cp -R Lecture/Lecture_09/project_template ~/code/stud_kit
 cd ~/code/stud_kit
 uv sync
 uv run pytest            # 9 passed: it works before you have written anything
@@ -377,7 +433,35 @@ Its README lists the four things to rename. Two choices in it are deliberate:
 - **`requires-python = ">=3.9"`**: Rhino 8 runs Python 3.9, so that is where your
   core ends up, whatever your laptop has.
 
-## C2. Spec
+### From nothing, by hand
+
+The [template](project_template/README.md) is this, plus a first test, a first
+component and two CI workflows. Do it once by hand to see there is no magic in it:
+
+```bash
+uv init --lib my_tool            # pyproject.toml + src/my_tool/__init__.py
+cd my_tool
+uv add compas                    # a dependency: written to pyproject.toml, pinned in uv.lock
+uv add --dev pytest              # a tool for you, not for your users
+mkdir tests components
+git init && git add -A && git commit -m "scaffold: empty project"
+```
+
+### What each file is for
+
+| File | It answers | You touch it when |
+| --- | --- | --- |
+| `pyproject.toml` | what is this, which Python, which libraries | you add a dependency (`uv add`, never by hand) |
+| `uv.lock` | *exactly* which versions, on every machine | never by hand. Commit it |
+| `src/my_tool/__init__.py` | what does this package offer | you add a public function or class |
+| `src/my_tool/*.py` | the logic | most of the time |
+| `tests/test_*.py` | what does correct mean | **before** you touch `src/` ([Week 10 §14](/Lecture/Lecture_10/README.md#14-the-test-process)) |
+| `components/*/code.py` | how does Grasshopper call it | you add a component |
+| `components/*/metadata.json` | its name, inputs and outputs in Grasshopper | the same moment |
+| `.github/workflows/test.yml` | run the tests on every push | once |
+| `.github/workflows/build-ghuser.yml` | build the components; release on a tag | once ([Week 14](/Lecture/Lecture_14/README.md)) |
+
+## D2. Spec
 
 Start from a brief someone could say out loud:
 
@@ -416,7 +500,7 @@ The brief never said what happens when 3.0 m does not divide by 0.7 m. Writing
 the test forced that decision: a stud still closes the end, and the last bay is
 shorter. **If you cannot write the test, you have not finished the brief.**
 
-## C3. Dev
+## D3. Dev
 
 ![Brief to spec, then the loop of red, green, refactor, and commit](figures/se-loop.svg)
 
@@ -472,7 +556,7 @@ a failure before you touch the code. `>` is what was claimed and `E` is what
 happened. Decide which of them is wrong; changing a test until it passes is not
 testing.
 
-## C4. Test
+## D4. Test
 
 | When | Command | Catches |
 | ---- | ------- | ------- |
@@ -486,12 +570,12 @@ they test the **failure path**; and each one reads as a sentence of the brief.
 Week 10 goes deeper.
 
 The template also ships
-[`tests/test_components.py`](/Lecture/Lecture_12/project_template/tests/test_components.py),
+[`tests/test_components.py`](/Lecture/Lecture_09/project_template/tests/test_components.py),
 which checks that every component's `RunScript` and `metadata.json` name the same
 inputs. The build does not compare them, so without this test a renamed input
 stays hidden until you are in Grasshopper.
 
-## C5. Next: the adapter and the build
+## D5. Next: the adapter and the build
 
 Next week each core class gets a component. Copy
 `components/Mt_ColumnGrid/` to a new folder, then change three things:
@@ -512,7 +596,7 @@ scripts/ghuser           # components/ -> dist/ghuser/*.ghuser + dist/*.yak
 ```
 
 Drag the `.yak` onto Rhino 8 and the components appear in the Grasshopper ribbon.
-Full detail: [Lecture 12 Part D](/Lecture/Lecture_12/README.md#part-d--shipping-grasshopper-components-with-ghuser-builder-week-14).
+Full detail: [Week 14](/Lecture/Lecture_14/README.md).
 
 **Before next week**, install Docker ([Docker Desktop](https://www.docker.com/products/docker-desktop/),
 OrbStack or colima) and keep your project under your home folder, which Docker

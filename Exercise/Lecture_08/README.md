@@ -5,7 +5,7 @@
 > this is where you make a recursive structure of your own.
 >
 > Start from the branching-tree examples in
-> [`Lecture_08/recusion_examples/`](/Lecture/Lecture_08/README.md).
+> [`Lecture_08/examples/`](/Lecture/Lecture_08/README.md).
 > `uv run your_script.py`.
 
 ## Branching tree, made your own
@@ -24,7 +24,7 @@ Then introduce variation so it stops looking mechanical:
 - make a branch's behaviour depend on its position or height (an attractor).
 
 That last one is the jump from a fractal to a *design*: look at
-`Lecture_08/recusion_examples/3-2_sierpinski_compas_conditional.py` for the same
+`Lecture_08/examples/05_sierpinski_conditional.py` for the same
 move applied to a Sierpinski triangle.
 
 Keep the segment-generating part pure (return a list of segments; draw

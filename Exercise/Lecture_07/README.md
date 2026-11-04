@@ -24,19 +24,6 @@ Then ask the design question from the lecture: should `Square` subclass
 `Rectangle`, and should a `House` that contains rooms subclass anything? Write
 one sentence per case justifying "is-a" vs "has-a".
 
-## 3. Agent-based modelling
+## 3. Re-write to OOP
 
-Using `drone.py`, `tracing_drone.py` and `dynamic_view_drone.py`, build a
-tracing-drone view that combines **attraction and repulsion** behaviour. Each
-drone is an object following simple local rules; the interesting behaviour is
-emergent.
-
-Run locally (uses the viewer):
-
-```bash
-uv run Exercise/Lecture_07/dynamic_view_drone.py
-```
-
-This is a natural seed for a final project — many simple objects, local rules,
-collective behaviour. See also
-[Re-write to OOP](/Exercise/2_re-write_to_oop/README.md).
+[Turn an earlier script into classes](/Exercise/Lecture_07/rewrite_to_oop/README.md).

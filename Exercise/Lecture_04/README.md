@@ -28,7 +28,7 @@ the flattened result.
 ![](https://app.rccn.dev/assets/dccg/imgs/exercise_box_projection.gif)
 
 See also the companion exercise
-[Project a box to the XY plane](/Exercise/1_Project_box_to_xy_plane/README.md),
+[Project a box to the XY plane](/Exercise/Lecture_04/project_box_to_xy_plane/README.md),
 and the checkpoint `flatten_to_xy`, which is the pure-function version of the
 same idea.
 

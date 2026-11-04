@@ -14,9 +14,9 @@ week: **graphs**, a mesh with the faces taken away.
 
 | Folder | What is in it | Run |
 | ------ | ------------- | --- |
-| [`mesh_basics/`](mesh_basics/) | one small script per idea, numbered in the order of this page (📄 links below) | `uv run Lecture/Lecture_05/mesh_basics/02_build_from_scratch.py` |
-| [`mesh_cgal/`](mesh_cgal/) | optional: remeshing, Delaunay, booleans, slicing with `compas_cgal` | same, not examined |
-| [`mesh_applications/`](mesh_applications/) | §12: form finding, truss analysis, scan to mesh, cloth | same, not examined |
+| [`examples/`](examples/) | one small script per idea, numbered in the order of this page (📄 links below) | `uv run Lecture/Lecture_05/examples/02_build_from_scratch.py` |
+| [`examples/cgal/`](examples/cgal/) | optional: remeshing, Delaunay, booleans, slicing with `compas_cgal` | same, not examined |
+| [`applications/`](applications/) | §12: form finding, truss analysis, scan to mesh, cloth | same, not examined |
 | [`data/`](data/) | `bunny.ply`, `benchy.stl`, shared by the scripts | |
 
 ---
@@ -95,7 +95,7 @@ Mesh.from_obj("model.obj")                      # from a file (also .ply, .stl, 
 > checkpoint 1) number them **x-fastest**. Keys are labels, not positions:
 > never compute a location from a key.
 
-📄 [`mesh_basics/`](mesh_basics/) `01_load_and_view.py`, `02_build_from_scratch.py`,
+📄 [`examples/`](examples/) `01_load_and_view.py`, `02_build_from_scratch.py`,
 `03_constructors.py`, `04_read_from_file.py`
 
 ## 3. Face order defines the normal
@@ -117,7 +117,7 @@ mesh.flip_cycles()       # reverse every face: the whole mesh turns inside out
 mesh.unify_cycles()      # make all faces consistent with each other
 ```
 
-📄 `mesh_basics/05_face_normals.py`, `06_normal_spikes_on_boundary.py`
+📄 `examples/05_face_normals.py`, `06_normal_spikes_on_boundary.py`
 
 ## 4. Under the hood: halfedges
 
@@ -179,7 +179,7 @@ mesh.edge_vector((u, v))
 mesh.edge_line((u, v))      # a compas Line
 ```
 
-📄 `mesh_basics/07_loop_vertices_faces_edges.py`
+📄 `examples/07_loop_vertices_faces_edges.py`
 
 ## 6. Topology: asking about neighbours
 
@@ -216,7 +216,7 @@ mesh.faces_on_boundary()
 Boundaries are where designs meet the world: supports, edge beams, where a shell
 lands. Checkpoint 5 tags them.
 
-📄 `mesh_basics/08_face_neighbours.py`, `09_boundary_vertices.py`,
+📄 `examples/08_face_neighbours.py`, `09_boundary_vertices.py`,
 `10_vertex_degree_labels.py`
 
 ### Loops and strips
@@ -278,7 +278,7 @@ mesh.vertices_where(z=(0.0, 1.5))                # a (min, max) range works too
 `vertices_where` makes a mesh a small database: tag elements with what they
 *are* (support, seam, glass) and query by meaning, not position.
 
-📄 `mesh_basics/11_colour_by_height.py`, `12_colour_by_normal.py`
+📄 `examples/11_colour_by_height.py`, `12_colour_by_normal.py`
 
 ## 8. Euler's formula: a free correctness check
 
@@ -350,9 +350,9 @@ become structural nodes. More operations:
 
 | | |
 | --- | --- |
-| `mesh_basics/13_subdivision_schemes.py` | every subdivision scheme side by side |
-| `mesh_basics/14_conway_operators.py` … `16_conway_chained.py` | Conway operators: dual, kis, ambo, truncate … |
-| `mesh_basics/17_boolean_union.py` | union of two boxes (CGAL); all three booleans in `mesh_cgal/04_booleans.py` |
+| `examples/13_subdivision_schemes.py` | every subdivision scheme side by side |
+| `examples/14_conway_operators.py` … `16_conway_chained.py` | Conway operators: dual, kis, ambo, truncate … |
+| `examples/17_boolean_union.py` | union of two boxes (CGAL); all three booleans in `examples/cgal/04_booleans.py` |
 
 ## 10. Saving
 
@@ -369,7 +369,7 @@ mesh.to_stl("mesh.stl")        # for 3D printing
 COMPAS JSON keeps attributes; OBJ and STL drop them (export, not save,
 formats).
 
-📄 `mesh_basics/18_write_to_file.py` (writes to the git-ignored `Lecture_05/output/`)
+📄 `examples/18_write_to_file.py` (writes to the git-ignored `Lecture_05/output/`)
 
 ## 11. Seeing it
 
@@ -389,7 +389,7 @@ that never opened a window: read the mesh as data.
 ## 12. Mesh in architecture: four applications
 
 Why the bookkeeping is worth it. Each application is a short script in
-[`mesh_applications/`](mesh_applications/): a pure core plus a viewer, figures
+[`applications/`](applications/): a pure core plus a viewer, figures
 drawn by the same core. **Not examined**; read at least one, they are the
 shortest route to a final project.
 
@@ -421,7 +421,7 @@ shell.edges_attribute("force")            # all negative: all compression
 The design levers are attributes: supports and per-edge `q`. Change `q` on the
 boundary and the free edges arch more or less. Same topology, different shell.
 
-📄 [`mesh_applications/form_finding.py`](mesh_applications/form_finding.py) ·
+📄 [`applications/form_finding.py`](applications/form_finding.py) ·
 also `relaxation_live.py` (the same idea by repeated averaging, animated) and
 the notebooks [`07_form_finding`](notebooks/07_form_finding.ipynb)
 and [`11_volcano_pavilion`](notebooks/11_volcano_pavilion.ipynb)
@@ -451,7 +451,7 @@ load; the stiffness matrix is singular. `np.linalg.solve` would still return
 ~10¹⁵ m displacements that look like a result, so `analyse_truss` **raises**
 instead. A solver that cannot fail loudly is not a verification tool.
 
-📄 [`mesh_applications/structural_analysis.py`](mesh_applications/structural_analysis.py) ·
+📄 [`applications/structural_analysis.py`](applications/structural_analysis.py) ·
 from one bar upwards in [`notebooks/08_mesh_as_truss.ipynb`](notebooks/08_mesh_as_truss.ipynb)
 
 ### From a LiDAR scan to a mesh, and back to the design
@@ -472,7 +472,7 @@ drawing. The script runs on a simulated scan, so the answer is checkable:
 `V − E + F = 0`. Trim at 0.9 m and you get −2: two false holes, invisible at a
 glance.
 
-📄 [`mesh_applications/scan_to_mesh.py`](mesh_applications/scan_to_mesh.py) ·
+📄 [`applications/scan_to_mesh.py`](applications/scan_to_mesh.py) ·
 step by step in [`notebooks/09_scan_to_mesh.ipynb`](notebooks/09_scan_to_mesh.ipynb) ·
 for full 3D scans, `compas_cgal.reconstruction` has outlier removal, normal
 estimation and Poisson surface reconstruction.
@@ -491,7 +491,7 @@ simulation is just an animation. Damp it heavily and run to rest, and it is
 **dynamic relaxation**: the same equilibrium as form finding, by many small
 steps instead of one solve.
 
-📄 [`mesh_applications/cloth_simulation.py`](mesh_applications/cloth_simulation.py) ·
+📄 [`applications/cloth_simulation.py`](applications/cloth_simulation.py) ·
 step by step in [`notebooks/10_cloth_simulation.ipynb`](notebooks/10_cloth_simulation.ipynb)
 
 ---
@@ -503,11 +503,11 @@ time. They show the figures above at the step each one explains, then draw
 the same thing from *your* data. To run them:
 
 ```bash
-uv run Lecture/notebooks/copy_to_mywork.py 05
+uv run Lecture/shared/copy_to_mywork.py 05
 uv run jupyter lab MyWork/notebooks
 ```
 
-([more](/Lecture/notebooks/README.md#how-to-run-them))
+([more](/Lecture/README.md#how-to-run-a-notebook))
 
 | | Notebook | Goes with |
 | - | -------- | --------- |
@@ -528,13 +528,13 @@ advanced, and **not examined**.
 
 ## Going further (not examined)
 
-- **[Algorithms section](/Lecture/Algorithms/README.md)** (W10–12): this week's
+- **[Weeks 10–12](/Lecture/README.md)**: this week's
   operations written from scratch and tested (smoothing, curvature, geodesics,
   subdivision, planarity, contouring, Delaunay/Voronoi), then simulation,
   optimization and learning.
-- [`mesh_cgal/`](mesh_cgal/): remeshing, Delaunay (with holes), booleans,
+- [`examples/cgal/`](examples/cgal/): remeshing, Delaunay (with holes), booleans,
   CGAL Catmull–Clark, and `07_slice_for_printing.py` for fabrication.
-- `mesh_applications/relaxation_live.py` and the
+- `applications/relaxation_live.py` and the
   [volcano pavilion notebook](notebooks/11_volcano_pavilion.ipynb):
   worked form-finding examples, good project starters.
 - [compas.dev › Meshes](https://compas.dev/compas/latest/userguide/basics.datastructures.meshes.html):

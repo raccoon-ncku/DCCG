@@ -11,7 +11,7 @@ example below, predict the output *before* you run it. If you are wrong, that ga
 ## 1. Running code
 
 ```bash
-uv run Lecture/Lecture_02/Examples/1_hello_world.py
+uv run Lecture/Lecture_02/examples/1_hello_world.py
 ```
 
 An interactive prompt, useful for trying one line:
@@ -33,7 +33,7 @@ width = 10  # ... including at the end of a line
 Comments explain **why**, not **what**. `x = x + 1  # add one to x` is noise.
 `x = x + 1  # rows are 1-indexed in the fabrication file` is worth its space.
 
-📄 `Examples/2.1_variables.py`
+📄 `examples/2.1_variables.py`
 
 ## 3. Variables
 
@@ -56,7 +56,7 @@ is the Python convention, and following it is free.
 Names are documentation. `w` costs you nothing today and costs you an hour in
 December. Name things after what they *mean*: `course_height`, not `ch`.
 
-📄 `Examples/2.1.1_variables_II.py`, `Examples/2.1.2_variable_names.py`
+📄 `examples/2.1.1_variables_II.py`, `examples/2.1.2_variable_names.py`
 
 ## 4. Types
 
@@ -103,7 +103,7 @@ way to find out you were wrong about it.
 > abs(a - b) < 1e-9
 > ```
 
-📄 `Examples/2.3_data_type.py`
+📄 `examples/2.3_data_type.py`
 
 ## 5. Operators
 
@@ -121,7 +121,7 @@ way to find out you were wrong about it.
 `i` is odd or even — which is exactly how you offset alternating courses in a
 brick wall.
 
-📄 `Examples/2.2_operators.py`
+📄 `examples/2.2_operators.py`
 
 ## 6. Strings and f-strings
 
@@ -145,7 +145,7 @@ Useful string operations:
 len("hello")             # 5
 ```
 
-📄 `Examples/2.5_string_fromating.py`, `Examples/2.4_built_in_functions.py`
+📄 `examples/2.5_string_fromating.py`, `examples/2.4_built_in_functions.py`
 
 ## 7. Lists
 
@@ -170,7 +170,7 @@ squares.pop(0)          # remove and return item at index 0
 squares.index(16)       # position of the first 16 -- raises if absent
 ```
 
-📄 `Examples/3.1.1_list.py`, `Examples/3.1.2_list_methods.py`
+📄 `examples/3.1.1_list.py`, `examples/3.1.2_list_methods.py`
 
 ### Slicing
 
@@ -190,7 +190,7 @@ items[::-1]    # [5, 4, 3, 2, 1, 0]  -- reversed
 "Stop is excluded" is the single most common off-by-one bug in this course —
 and one an AI assistant will happily reproduce for you.
 
-📄 `Examples/3.1.3_list_slicing.py`
+📄 `examples/3.1.3_list_slicing.py`
 
 ## 8. Functions
 
@@ -232,7 +232,7 @@ Three things to get right:
    assistant write the function you actually wanted.
 
 Deeper treatment of arguments, defaults, and scope comes next week
-(`Lecture/Lecture_03/Examples/6*`).
+(`Lecture/Lecture_03/examples/6*`).
 
 ---
 

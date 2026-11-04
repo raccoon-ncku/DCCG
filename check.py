@@ -40,7 +40,7 @@ COURSE = [
     ("06", "Lecture_06", "Graphs: nodes, edges, traversal, shortest paths"),
     ("07", "Lecture_07", "Object-oriented programming  (self-paced week)"),
     ("08", "Lecture_08", "Recursion and self-similar geometry  (self-paced week)"),
-    ("09", "Lecture_09", "Software engineering I: the dual-mode architecture"),
+    ("09", "Lecture_09", "The timber model, files, and the dual-mode architecture"),
 ]
 
 # ----------------------------------------------------------------------------

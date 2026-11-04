@@ -6,7 +6,7 @@
 >
 > They use the viewer — run locally with `uv run your_script.py`. Example
 > starting points are in
-> [`Lecture_05/mesh_basics/`](/Lecture/Lecture_05/mesh_basics/).
+> [`Lecture_05/examples/`](/Lecture/Lecture_05/examples/).
 
 ## 1. Colour a mesh by normal direction
 
@@ -18,7 +18,7 @@ one), iterate over its vertices, and colour each by its normal direction using
 
 Wrap the normal lookup in `try` / `except ValueError` — a degenerate vertex has
 no valid normal, and handling that instead of crashing is the failure-path
-habit (Week 09 §A4 covers it properly; [`try_statement.py`](/Lecture/python_examples/try_statement.py)
+habit (Week 09 §B4 covers it properly; [`09_try_statement.py`](/Lecture/Lecture_09/examples/09_try_statement.py)
 is the short version).
 
 This is the same "data living on geometry" idea as the `colour_by_height`
@@ -38,5 +38,5 @@ checkpoint demonstrated. That invariance is the whole reason a mesh is the right
 data structure for this.
 
 This exercise is closely related to **Assignment A2** (the parametric element)
-and to `Lecture_05/mesh_applications/` — a good place to find a final-project
+and to `Lecture_05/applications/` — a good place to find a final-project
 direction.

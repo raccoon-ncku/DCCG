@@ -18,9 +18,6 @@ design computation:
 No surfaces, faces or normals: *only* connections, which is why it fits so many
 problems.
 
-> **`Graph` or `Network`?** Same class. `Network` is the old name, still used in
-> `graph_examples/`. Write `Graph` in new code.
-
 ---
 
 ## 1. A floor plan is a graph
@@ -113,7 +110,7 @@ graph.has_edge(("living", "entry"), directed=False) # True -- either way round
 For doors, streets and joints pass `directed=False`. `neighbors()` already
 ignores direction.
 
-📄 `graph_examples/031_compas_network_from_scratch.py`, `032_compas_network_node_attr.py`
+📄 `examples/01_graph_from_scratch.py`, `02_node_attributes.py`
 
 ## 3. A mesh is a graph
 
@@ -283,7 +280,7 @@ for u, v in graph.edges():
 dijkstra_path(graph.adjacency, weight, "entry", "bed2")
 ```
 
-📄 `graph_examples/034_network_info_shortest_path.py`
+📄 `examples/03_shortest_path.py`
 
 ## 7. Connected components: is it one piece?
 
@@ -312,7 +309,7 @@ Bricks are nodes; joints are edges tagged *bed* (course to course) or *head*
 with no coordinate comparisons. Store geometry as node/edge attributes and one
 `compas.json_dump` saves the whole assembly.
 
-📄 notebooks [`04_bricks_and_mortar`](notebooks/04_bricks_and_mortar.ipynb)
+📄 notebooks [`03_bricks_and_mortar`](notebooks/03_bricks_and_mortar.ipynb)
 (two bricks, then a pier: bricks as nodes, mortar as an edge attribute) →
 [`05_brick_wall_assembly`](notebooks/05_brick_wall_assembly.ipynb)
 (a wall with a window: a DFS to the ground and the load cone, building
@@ -336,7 +333,7 @@ algorithms. Convert when you need one; keep design data in the COMPAS graph.
 > ⚠️ **`to_networkx()` returns a *directed* graph**: every door becomes one-way,
 > giving an error or, worse, quietly wrong numbers. Add `.to_undirected()`.
 
-📄 `graph_examples/035_network_serialization.py`
+📄 `examples/04_save_and_load.py`
 
 ## 10. Seeing it
 
@@ -350,9 +347,9 @@ viewer.show()
 
 ---
 
-## 11. Graphs in architecture: three applications
+## 11. Graphs in architecture: two applications
 
-Runnable scripts in [`graph_applications/`](graph_applications/); the figures
+Runnable scripts in [`applications/`](applications/); the figures
 call them. **Not examined**, but each is a possible final project.
 
 ### Reading a plan: integration, escape distance, critical doors
@@ -370,8 +367,8 @@ call them. **Not examined**, but each is a possible final project.
   doors are single points of failure, one of them the only door to the
   **fire stair**.
 
-📄 [`graph_applications/plan_analysis.py`](graph_applications/plan_analysis.py) ·
-step by step in [`notebooks/02_floor_plan.ipynb`](notebooks/02_floor_plan.ipynb)
+📄 [`applications/plan_analysis.py`](applications/plan_analysis.py) ·
+step by step in [`notebooks/04_floor_plan.ipynb`](notebooks/04_floor_plan.ipynb)
 
 ### A town: which streets carry the traffic?
 
@@ -382,72 +379,24 @@ is where traffic, footfall and shops end up. Closing the west bridge doubles
 the east bridge's share (25% → 51%) and lengthens the average trip by 18%. One
 networkx call on the COMPAS graph (§9).
 
-📄 [`graph_applications/street_network.py`](graph_applications/street_network.py)
+📄 [`applications/street_network.py`](applications/street_network.py)
 
-### A timber frame is a graph (compas_timber)
-
-![A stud wall with a window and a brace, joints coloured L, T and X; the same model drawn as a graph](figures/app-timber.svg)
-
-[compas_timber](https://gramaziokohler.github.io/compas_timber/latest/)
-(Gramazio Kohler Research, ETH Zürich) keeps a timber model as a **graph**:
-beams are nodes, joints are edges.
-
-```python
-from compas_timber.elements import Beam
-from compas_timber.model import TimberModel
-
-model = TimberModel(tolerance=Tolerance(unit="MM", absolute=1e-3))   # design in mm
-for name, line in stud_wall().items():
-    model.add_element(Beam.from_centerline(line, 60, 120, z_vector=[0, 1, 0]))
-
-model.connect_adjacent_beams()     # find every pair of beams that touch ...
-model.joint_candidates             # ... and HOW: L (ends meet), T (end on middle), X (cross)
-```
-
-How beams meet is topology; a rule (a dict) turns it into joints:
-
-```python
-JOINT_RULE = {JointTopology.TOPO_L: LButtJoint, JointTopology.TOPO_T: TButtJoint}
-```
-
-`process_joinery()` makes machining features and `BTLxWriter` writes **BTLx**
-for CNC machines: 14 beams, 26 joints, 33 cuts (counted by parsing the file).
-Checked on compas_timber 2.2.0:
-
-| Headless (your uv environment) | Needs Rhino / Grasshopper |
-| ------------------------------ | ------------------------- |
-| beams, the model graph, joint detection (L/T/X) | lap, notch and dovetail joints (e.g. the brace crossing a stud, red in the figure) |
-| butt, miter, tenon-mortise, French-ridge joints | the cut 3D geometry of a beam (`beam.geometry`) |
-| BTLx fabrication files, COMPAS JSON | |
-
-The right column needs Rhino's solid kernel: the Week 09 architecture in a real
-tool (logic in Python, geometry kernel in the host). The script reports the X
-crossing instead of crashing. It is an **optional extra**:
-
-```bash
-uv sync --extra timber
-uv run --extra timber Lecture/Lecture_06/graph_applications/timber_frame.py
-```
-
-📄 [`graph_applications/timber_frame.py`](graph_applications/timber_frame.py) ·
-step by step in notebooks 07–10 of [`notebooks/`](notebooks/) ·
-then the compas_timber [tutorials](https://gramaziokohler.github.io/compas_timber/latest/) (in Grasshopper).
+A third application, a timber frame as a graph of beams and joints, needs classes
+as well: [Week 09 Part A](/Lecture/Lecture_09/README.md#part-a--the-timber-model).
 
 ---
 
 ## Going further (not examined)
 
-- **[This week's notebooks](notebooks/)** ([what is in each](/Lecture/notebooks/README.md#week-06--graphs)),
-  from simple to complex. 01–06: BFS one queue step at a time; reading a floor
-  plan (depth, escape distance, critical doors); the two graphs of §3; bricks
-  and mortar; a brick wall as a graph (sequence, load path); a town's streets
-  and its bridges. 07–10 (need the `timber` extra): two beams and a joint; the
-  stud wall of §11 stage by stage; a 3D frame with a cut list and an erection
-  sequence; the model's graph itself, in 3D.
-- `graph_examples/301–305`: networkx on real data (random geometric graph,
-  cholera map, NYC subway, a social network). They need `pandas`/`geopandas`,
-  which are not installed; use a separate environment, never `uv add` here.
-- Geodesics and Voronoi return in [W10](/Lecture/Algorithms/geometric/README.md);
+- **[This week's notebooks](notebooks/README.md)**, fundamentals first: BFS one queue
+  step at a time; the two graphs of §3; bricks and mortar. Then applications:
+  reading a floor plan (depth, escape distance, critical doors); a brick wall as a
+  graph (sequence, load path); a town's streets and its bridges.
+- [`examples/networkx/`](examples/networkx/): networkx on real data (a random geometric
+  graph, a cholera map, the NYC subway, a social network). They use libraries that are
+  not in the course environment, so fetch them for one run:
+  `uv run --with pandas Lecture/Lecture_06/examples/networkx/03_subway_shortest_path.py`.
+- Geodesics and Voronoi return in [W10](/Lecture/Lecture_10/README.md);
   W11 simulations lean on neighbour search.
 - [compas.dev › Graphs](https://compas.dev/compas/latest/userguide/basics.datastructures.graphs.html),
   [`compas.topology`](https://compas.dev/compas/latest/api/compas.topology.html).

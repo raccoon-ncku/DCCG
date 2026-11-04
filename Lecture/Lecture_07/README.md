@@ -1,9 +1,9 @@
 # Week 07 — Classes
 
 > Self-paced on 2026.10.21, taught in class on 2026.11.04. Every figure is
-> drawn from the classes in [`class_examples/`](class_examples/) by
+> drawn from the classes in [`examples/`](examples/) by
 > [`figures/make_figures.py`](figures/make_figures.py). Run each example when
-> you reach it: `uv run Lecture/Lecture_07/class_examples/01_beam_as_dict.py`.
+> you reach it: `uv run Lecture/Lecture_07/examples/01_beam_as_dict.py`.
 
 You have been using classes since Week 04:
 
@@ -34,7 +34,7 @@ This page builds up to that, starting from a single beam.
 ![A beam as a dictionary with functions around it, and a beam as an object with its data and methods together](figures/class-dict-vs-object.svg)
 
 A dictionary and a few functions will get you a long way. Run
-[`01_beam_as_dict.py`](class_examples/01_beam_as_dict.py) to see where they stop:
+[`01_beam_as_dict.py`](examples/01_beam_as_dict.py) to see where they stop:
 
 - **Two copies of one fact drift apart.** Move the end, and `"length"` is wrong.
 - **Nothing refuses nonsense.** A beam with no length and a negative width goes
@@ -87,7 +87,7 @@ from it, with its own values. **`self`** is the object before the dot:
 > ⚠️ Forgetting `self.` is the first error everyone makes: `return
 > math.dist(start, end)` gives `NameError: name 'start' is not defined`.
 
-📄 [`02_beam_as_class.py`](class_examples/02_beam_as_class.py)
+📄 [`02_beam_as_class.py`](examples/02_beam_as_class.py)
 
 ## 3. Printing and comparing
 
@@ -108,7 +108,7 @@ Without it you get `<__main__.Beam object at 0x103be3a10>`. **Write `__repr__`
 on every class.** It takes one line and it is what you read when something goes
 wrong.
 
-📄 [`03_printing_and_comparing.py`](class_examples/03_printing_and_comparing.py)
+📄 [`03_printing_and_comparing.py`](examples/03_printing_and_comparing.py)
 
 ## 4. Derive, don't store
 
@@ -127,7 +127,7 @@ beam.length          # 3000.0: computed now, from the current ends
 If a value can be computed from others, compute it. Two copies of one fact will
 disagree eventually, and nothing will tell you when.
 
-📄 [`04_derive_dont_store.py`](class_examples/04_derive_dont_store.py)
+📄 [`04_derive_dont_store.py`](examples/04_derive_dont_store.py)
 
 ## 5. Refuse nonsense, and offer other ways in
 
@@ -148,7 +148,7 @@ after it has to check. A **class method** receives the class (`cls`) rather than
 an object, and is the usual way to offer a second constructor: `Beam.post("a",
 0, 0, 2400)`. `Beam.from_centerline` and `Mesh.from_obj` are exactly this.
 
-📄 [`05_refuse_and_construct.py`](class_examples/05_refuse_and_construct.py)
+📄 [`05_refuse_and_construct.py`](examples/05_refuse_and_construct.py)
 
 ## 6. Objects hold objects
 
@@ -173,13 +173,13 @@ Follow those references and you have the graph from
 [Week 06](/Lecture/Lecture_06/README.md): objects are nodes, references are
 edges. compas_timber keeps it explicitly as `model.graph`, with each node
 pointing at a beam. See
-[`10_timber_model_graph`](/Lecture/Lecture_06/notebooks/10_timber_model_graph.ipynb).
+[`04_timber_model_graph`](/Lecture/Lecture_09/notebooks/04_timber_model_graph.ipynb).
 
 > ⚠️ **`def __init__(self, beams=[])`** makes one list, once, shared by every
 > object. Week 03's trap, now harder to spot. Write `self.beams = []` in the
 > body.
 
-📄 [`06_objects_hold_objects.py`](class_examples/06_objects_hold_objects.py)
+📄 [`06_objects_hold_objects.py`](examples/06_objects_hold_objects.py)
 
 ## 7. Inheritance
 
@@ -229,7 +229,7 @@ Beam -> TimberElement -> Element -> Data -> ABC -> object
 
 Most of the time you want has-a.
 
-📄 [`07_inheritance.py`](class_examples/07_inheritance.py)
+📄 [`07_inheritance.py`](examples/07_inheritance.py)
 
 ## 8. A class that travels
 
@@ -254,7 +254,7 @@ class Beam(Data):
 To load it, the class has to be importable where you load it, so in a project
 it lives in the core package.
 
-📄 [`08_a_class_that_travels.py`](class_examples/08_a_class_that_travels.py)
+📄 [`08_a_class_that_travels.py`](examples/08_a_class_that_travels.py)
 
 ## 9. A component is a class
 
@@ -289,7 +289,7 @@ an input changes. The rules that follow from this:
 
 The same design appears as two classes, and they stay apart on purpose:
 
-| | Core: [`StudWall`](/Lecture/Lecture_12/plugin_set/src/compas_studio/stud_wall.py) | Adapter: [`Cs_StudWall`](/Lecture/Lecture_12/plugin_set/components/Cs_StudWall/code.py) |
+| | Core: [`StudWall`](/Lecture/Lecture_14/plugin_set/src/compas_studio/stud_wall.py) | Adapter: [`Cs_StudWall`](/Lecture/Lecture_14/plugin_set/components/Cs_StudWall/code.py) |
 | --- | --- | --- |
 | lives in | `src/` | `components/` |
 | inherits from | nothing | Grasshopper's `component` |
@@ -308,15 +308,16 @@ wall.graph()                               # the element graph: members and join
 > Rhino 8 runs **Python 3.9**, so that is what your core has to work on. Avoid
 > `match` and `X | Y` type hints, which arrived in 3.10.
 
-📄 [`09_a_component_is_a_class.py`](class_examples/09_a_component_is_a_class.py)
+📄 [`09_a_component_is_a_class.py`](examples/09_a_component_is_a_class.py)
 runs this chain without Rhino, using stand-ins. How the project around it is
-organised comes next, in [Week 09 Part C](/Lecture/Lecture_09/README.md#part-c--a-project-that-can-hold-components).
+organised comes next, in [Week 09 Part D](/Lecture/Lecture_09/README.md#part-d--a-project-that-can-hold-components).
 
 ---
 
 ## Going further
 
-[`abm_examples/`](abm_examples/) has ants and drones: many small objects
+[Week 11](/Lecture/Lecture_11/README.md) has ants and drones
+([`examples/agents/`](/Lecture/Lecture_11/examples/agents/)): many small objects
 following local rules. It is the most natural use of classes in design
 computation, and a strong direction for a final project.
 
@@ -336,7 +337,7 @@ uv run check.py 07
 ## Exercises
 
 📝 [Vector2D and Rectangle](/Exercise/Lecture_07/README.md) ·
-📝 [Re-write to OOP](/Exercise/2_re-write_to_oop/README.md): turn the random
+📝 [Re-write to OOP](/Exercise/Lecture_07/rewrite_to_oop/README.md): turn the random
 walker into a class.
 
 ## Self-test

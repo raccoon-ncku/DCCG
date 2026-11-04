@@ -1,5 +1,5 @@
 """
-Draw every figure in the Week 07 README, from the classes in class_examples/.
+Draw every figure in the Week 07 README, from the classes in examples/.
 
     uv run Lecture/Lecture_07/figures/make_figures.py
 
@@ -16,7 +16,7 @@ import runpy
 from pathlib import Path
 
 HERE = Path(__file__).parent
-EXAMPLES = HERE.parent / "class_examples"
+EXAMPLES = HERE.parent / "examples"
 
 INK = "#212529"
 GREY = "#adb5bd"

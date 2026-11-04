@@ -23,7 +23,7 @@ from compas.geometry import Sphere
 HERE = Path(__file__).parent
 
 # the application figures are drawn from the scripts students run
-sys.path.insert(0, str(HERE.parent / "mesh_applications"))
+sys.path.insert(0, str(HERE.parent / "applications"))
 import cloth_simulation  # noqa: E402
 import form_finding  # noqa: E402
 import scan_to_mesh  # noqa: E402
@@ -561,7 +561,7 @@ def fig_dual():
 
 
 # ----------------------------------------------------------------------------
-# applications (section 12) -- drawn from ../mesh_applications/*.py
+# applications (section 12) -- drawn from ../applications/*.py
 # ----------------------------------------------------------------------------
 def depth(pts):
     """Painter's depth for the iso view: far = high x + y, low z."""

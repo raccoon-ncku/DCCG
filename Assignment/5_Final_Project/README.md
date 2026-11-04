@@ -15,9 +15,9 @@ bond, a stair, a packing tool, a facade pattern, anything with real logic):
 - **Maintainable:** clear structure, code you can explain, and a build pipeline so a
   new version is one command.
 
-Scaffold it from the [project template](/Lecture/Lecture_12/project_template/README.md)
+Scaffold it from the [project template](/Lecture/Lecture_09/project_template/README.md)
 and build it with ghuser-builder (worked example:
-[`plugin_set/`](/Lecture/Lecture_12/plugin_set/README.md)). A Rhino `.rhp` plugin or a
+[`plugin_set/`](/Lecture/Lecture_14/plugin_set/README.md)). A Rhino `.rhp` plugin or a
 standalone library with a loader script are also fine.
 
 ## Required architecture
@@ -107,10 +107,10 @@ that only works on its author's laptop. **Process is worth more than the artifac
 - A wall / facade / bond generator with real fabrication constraints
 - A stair or ramp generator that validates against building-code rules
 - A packing or nesting tool for sheet-material fabrication
-- A structural sizing tool driven by an optimizer (see [W12 optimization](/Lecture/Algorithms/optimization/README.md))
+- A structural sizing tool driven by an optimizer (see [W12 optimization](/Lecture/Lecture_12/README.md#part-a--optimization-letting-the-computer-choose))
 - A mesh-relaxation or form-finding component
 - A pathfinding / circulation analysis tool on a Graph
-- A semantic image search over a reference library (see [Lecture 10](/Lecture/Lecture_10/README.md))
+- A semantic image search over a reference library (see [Week 15](/Lecture/Lecture_15/neural/README.md))
 - An L-system / recursive growth system with fabrication-aware output
 
 Good projects usually start from something you did by hand fifty times in Rhino.

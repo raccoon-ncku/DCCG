@@ -29,7 +29,7 @@ Then answer, with code:
    rooms in a different colour.
 
 Your checkpoint functions do most of this already, and
-[`plan_analysis.py`](/Lecture/Lecture_06/graph_applications/plan_analysis.py)
+[`plan_analysis.py`](/Lecture/Lecture_06/applications/plan_analysis.py)
 (README §11) does the rest for a gallery building: integration, escape
 distance, critical doors. Copy what you need into your own script rather than
 importing across folders, so that this exercise stands on its own. Then add one
@@ -40,21 +40,11 @@ question the script does not ask about *your* building.
 > to find the *fastest* way out from every room. Which room has the longest
 > escape time? That is the beginning of an egress analysis.
 
-## 2. A timber frame of your own (compas_timber)
-
-`uv sync --extra timber`, then start from
-[`timber_frame.py`](/Lecture/Lecture_06/graph_applications/timber_frame.py).
-Replace `stud_wall()` with something of yours: a roof truss, a pergola, a
-reciprocal frame. Report how many L, T and X candidates the model finds.
-Change `JOINT_RULE` (try `LMiterJoint`, `TTenonMortiseJoint`) and see how the
-BTLx machining counts change. Which beam has the highest degree in
-`model.graph`, and what does that mean on site?
-
-## 3. An assembly sequence from a contact graph
+## 2. An assembly sequence from a contact graph
 
 Build a small brick wall (or a stack of any boxes) as a graph: one node per
 brick, one edge per contact, as in README §8 and the notebook
-[`04_bricks_and_mortar`](/Lecture/Lecture_06/notebooks/04_bricks_and_mortar.ipynb).
+[`03_bricks_and_mortar`](/Lecture/Lecture_06/notebooks/03_bricks_and_mortar.ipynb).
 
 A brick can only be placed once everything it rests on is already there.
 Starting from the bricks on the ground, find an order to place every brick in.
@@ -69,7 +59,7 @@ Starting from the bricks on the ground, find an order to place every brick in.
 This is the core of how robotic assembly is planned, and a strong final-project
 direction.
 
-## 4. A mesh, seen as a graph
+## 3. A mesh, seen as a graph
 
 Take a mesh from Week 05, convert it with your `mesh_to_graph`, and run
 `hops_from` from one vertex. Colour the **mesh** vertices by the hop count.

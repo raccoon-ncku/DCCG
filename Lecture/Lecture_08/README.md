@@ -22,7 +22,7 @@ Miss either one and you get `RecursionError: maximum recursion depth exceeded`.
 That error means "your function never reached its base case" — read it as a
 logic error, not a limit you need to raise.
 
-📄 `recusion_examples/0_recursion.py`, `2_recursion_limit.py`
+📄 `examples/01_recursion.py`, `02_recursion_limit.py`
 
 ### Tracing it
 
@@ -95,8 +95,8 @@ almost literally:
 mid = cg.Point(*[(a[i] + b[i]) / 2 for i in range(3)])
 ```
 
-📄 `recusion_examples/3-0_sierpinski_compas_preparation.py`,
-`3-1_sierpinski_compas.py`, `3-2_sierpinski_compas_conditional.py`
+📄 `examples/03_sierpinski_preparation.py`,
+`04_sierpinski.py`, `05_sierpinski_conditional.py`
 
 `3-2` stops recursing **conditionally**, so some branches go deeper than others.
 That one change lets a fractal respond to a site, a load, or an attractor.
@@ -111,7 +111,7 @@ That one change lets a fractal respond to a site, a load, or an attractor.
 Segments at depth `d`: `2**d - 1`. The growth is why depth 20 is not a good
 idea — that is about a million segments.
 
-📄 `recusion_examples/1_turtle_triangle.py` · notebook:
+📄 `examples/06_turtle_triangle.py` · notebook:
 [`notebooks/01_recursion_heightmap.ipynb`](notebooks/01_recursion_heightmap.ipynb)
 
 ## 4. Recursion and purity
@@ -139,16 +139,6 @@ def branch(p, d):
 ```
 
 Slightly more thinking, and it stays in the core layer where it belongs.
-
-## 5. Optional: classic algorithms
-
-Notebooks 02–07 in [`notebooks/`](notebooks/)
-cover two classic computational geometry problems — finding the outline of a
-point cloud (convex hull, 2D and 3D) and fitting parts onto a sheet (bin
-packing). **Not examined**, and no checkpoint depends on them, but both are
-excellent final-project material with real fabrication uses.
-
----
 
 ## Checkpoints
 

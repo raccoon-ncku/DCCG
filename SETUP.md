@@ -56,22 +56,22 @@ uv run nbstripout --install                         # keeps notebook outputs out
 Then, for a week's notebooks:
 
 ```bash
-uv run Lecture/notebooks/copy_to_mywork.py 05      # copy them into MyWork/
+uv run Lecture/shared/copy_to_mywork.py 05      # copy them into MyWork/
 uv run jupyter lab MyWork/notebooks                 # open them in your browser
 ```
 
-Details and the map of every notebook: [`Lecture/notebooks/README.md`](Lecture/notebooks/README.md#how-to-run-them).
+Details: [how to run a notebook](Lecture/README.md#how-to-run-a-notebook). Each `notebooks/` folder has a README listing what is in it.
 
 ## The one conda environment left
 
 `environment_neural.yml` is only for the optional Week 15 diffusion / CLIP examples
-(`Lecture_10`). Never mix it with `uv` in the same project.
+(`Lecture_15/neural`). Never mix it with `uv` in the same project.
 
 ## Rhino and Docker
 
 Install Rhino 8 and authenticate against the class licence server:
 [Week 01 §4](/Lecture/Lecture_01/README.md#4-rhino-optional-this-week). Building
-components needs Docker: [Week 09 Part C5](/Lecture/Lecture_09/README.md#c5-next-the-adapter-and-the-build).
+components needs Docker: [Week 09 D5](/Lecture/Lecture_09/README.md#d5-next-the-adapter-and-the-build).
 
 ## Git for this course
 

@@ -23,7 +23,7 @@ logic running headlessly, in CI, and inside Grasshopper through a thin adapter.
 🎬[Slide Streaming](https://slide-stream.rccn.dev/) — the slides, live during class.
 📑[Decks](https://slides.rccn.dev/courses/DCCG/) — to read again afterwards.
 
-If you only do one, read the week's lecture.
+If you only do one, read the week's lecture. [How the material is organised](/Lecture/README.md): `Lecture_N` is Week N, and each folder has the same shape.
 
 ### Part I — Literacy: read, run, debug (W01–W04)
 
@@ -42,25 +42,25 @@ If you only do one, read the week's lecture.
 | 06 | 2026.10.14 | **Graphs** — nodes and edges; breadth-first search; shortest paths; connected components; a floor plan and a brick wall as graphs.<br>👉[Lecture](/Lecture/Lecture_06/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W06/) | 📝[Circulation graph](/Exercise/Lecture_06/README.md) |
 | 07 | 2026.10.21 | 🚫 self-paced · **Classes** — a design element as an object; taught in class in Week 09.<br>👉[Lecture](/Lecture/Lecture_07/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W07/) | 📝[OOP exercises](/Exercise/Lecture_07/README.md) |
 | 08 | 2026.10.28 | 🚫 self-paced · **Recursion** — base cases, depth, self-similar geometry; AI as a tutor.<br>👉[Lecture](/Lecture/Lecture_08/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W08/) | 📝[Branching tree](/Exercise/Lecture_08/README.md) |
-| 09 | 2026.11.04 | **The timber graph, classes, and a project** ⭐ — compas_timber's model as a graph, in 3D; why classes, and why a Grasshopper component is one; scaffold, spec, dev, test. Also: files, JSON, core → artifact → adapter.<br>👉[Lecture](/Lecture/Lecture_09/README.md) · 👉[Classes](/Lecture/Lecture_07/README.md) · 📓[Timber graph](/Lecture/Lecture_06/notebooks/10_timber_model_graph.ipynb) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W09/) | Refactor a script into core + runner · install Docker |
+| 09 | 2026.11.04 | **The timber graph, classes, and a project** ⭐ — compas_timber's model as a graph, in 3D; why classes, and why a Grasshopper component is one; scaffold, spec, dev, test. Also: files, JSON, core → artifact → adapter.<br>👉[Lecture](/Lecture/Lecture_09/README.md) · 👉[Classes](/Lecture/Lecture_07/README.md) · 📓[Timber graph](/Lecture/Lecture_09/notebooks/04_timber_model_graph.ipynb) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W09/) | 📝[Timber frame](/Exercise/Lecture_09/README.md) · refactor a script into core + runner · install Docker |
 
 ### Part III — Algorithms: the core, filled (W10–W12)
 
 | Week | Date | Session | Milestone |
 | ---- | ---------- | ------- | --------- |
-| 10 | 2026.11.11 | **Geometric algorithms + testing** — smoothing, curvature, geodesics, subdivision, planar panels, contouring, Voronoi, hull, neighbour search; `pytest`, properties not pictures, theorems as tests; the red → green → refactor loop.<br>👉[Algorithms](/Lecture/Algorithms/geometric/README.md) · 👉[Testing](/Lecture/Lecture_12/README.md#part-a--testing-week-10) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W10/) | 🎓 **Final project brief released** |
-| 11 | 2026.11.18 | **Simulation** — cellular automata, boids, growth; global form from local rules; testing what you cannot predict.<br>👉[Lecture](/Lecture/Algorithms/simulation/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W11/) | — |
-| 12 | 2026.11.25 | **Optimization + learning** — hill climbing, annealing, genetic search under equal budgets; k-means panel families; regression surrogates and overfitting.<br>👉[Optimization](/Lecture/Algorithms/optimization/README.md) · 👉[Learning](/Lecture/Algorithms/learning/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W12/) | 🎓 **Proposal + pitch** |
+| 10 | 2026.11.11 | **Geometric algorithms + testing** — smoothing, curvature, geodesics, subdivision, planar panels, contouring, Voronoi, hull, neighbour search; `pytest`, properties not pictures, theorems as tests; the red → green → refactor loop; one algorithm, one component.<br>👉[Lecture](/Lecture/Lecture_10/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W10/) | 🎓 **Final project brief released** |
+| 11 | 2026.11.18 | **Simulation** — cellular automata, boids, growth, agents as objects; global form from local rules; testing what you cannot predict.<br>👉[Lecture](/Lecture/Lecture_11/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W11/) | 📝[Agents](/Exercise/Lecture_11/README.md) |
+| 12 | 2026.11.25 | **Optimization + learning** — hill climbing, annealing, genetic search under equal budgets; k-means panel families; regression surrogates and overfitting.<br>👉[Lecture](/Lecture/Lecture_12/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W12/) | 🎓 **Proposal + pitch** |
 
 ### Part IV — Engineering the workflow (W13–W15)
 
-Test and review first, then a project to hold them, then shipping, and **AI last**: an assistant can only be handed a stage of a pipeline that already exists.
+The project has existed since Week 09 and its tests since Week 10. Now review, then shipping, and **AI last**: an assistant can only be handed a stage of a pipeline that already exists.
 
 | Week | Date | Session | Milestone |
 | ---- | ---------- | ------- | --------- |
-| 13 | 2026.12.02 | **Review + scaffolding a project** — correct is not good; a review checklist; pull requests as the place review happens; from loose scripts to a project: `uv init`, `src/` + `tests/` + `components/`, CI before code; pairs review each other's first PR.<br>👉[Review](/Lecture/Lecture_12/README.md#part-b--review-week-13) · 👉[Scaffold](/Lecture/Lecture_12/README.md#part-c--scaffolding-a-project-week-13) · 📦[Template](/Lecture/Lecture_12/project_template/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W13/) | 🎓 **Project repo scaffolded**: tests green in CI |
-| 14 | 2026.12.09 | **Ship it: Grasshopper components with ghuser-builder** ⭐ — components without `rhinoscriptsyntax`; build, verify and package in one pinned image; the same command on your laptop and in CI; the core travelling inside a `.yak`; a tag is a release.<br>👉[Lecture](/Lecture/Lecture_12/README.md#part-d--shipping-grasshopper-components-with-ghuser-builder-week-14) · 📦[Plugin set](/Lecture/Lecture_12/plugin_set/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W14/) | 🎓 **Project iteration 1** |
-| 15 | 2026.12.16 | **Working with AI** — the agent loop, built by hand; coder/reviewer with a human gate; pytest as the reviewer that cannot be fooled; handing an assistant one stage of *your* pipeline. Then project work.<br>👉[Agents](/Lecture/Lecture_11/README.md) · 👉[In the pipeline](/Lecture/Lecture_12/README.md#part-e--working-with-ai-week-15) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W15/) · optional: [AI models as design ingredients](/Lecture/Lecture_10/README.md) | 📝 [Agentic lab](/Assignment/6_agentic_workflow/README.md) opens |
+| 13 | 2026.12.02 | **Review** — correct is not good; a review checklist; pull requests as the place review happens; CI on the project you scaffolded in Week 09; pairs review each other's first PR.<br>👉[Lecture](/Lecture/Lecture_13/README.md) · 📦[Template](/Lecture/Lecture_09/project_template/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W13/) | 🎓 **Project repo scaffolded**: tests green in CI |
+| 14 | 2026.12.09 | **Ship it: Grasshopper components with ghuser-builder** ⭐ — components without `rhinoscriptsyntax`; build, verify and package in one pinned image; the same command on your laptop and in CI; the core travelling inside a `.yak`; a tag is a release.<br>👉[Lecture](/Lecture/Lecture_14/README.md) · 📦[Plugin set](/Lecture/Lecture_14/plugin_set/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W14/) | 🎓 **Project iteration 1** |
+| 15 | 2026.12.16 | **Working with AI** — the agent loop, built by hand; coder/reviewer with a human gate; pytest as the reviewer that cannot be fooled; handing an assistant one stage of *your* pipeline. Then project work.<br>👉[Lecture](/Lecture/Lecture_15/README.md) · 🎬[Slides](https://slides.rccn.dev/courses/DCCG/DCCG-W15/) · optional: [AI models as design ingredients](/Lecture/Lecture_15/neural/README.md) | 📝 [Agentic lab](/Assignment/6_agentic_workflow/README.md) opens |
 
 ### Part V — Build (W16–W18)
 

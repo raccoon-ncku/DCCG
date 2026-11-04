@@ -25,7 +25,7 @@ HERE = Path(__file__).parent
 # the application figures are drawn from the scripts students run
 import sys  # noqa: E402
 
-sys.path.insert(0, str(HERE.parent / "graph_applications"))
+sys.path.insert(0, str(HERE.parent / "applications"))
 import plan_analysis  # noqa: E402
 import street_network as streets  # noqa: E402  (street_network() is a helper below)
 
@@ -739,7 +739,7 @@ def fig_bfs_tree():
 
 
 # ----------------------------------------------------------------------------
-# applications (section 11) -- drawn from ../graph_applications/*.py
+# applications (section 11) -- drawn from ../applications/*.py
 # ----------------------------------------------------------------------------
 def rect(r):
     x0, y0, x1, y1 = r
@@ -808,66 +808,6 @@ def fig_app_streets():
     fig.save("app-streets.svg")
 
 
-def fig_app_timber():
-    try:
-        import timber_frame
-    except ImportError:
-        print("skipped app-timber.svg -- run with: uv run --extra timber ...")
-        return
-    from compas_timber.connections import JointTopology
-
-    model, report = timber_frame.build_model(timber_frame.stud_wall())
-    beams = {b.name: b for b in model.beams}
-
-    def elev(p3):                       # elevation: x right, z up
-        return [p3[0], p3[2], 0.0]
-
-    pts = [elev(b.centerline.start) for b in beams.values()] + [elev(b.centerline.end) for b in beams.values()]
-    colours = {JointTopology.TOPO_L: ORANGE, JointTopology.TOPO_T: BLUE, JointTopology.TOPO_X: RED}
-    fig = Figure(900, 400)
-
-    p = Panel(fig, 0, 0, 470, 380, pts, title="the wall: beams and the joints between them", pad=30)
-    for b in beams.values():
-        a, c = elev(b.centerline.start), elev(b.centerline.end)
-        d = [c[0] - a[0], c[1] - a[1]]
-        L = math.hypot(*d)
-        n = [-d[1] / L * b.width / 2, d[0] / L * b.width / 2]
-        p.polygon([[a[0] + n[0], a[1] + n[1], 0], [c[0] + n[0], c[1] + n[1], 0],
-                   [c[0] - n[0], c[1] - n[1], 0], [a[0] - n[0], a[1] - n[1], 0]], "#f4e3c1", "#b08850", 1)
-    for joint in model.joints:
-        topo = JointTopology.TOPO_L if type(joint).__name__.startswith("L") else JointTopology.TOPO_T
-        p.dot(elev(joint.location), 5, colours[topo])
-    for cand in model.joint_candidates:
-        if cand.topology == JointTopology.TOPO_X:
-            p.dot(elev(cand.location), 8, RED)
-            p.label(elev(cand.location), "X: needs Rhino", 11, RED, 10, -10, "start", "bold")
-
-    import networkx as nx
-
-    nxg = nx.Graph([tuple(e.name for e in c.elements) for c in model.joint_candidates])
-    layout = nx.kamada_kawai_layout(nxg)
-    mids = {name: [float(layout[name][0]), float(layout[name][1]), 0.0] for name in beams}
-    p = Panel(fig, 470, 0, 430, 380, list(mids.values()), title="the same model as a graph (model.graph)", pad=40)
-    for cand in model.joint_candidates:
-        a, b = (e.name for e in cand.elements)
-        colour = colours.get(cand.topology, GREY)
-        p.line(mids[a], mids[b], colour, 2.5 if cand.topology == JointTopology.TOPO_X else 1.8,
-               dash="5,4" if cand.topology == JointTopology.TOPO_X else None)
-    for name, m in mids.items():
-        deg = len(model.get_joints_for_element(beams[name]))
-        p.dot(m, 3 + deg, INK)
-        short = name.replace("_plate", "").replace("cripple_", "c").replace("_low", "↓").replace("_high", "↑")
-        p.label(m, short, 9, INK, 0, -9 - deg)
-    nodes, edges = report["graph"]
-    fig.add(_text(110, 374, "● L joint (butt)", 12, ORANGE, "start"))
-    fig.add(_text(220, 374, "● T joint (butt)", 12, BLUE, "start"))
-    fig.add(_text(330, 374, "● X crossing", 12, RED, "start"))
-    fig.add(_text(685, 356, f"{nodes} nodes (beams), {edges} edges (26 joints + 1 open X); size = degree", 12, INK))
-    btlx = report["joints"]
-    fig.add(_text(685, 374, f"{sum(btlx.values())} joints -> 33 JackRafterCuts in the BTLx file", 12, INK))
-    fig.save("app-timber.svg")
-
-
 if __name__ == "__main__":
     fig_plan_to_graph()
     fig_anatomy()
@@ -882,4 +822,3 @@ if __name__ == "__main__":
     fig_bfs_tree()
     fig_app_plan()
     fig_app_streets()
-    fig_app_timber()

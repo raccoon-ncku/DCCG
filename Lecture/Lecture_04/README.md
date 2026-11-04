@@ -59,8 +59,8 @@ for value in room.values():
     print(value)
 ```
 
-📄 `python_examples/3.2.1_dictionary.py`, `3.2.2_update_dictionary.py`,
-`3.2.3_dictionary_iteration.py`
+📄 `examples/01_dictionary.py`, `02_update_dictionary.py`,
+`03_dictionary_iteration.py`
 
 ### The counting pattern
 
@@ -105,7 +105,7 @@ two vertex keys, `(u, v)`.
 `for key, value in room.items()` was tuple unpacking all along: `.items()`
 hands you one `(key, value)` tuple at a time.
 
-📄 `python_examples/3.3_tuples.py`
+📄 `examples/04_tuples.py`
 
 ---
 
@@ -169,7 +169,7 @@ v.unitize()         # modifies v IN PLACE, returns None
 > new one and leave the original alone. One letter, completely different
 > behaviour. When a shape mysteriously moves twice, this is usually why.
 
-📄 `compas_core_examples/1.1_points_and_vectors.py`, `1.2_…operations.py`, `1.3_vector_operations.py`
+📄 `examples/05_points_and_vectors.py`, `06_point_and_vector_operations.py`, `07_vector_operations.py`
 
 ### Vector maths you will actually use
 
@@ -204,7 +204,7 @@ computing rotated coordinates by hand, you place a frame where you want it and
 build the object *in* the frame. Every element you make from here on is positioned
 by its frame.
 
-📄 `compas_core_examples/2.1_planes.py`, `3.1_frames.py`, `3.2_frame_constructors.py`
+📄 `examples/09_planes.py`, `10_frames.py`, `11_frame_constructors.py`
 
 ## 5. Shapes
 
@@ -226,7 +226,7 @@ cg.Cylinder(radius=1, height=5)
 > frame by half its height. Half the "why is my tower buried in the floor"
 > problems in this course are this one fact.
 
-📄 `compas_core_examples/5.1_shapes.py`
+📄 `examples/12_shapes.py`
 
 ## 6. Transformations
 
@@ -267,9 +267,9 @@ X.inverted()                    # undo a transformation
 cg.Transformation()             # identity: changes nothing
 ```
 
-📄 `6.1_transformation.py`, `6.2_transformation_class.py`, `6.3.1_transform_I.py`,
-`107_inverse_transformation.py`, `108_premultiply_transformations.py`,
-`109_pre_vs_post_multiplication.py`
+📄 `13_transformation.py`, `14_transformation_class.py`, `15_transform_I.py`,
+`17_inverse_transformation.py`, `18_premultiply_transformations.py`,
+`19_pre_vs_post_multiplication.py`
 
 ### Rotations, several ways
 
@@ -279,8 +279,8 @@ cg.Rotation.from_euler_angles([rx, ry, rz])
 cg.Rotation.from_frame_to_frame(frame_a, frame_b)
 ```
 
-📄 `116_several_ways_to_construct_rotation.py`, `118_…euler_angles.py`,
-`119_…axis_angle_vector.py`
+📄 `21_ways_to_construct_a_rotation.py`, `22_rotation_from_euler_angles.py`,
+`23_rotation_from_axis_angle.py`
 
 ### Frame-to-frame: the one that saves you
 
@@ -293,7 +293,7 @@ X = cg.Transformation.from_frame_to_frame(local_frame, target_frame)
 Design your element once at the origin, then place copies wherever you like.
 This is how a parametric assembly is built.
 
-📄 `102_point_in_frame.py`, `112_transform_multiple.py`, `113_transform_multiple_2.py`
+📄 `24_point_in_frame.py`, `25_transform_multiple.py`, `26_transform_multiple_2.py`
 
 ## 7. Seeing and saving your geometry
 
@@ -305,7 +305,7 @@ viewer.scene.add(box)
 viewer.show()
 ```
 
-📄 `compas_core_examples/1.4.1_visualization_I.py`, `1.4.2_visualization_II.py`
+📄 `examples/27_visualization_I.py`, `28_visualization_II.py`
 
 **But a viewer is not a test.** It shows you *something*; it does not tell you
 that something is right. A wall with 11 courses instead of 12 looks exactly
@@ -334,13 +334,11 @@ centre of the course's architecture.
 
 - [`notebooks/`](notebooks/) has the same COMPAS-core material as Jupyter
   notebooks, with interactive 3D (frames, transformations). Not required. To
-  run them: `uv run Lecture/notebooks/copy_to_mywork.py 04`, then
+  run them: `uv run Lecture/shared/copy_to_mywork.py 04`, then
   `uv run jupyter lab MyWork/notebooks`
-  ([more](/Lecture/notebooks/README.md#how-to-run-them)).
-- `algorithm_basic_examples/binary_search.py` is an algorithm worth reading for
-  its own sake, and a good target for "explain every line" practice.
+  ([more](/Lecture/README.md#how-to-run-a-notebook)).
 - File handling (`pathlib`, `with open`, plain `json`) is in
-  [`../python_examples/`](../python_examples/) as reference. Week 09 teaches it
+  [`/Lecture/Lecture_09/examples/`](/Lecture/Lecture_09/examples/) as reference. Week 09 teaches it
   properly, at the point where you need it.
 
 ---
@@ -370,7 +368,7 @@ three times: **do not change what you were given.**
 ## Exercises
 
 📝 [Rotating boxes](/Exercise/Lecture_04/README.md) ·
-📝 [Project a box to the XY plane](/Exercise/1_Project_box_to_xy_plane/README.md)
+📝 [Project a box to the XY plane](/Exercise/Lecture_04/project_box_to_xy_plane/README.md)
 
 ## Self-test
 

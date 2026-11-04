@@ -28,7 +28,7 @@ Rules that catch everyone once:
   mild day prints "hot".
 - `=` assigns, `==` compares. `if x = 5:` is a syntax error.
 
-📄 `Examples/4.1_if_statement.py`, `4.1.1_elif_statement.py`, `4.1.2_else_statement.py`
+📄 `examples/4.1_if_statement.py`, `4.1.1_elif_statement.py`, `4.1.2_else_statement.py`
 
 ### Comparison and logical operators
 
@@ -41,7 +41,7 @@ not x                  # inverts
 0 < x < 10             # Python allows this chain, and it reads well
 ```
 
-📄 `Examples/4.1.3_logical_operator.py`
+📄 `examples/4.1.3_logical_operator.py`
 
 ### Truthiness
 
@@ -74,7 +74,7 @@ range(5, 0, -1)   # 5 4 3 2 1          -- counting down
 `range(n)` gives you `n` numbers starting at 0. This is why a list of `n`
 items has indices `0` to `n-1`, and why `range(1, n)` is a classic off-by-one.
 
-📄 `Examples/4.2_for_statement.py`, `4.2.3_range_function.py`
+📄 `examples/4.2_for_statement.py`, `4.2.3_range_function.py`
 
 ### `enumerate()` — when you need the index too
 
@@ -86,7 +86,7 @@ for i, colour in enumerate(["red", "green", "blue"]):
 Reach for this instead of `for i in range(len(items))`. It is shorter, and it
 cannot go out of range.
 
-📄 `Examples/4.2.6_enumerate.py`
+📄 `examples/4.2.6_enumerate.py`
 
 ### `break` and `continue`
 
@@ -99,7 +99,7 @@ for n in range(100):
     print(n)         # 1 3
 ```
 
-📄 `Examples/4.2.2_break_continue.py`
+📄 `examples/4.2.2_break_continue.py`
 
 ### Nested loops — the grid pattern
 
@@ -111,7 +111,7 @@ for row in range(3):
         print(row, col)     # 12 combinations: a 3 x 4 grid
 ```
 
-📄 `Examples/4.2.4_nested_for.py`, `4.2.5_for_if_statement.py`
+📄 `examples/4.2.4_nested_for.py`, `4.2.5_for_if_statement.py`
 
 ### Accumulating a result
 
@@ -145,7 +145,7 @@ while total < 100:
 **Every `while` loop needs something that eventually makes the condition
 false.** If you write an infinite loop, `ctrl + C` stops it.
 
-📄 `Examples/4.3.while_statement.py`
+📄 `examples/4.3.while_statement.py`
 
 ## 4. Modules
 
@@ -171,7 +171,7 @@ Useful ones this semester:
 | `pathlib` | file paths (Week 09) |
 | `json` | reading/writing data (Week 09) |
 
-📄 `Examples/5_modules.py`, `5.3_math.py`, `5.4_import.py`
+📄 `examples/5_modules.py`, `5.3_math.py`, `5.4_import.py`
 
 > ### Angles are in radians
 > `math.sin`, `math.cos` and COMPAS all take **radians**, not degrees.
@@ -191,7 +191,7 @@ reproduce a bug, and you cannot test it. `seed()` makes randomness
 **deterministic**: still varied, but repeatable. One of this week's checkpoints
 depends on this, and it is a real engineering habit, not a classroom trick.
 
-📄 `Examples/5.1.1_random.py`, `5.1.2_random_seed.py`
+📄 `examples/5.1.1_random.py`, `5.1.2_random_seed.py`
 
 ## 5. Functions, properly
 
@@ -222,7 +222,7 @@ box(width=2, height=3, depth=4)       # unambiguous, and self-documenting
 For anything with more than two numbers, use keywords. Your future self and
 your reviewer will both thank you.
 
-📄 `Examples/6.1.1`–`6.1.4_function_arguments_*.py`
+📄 `examples/6.1.1`–`6.1.4_function_arguments_*.py`
 
 ### Returning several values
 
@@ -233,7 +233,7 @@ def min_max(numbers):
 low, high = min_max([3, 1, 4])      # unpacking
 ```
 
-📄 `Examples/6.2.1_return_statement_I.py`, `6.2.2_return_statement_II.py`
+📄 `examples/6.2.1_return_statement_I.py`, `6.2.2_return_statement_II.py`
 
 ### Scope
 
@@ -252,7 +252,7 @@ A function can *read* names from outside, but relying on that makes it
 impossible to test in isolation. **Pass what you need in as an argument.**
 This habit is what makes the Week 09 architecture possible.
 
-📄 `Examples/6.3.1`, `6.3.2_function_variable_scope_*.py`
+📄 `examples/6.3.1`, `6.3.2_function_variable_scope_*.py`
 
 > ### ⚠️ The mutable default argument trap
 > ```python
@@ -341,7 +341,7 @@ code at all.
 **5. Say it out loud.** Explain each line, in order, as though to someone else.
 The sentence you cannot finish is the line with the bug.
 
-📄 A worked example: run `Examples/4.2.5_for_if_statement.py` and predict the
+📄 A worked example: run `examples/4.2.5_for_if_statement.py` and predict the
 grid before you look.
 
 > Reference version, with more errors and the interactive debugger:

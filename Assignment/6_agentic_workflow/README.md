@@ -2,12 +2,12 @@
 
 A required, **ungraded** milestone (Weeks 15→17), checked for completion on GitHub.
 You do **not** write the geometry code. You direct the coder/reviewer workflow from
-Lecture 11 to produce a small COMPAS artifact: the brief, the reviews and the judgment
+the [Week 15](/Lecture/Lecture_15/README.md) agents to produce a small COMPAS artifact: the brief, the reviews and the judgment
 are yours.
 
 ## Task
 
-Use `Lecture/Lecture_11/04_coder_reviewer.py` to produce a geometric
+Use `Lecture/Lecture_15/agents/04_coder_reviewer.py` to produce a geometric
 structure of your choice (tower, arch, wall bond, ramp, canopy...). It must
 be built from at least 20 boxes and have some non-trivial logic (a pattern,
 a curve, a rhythm — not a plain grid).
@@ -52,10 +52,10 @@ failed structure with an excellent log teaches more than a pretty one you waved 
 
 ## Going further (optional, and directly useful for the project)
 
-- **Spec, not prose.** Write your brief as a pytest file (like `Lecture_12/test_wall.py`)
+- **Spec, not prose.** Write your brief as a pytest file (like `Lecture_13/test_wall.py`)
   and drive `tdd_agent.py` with it instead of `04_coder_reviewer.py`.
-- **Ship it.** Load your artifact into Rhino 8 with `Lecture_12/rhino_load.py`, or wrap
-  your core as a component ([`plugin_set/`](/Lecture/Lecture_12/plugin_set/README.md)).
+- **Ship it.** Load your artifact into Rhino 8 with `Lecture_09/examples/rhino_load.py`, or wrap
+  your core as a component ([`plugin_set/`](/Lecture/Lecture_14/plugin_set/README.md)).
 
 ## Rules
 
