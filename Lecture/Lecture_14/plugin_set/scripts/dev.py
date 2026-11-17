@@ -8,13 +8,14 @@
     uv run scripts/dev.py uninstall    # remove the link (before testing your .yak)
 
 Edit src/ and run it again: a running Rhino drops the old core and recomputes the
-canvas. Edit components/ and run it again too; a component new to this build
-appears after restarting Grasshopper. Runs ghuser-builder's ghuser_dev.py at the
-release pinned in pyproject.toml; extra options pass through to it.
+canvas. Edit components/ and run it again too: it says, per component, whether to
+replace it on the canvas or restart Rhino first, and a component older than the
+build stops with an error until you do. Builds in Docker, like scripts/ghuser.py.
+Runs ghuser-builder's ghuser_dev.py at the release pinned in pyproject.toml;
+extra options pass through to it.
 """
 
 import os
-import platform
 import subprocess
 import sys
 
@@ -26,9 +27,7 @@ dev = str(_builder.source(cfg) / "local" / "ghuser_dev.py")
 command, rest = (sys.argv[1], sys.argv[2:]) if sys.argv[1:2] in (["status"], ["uninstall"]) else ("deploy", sys.argv[1:])
 if command == "deploy":
     args = ["deploy", "components", "dist-dev", "--env", "src", "--name", cfg["yak-name"] + "-dev"]
-    # ghuser_dev.py builds with the installed Rhino on a Mac, in Docker elsewhere.
-    mac_rhino = platform.system() == "Darwin" and os.path.isdir("/Applications/Rhino 8.app")
-    if "docker" in rest or ("--builder" not in rest and not mac_rhino):
+    if "rhino" not in rest:  # --builder rhino: no Docker, macOS only
         args += ["--image", _builder.ensure_image(cfg)]
 else:
     args = [command, "dist-dev"]

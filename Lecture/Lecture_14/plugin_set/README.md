@@ -46,7 +46,9 @@ uv run Lecture/Lecture_14/plugin_set/scripts/dev.py            # link into Grass
 ```
 
 The components read the core from `src/`: edit it, run `dev.py` again, and the
-canvas recomputes. `dev.py status` says what Grasshopper loads; `dev.py uninstall`
+canvas recomputes. After a `code.py` edit, replace that component; after a
+`metadata.json` or icon edit, restart Rhino first. A component older than the build
+stops and says so. `dev.py status` says what Grasshopper loads; `dev.py uninstall`
 removes the link.
 
 ## Ship
@@ -71,5 +73,5 @@ for. A tag is a release: `git tag v0.1.0 && git push --tags`.
    `src/compas_studio/wall.py` (reviewed) with `../wall.py` (raw model output).
 4. **Adapter:** copy a folder in `components/`, keep the header, change the class
    name, the call, the conversion, `metadata.json` and the 24 × 24 icon. Run
-   `dev.py` and restart Grasshopper to see it.
+   `dev.py` and restart Rhino to see it.
 5. **Ship:** push (CI tests and builds), then tag (CI releases).

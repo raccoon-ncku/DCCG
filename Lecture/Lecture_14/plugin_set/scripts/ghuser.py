@@ -10,20 +10,25 @@ The core is copied into the .yak (lib/), so the .yak is all a user installs. Run
 ghuser-build in Docker, the same as CI; any ghuser-build option passes through.
 """
 
-import os
-import subprocess
+import json
 import sys
 
 import _builder
 
 cfg = _builder.config()
-cmd = ["docker", "run", "--rm", "-v", f"{_builder.ROOT}:/work", "-w", "/work", "-e", "HOME=/tmp"]
-if hasattr(os, "getuid"):  # files in dist/ belong to you, not root (not on Windows)
-    cmd += ["-u", f"{os.getuid()}:{os.getgid()}"]
-for name in ("GHUSER_VERSION", "GITHUB_REF_TYPE", "GITHUB_REF_NAME", "GITHUB_RUN_NUMBER"):
-    cmd += ["-e", name]  # in CI, ghuser-build takes the version from the tag
-cmd += [_builder.ensure_image(cfg), "ghuser-build", "--yak", cfg["yak-name"]]
-for include in cfg.get("yak-include", []):
-    cmd += ["--yak-include", include]
-cmd += [*sys.argv[1:], "components", "dist"]
-sys.exit(subprocess.run(cmd).returncode)
+includes = cfg.get("yak-include", [])
+# What the build reads, and nothing else: the components, the included core, the
+# package description and the icon it names.
+files = ["components", *(i.split(":")[0] for i in includes)]
+if (_builder.ROOT / "yak.json").exists():
+    files.append("yak.json")
+    icon = json.loads((_builder.ROOT / "yak.json").read_text(encoding="utf-8")).get("icon")
+    if icon:
+        files.append(icon)
+command = ["ghuser-build", "--yak", cfg["yak-name"]]
+for include in includes:
+    command += ["--yak-include", include]
+command += [*sys.argv[1:], "components"]
+# In CI, ghuser-build takes the version from the tag.
+env = ("GHUSER_VERSION", "GITHUB_REF_TYPE", "GITHUB_REF_NAME", "GITHUB_RUN_NUMBER")
+sys.exit(_builder.run_image(_builder.ensure_image(cfg), command, files, "dist", env))

@@ -596,8 +596,10 @@ installed package, or, while you develop, lets the component read it from `src/`
 uv run scripts/dev.py    # build, link into Grasshopper, reload a running Rhino
 ```
 
-Edit `src/`, run it again, and the canvas recomputes with the new code. After
-adding a component, run it and restart Grasshopper.
+Run it after every edit. A change to `src/` shows at once. A component whose `code.py`
+changed must be replaced on the canvas; one whose `metadata.json` or icon changed, or a
+new one, needs a Rhino restart first. A component older than the build stops and says
+which (`dev: replace`).
 
 **Ship it** when someone else needs it, and to hand in. One file, the core inside:
 
@@ -612,9 +614,8 @@ Drag the `.yak` onto Rhino 8 and restart it. Full detail: [Week 14](/Lecture/Lec
 
 **Before next week**, install Docker ([Docker Desktop](https://www.docker.com/products/docker-desktop/),
 OrbStack or colima) and run `uv run scripts/ghuser.py` once: the first run builds
-the builder image on your machine, which takes a few minutes. On Windows
-`dev.py` needs Docker too; on a Mac it uses your Rhino. Keep your project under
-your home folder, which Docker shares by default.
+the builder image on your machine, which takes a few minutes. `dev.py` uses the
+same image.
 
 ---
 

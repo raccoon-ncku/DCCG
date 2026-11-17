@@ -68,10 +68,20 @@ uv run scripts/dev.py            # build, link into Grasshopper, reload a runnin
 ```
 
 The components are linked, not installed: each one reads the core straight from
-your `src/`. Edit the core, run `dev.py` again, and the canvas recomputes with the
-new code. After adding a component, run it and restart Grasshopper. `dev.py status`
-says what Grasshopper loads and what collides. On a Mac it builds with your Rhino,
-no Docker; on Windows, in Docker.
+your `src/`. Run `dev.py` after every edit. Grasshopper reads each part at a different
+time, so each edit needs something different:
+
+| You edit | Grasshopper reads it | Then |
+| --- | --- | --- |
+| `src/` | on every run | nothing: the canvas recomputes |
+| `code.py` | once, when you place the component; the `.gh` saves that copy | replace the component |
+| `metadata.json`, the icon, a new component | when it starts | restart Rhino, then replace |
+
+A placed component would otherwise run its old `code.py` without a word, even in a
+file you open next week. So each dev component checks that it matches the latest
+`dev.py` build, and if not, stops with the reason on it (`dev: replace`,
+`dev: restart, replace`). `dev.py status` says what Grasshopper loads and what
+collides. It builds in Docker, the same image as the `.yak`.
 
 **Ship**, when someone else needs it, and for your submission:
 
@@ -82,12 +92,12 @@ uv run scripts/ghuser.py --version 0.1.0 # dist/<name>-0.1.0-rh8_0-any.yak
 
 This runs `ghuser-build` in Docker. The `.yak` is the whole tool, core included.
 Drag it onto Rhino 8, **restart Rhino**, and check every component from the ribbon:
-that is what your reader gets. Uninstall it in the Package Manager before you go
-back to `dev.py`.
+that is what your reader gets. Dev components in your `.gh` files now stop
+(`dev: not deployed`): replace them with the installed ones before you hand a file in.
+Uninstall the `.yak` in the Package Manager before you go back to `dev.py`.
 
 **The image.** The first run builds it on your machine from the ghuser-builder
 release pinned in `pyproject.toml` (`[tool.ghuser] builder`): a few minutes, once.
-Keep the project under your home folder, which Docker shares by default.
 
 **In CI.** [`build-ghuser.yml`](plugin_set/.github/workflows/build-ghuser.yml)
 runs the same `scripts/ghuser.py` on every push. A **tag** also publishes:
