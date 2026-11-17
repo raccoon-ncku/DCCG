@@ -29,6 +29,12 @@ if _lib and _lib not in sys.path:
     sys.path.insert(0, _lib)
 
 # ---------------------------------------------------------------------------
+# Placing a component writes type hints into RunScript's signature, such as
+# System.Collections.Generic.List[float], Rhino.Geometry.Curve or
+# Grasshopper.DataTree[float]: these three names must exist, or it cannot run.
+import Grasshopper  # noqa: E402, F401
+import Rhino  # noqa: E402, F401
+import System  # noqa: E402, F401
 from ghpythonlib.componentbase import executingcomponent as component  # noqa: E402
 
 from compas_studio import StudWall  # noqa: E402

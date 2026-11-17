@@ -422,7 +422,7 @@ template**, name it `stud_kit`, then
 git clone https://github.com/<you>/stud_kit ~/code/stud_kit
 cd ~/code/stud_kit
 uv sync
-uv run pytest            # 10 passed: it works before you have written anything
+uv run pytest            # 72 passed: it works before you have written anything
 ```
 
 Its README lists the four things to rename. Two choices in it are deliberate:
@@ -435,8 +435,8 @@ Its README lists the four things to rename. Two choices in it are deliberate:
 
 ### From nothing, by hand
 
-The [template](https://github.com/rccn-dev/ghuser-template) is this, plus a first
-test, a first component, the dev and ship scripts and two CI workflows. Do it once by hand to see there is no magic in it:
+The [template](https://github.com/rccn-dev/ghuser-template) is this, plus six sample
+components with their tests, the dev and ship scripts and two CI workflows. Do it once by hand to see there is no magic in it:
 
 ```bash
 uv init --lib my_tool            # pyproject.toml + src/my_tool/__init__.py
@@ -573,13 +573,15 @@ Week 10 goes deeper.
 The template also ships
 [`tests/test_components.py`](https://github.com/rccn-dev/ghuser-template/blob/main/tests/test_components.py),
 which checks that every component's `RunScript` and `metadata.json` name the same
-inputs. The build does not compare them, so without this test a renamed input
-stays hidden until you are in Grasshopper.
+inputs, and that `metadata.json` uses values the build accepts. The build does not
+compare them, so without this test a renamed input stays hidden until you are in
+Grasshopper.
 
 ## D5. Next: the adapter and the build
 
-Next week each core class gets a component. Copy
-`components/Mt_ColumnGrid/` to a new folder, then change three things:
+Next week each core class gets a component. The template's README lists its six
+samples: one per Grasshopper feature (item, list or tree inputs; numbers, text or
+geometry; warnings and errors). Copy the closest to a new folder, then change three things:
 
 | File | Change |
 | ---- | ------ |
@@ -588,7 +590,9 @@ Next week each core class gets a component. Copy
 | `icon.png` | any 24 × 24 image |
 
 Keep the block at the top of `code.py` as it is: it finds your core inside the
-installed package, or, while you develop, lets the component read it from `src/`.
+installed package, or, while you develop, lets the component read it from `src/`. Keep
+the `import Grasshopper, Rhino, System` lines below it too: Rhino writes type hints that
+need them into `RunScript`.
 
 **See it in Grasshopper** without installing anything:
 
