@@ -1,5 +1,10 @@
 # Final Project — Fall 2026
 
+Announced 2026.11.18. Start here: [**From the template to a .yak**](WALKTHROUGH.md),
+the session that takes the template through every stage, and
+[**brick-screen**](https://github.com/rccn-dev/brick-screen), a project finished to
+this bar.
+
 ## The brief
 
 **Write a Python-based Grasshopper plugin, with the help of AI — and make it
@@ -16,7 +21,8 @@ bond, a stair, a packing tool, a facade pattern, anything with real logic):
   new version is one command.
 
 Start it from [ghuser-template](https://github.com/rccn-dev/ghuser-template)
-and build it with ghuser-builder (worked example:
+and build it with ghuser-builder (worked examples:
+[brick-screen](https://github.com/rccn-dev/brick-screen),
 [`plugin_set/`](/Lecture/Lecture_14/plugin_set/README.md)). **Submit the `.yak`**
 from `uv run scripts/ghuser.py --version <x.y.z>`: one file, the core inside, tested by
 installing it in a restarted Rhino with your dev link removed. A Rhino `.rhp` plugin or a
@@ -28,6 +34,7 @@ standalone library with a loader script are also fine.
 your-project/
 ├── src/<your_package>/    # 1. CORE: pure Python + COMPAS, no viewer, no file IO, no Rhino
 ├── tests/                 #    pytest: the executable spec for your core
+├── runner.py              #    calls the core, writes the artifact (file IO lives here)
 ├── output/<artifact>.json # 2. ARTIFACT: committed, reviewable
 ├── components/<Name>/     # 3. ADAPTERS: code.py + metadata.json + icon.png
 ├── scripts/               #    dev.py (linked into Grasshopper), ghuser.py (the .yak)
@@ -35,8 +42,10 @@ your-project/
 └── pyproject.toml
 ```
 
-The test: **delete `components/` and your project must still work.** Uninstall Rhino
-and your tests must still pass.
+The template gives you all of it but `runner.py` and `output/`; add those as
+[brick-screen](https://github.com/rccn-dev/brick-screen) does (Week 09 Part C explains
+why). The test: **delete `components/` and your project must still work.** Uninstall
+Rhino and your tests must still pass.
 
 ## Requirements
 
@@ -66,17 +75,17 @@ presentation: explain every line, disclose in a `log.md`, verify rather than tru
 
 | When | Milestone |
 | ---- | --------- |
-| W10 · 2026.11.11 | Brief released — start thinking |
-| W12 · 2026.11.25 | **Proposal + in-class pitch** (2 min): what it does, who'd use it, what the core function signature looks like |
-| W13 · 2026.12.02 | **Repo scaffolded** — your own repository, from the template; tests green in CI; first pull request reviewed by your partner |
-| W14 · 2026.12.09 | **Iteration 1 review** — core + tests running headless |
-| W16 · 2026.12.23 | **Iteration 2 review** — adapter working in Rhino/GH |
-| W17 · 2026.12.30 | **Feature freeze** — no new features; docs, tests, packaging only |
-| W18 · 2027.01.06 | **Final presentation + live demo** |
+| 2026.11.18 | Brief announced; your repository made from the template, in class |
+| 2026.11.25 | **Proposal + in-class pitch** (2 min): what it does, who'd use it, what the core function signature looks like |
+| 2026.12.09 | **Iteration 1 review** — core + tests running headless, green in CI; first pull request reviewed by your partner |
+| 2026.12.23 | **Iteration 2 review** — adapter working in Rhino/GH through `dev.py` |
+| 2026.12.30 | **Feature freeze** — the `.yak` installs in a restarted Rhino; docs, tests, packaging only |
+| 2027.01.06 | **Final presentation + live demo** |
 
 ## Deliverables
 
 - The GitHub repository, matching the structure above
+- The `.yak`, attached to a tagged release (`git tag v1.0.0`)
 - `README.md` with install + run instructions for **both** modes
 - The committed artifact (`output/*.json`)
 - Images or video of the result, in both headless and Rhino/GH contexts
@@ -102,7 +111,7 @@ that only works on its author's laptop. **Process is worth more than the artifac
 
 - **Presentation**: 2027.01.06, in class
 - **Repository frozen**: 2027.01.10 23:59
-- Submit the repository URL via Moodle
+- Submit the repository URL and the `.yak` via Moodle
 
 ## Ideas and inspiration
 
