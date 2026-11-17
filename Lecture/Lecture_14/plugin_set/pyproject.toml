@@ -22,9 +22,12 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]                # the spec; scripts/tests checks the build scripts
+
 # Read by scripts/ghuser.py and scripts/dev.py.
 [tool.ghuser]
-builder = "1.2.0"                                         # ghuser-builder release: image + dev tools
+builder = "1.2.1"                                         # ghuser-builder release: image + dev tools
 builder-repo = "https://github.com/rccn-dev/ghuser-builder"
 yak-name = "compas-studio"                                # the Rhino package; PACKAGE in every code.py
 yak-include = ["src/compas_studio:lib/compas_studio"]     # the core travels inside the .yak

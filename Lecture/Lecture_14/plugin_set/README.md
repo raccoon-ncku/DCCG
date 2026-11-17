@@ -25,6 +25,7 @@ plugin_set/
 ├── yak.json + icon.png       the package's description in Rhino's Package Manager
 ├── scripts/dev.py            4. DEV: components linked into Grasshopper, core read from src/
 ├── scripts/ghuser.py         5. SHIP: components/ -> dist/*.yak, core inside
+├── scripts/tests/            the scripts' own tests (CI runs them; you never edit them)
 └── .github/workflows/        6. PIPELINE
     ├── test.yml              │   every push: the tests (Linux, Python 3.9, no Rhino)
     └── build-ghuser.yml      │   every push: build + verify; every tag: release a .yak

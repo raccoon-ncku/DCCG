@@ -20,3 +20,16 @@ jobs:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
       - run: uv run --python 3.9 pytest -q
+
+  # The build scripts, on every OS a student uses: what they send to Docker and
+  # what they bring back, with Docker played by the tests. Python 3.12: the
+  # scripts run under uv, not in Rhino.
+  scripts:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv run --no-project --python 3.12 --with pytest pytest -q scripts/tests
