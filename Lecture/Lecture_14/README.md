@@ -26,7 +26,7 @@ Each component is a folder of three files:
 ## 2. ghuser-builder: build, verify, package
 
 You do **not need Rhino to build components**, nor Windows.
-[**ghuser-builder**](https://git.rccn.dev/libs/ghuser-builder) is the lab's
+[**ghuser-builder**](https://github.com/rccn-dev/ghuser-builder) is the lab's
 tool for it: one Docker image with one command, `ghuser-build`.
 
 ```
@@ -56,34 +56,46 @@ Three things that follow:
 - **The version is the tag.** `git tag v1.2.3` is the only place it is written.
   `ghuser-build` puts it in the package name and replaces `{{version}}` in `code.py`.
 
-## 3. Run it
+## 3. Two loops: develop linked, ship one file
 
-**On your laptop** (needs Docker Desktop, OrbStack or colima):
+Your project, made from [ghuser-template](https://github.com/rccn-dev/ghuser-template),
+has one script for each. `plugin_set` has the same two.
+
+**Develop**, every day, on your own machine:
 
 ```bash
-cd Lecture/Lecture_14/plugin_set
-scripts/ghuser                       # components/ -> dist/
-ls dist dist/ghuser
+uv run scripts/dev.py            # build, link into Grasshopper, reload a running Rhino
 ```
 
-[`scripts/ghuser`](plugin_set/scripts/ghuser) is one `docker run`, with this folder
-mounted, calling `ghuser-build components dist`. If it says *no components
-directory*, Docker cannot see the folder: keep the project under your home directory.
+The components are linked, not installed: each one reads the core straight from
+your `src/`. Edit the core, run `dev.py` again, and the canvas recomputes with the
+new code. After adding a component, run it and restart Grasshopper. `dev.py status`
+says what Grasshopper loads and what collides. On a Mac it builds with your Rhino,
+no Docker; on Windows, in Docker.
+
+**Ship**, when someone else needs it, and for your submission:
+
+```bash
+uv run scripts/dev.py uninstall          # the link and the package must not both load
+uv run scripts/ghuser.py --version 0.1.0 # dist/<name>-0.1.0-rh8_0-any.yak
+```
+
+This runs `ghuser-build` in Docker. The `.yak` is the whole tool, core included.
+Drag it onto Rhino 8, **restart Rhino**, and check every component from the ribbon:
+that is what your reader gets. Uninstall it in the Package Manager before you go
+back to `dev.py`.
+
+**The image.** The first run builds it on your machine from the ghuser-builder
+release pinned in `pyproject.toml` (`[tool.ghuser] builder`): a few minutes, once.
+Keep the project under your home folder, which Docker shares by default.
 
 **In CI.** [`build-ghuser.yml`](plugin_set/.github/workflows/build-ghuser.yml)
-runs the same image as the job's container and the same command, on every push.
-The verifier compares each `.ghuser` with its source. It does not compare
-`RunScript` with `metadata.json`: `tests/test_components.py` does that. A **tag**
-also publishes:
+runs the same `scripts/ghuser.py` on every push. A **tag** also publishes:
 
 ```bash
 git tag v0.1.0
 git push --tags        # CI builds, verifies, and attaches the .yak to a GitHub Release
 ```
-
-**On a Mac with Rhino 8, while developing** (no Docker): ghuser-builder's
-`local/ghuser_dev.py` points each component at your working copy of `src/`, so you
-edit the core and recompute in Grasshopper. Development only; see its README.
 
 ## 4. How the core gets into Rhino
 
@@ -97,7 +109,8 @@ ghuser-builder documents five ways. Two matter for you:
 
 Vendoring is why every adapter starts with the same dozen lines: they find
 `packages/<rhino>/compas-studio/<version>/lib` and put it on Python's path, so each
-component loads the core of its own version. Public libraries such as COMPAS still
+component loads the core of its own version. With no package installed they do
+nothing, and a dev build finds the core in your `src/` instead. Public libraries such as COMPAS still
 come from a `# r: compas` line, which Rhino resolves itself.
 
 Two limits: the core must be pure Python, and after updating a package you

@@ -27,10 +27,17 @@ viewer: write `output/*.json` and preview it separately.
 Open the notebook in JupyterLab in a browser (`uv run jupyter lab`). The compas_timber
 notebooks need `uv run --extra timber jupyter lab`.
 
-### `scripts/ghuser` says "no components directory", or misses a new component
+### `scripts/ghuser.py` says "no components directory", or misses a new component
 
 Docker cannot see the folder: keep the project under your home directory. On colima, a
 folder you have just added can take a minute to appear; check the `(N components)` line.
+
+### A component shows twice in Grasshopper, or runs old code
+
+The dev link and an installed `.yak` both load it. `uv run scripts/dev.py status` names
+the copy; uninstall the package in the Package Manager while you develop, or run
+`dev.py uninstall` before testing the `.yak`. A component that still runs old core code
+after `dev.py`: restart Rhino.
 
 ### A checkpoint says `PASS` on code you don't understand
 

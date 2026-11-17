@@ -3,8 +3,8 @@ Draw the Part D figures of the Week 09 README.
 
     uv run Lecture/Lecture_09/figures/make_figures.py
 
-The scaffold figure refuses to draw a path that the project template does not
-have. The SVG helpers are copied from the other weeks, on purpose: each lecture
+The scaffold figure draws ghuser-template's layout, and refuses a path that the
+plugin set, the same shape, does not have. The SVG helpers are copied from the other weeks, on purpose: each lecture
 folder stays runnable on its own.
 """
 
@@ -12,7 +12,7 @@ import math
 from pathlib import Path
 
 HERE = Path(__file__).parent
-TEMPLATE = HERE.parent / "project_template"
+SAME_SHAPE = HERE.parent.parent / "Lecture_14" / "plugin_set"
 
 INK = "#212529"
 GREY = "#868e96"
@@ -65,16 +65,17 @@ class Figure:
 def fig_scaffold():
     rows = [
         ("pyproject.toml", "pyproject.toml", "what this is, which Python, which libraries", GREY, "#f8f9fa"),
-        ("src/my_tool/", "src/my_tool", "CORE: your classes and functions. Pure Python + COMPAS, no Rhino", GREEN, "#ebfbee"),
+        ("src/my_tool/", "src/compas_studio", "CORE: your classes and functions. Pure Python + COMPAS, no Rhino", GREEN, "#ebfbee"),
         ("tests/", "tests", "SPEC: what correct means. Runs anywhere, in seconds", BLUE, "#e7f5ff"),
-        ("components/Mt_*/", "components/Mt_ColumnGrid", "ADAPTERS: find the core, call it, convert. No logic", PURPLE, "#f3f0ff"),
-        ("scripts/ghuser", "scripts/ghuser", "BUILD: components/ to dist/, in Docker, no Rhino needed", ORANGE, "#fff4e6"),
+        ("components/Mt_*/", "components/Cs_StudWall", "ADAPTERS: find the core, call it, convert. No logic", PURPLE, "#f3f0ff"),
+        ("scripts/dev.py", "scripts/dev.py", "DEV: components linked into Grasshopper, the core read from src/", ORANGE, "#fff4e6"),
+        ("scripts/ghuser.py", "scripts/ghuser.py", "SHIP: components/ to one .yak, core inside, in Docker", ORANGE, "#fff4e6"),
         (".github/workflows/", ".github/workflows", "PIPELINE: the tests and the build, on every push", GREY, "#f8f9fa"),
     ]
     fig = Figure(860, 60 + 46 * len(rows))
     fig.text(20, 28, "my_tool/", 15, INK, weight="bold", mono=True)
     for i, (path, real, what, tone, fill) in enumerate(rows):
-        assert (TEMPLATE / real).exists(), real
+        assert (SAME_SHAPE / real).exists(), real
         y = 44 + i * 46
         fig.rect(20, y, 820, 38, fill, tone)
         fig.text(34, y + 24, path, 13, tone, weight="bold", mono=True)
@@ -124,7 +125,7 @@ def fig_build():
     fig.text(120, 155, "the core", 11, INK, "middle")
 
     fig.rect(270, 20, 280, 160, "#fff4e6", ORANGE)
-    fig.text(410, 44, "scripts/ghuser", 13, ORANGE, "middle", "bold", mono=True)
+    fig.text(410, 44, "scripts/ghuser.py", 13, ORANGE, "middle", "bold", mono=True)
     fig.text(410, 62, "docker run ... ghuser-build", 11, INK, "middle", mono=True)
     for i, step in enumerate(("1. componentize: folder to .ghuser", "2. verify: read every file back", "3. package: components + core")):
         fig.text(288, 92 + i * 26, step, 13, INK)

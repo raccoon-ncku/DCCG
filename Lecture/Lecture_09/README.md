@@ -413,16 +413,16 @@ The finished version is in the
 
 ![The folders of a project: core, spec, adapters, build, pipeline](figures/se-scaffold.svg)
 
-The architecture of Part C, given addresses. Copy the
-[template](/Lecture/Lecture_09/project_template/README.md) **out** of the course
-repo, because a project is a repository of its own:
+The architecture of Part C, given addresses. A project is a repository of its
+own, so it starts from a template, not from a folder in this course: on
+[ghuser-template](https://github.com/rccn-dev/ghuser-template), click **Use this
+template**, name it `stud_kit`, then
 
 ```bash
-cp -R Lecture/Lecture_09/project_template ~/code/stud_kit
+git clone https://github.com/<you>/stud_kit ~/code/stud_kit
 cd ~/code/stud_kit
 uv sync
-uv run pytest            # 9 passed: it works before you have written anything
-git init && git add -A && git commit -m "scaffold: from the DCCG template"
+uv run pytest            # 10 passed: it works before you have written anything
 ```
 
 Its README lists the four things to rename. Two choices in it are deliberate:
@@ -435,8 +435,8 @@ Its README lists the four things to rename. Two choices in it are deliberate:
 
 ### From nothing, by hand
 
-The [template](project_template/README.md) is this, plus a first test, a first
-component and two CI workflows. Do it once by hand to see there is no magic in it:
+The [template](https://github.com/rccn-dev/ghuser-template) is this, plus a first
+test, a first component, the dev and ship scripts and two CI workflows. Do it once by hand to see there is no magic in it:
 
 ```bash
 uv init --lib my_tool            # pyproject.toml + src/my_tool/__init__.py
@@ -458,6 +458,7 @@ git init && git add -A && git commit -m "scaffold: empty project"
 | `tests/test_*.py` | what does correct mean | **before** you touch `src/` ([Week 10 §14](/Lecture/Lecture_10/README.md#14-the-test-process)) |
 | `components/*/code.py` | how does Grasshopper call it | you add a component |
 | `components/*/metadata.json` | its name, inputs and outputs in Grasshopper | the same moment |
+| `scripts/dev.py`, `scripts/ghuser.py` | link into Grasshopper; build the `.yak` | never: you run them |
 | `.github/workflows/test.yml` | run the tests on every push | once |
 | `.github/workflows/build-ghuser.yml` | build the components; release on a tag | once ([Week 14](/Lecture/Lecture_14/README.md)) |
 
@@ -570,7 +571,7 @@ they test the **failure path**; and each one reads as a sentence of the brief.
 Week 10 goes deeper.
 
 The template also ships
-[`tests/test_components.py`](/Lecture/Lecture_09/project_template/tests/test_components.py),
+[`tests/test_components.py`](https://github.com/rccn-dev/ghuser-template/blob/main/tests/test_components.py),
 which checks that every component's `RunScript` and `metadata.json` name the same
 inputs. The build does not compare them, so without this test a renamed input
 stays hidden until you are in Grasshopper.
@@ -587,25 +588,33 @@ Next week each core class gets a component. Copy
 | `icon.png` | any 24 × 24 image |
 
 Keep the block at the top of `code.py` as it is: it finds your core inside the
-installed package. Later, you build all of them into a plugin:
+installed package, or, while you develop, lets the component read it from `src/`.
+
+**See it in Grasshopper** without installing anything:
+
+```bash
+uv run scripts/dev.py    # build, link into Grasshopper, reload a running Rhino
+```
+
+Edit `src/`, run it again, and the canvas recomputes with the new code. After
+adding a component, run it and restart Grasshopper.
+
+**Ship it** when someone else needs it, and to hand in. One file, the core inside:
 
 ![Components and core go into the ghuser-build Docker image; out come .ghuser files and a .yak that Rhino installs](figures/se-build.svg)
 
 ```bash
-scripts/ghuser           # components/ -> dist/ghuser/*.ghuser + dist/*.yak
+uv run scripts/dev.py uninstall
+uv run scripts/ghuser.py --version 0.1.0   # dist/*.yak
 ```
 
-Drag the `.yak` onto Rhino 8 and the components appear in the Grasshopper ribbon.
-Full detail: [Week 14](/Lecture/Lecture_14/README.md).
+Drag the `.yak` onto Rhino 8 and restart it. Full detail: [Week 14](/Lecture/Lecture_14/README.md).
 
 **Before next week**, install Docker ([Docker Desktop](https://www.docker.com/products/docker-desktop/),
-OrbStack or colima) and keep your project under your home folder, which Docker
-shares by default. Read the line that says `(N components)` when you build: on
-colima, a folder you have just added can take a minute to appear.
-
-> **TBC before next week:** where to get the builder image. `scripts/ghuser` uses
-> `git.rccn.dev:5050/libs/ghuser-builder:1.0.0`. To use another image, run
-> `GHUSER_BUILDER_IMAGE=<name> scripts/ghuser`.
+OrbStack or colima) and run `uv run scripts/ghuser.py` once: the first run builds
+the builder image on your machine, which takes a few minutes. On Windows
+`dev.py` needs Docker too; on a Mac it uses your Rhino. Keep your project under
+your home folder, which Docker shares by default.
 
 ---
 

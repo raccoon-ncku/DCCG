@@ -7,7 +7,7 @@
 <text x="120.0" y="135.0" font-size="13" fill="#2f9e44" text-anchor="middle" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">src/my_tool/</text>
 <text x="120.0" y="155.0" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">the core</text>
 <rect x="270.0" y="20.0" width="280.0" height="160.0" rx="6" fill="#fff4e6" stroke="#e8590c" stroke-width="1.5"/>
-<text x="410.0" y="44.0" font-size="13" fill="#e8590c" text-anchor="middle" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">scripts/ghuser</text>
+<text x="410.0" y="44.0" font-size="13" fill="#e8590c" text-anchor="middle" font-weight="bold" xml:space="preserve" font-family="Menlo, Consolas, monospace">scripts/ghuser.py</text>
 <text x="410.0" y="62.0" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve" font-family="Menlo, Consolas, monospace">docker run ... ghuser-build</text>
 <text x="288.0" y="92.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">1. componentize: folder to .ghuser</text>
 <text x="288.0" y="118.0" font-size="13" fill="#212529" text-anchor="start" font-weight="normal" xml:space="preserve">2. verify: read every file back</text>

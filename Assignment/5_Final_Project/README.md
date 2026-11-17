@@ -15,9 +15,11 @@ bond, a stair, a packing tool, a facade pattern, anything with real logic):
 - **Maintainable:** clear structure, code you can explain, and a build pipeline so a
   new version is one command.
 
-Scaffold it from the [project template](/Lecture/Lecture_09/project_template/README.md)
+Start it from [ghuser-template](https://github.com/rccn-dev/ghuser-template)
 and build it with ghuser-builder (worked example:
-[`plugin_set/`](/Lecture/Lecture_14/plugin_set/README.md)). A Rhino `.rhp` plugin or a
+[`plugin_set/`](/Lecture/Lecture_14/plugin_set/README.md)). **Submit the `.yak`**
+from `uv run scripts/ghuser.py --version <x.y.z>`: one file, the core inside, tested by
+installing it in a restarted Rhino with your dev link removed. A Rhino `.rhp` plugin or a
 standalone library with a loader script are also fine.
 
 ## Required architecture
@@ -28,7 +30,7 @@ your-project/
 ├── tests/                 #    pytest: the executable spec for your core
 ├── output/<artifact>.json # 2. ARTIFACT: committed, reviewable
 ├── components/<Name>/     # 3. ADAPTERS: code.py + metadata.json + icon.png
-├── scripts/ghuser         #    the build
+├── scripts/               #    dev.py (linked into Grasshopper), ghuser.py (the .yak)
 ├── README.md              # what it does, how to install, how to run both ways
 └── pyproject.toml
 ```

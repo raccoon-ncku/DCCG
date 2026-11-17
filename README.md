@@ -55,7 +55,7 @@ The project has existed since Week 09 and its tests since Week 10. Now review, t
 
 | Week | Date | Session | Milestone |
 | ---- | ---------- | ------- | --------- |
-| 13 | 2026.12.02 | **Review** — correct is not good; a review checklist; pull requests as the place review happens; CI on the project you scaffolded in Week 09; pairs review each other's first PR.<br>👉[Lecture](/Lecture/Lecture_13/README.md) · 📦[Template](/Lecture/Lecture_09/project_template/README.md) | 🎓 **Project repo scaffolded**: tests green in CI |
+| 13 | 2026.12.02 | **Review** — correct is not good; a review checklist; pull requests as the place review happens; CI on the project you scaffolded in Week 09; pairs review each other's first PR.<br>👉[Lecture](/Lecture/Lecture_13/README.md) · 📦[Template](https://github.com/rccn-dev/ghuser-template) | 🎓 **Project repo scaffolded**: tests green in CI |
 | 14 | 2026.12.09 | **Ship it: Grasshopper components with ghuser-builder** ⭐ — components without `rhinoscriptsyntax`; build, verify and package in one pinned image; the same command on your laptop and in CI; the core travelling inside a `.yak`; a tag is a release.<br>👉[Lecture](/Lecture/Lecture_14/README.md) · 📦[Plugin set](/Lecture/Lecture_14/plugin_set/README.md) | 🎓 **Project iteration 1** |
 | 15 | 2026.12.16 | **Working with AI** — the agent loop, built by hand; coder/reviewer with a human gate; pytest as the reviewer that cannot be fooled; handing an assistant one stage of *your* pipeline. Then project work.<br>👉[Lecture](/Lecture/Lecture_15/README.md) · optional: [AI models as design ingredients](/Lecture/Lecture_15/neural/README.md) | 📝 [Agentic lab](/Assignment/6_agentic_workflow/README.md) opens |
 

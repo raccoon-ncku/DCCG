@@ -21,11 +21,11 @@ def _package_lib():
     for root in roots:
         for lib in sorted(glob.glob(os.path.join(root, "*", PACKAGE, VERSION, "lib")), reverse=True):
             return lib
-    raise ImportError(f"{PACKAGE} {VERSION} is not installed; install it with the Package Manager")
+    return None  # not installed: a dev build (scripts/dev.py) imports the core through `# env:`
 
 
 _lib = _package_lib()
-if _lib not in sys.path:
+if _lib and _lib not in sys.path:
     sys.path.insert(0, _lib)
 
 # ---------------------------------------------------------------------------

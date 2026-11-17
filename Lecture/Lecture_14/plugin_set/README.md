@@ -2,12 +2,13 @@
 
 The reference example for the software-engineering weeks: four components (a
 running-bond wall, a staircase, a grid mesh, a stud wall) developed, tested and
-built outside Rhino. Same shape as the [project template](/Lecture/Lecture_09/project_template/README.md).
+built outside Rhino. Same shape as [ghuser-template](https://github.com/rccn-dev/ghuser-template),
+the template your project starts from.
 The reasoning is in [Week 14](../README.md); this page is the map.
 
 ```
 plugin_set/
-├── pyproject.toml            what this is, which Python, which libraries
+├── pyproject.toml            what this is, which Python, which libraries; [tool.ghuser]
 ├── src/compas_studio/        1. CORE: pure Python + COMPAS, no Rhino
 │   ├── wall.py               │   running_bond_wall()
 │   ├── staircase.py          │   straight_staircase()
@@ -22,8 +23,9 @@ plugin_set/
 │   ├── Cs_GridMesh/
 │   └── Cs_StudWall/
 ├── yak.json + icon.png       the package's description in Rhino's Package Manager
-├── scripts/ghuser            4. BUILD: components/ -> dist/, with ghuser-builder
-└── .github/workflows/        5. PIPELINE
+├── scripts/dev.py            4. DEV: components linked into Grasshopper, core read from src/
+├── scripts/ghuser.py         5. SHIP: components/ -> dist/*.yak, core inside
+└── .github/workflows/        6. PIPELINE
     ├── test.yml              │   every push: the tests (Linux, Python 3.9, no Rhino)
     └── build-ghuser.yml      │   every push: build + verify; every tag: release a .yak
 ```
@@ -34,22 +36,31 @@ Grep `src/` for `rhinoscriptsyntax` or `import Rhino`: nothing.
 ## Test
 
 ```bash
-uv run pytest Lecture/Lecture_14/plugin_set/tests -q     # from the repo root: 32 passed
+uv run pytest Lecture/Lecture_14/plugin_set/tests -q     # from the repo root: 36 passed
 ```
 
-## Build
+## Develop
 
 ```bash
-cd Lecture/Lecture_14/plugin_set
-scripts/ghuser                                           # needs Docker
-GHUSER_BUILDER_IMAGE=ghuser-builder:local scripts/ghuser # with an image you built yourself
-ls dist dist/ghuser
+uv run Lecture/Lecture_14/plugin_set/scripts/dev.py            # link into Grasshopper, reload Rhino
 ```
 
-It writes `dist/ghuser/Cs_*.ghuser` and `dist/compas-studio-<version>-rh8_0-any.yak`.
-Drag the `.yak` onto Rhino 8. The core travels inside it (`lib/compas_studio`),
-which is what the block at the top of every `code.py` looks for. A tag is a release:
-`git tag v0.1.0 && git push --tags`.
+The components read the core from `src/`: edit it, run `dev.py` again, and the
+canvas recomputes. `dev.py status` says what Grasshopper loads; `dev.py uninstall`
+removes the link.
+
+## Ship
+
+```bash
+uv run Lecture/Lecture_14/plugin_set/scripts/dev.py uninstall
+uv run Lecture/Lecture_14/plugin_set/scripts/ghuser.py --version 0.1.0   # needs Docker
+ls Lecture/Lecture_14/plugin_set/dist
+```
+
+It writes `dist/ghuser/Cs_*.ghuser` and `dist/compas-studio-0.1.0-rh8_0-any.yak`.
+Drag the `.yak` onto Rhino 8 and restart it. The core travels inside it
+(`lib/compas_studio`), which is what the block at the top of every `code.py` looks
+for. A tag is a release: `git tag v0.1.0 && git push --tags`.
 
 ## Add a component
 
@@ -59,5 +70,6 @@ which is what the block at the top of every `code.py` looks for. A tag is a rele
 3. **Review:** green means correct; only you decide it is good. Compare
    `src/compas_studio/wall.py` (reviewed) with `../wall.py` (raw model output).
 4. **Adapter:** copy a folder in `components/`, keep the header, change the class
-   name, the call, the conversion, `metadata.json` and the 24 × 24 icon.
+   name, the call, the conversion, `metadata.json` and the 24 × 24 icon. Run
+   `dev.py` and restart Grasshopper to see it.
 5. **Ship:** push (CI tests and builds), then tag (CI releases).

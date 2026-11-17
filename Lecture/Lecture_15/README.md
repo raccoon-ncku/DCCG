@@ -233,6 +233,6 @@ the chatbot produced, unable to tell passing-but-bad from good.
 3. Compare `Lecture_13/wall.py` with `Lecture_14/plugin_set/src/compas_studio/wall.py`. List five things
    a review catches and a test does not.
 4. Break the adapter/metadata agreement: rename an input in `code.py` but not in
-   `metadata.json`. Run `scripts/ghuser`, then `uv run pytest`. Which one stops it?
+   `metadata.json`. Run `scripts/ghuser.py`, then `uv run pytest`. Which one stops it?
 
 Optional: [trained models as design ingredients](neural/README.md).
