@@ -4,7 +4,7 @@
 """Build the shippable package: components/ -> dist/ghuser/*.ghuser + dist/*.yak.
 
     uv run scripts/ghuser.py                    # version 0.0.0-dev.0
-    uv run scripts/ghuser.py --version 0.1.0    # the version you submit or release
+    uv run scripts/ghuser.py --version 0.1.0    # the version you release
 
 The core is copied into the .yak (lib/), so the .yak is all a user installs. Runs
 ghuser-build in Docker, the same as CI; any ghuser-build option passes through.
