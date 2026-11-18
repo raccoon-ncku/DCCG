@@ -36,16 +36,17 @@ your-project/
 ├── tests/                 #    pytest: the executable spec for your core
 ├── runner.py              #    calls the core, writes the artifact (file IO lives here)
 ├── output/<artifact>.json # 2. ARTIFACT: committed, reviewable
+├── examples/              #    scripts: inputs written in code, the core called, shown in compas_viewer
 ├── components/<Name>/     # 3. ADAPTERS: code.py + metadata.json + icon.png
 ├── scripts/               #    dev.py (linked into Grasshopper), ghuser.py (the .yak)
 ├── README.md              # what it does, how to install, how to run both ways
 └── pyproject.toml
 ```
 
-The template gives you all of it but `runner.py` and `output/`; add those as
+The template gives you all of it but `runner.py`, `output/` and `examples/`; add those as
 [brick-screen](https://github.com/rccn-dev/brick-screen) does (Week 09 Part C explains
 why). The test: **delete `components/` and your project must still work.** Uninstall
-Rhino and your tests must still pass.
+Rhino and your tests must still pass, and `examples/` must still show your geometry.
 
 ## Requirements
 

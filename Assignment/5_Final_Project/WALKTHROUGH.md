@@ -106,6 +106,8 @@ turned bricks do not collide. Look at:
 - `git log --reverse --oneline`: the steps above, in order, the spec committed red;
 - `tests/test_check.py`: a result you would not guess from a picture;
 - `runner.py` and `output/screen.json`: the artifact, one brick per line, kept honest by a test;
+- `examples/`: the core used outside Rhino, inputs written in code, shown in compas_viewer
+  (`uv run --group viewer examples/02_too_tight.py`);
 - `components/`: `Brick` objects passed from one component to the next;
 - `log.md`: how AI was used, what was verified, a reflection.
 
