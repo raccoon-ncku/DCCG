@@ -50,8 +50,8 @@ folders: each row links the one it teaches.
 | ---- | ---------- | ------- | --------- |
 | 10 | 2026.11.11 | 🚫 **No class.** | |
 | 11 | 2026.11.18 | **Your project: the template, a showcase, the brief** ⭐ — start from ghuser-template and take it once through every stage: spec first, core, Grasshopper, `.yak`, release; a finished project to measure yours against.<br>👉[Walkthrough](/Assignment/5_Final_Project/WALKTHROUGH.md) · 📦[Template](https://github.com/rccn-dev/ghuser-template) · 📦[brick-screen](https://github.com/rccn-dev/brick-screen) | 🎓 **[Final project](/Assignment/5_Final_Project/README.md) announced**; your repo made from the template |
-| 12 | 2026.11.25 | **Geometric algorithms + testing** — smoothing, curvature, geodesics, subdivision, planar panels, contouring, Voronoi, hull, neighbour search; `pytest`, properties not pictures, theorems as tests; one algorithm, one component.<br>👉[Lecture](/Lecture/Lecture_10/README.md) | 🎓 **Proposal + pitch** |
-| 13 | 2026.12.02 | **Simulation** — cellular automata, boids, growth, agents as objects; global form from local rules; testing what you cannot predict.<br>👉[Lecture](/Lecture/Lecture_11/README.md) | 📝[Agents](/Exercise/Lecture_11/README.md) |
+| 12 | 2026.11.25 | **Geometric algorithms + testing** — smoothing, curvature, geodesics, subdivision, planar panels, contouring, Voronoi, hull, neighbour search; `pytest`, properties not pictures, theorems as tests; one algorithm, one component.<br>👉[Lecture](/Lecture/Lecture_10/README.md) |  |
+| 13 | 2026.12.02 | **Simulation** — cellular automata, boids, growth, agents as objects; global form from local rules; testing what you cannot predict.<br>👉[Lecture](/Lecture/Lecture_11/README.md) | 🎓 **Proposal + pitch** |
 | | self-paced | **Optimization + learning** — hill climbing, annealing, genetic search under equal budgets; k-means panel families; regression surrogates and overfitting.<br>👉[Lecture](/Lecture/Lecture_12/README.md) | |
 
 ### Part IV — Engineering the workflow (W14–W15)
@@ -62,15 +62,15 @@ assistant can only be handed a stage of a pipeline that already exists.
 | Week | Date | Session | Milestone |
 | ---- | ---------- | ------- | --------- |
 | 14 | 2026.12.09 | **Review** — correct is not good; a review checklist; pull requests as the place review happens; pairs review each other's first PR.<br>👉[Lecture](/Lecture/Lecture_13/README.md) | 🎓 **Project iteration 1**: core + tests green in CI |
-| 15 | 2026.12.16 | **Ship it, then work with AI** ⭐ — what `ghuser-builder` does behind the template's scripts (one pinned image, the same command on your laptop and in CI, the core inside the `.yak`); then the agent loop built by hand, pytest as the reviewer that cannot be fooled, handing an assistant one stage of *your* pipeline.<br>👉[Ship it](/Lecture/Lecture_14/README.md) · 📦[Plugin set](/Lecture/Lecture_14/plugin_set/README.md) · 👉[Working with AI](/Lecture/Lecture_15/README.md) · optional: [AI models as design ingredients](/Lecture/Lecture_15/neural/README.md) | 📝 [Agentic lab](/Assignment/6_agentic_workflow/README.md) opens |
+| 15 | 2026.12.16 | **Ship it, then work with AI** ⭐ — what `ghuser-builder` does behind the template's scripts (one pinned image, the same command on your laptop and in CI, the core inside the `.yak`); then the agent loop built by hand, pytest as the reviewer that cannot be fooled, handing an assistant one stage of *your* pipeline.<br>👉[Ship it](/Lecture/Lecture_14/README.md) · 📦[Plugin set](/Lecture/Lecture_14/plugin_set/README.md) · 👉[Working with AI](/Lecture/Lecture_15/README.md) · optional: [AI models as design ingredients](/Lecture/Lecture_15/neural/README.md) |  |
 
 ### Part V — Build (W16–W18)
 
 | Week | Date | Session | Milestone |
 | ---- | ---------- | ------- | --------- |
-| 16 | 2026.12.23 | **Final Project — help desk** (register-based one-on-ones). | 🎓 **Project iteration 2**: adapter working in Rhino |
-| 17 | 2026.12.30 | **Final Project — packaging clinic.** Feature freeze: README, install, tests green, artifact committed, the `.yak` installs. | 🎓 **Feature freeze** · 📝 Agentic lab due |
-| 18 | 2027.01.06 | 🎓 **Final Presentations** — live demo: the same core, headless *and* in Rhino/Grasshopper. | 🎓 **Repo due 2027.01.10 23:59** |
+| 16 | 2026.12.23 | **Final Project — help desk** (register-based one-on-ones). |  |
+| 17 | 2026.12.30 | **Final Project — packaging clinic.** Feature freeze: README, install, tests green, artifact committed, the `.yak` installs. |  |
+| 18 | 2027.01.06 | 🎓 **Final Presentations** — live demo: the same core, headless *or* in Rhino/Grasshopper. | 🎓 **Repo due 2027.01.8 23:59** |
 
 ## Grading
 
