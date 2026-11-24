@@ -2,7 +2,7 @@
 planarize by projecting each face onto its best-fit plane and averaging.
 
 The shape drifts in exchange for flatness; report both.
-W10 geometric README §5.
+W10 README §9.
 """
 
 from compas.geometry import bestfit_plane

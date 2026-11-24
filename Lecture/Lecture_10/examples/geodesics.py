@@ -1,7 +1,7 @@
 """Geodesic distance: Dijkstra along mesh edges vs the heat method (compas_cgal).
 
 Edge paths can only turn at vertices, so they overestimate: on a quad grid
-Dijkstra gives taxicab distance. W10 geometric README §3.
+Dijkstra gives taxicab distance. W10 README §11.
 """
 
 import heapq

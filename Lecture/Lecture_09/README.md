@@ -455,7 +455,7 @@ git init && git add -A && git commit -m "scaffold: empty project"
 | `uv.lock` | *exactly* which versions, on every machine | never by hand. Commit it |
 | `src/my_tool/__init__.py` | what does this package offer | you add a public function or class |
 | `src/my_tool/*.py` | the logic | most of the time |
-| `tests/test_*.py` | what does correct mean | **before** you touch `src/` ([Week 10 §14](/Lecture/Lecture_10/README.md#14-the-test-process)) |
+| `tests/test_*.py` | what does correct mean | **before** you touch `src/` ([Week 10 §15](/Lecture/Lecture_10/README.md#15-the-test-process)) |
 | `components/*/code.py` | how does Grasshopper call it | you add a component |
 | `components/*/metadata.json` | its name, inputs and outputs in Grasshopper | the same moment |
 | `scripts/dev.py`, `scripts/ghuser.py` | link into Grasshopper; build the `.yak` | never: you run them |

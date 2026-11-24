@@ -2,7 +2,7 @@
 
 The hash files points in grid cells keyed by (floor(x/r), floor(y/r)); a radius
 query only looks at 9 cells. Same answers, very different cost.
-W10 geometric README §9.
+W10 README §5.
 """
 
 import math

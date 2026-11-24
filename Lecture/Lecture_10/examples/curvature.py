@@ -3,7 +3,7 @@ vertex (pi minus, on the boundary).
 
 Free test, Gauss-Bonnet: the defects of a closed mesh sum to 2*pi * euler.
 Only meaningful for planar faces: a ruled-hypar quad mesh shows zero
-everywhere, so triangulate first. W10 geometric README §2.
+everywhere, so triangulate first. W10 README §6.
 """
 
 import math

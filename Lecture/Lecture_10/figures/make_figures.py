@@ -1,5 +1,5 @@
 """
-Draw every figure in the Geometric Algorithms README -- from the algorithms.
+Draw every figure in the Week 10 README, from the algorithms.
 
     uv run Lecture/Lecture_10/figures/make_figures.py
 
@@ -21,16 +21,16 @@ from compas.geometry import Sphere, Torus
 
 HERE = Path(__file__).parent
 sys.path.insert(0, str(HERE.parent / "examples"))
+import binary_search  # noqa: E402
 import contouring  # noqa: E402
 import convex_hull  # noqa: E402
-import lloyd  # noqa: E402
+import merge_sort  # noqa: E402
 import nearest  # noqa: E402
 import curvature  # noqa: E402
 import geodesics  # noqa: E402
 import planarity  # noqa: E402
 import smoothing  # noqa: E402
 import subdivision  # noqa: E402
-import voronoi  # noqa: E402
 
 # ----------------------------------------------------------------------------
 # palette
@@ -446,41 +446,6 @@ def fig_contours():
     fig.save("alg-contours.svg")
 
 
-def fig_voronoi():
-    rnd = random.Random(11)
-    pts = [[rnd.uniform(0, 10), rnd.uniform(0, 6), 0] for _ in range(45)]
-    mesh = voronoi.delaunay(pts)
-    cells = voronoi.voronoi_cells(mesh)
-    fig = Figure(900, 330)
-    titles = ["Delaunay triangulation", "the empty-circle property", "Voronoi: the dual, at circumcentres"]
-    for i, title in enumerate(titles):
-        p = Panel(fig, i * 300, 0, 300, 330, pts, title=title, pad=26)
-        if i < 2:
-            for f in mesh.faces():
-                p.polygon([xyz(mesh, v) for v in mesh.face_vertices(f)], FACE if i == 0 else "white", BLUE, 1)
-        if i == 1:
-            f = max((f for f in mesh.faces() if not mesh.is_face_on_boundary(f)),
-                    key=lambda f: mesh.face_area(f))
-            tri = [xyz(mesh, v) for v in mesh.face_vertices(f)]
-            c = voronoi.circumcentre(*tri)
-            r = math.dist(c, tri[0])
-            p.polygon(tri, "#ffe8cc", ORANGE, 2)
-            ring = [[c[0] + r * math.cos(t / 48 * 2 * math.pi), c[1] + r * math.sin(t / 48 * 2 * math.pi), 0] for t in range(48)]
-            p.polygon(ring, "none", ORANGE, 2)
-            p.dot(c, 4, ORANGE)
-        if i == 2:
-            for k, (v, cell) in enumerate(cells.items()):
-                # cells next to the hull reach far out (thin hull triangles
-                # have distant circumcentres) -- draw only the ones that fit
-                if all(0 <= c[0] <= 10 and 0 <= c[1] <= 6 for c in cell):
-                    p.polygon(cell, sequential(0.08 + 0.3 * ((k * 7) % 10) / 10), PURPLE, 1.5)
-        for q in pts:
-            p.dot(q, 3, INK)
-    fig.add(_text(450, 322, f"{len(pts)} points, {mesh.number_of_faces()} triangles, "
-                  f"{len(cells)} bounded cells (one per interior point; those reaching past the frame not drawn)", 12, INK))
-    fig.save("alg-voronoi.svg")
-
-
 def fig_skeleton():
     from compas_cgal.straight_skeleton_2 import interior_straight_skeleton
 
@@ -512,32 +477,129 @@ def fig_skeleton():
     fig.save("alg-skeleton.svg")
 
 
+def outline(panel, mesh, colour):
+    """The edges of a triangulated hull between faces that are not coplanar: its corners and ridges."""
+    for u, v in mesh.edges():
+        a, b = mesh.edge_faces((u, v))
+        if a is None or b is None:
+            continue
+        if sum(x * y for x, y in zip(mesh.face_normal(a), mesh.face_normal(b))) < 1 - 1e-6:
+            panel.line(xyz(mesh, u), xyz(mesh, v), colour, 1.8)
+
+
 def fig_hull():
     rnd = random.Random(21)
     pts = [[rnd.gauss(5, 1.6), rnd.gauss(3, 1.0), 0] for _ in range(70)]
     hull = convex_hull.convex_hull(pts)
-    fig = Figure(900, 330)
-    p = Panel(fig, 0, 0, 450, 330, pts, title="convex_hull(points): the rubber band", pad=30)
+    fig = Figure(1050, 360)
+    p = Panel(fig, 0, 0, 350, 340, pts, title="2D: the rubber band", pad=30)
     p.polygon(hull, FACE, BLUE, 2.5)
     for q in pts:
         p.dot(q, 3, GREY)
-    for i, q in enumerate(hull):
-        p.key(q, i, BLUE, 9, 10)
-    # the monotone chain, explained on 6 points
-    demo = [[0, 0, 0], [1, 1.6, 0], [2, 0.6, 0], [3, 2.2, 0], [4, 1.0, 0], [5, 0.2, 0]]
-    p = Panel(fig, 450, 0, 450, 330, demo + [[0, -0.8, 0], [5, 2.6, 0]], title="the walk drops every right turn", pad=34)
-    hull_demo = convex_hull.convex_hull(demo)
-    for a, b in zip(demo, demo[1:]):
-        p.line(a, b, GREY, 1.5, dash="4,4")
-    for a, b in zip(hull_demo, hull_demo[1:] + hull_demo[:1]):
-        p.line(a, b, BLUE, 2.5)
-    corners = {tuple(q[:2]) for q in hull_demo}
-    dropped = [i for i, q in enumerate(demo) if tuple(q[:2]) not in corners]
-    for i, q in enumerate(demo):
-        p.key(q, i, BLUE if tuple(q[:2]) in corners else GREY, 9, 10)
-    p.label([2.5, -0.55, 0], f"{' and '.join(map(str, dropped))} turn right relative to their neighbours: inside, dropped", 12, INK)
-    fig.add(_text(225, 322, f"{len(pts)} points -> {len(hull)} corners, counter-clockwise", 12, INK))
+    for q in hull:
+        p.dot(q, 5, BLUE)
+    fig.add(_text(175, 350, f"{len(pts)} points -> {len(hull)} corners", 12, INK))
+
+    parts = convex_hull.corner_parts()
+    node = convex_hull.joined(parts)
+    one = convex_hull.collision_mesh(node)
+    each = [convex_hull.collision_mesh(part) for part in parts]
+    solid_volume = sum(part.volume() for part in parts)
+    frame = all_points(one)
+    p = Panel(fig, 350, 0, 350, 340, frame, view="iso", title="one hull for the node", pad=30)
+    for part in parts:
+        solid(p, part)
+    outline(p, one, ORANGE)
+    fig.add(_text(525, 350, f"{one.volume() / solid_volume:.1f} x the node's volume", 12, INK))
+    p = Panel(fig, 700, 0, 350, 340, frame, view="iso", title="one hull per stub", pad=30)
+    for hull_part in each:
+        solid(p, hull_part, lambda f: "#ebfbee", "none", 0)
+        outline(p, hull_part, GREEN)
+    fig.add(_text(875, 350, f"{sum(h.volume() for h in each) / solid_volume:.1f} x: exact", 12, INK))
     fig.save("alg-hull.svg")
+
+
+def fig_binary_search():
+    fig = Figure(1000, 360)
+    items = list(range(100))
+    trace = []
+    binary_search.find(items, 71, trace)
+    row_h = 12                                  # world units per row, so 0..99 and the rows share one scale
+    p = Panel(fig, 0, 0, 420, 340, [[0, 0, 0], [99, -len(trace) * row_h, 0]], title="find 71 in 0..99: each look halves the window", pad=34)
+    for k, (left, right) in enumerate(trace):
+        y = -(k + 0.5) * row_h
+        p.line([0, y, 0], [99, y, 0], LIGHT, 6)
+        p.line([left, y, 0], [right, y, 0], BLUE, 6)
+        p.dot([(left + right) // 2, y, 0], 5, ORANGE)
+        p.label([right, y, 0], f"{right - left + 1}", 11, INK, dx=8, dy=4, anchor="start")
+    fig.add(_text(210, 350, f"{len(trace)} looks; the orange dot is the item looked at", 12, INK))
+
+    span, rise, n = 12.0, 4.0, 8
+    z = binary_search.parabola(span, rise)
+    xs = binary_search.divide_by_length(z, 0, span, n)
+    curve = [[span * i / 200, z(span * i / 200), 0] for i in range(201)]
+    p = Panel(fig, 420, 0, 580, 340, curve + [[0, -0.8, 0]], title=f"a {span:.0f} m arch in {n} ribs of equal length", pad=34)
+    for a, b in zip(curve, curve[1:]):
+        p.line(a, b, GREY, 1.5)
+    knots = [[x, z(x), 0] for x in xs]
+    for a, b in zip(knots, knots[1:]):
+        p.line(a, b, BLUE, 3)
+    for q in knots:
+        p.dot(q, 5, BLUE)
+        p.line([q[0], 0, 0], [q[0], -0.25, 0], INK, 1)
+    p.line([0, 0, 0], [span, 0, 0], INK, 1)
+    p.label([(xs[0] + xs[1]) / 2, -0.25, 0], f"{xs[1] - xs[0]:.2f}", 11, ORANGE, dy=16)
+    p.label([(xs[3] + xs[4]) / 2, -0.25, 0], f"{xs[4] - xs[3]:.2f}", 11, ORANGE, dy=16)
+    rib = binary_search.arc_length(z, 0, span) / n
+    fig.add(_text(710, 350, f"each rib {rib:.3f} m along the arch; in plan, steps of {xs[1] - xs[0]:.2f} m to {xs[4] - xs[3]:.2f} m", 12, INK))
+    fig.save("alg-binary-search.svg")
+
+
+def fig_merge_sort():
+    items = [38, 27, 43, 3, 9, 82, 10, 51]
+    fig = Figure(1000, 380)
+    rows = [[items]]
+    while any(len(g) > 1 for g in rows[-1]):
+        rows.append([h for g in rows[-1] for h in ((g[: len(g) // 2], g[len(g) // 2:]) if len(g) > 1 else (g,))])
+    trace = []
+    merge_sort.merge_sort(items, trace=trace)
+    merged = {}
+    for depth, group in trace:
+        merged.setdefault(depth, []).append(group)
+    levels = rows + [merged[d] for d in sorted(merged, reverse=True)]
+    cell, gap, top = 30, 14, 40
+    for r, groups in enumerate(levels):
+        y = top + r * 46
+        width = sum(len(g) for g in groups) * cell + gap * (len(groups) - 1)
+        x = 280 - width / 2
+        colour = BLUE if r < len(rows) else GREEN
+        for g in groups:
+            for k, v in enumerate(g):
+                fig.add(f'<rect x="{x + k * cell:.1f}" y="{y}" width="{cell - 2}" height="30" rx="3" fill="white" stroke="{colour}" stroke-width="1.5"/>')
+                fig.add(_text(x + k * cell + cell / 2 - 1, y + 20, str(v), 13, INK))
+            x += len(g) * cell + gap
+    fig.add(_text(280, 22, "split until one item is left (blue), then merge back in order (green)", 13, INK, weight="bold"))
+
+    sizes = list(range(50, 1001, 50))
+    slow, fast = [], []
+    for n in sizes:
+        data = random.Random(n).sample(range(100_000), n)
+        a, b = [0], [0]
+        merge_sort.insertion_sort(data, a)
+        merge_sort.merge_sort(data, b)
+        slow.append(a[0])
+        fast.append(b[0])
+    top_y = max(slow)
+    p = Panel(fig, 560, 0, 440, 360, [[0, 0, 0], [1000, 1000, 0]], title="comparisons as the list grows", pad=40)
+    for series, colour in ((slow, ORANGE), (fast, GREEN)):
+        pts = [[n, 1000 * c / top_y, 0] for n, c in zip(sizes, series)]
+        for a, b in zip(pts, pts[1:]):
+            p.line(a, b, colour, 2.5)
+    p.line([0, 0, 0], [1000, 0, 0], INK, 1)
+    p.label([1000, 0, 0], "n = 1,000", 11, INK, dy=16, anchor="end")
+    p.label([1000, 1000 * slow[-1] / top_y, 0], f"insertion {slow[-1]:,}", 12, ORANGE, dx=-6, dy=-8, anchor="end")
+    p.label([1000, 1000 * fast[-1] / top_y, 0], f"merge {fast[-1]:,}", 12, GREEN, dx=-6, dy=-10, anchor="end")
+    fig.save("alg-merge-sort.svg")
 
 
 def fig_nearest():
@@ -591,38 +653,15 @@ def fig_nearest():
     fig.save("alg-nearest.svg")
 
 
-def fig_lloyd():
-    rnd = random.Random(12)
-    sites = [(rnd.uniform(0, 10), rnd.uniform(0, 6)) for _ in range(28)]
-    smp = lloyd.samples(10, 6, 70)
-    after, history = lloyd.lloyd(sites, smp, rounds=25)
-    fig = Figure(900, 360)
-    palette = [hexcolor(c) for c in [(231, 245, 255), (255, 244, 230), (235, 251, 238), (243, 240, 255), (255, 240, 246), (248, 249, 250)]]
-    for i, (sts, title) in enumerate([(sites, "random sites"), (after, "after 25 rounds of Lloyd")]):
-        p = Panel(fig, i * 450, 0, 450, 330, [[0, 0, 0], [10, 6, 0]], title=title, pad=24)
-        owner = lloyd.assign(sts, smp)
-        d = 10 / 70
-        for s, k in zip(smp, owner):
-            p.polygon([[s[0] - d / 2, s[1] - d / 2, 0], [s[0] + d / 2, s[1] - d / 2, 0],
-                       [s[0] + d / 2, s[1] + d / 2, 0], [s[0] - d / 2, s[1] + d / 2, 0]],
-                      palette[k % len(palette)], "none", 0)
-        for q in sts:
-            p.dot([q[0], q[1], 0], 4.5, INK)
-        gaps = lloyd.nearest_spacing(sts)
-        fig.add(_text(i * 450 + 225, 338, f"closest pair {min(gaps):.2f} m; spacing {min(gaps):.2f}–{max(gaps):.2f} m", 12, INK, weight="bold"))
-    fig.add(_text(450, 356, f"energy (sum of squared sample distances) {history[0]:.0f} → {history[-1]:.0f}, never increasing", 12, INK))
-    fig.save("alg-lloyd.svg")
-
-
 if __name__ == "__main__":
+    fig_binary_search()
+    fig_merge_sort()
     fig_smoothing()
     fig_curvature()
     fig_geodesics()
     fig_subdivision()
     fig_planarity()
     fig_contours()
-    fig_voronoi()
     fig_skeleton()
     fig_hull()
     fig_nearest()
-    fig_lloyd()

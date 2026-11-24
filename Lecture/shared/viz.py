@@ -279,7 +279,7 @@ def draw_plan(rooms, title=None, fills=None, graph=None, edge_colors=None, notes
 
 
 def draw_points(points, title=None, colors=None, polygons=(), polygon_fills=None, lines=(),
-                labels=False, size=(520, 380), bounds=None):
+                labels=False, size=(520, 380), bounds=None, line_color=GREY, line_width=1.2):
     """Draw 2D points, optional polygons (lists of points) and lines ((a, b) pairs)."""
     fig = Figure(*size)
     frame = [list(q) + [0] * (3 - len(q)) for q in (bounds or points)]
@@ -288,7 +288,7 @@ def draw_points(points, title=None, colors=None, polygons=(), polygon_fills=None
         fill = (polygon_fills[i] if polygon_fills else FACE)
         p.polygon([list(q[:2]) + [0] for q in poly], fill, PURPLE, 1.2)
     for a, b in lines:
-        p.line(list(a[:2]) + [0], list(b[:2]) + [0], GREY, 1.2)
+        p.line(list(a[:2]) + [0], list(b[:2]) + [0], line_color, line_width)
     for i, q in enumerate(points):
         p.dot(list(q[:2]) + [0], 4, (colors[i] if colors else INK))
         if labels:

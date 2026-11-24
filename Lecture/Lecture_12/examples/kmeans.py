@@ -3,7 +3,7 @@
 Assign each panel (described by its side lengths) to the nearest family
 template, move each template to its panels' mean, repeat. Inertia never
 increases; more clusters always fit better, so choose k by tolerance
-(families_needed). This is Lloyd's algorithm on data. W12 learning README §1.
+(families_needed). Also called Lloyd's algorithm. W12 learning README §1.
 """
 
 import numpy as np

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="260" viewBox="0 0 920 260" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<g transform="translate(0,0)">
+<text x="230.0" y="20.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">equal steps in plan</text>
+<line x1="24.0" y1="213.7" x2="75.5" y2="153.6" stroke="#868e96" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<line x1="75.5" y1="153.6" x2="127.0" y2="110.7" stroke="#868e96" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<line x1="127.0" y1="110.7" x2="178.5" y2="84.9" stroke="#868e96" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<line x1="178.5" y1="84.9" x2="230.0" y2="76.3" stroke="#868e96" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<line x1="230.0" y1="76.3" x2="281.5" y2="84.9" stroke="#868e96" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<line x1="281.5" y1="84.9" x2="333.0" y2="110.7" stroke="#868e96" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<line x1="333.0" y1="110.7" x2="384.5" y2="153.6" stroke="#868e96" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<line x1="384.5" y1="153.6" x2="436.0" y2="213.7" stroke="#868e96" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<circle cx="24.0" cy="213.7" r="4" fill="#868e96" stroke="white" stroke-width="1.5"/>
+<circle cx="75.5" cy="153.6" r="4" fill="#868e96" stroke="white" stroke-width="1.5"/>
+<circle cx="127.0" cy="110.7" r="4" fill="#868e96" stroke="white" stroke-width="1.5"/>
+<circle cx="178.5" cy="84.9" r="4" fill="#868e96" stroke="white" stroke-width="1.5"/>
+<circle cx="230.0" cy="76.3" r="4" fill="#868e96" stroke="white" stroke-width="1.5"/>
+<circle cx="281.5" cy="84.9" r="4" fill="#868e96" stroke="white" stroke-width="1.5"/>
+<circle cx="333.0" cy="110.7" r="4" fill="#868e96" stroke="white" stroke-width="1.5"/>
+<circle cx="384.5" cy="153.6" r="4" fill="#868e96" stroke="white" stroke-width="1.5"/>
+<circle cx="436.0" cy="213.7" r="4" fill="#868e96" stroke="white" stroke-width="1.5"/>
+</g>
+<g transform="translate(460,0)">
+<text x="230.0" y="20.0" font-size="15" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">equal rib lengths</text>
+<line x1="24.0" y1="213.7" x2="65.0" y2="164.4" stroke="#1c7ed6" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<line x1="65.0" y1="164.4" x2="112.3" y2="121.2" stroke="#1c7ed6" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<line x1="112.3" y1="121.2" x2="167.5" y2="89.0" stroke="#1c7ed6" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<line x1="167.5" y1="89.0" x2="230.0" y2="76.3" stroke="#1c7ed6" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<line x1="230.0" y1="76.3" x2="292.5" y2="89.0" stroke="#1c7ed6" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<line x1="292.5" y1="89.0" x2="347.7" y2="121.2" stroke="#1c7ed6" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<line x1="347.7" y1="121.2" x2="395.0" y2="164.4" stroke="#1c7ed6" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<line x1="395.0" y1="164.4" x2="436.0" y2="213.7" stroke="#1c7ed6" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+<circle cx="24.0" cy="213.7" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="65.0" cy="164.4" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="112.3" cy="121.2" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="167.5" cy="89.0" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="230.0" cy="76.3" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="292.5" cy="89.0" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="347.7" cy="121.2" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="395.0" cy="164.4" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+<circle cx="436.0" cy="213.7" r="4" fill="#1c7ed6" stroke="white" stroke-width="1.5"/>
+</g>
+</svg>

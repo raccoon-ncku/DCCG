@@ -396,7 +396,7 @@ as well: [Week 09 Part A](/Lecture/Lecture_09/README.md#part-a--the-timber-model
   graph, a cholera map, the NYC subway, a social network). They use libraries that are
   not in the course environment, so fetch them for one run:
   `uv run --with pandas Lecture/Lecture_06/examples/networkx/03_subway_shortest_path.py`.
-- Geodesics and Voronoi return in [W10](/Lecture/Lecture_10/README.md);
+- Dijkstra returns in [W10](/Lecture/Lecture_10/README.md#11-geodesic-distance-on-the-surface), measuring distance on a surface;
   W11 simulations lean on neighbour search.
 - [compas.dev › Graphs](https://compas.dev/compas/latest/userguide/basics.datastructures.graphs.html),
   [`compas.topology`](https://compas.dev/compas/latest/api/compas.topology.html).

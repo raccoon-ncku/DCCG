@@ -1,8 +1,11 @@
 """Laplacian smoothing (shrinks a closed shape) and Taubin smoothing (does not).
 
 Compute all new positions from the old ones before writing any.
-W10 geometric README §1.
+W10 README §7.
 """
+
+import random
+from math import dist
 
 
 def _step(mesh, fixed, w):
@@ -50,3 +53,20 @@ def roughness(mesh):
         c = [sum(mesh.vertex_coordinates(n)[i] for n in nbrs) / len(nbrs) for i in range(3)]
         total += sum((c[i] - p[i]) ** 2 for i in range(3)) ** 0.5
     return total / mesh.number_of_vertices()
+
+
+def noisy(mesh, amount=0.06, seed=0):
+    """A copy of mesh with every vertex moved up to amount in x, y and z: a stand-in for a scan."""
+    rnd = random.Random(seed)
+    result = mesh.copy()
+    for v in result.vertices():
+        x, y, z = result.vertex_coordinates(v)
+        result.vertex_attributes(v, "xyz", [x + rnd.uniform(-amount, amount),
+                                            y + rnd.uniform(-amount, amount),
+                                            z + rnd.uniform(-amount, amount)])
+    return result
+
+
+def mean_radius(mesh, centre=(0, 0, 0)):
+    """The mean distance of the vertices from centre: how big a sphere-like mesh is."""
+    return sum(dist(mesh.vertex_coordinates(v), centre) for v in mesh.vertices()) / mesh.number_of_vertices()

@@ -3,7 +3,7 @@ then n quads per n-gon.
 
 Afterwards every face is a quad, V' = V + E + F, and Euler is unchanged; on a
 closed mesh the result matches mesh.subdivided("catmullclark").
-W10 geometric README §4.
+W10 README §8.
 """
 
 from compas.datastructures import Mesh

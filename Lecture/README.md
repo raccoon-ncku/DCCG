@@ -14,7 +14,7 @@ needs, so the weeks read in order.
 | | [07](Lecture_07/README.md) | **class**: a data structure of your own | 04 |
 | | [08](Lecture_08/README.md) | **recursion**: a function defined by itself | 03 |
 | | [09](Lecture_09/README.md) | **timber model**: classes in a graph, in a real library; files and JSON; core → artifact → adapter; a project to hold it | 06, 07 |
-| **III. Algorithms** | [10](Lecture_10/README.md) | **geometric algorithms**, and testing them | 05, 06 |
+| **III. Algorithms** | [10](Lecture_10/README.md) | **algorithms**: searching, sorting, hulls, mesh algorithms; testing them | 04, 05, 06, 08 |
 | | [11](Lecture_11/README.md) | **simulation**: arrays of cells, then agents as objects | 07, 10 |
 | | [12](Lecture_12/README.md) | **optimization** and **learning** | 10 |
 | **IV. Engineering** | [13](Lecture_13/README.md) | **review**: it is right, is it good? | 09, 10 |

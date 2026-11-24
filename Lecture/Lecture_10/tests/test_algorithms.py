@@ -2,11 +2,9 @@
 
     uv run pytest Lecture/Lecture_10/tests -v
 
-Geometry is tested here the way Week 10 teaches: by PROPERTIES that must hold
-whatever the exact numbers are -- counts, invariants, theorems, inequalities
--- never by comparing against a picture. Several of these are famous results
-(Gauss-Bonnet, the Delaunay empty-circle property) used as free, exact
-checks on code that would otherwise only be checked by eye.
+Each test checks a property that holds whatever the exact numbers are: counts,
+invariants, theorems, inequalities. Gauss-Bonnet and Euler's formula are used as
+exact checks.
 """
 
 import math
@@ -22,7 +20,6 @@ import geodesics
 import planarity
 import smoothing
 import subdivision
-import voronoi
 
 
 def grid(n=8, size=8.0):
@@ -305,57 +302,96 @@ def test_contours_require_triangles():
         contouring.contours(grid(), 0.5)
 
 
-# --- Delaunay / Voronoi -----------------------------------------------------
-
 def scatter(n=60, seed=3):
     rnd = random.Random(seed)
     return [[rnd.uniform(0, 10), rnd.uniform(0, 6), 0] for _ in range(n)]
 
 
-def test_delaunay_has_the_empty_circle_property():
-    pts = scatter()
-    mesh = voronoi.delaunay(pts)
-    for f in mesh.faces():
-        tri = [mesh.vertex_coordinates(v) for v in mesh.face_vertices(f)]
-        c = voronoi.circumcentre(*tri)
-        r = math.dist(c, tri[0])
-        for p in pts:
-            assert math.dist(c, [p[0], p[1], 0]) >= r - 1e-9
+# --- binary search ----------------------------------------------------------
+
+def test_find_agrees_with_linear_search():
+    items = sorted(random.Random(1).sample(range(10_000), 500))
+    for target in [items[0], items[-1], items[250], -5, 10_001, items[10] + 1]:
+        expected = binary_search.linear_search(items, target)
+        found = binary_search.find(items, target)
+        assert (found == -1) == (expected == -1)
+        if found != -1:
+            assert items[found] == target
 
 
-def test_circumcentre_is_equidistant():
-    a, b, c = [0, 0, 0], [4, 0, 0], [1, 3, 0]
-    o = voronoi.circumcentre(a, b, c)
-    assert math.dist(o, a) == pytest.approx(math.dist(o, b))
-    assert math.dist(o, a) == pytest.approx(math.dist(o, c))
+def test_find_looks_at_most_log2_n_plus_one_times():
+    items = list(range(1_000_000))
+    for target in (0, 777_777, 999_999, -1):
+        trace = []
+        binary_search.find(items, target, trace)
+        assert len(trace) <= math.floor(math.log2(len(items))) + 1     # 20 looks for a million
 
 
-def test_voronoi_cell_points_are_closer_to_their_site():
-    """every corner of a cell is at least as close to its site as to any other point"""
-    pts = scatter()
-    mesh = voronoi.delaunay(pts)
-    for v, cell in voronoi.voronoi_cells(mesh).items():
-        site = mesh.vertex_coordinates(v)
-        for corner in cell:
-            mine = math.dist(corner, site)
-            assert all(mine <= math.dist(corner, [p[0], p[1], 0]) + 1e-9 for p in pts)
+def test_each_look_halves_the_window():
+    trace = []
+    binary_search.find(list(range(1000)), 3, trace)
+    sizes = [right - left + 1 for left, right in trace]
+    assert all(b <= a / 2 for a, b in zip(sizes, sizes[1:]))
 
 
-def test_voronoi_has_a_cell_per_interior_point():
-    mesh = voronoi.delaunay(scatter())
-    cells = voronoi.voronoi_cells(mesh)
-    assert len(cells) == sum(not mesh.is_vertex_on_boundary(v) for v in mesh.vertices())
+def test_bisect_finds_where_the_answer_flips():
+    assert binary_search.bisect(lambda x: x * x >= 2, 0, 2) == pytest.approx(math.sqrt(2), abs=1e-8)
 
 
-def test_collinear_points_have_no_circumcentre():
+def test_bisect_rejects_a_test_that_does_not_flip():
     with pytest.raises(ValueError):
-        voronoi.circumcentre([0, 0, 0], [1, 1, 0], [2, 2, 0])
+        binary_search.bisect(lambda x: x > 5, 0, 2)
+
+
+def test_arch_ribs_have_equal_length():
+    z = binary_search.parabola(span=12.0, rise=4.0)
+    xs = binary_search.divide_by_length(z, 0, 12, 8)
+    lengths = [binary_search.arc_length(z, a, b) for a, b in zip(xs, xs[1:])]
+    assert lengths == pytest.approx([lengths[0]] * 8, abs=1e-4)
+    assert sum(lengths) == pytest.approx(binary_search.arc_length(z, 0, 12), abs=1e-3)
+
+
+def test_equal_ribs_are_not_equal_steps_in_x():
+    z = binary_search.parabola(span=12.0, rise=4.0)
+    xs = binary_search.divide_by_length(z, 0, 12, 8)
+    steps = [b - a for a, b in zip(xs, xs[1:])]
+    assert steps[0] < steps[3]          # steep at the springing, flat at the crown
+
+
+# --- merge sort -------------------------------------------------------------
+
+@pytest.mark.parametrize("items", [[], [1], [3, 1, 2], [5, 5, 1, 5], list(range(50, 0, -1))])
+def test_merge_sort_sorts_and_keeps_every_item(items):
+    assert merge_sort.merge_sort(items) == sorted(items)
+
+
+def test_merge_sort_does_not_change_its_input():
+    items = [3, 1, 2]
+    merge_sort.merge_sort(items)
+    assert items == [3, 1, 2]
+
+
+def test_merge_sort_keeps_equal_items_in_order():
+    panels = [(2.4, "A"), (1.2, "B"), (2.4, "C"), (1.2, "D")]
+    by_size = merge_sort.merge_sort([(size, i) for i, (size, _) in enumerate(panels)])
+    assert [i for _, i in by_size] == [1, 3, 0, 2]
+
+
+def test_merge_sort_compares_at_most_n_log2_n_times():
+    items = random.Random(0).sample(range(100_000), 4096)
+    counter = [0]
+    merge_sort.merge_sort(items, counter)
+    assert counter[0] <= 4096 * 12                         # log2(4096) = 12
+    slow = [0]
+    merge_sort.insertion_sort(items, slow)
+    assert slow[0] > 50 * counter[0]
 
 
 # --- convex hull ------------------------------------------------------------
 
+import binary_search  # noqa: E402
 import convex_hull  # noqa: E402
-import lloyd  # noqa: E402
+import merge_sort  # noqa: E402
 import nearest  # noqa: E402
 
 
@@ -392,6 +428,27 @@ def test_hull_rejects_collinear_points():
         convex_hull.convex_hull([[0, 0, 0], [1, 1, 0], [2, 2, 0]])
 
 
+def test_collision_mesh_holds_every_vertex_of_the_part():
+    node = convex_hull.joined(convex_hull.corner_parts())
+    hull = convex_hull.collision_mesh(node)
+    assert hull.is_closed()
+    assert all(convex_hull.inside(hull, node.vertex_coordinates(v)) for v in node.vertices())
+
+
+def test_collision_mesh_of_a_box_is_the_box():
+    box = Mesh.from_shape(Box(2, 3, 4))
+    hull = convex_hull.collision_mesh(box)
+    assert hull.volume() == pytest.approx(24.0)
+    assert not convex_hull.inside(hull, [1.01, 0, 0]) and convex_hull.inside(hull, [0.99, 1.49, 1.99])
+
+
+def test_one_hull_for_a_concave_node_is_too_big_and_one_per_part_is_exact():
+    parts = convex_hull.corner_parts()
+    solid = sum(part.volume() for part in parts)          # an upper bound: the stubs overlap
+    assert convex_hull.collision_mesh(convex_hull.joined(parts)).volume() > 3 * solid
+    assert sum(convex_hull.collision_mesh(part).volume() for part in parts) == pytest.approx(solid)
+
+
 # --- nearest neighbours -----------------------------------------------------
 
 def test_spatial_hash_gives_the_brute_force_answer():
@@ -409,30 +466,3 @@ def test_spatial_hash_refuses_a_radius_it_cannot_answer():
     grid = nearest.SpatialHash(scatter(20), 0.5)
     with pytest.raises(ValueError):
         grid.within(0, 1.0)
-
-
-# --- Lloyd relaxation -------------------------------------------------------
-
-def test_lloyd_energy_never_increases():
-    rnd = random.Random(1)
-    sites = [(rnd.uniform(0, 10), rnd.uniform(0, 6)) for _ in range(25)]
-    _, history = lloyd.lloyd(sites, lloyd.samples(10, 6, 40), rounds=15)
-    assert all(b <= a + 1e-9 for a, b in zip(history, history[1:]))
-    assert history[-1] < history[0]
-
-
-def test_lloyd_evens_out_spacing():
-    rnd = random.Random(3)
-    sites = [(rnd.uniform(0, 10), rnd.uniform(0, 6)) for _ in range(30)]
-    after, _ = lloyd.lloyd(sites, lloyd.samples(10, 6, 40), rounds=25)
-    sb, sa = lloyd.nearest_spacing(sites), lloyd.nearest_spacing(after)
-    assert min(sa) > min(sb)                                   # no more near-collisions
-    spread = lambda xs: (sum((x - sum(xs) / len(xs)) ** 2 for x in xs) / len(xs)) ** 0.5  # noqa: E731
-    assert spread(sa) < spread(sb)
-
-
-def test_lloyd_keeps_sites_on_the_site():
-    rnd = random.Random(8)
-    sites = [(rnd.uniform(0, 10), rnd.uniform(0, 6)) for _ in range(12)]
-    after, _ = lloyd.lloyd(sites, lloyd.samples(10, 6, 30), rounds=10)
-    assert all(0 <= x <= 10 and 0 <= y <= 6 for x, y in after)

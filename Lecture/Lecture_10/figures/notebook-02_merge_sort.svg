@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="300" viewBox="0 0 520 300" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<text x="260.0" y="22.0" font-size="14" fill="#212529" text-anchor="middle" font-weight="bold" xml:space="preserve">comparisons as the list grows</text>
+<rect x="60" y="40" width="430" height="220" fill="white" stroke="#adb5bd"/>
+<polyline points="60.0,259.6 82.6,257.8 105.3,254.8 127.9,251.4 150.5,246.2 173.2,239.8 195.8,232.8 218.4,223.5 241.1,215.6 263.7,204.5 286.3,193.7 308.9,180.2 331.6,162.7 354.2,148.4 376.8,139.2 399.5,118.5 422.1,97.6 444.7,76.2 467.4,51.2 490.0,40.0" fill="none" stroke="#1c7ed6" stroke-width="2.5"/>
+<text x="484.0" y="56.0" font-size="11" fill="#1c7ed6" text-anchor="end" font-weight="bold" xml:space="preserve">insertion sort</text>
+<polyline points="60.0,260.0 82.6,259.8 105.3,259.6 127.9,259.5 150.5,259.3 173.2,259.0 195.8,258.8 218.4,258.6 241.1,258.4 263.7,258.2 286.3,258.0 308.9,257.7 331.6,257.5 354.2,257.2 376.8,257.0 399.5,256.8 422.1,256.5 444.7,256.3 467.4,256.0 490.0,255.8" fill="none" stroke="#e8590c" stroke-width="2.5"/>
+<text x="484.0" y="72.0" font-size="11" fill="#e8590c" text-anchor="end" font-weight="bold" xml:space="preserve">merge sort</text>
+<text x="54.0" y="50.0" font-size="10" fill="#adb5bd" text-anchor="end" font-weight="normal" xml:space="preserve">9.83e+05</text>
+<text x="54.0" y="260.0" font-size="10" fill="#adb5bd" text-anchor="end" font-weight="normal" xml:space="preserve">550</text>
+<text x="275.0" y="282.0" font-size="11" fill="#212529" text-anchor="middle" font-weight="normal" xml:space="preserve">n = 100 ... 2,000</text>
+</svg>

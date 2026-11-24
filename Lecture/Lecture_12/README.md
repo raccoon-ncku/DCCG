@@ -182,9 +182,7 @@ jigs. One kind is impossible. The fabricator's question: **what is the fewest
 families of panel, if each panel may deviate from its family template by at
 most a tolerance?**
 
-That is clustering, and **k-means** is the algorithm. It is Lloyd's algorithm
-([W10 §10](/Lecture/Lecture_10/README.md#10-lloyd-relaxation-even-but-not-regular)),
-run on panels instead of on a site:
+That is clustering, and **k-means** (Lloyd's algorithm) is the recipe:
 
 1. **assign** every panel to its nearest family template;
 2. **update** every template to the mean of its panels;
@@ -249,7 +247,7 @@ not get to grade itself on data it has already seen.
 ## Exercises
 
 1. **A better feature.** Add panel *twist* (the diagonal-distance flatness from
-   [W10 §5](/Lecture/Lecture_10/README.md#5-planar-panels)) as a third
+   [W10 §9](/Lecture/Lecture_10/README.md#9-planar-panels)) as a third
    feature. Does the family count change at ±10 mm? Which panels move family?
 2. **Elbow vs tolerance.** Plot inertia against k (the textbook "elbow") next to
    `families_needed` at 5, 10 and 20 mm. Which would you show a fabricator, and why?

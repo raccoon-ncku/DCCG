@@ -2,7 +2,7 @@
 
 Each crossed triangle gives one segment; segments are chained by the mesh edge
 they cross (an integer key), not by matching float endpoints. Quads are
-rejected: a saddle quad is ambiguous. W10 geometric README §6.
+rejected: a saddle quad is ambiguous. W10 README §10.
 """
 
 

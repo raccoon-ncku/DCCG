@@ -1,9 +1,14 @@
-"""Convex hull: Andrew's monotone chain.
+"""Convex hull: the smallest convex shape around a set of points.
 
-Sort the points, walk left-right and back, dropping every point that makes a
-right turn (one cross product). O(n log n), all of it in the sort.
-W10 geometric README §8.
+In 2D, Andrew's monotone chain: sort the points, walk left to right and back,
+dropping every point that makes a right turn (one cross product). O(n log n),
+all of it in the sort. In 3D, COMPAS's hull of a mesh's vertices gives its
+collision mesh. W10 README §4.
 """
+
+from compas.datastructures import Mesh
+from compas.geometry import Box, Translation, dot_vectors, subtract_vectors
+from compas.geometry import convex_hull as hull_faces
 
 
 def cross(o, a, b):
@@ -42,3 +47,38 @@ def area(polygon):
     n = len(polygon)
     return 0.5 * sum(polygon[i][0] * polygon[(i + 1) % n][1] - polygon[(i + 1) % n][0] * polygon[i][1]
                      for i in range(n))
+
+
+def collision_mesh(mesh):
+    """The convex hull of a mesh's vertices, as a closed mesh with outward faces."""
+    points = [mesh.vertex_coordinates(v) for v in mesh.vertices()]
+    faces = hull_faces(points)
+    used = sorted({i for face in faces for i in face})
+    index = {i: k for k, i in enumerate(used)}
+    hull = Mesh.from_vertices_and_faces([points[i] for i in used], [[index[i] for i in face] for face in faces])
+    hull.unify_cycles()
+    if hull.volume() < 0:               # cycles unified, but pointing inward
+        hull.flip_cycles()
+    return hull
+
+
+def inside(hull, point, tol=1e-9):
+    """True if point is inside or on a convex mesh: behind the plane of every face."""
+    return all(dot_vectors(subtract_vectors(point, hull.face_centroid(f)), hull.face_normal(f)) <= tol
+               for f in hull.faces())
+
+
+def corner_parts(length=0.6, size=0.12):
+    """Three timber stubs meeting at a corner, one mesh each: a node a robot has to place."""
+    half = length / 2
+    stubs = [Box(length, size, size), Box(size, length, size), Box(size, size, length)]
+    moves = [[half, 0, 0], [0, half, 0], [0, 0, half]]
+    return [Mesh.from_shape(box).transformed(Translation.from_vector(move)) for box, move in zip(stubs, moves)]
+
+
+def joined(parts):
+    """All parts as one mesh."""
+    whole = Mesh()
+    for part in parts:
+        whole.join(part)
+    return whole

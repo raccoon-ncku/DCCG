@@ -55,7 +55,7 @@ Two implementation choices, both pinned by tests:
   50×50 one did in a loop.
 - **`step()` returns a new grid.** Updating cells one by one in place lets
   later cells see their neighbours' *next* state, the same order bug as in
-  [Laplacian smoothing](/Lecture/Lecture_10/README.md#1-smoothing-laplacian-and-taubin).
+  [Laplacian smoothing](/Lecture/Lecture_10/README.md#7-smoothing-laplacian-and-taubin).
 - **The border is dead, not wrapped around.** That is a decision, and the test
   `test_the_border_is_dead_not_wrapped` states it. Change it on purpose, never
   by accident.
@@ -77,7 +77,7 @@ Two things make it a tool rather than a screensaver, and both are algorithms:
 
 - **Neighbour search.** "Who is within *r*?" for every boid, every step, is the
   O(n²) problem from
-  [W10 §9](/Lecture/Lecture_10/README.md#9-nearest-neighbours-the-cost-of-the-obvious).
+  [W10 §5](/Lecture/Lecture_10/README.md#5-nearest-neighbours-pigeonholes).
   `boids.py` uses the spatial hash, and a test checks it against brute force.
 - **Measurement.** `polarization()` turns "it looks like flocking" into a
   number: the length of the average heading, 0 for random and 1 for all
